@@ -75,19 +75,19 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
   let variantStyles = "";
   switch (variant) {
     case "primary":
-      variantStyles = "bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-bold shadow-[0_0_25px_rgba(245,158,11,0.4)] hover:shadow-[0_0_40px_rgba(245,158,11,0.65)] border border-amber-200/50 hover:brightness-105";
+      variantStyles = "bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-bold shadow-[0_4px_20px_rgba(245,158,11,0.35)] hover:shadow-[0_6px_30px_rgba(245,158,11,0.5)] border border-amber-300/80 hover:brightness-105";
       break;
     case "gold":
-      variantStyles = "bg-gradient-to-r from-[#F4E4BC] via-[#D4AF37] to-[#B89228] text-slate-950 font-bold shadow-[0_0_30px_rgba(212,175,55,0.45)] hover:shadow-[0_0_45px_rgba(212,175,55,0.7)] border border-[#FFF0C8]/60 hover:brightness-105";
+      variantStyles = "bg-gradient-to-r from-[#F4E4BC] via-[#D4AF37] to-[#B89228] text-slate-950 font-bold shadow-[0_4px_24px_rgba(212,175,55,0.35)] hover:shadow-[0_6px_34px_rgba(212,175,55,0.55)] border border-amber-300/70 hover:brightness-105";
       break;
     case "secondary":
-      variantStyles = "bg-slate-900/80 hover:bg-slate-800 text-slate-100 border border-slate-700/60 hover:border-amber-400/60 backdrop-blur-md";
+      variantStyles = "bg-white/85 hover:bg-white text-slate-800 border border-slate-300/90 hover:border-amber-500/60 backdrop-blur-md shadow-sm";
       break;
     case "outline":
-      variantStyles = "bg-transparent text-amber-300 border border-amber-500/40 hover:bg-amber-500/10 hover:border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.2)]";
+      variantStyles = "bg-white/60 backdrop-blur-sm text-amber-800 border border-amber-500/45 hover:bg-amber-50 hover:border-amber-500 shadow-[0_2px_12px_rgba(245,158,11,0.12)]";
       break;
     case "ghost":
-      variantStyles = "bg-transparent text-slate-300 hover:text-amber-200 hover:bg-amber-500/5";
+      variantStyles = "bg-transparent text-slate-700 hover:text-amber-800 hover:bg-amber-500/10";
       break;
   }
 

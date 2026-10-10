@@ -32,28 +32,28 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose} title={service.title} maxWidth="max-w-2xl">
       <div className="space-y-6">
         {/* Number & Category */}
-        <div className="flex items-center justify-between text-xs font-mono text-slate-400 pb-2 border-b border-slate-800">
-          <span className="text-amber-400 font-bold tracking-wider">
+        <div className="flex items-center justify-between text-xs font-mono text-slate-500 pb-2 border-b border-slate-200">
+          <span className="text-amber-700 font-bold tracking-wider">
             SERVICE #{service.number}
           </span>
-          <span className="uppercase px-2.5 py-1 rounded bg-slate-800 text-slate-300">
+          <span className="uppercase px-2.5 py-1 rounded bg-slate-100 text-slate-700 border border-slate-200 font-semibold">
             {service.category === "web-software" ? "Web & Software Development" : "Data & Business Solutions"}
           </span>
         </div>
 
         {/* Pricing Banner if available */}
         {service.pricing && (
-          <div className="p-3.5 rounded-xl bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-transparent border border-amber-500/25 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-[0_0_20px_rgba(245,158,11,0.08)]">
+          <div className="p-3.5 rounded-xl bg-gradient-to-r from-amber-50/90 via-amber-50/50 to-white border border-amber-400/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400/80 font-bold block">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-amber-700 font-bold block">
                 Standard Investment Range
               </span>
-              <span className="text-lg sm:text-xl font-bold font-mono text-amber-300">
+              <span className="text-lg sm:text-xl font-bold font-mono text-amber-800">
                 {service.pricing}
               </span>
             </div>
             {service.pricingNote && (
-              <span className="text-xs text-slate-400 font-sans italic sm:text-right">
+              <span className="text-xs text-slate-500 font-sans italic sm:text-right">
                 *{service.pricingNote}
               </span>
             )}
@@ -62,24 +62,24 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
 
         {/* Detailed Description */}
         <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-300 font-mono mb-2">
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-600 font-mono mb-2">
             Overview
           </h4>
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
             {service.fullDesc}
           </p>
         </div>
 
         {/* Deliverables List */}
         <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-300 font-mono mb-3 flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-amber-400" />
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-600 font-mono mb-3 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-amber-600" />
             <span>Typical Deliverables</span>
           </h4>
-          <ul className="space-y-2 text-sm text-slate-300">
+          <ul className="space-y-2 text-sm text-slate-700">
             {service.deliverables.map((deliv, idx) => (
-              <li key={idx} className="flex items-start gap-2.5 p-2 rounded-lg bg-slate-900/40 border border-slate-800/60">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0 mt-2 shadow-[0_0_6px_#f59e0b]" />
+              <li key={idx} className="flex items-start gap-2.5 p-2 rounded-lg bg-slate-50/90 border border-slate-200/80">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0 mt-2" />
                 <span className="text-xs sm:text-sm">{deliv}</span>
               </li>
             ))}
@@ -88,15 +88,15 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
 
         {/* Technologies */}
         <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-300 font-mono mb-2.5 flex items-center gap-2">
-            <Code className="w-4 h-4 text-yellow-400" />
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-600 font-mono mb-2.5 flex items-center gap-2">
+            <Code className="w-4 h-4 text-amber-600" />
             <span>Core Technologies &amp; Standards</span>
           </h4>
           <div className="flex flex-wrap gap-2">
             {service.technologies.map((tech) => (
               <span
                 key={tech}
-                className="px-2.5 py-1 rounded-md text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700/60"
+                className="px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200/90"
               >
                 {tech}
               </span>
@@ -105,8 +105,8 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
         </div>
 
         {/* Actions */}
-        <div className="pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="text-xs text-slate-400">
+        <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="text-xs text-slate-600">
             Ready to engineer this solution for your business?
           </span>
           <MagneticButton

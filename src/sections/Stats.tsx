@@ -21,7 +21,7 @@ export const Stats: React.FC = () => {
       value: `${countHours} Hours`,
       label: "Rapid Response Guarantee",
       subtext: "Agile, clear communication across time zones",
-      color: "text-amber-300",
+      color: "text-amber-600",
       borderGlow: "group-hover:border-amber-500/50"
     },
     {
@@ -29,7 +29,7 @@ export const Stats: React.FC = () => {
       value: `${countIndustries}+`,
       label: "Industries Served",
       subtext: "E-commerce, Healthcare, SaaS, EdTech, Real Estate",
-      color: "text-yellow-400",
+      color: "text-amber-600",
       borderGlow: "group-hover:border-yellow-500/50"
     },
     {
@@ -37,7 +37,7 @@ export const Stats: React.FC = () => {
       value: `${countProjects}+`,
       label: "Solutions Engineered",
       subtext: "Web platforms, backend microservices, BI dashboards",
-      color: "text-amber-400",
+      color: "text-amber-600",
       borderGlow: "group-hover:border-amber-500/50"
     },
     {
@@ -45,7 +45,7 @@ export const Stats: React.FC = () => {
       value: `${countOwnership}%`,
       label: "Client Ownership",
       subtext: "Complete source code, assets, and repository rights",
-      color: "text-yellow-300",
+      color: "text-amber-600",
       borderGlow: "group-hover:border-yellow-400/50"
     }
   ];
@@ -54,7 +54,7 @@ export const Stats: React.FC = () => {
     <section
       id="stats"
       ref={containerRef}
-      className="relative z-10 py-10 sm:py-12 bg-[#050609]/30 border-y border-amber-500/10 backdrop-blur-md"
+      className="relative z-10 py-10 sm:py-12 bg-white/60 border-y border-slate-200/80 backdrop-blur-md"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5">
@@ -63,38 +63,38 @@ export const Stats: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="relative p-[1.5px] rounded-2xl overflow-hidden bg-slate-800/80 transition-all duration-300 hover:shadow-[0_12px_32px_-8px_rgba(245,158,11,0.25)] group hover:-translate-y-1"
+                className="relative p-[1.5px] rounded-2xl overflow-hidden bg-slate-200/80 transition-all duration-300 shadow-[0_8px_28px_rgba(15,23,42,0.05)] hover:shadow-[0_14px_34px_-8px_rgba(245,158,11,0.2)] group hover:-translate-y-1"
               >
                 {/* Continuous Animated Shimmer Stroke along Outer Border */}
                 <div
-                  className="absolute -inset-[150%] animate-border-beam-spin pointer-events-none opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute -inset-[150%] animate-border-beam-spin pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                   style={{
                     background:
-                      "conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 280deg, rgba(245, 158, 11, 0.2) 310deg, rgba(251, 191, 36, 0.85) 345deg, rgba(255, 255, 255, 0.95) 355deg, rgba(245, 158, 11, 0.85) 358deg, transparent 360deg)",
+                      "conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 280deg, rgba(245, 158, 11, 0.25) 310deg, rgba(245, 158, 11, 0.9) 345deg, rgba(217, 119, 6, 1) 355deg, rgba(245, 158, 11, 0.9) 358deg, transparent 360deg)",
                     animationDelay: `${-idx * 2.25}s`
                   }}
                 />
 
                 {/* Card Interior */}
-                <div className="relative z-10 p-4.5 sm:p-5 rounded-[calc(1rem-1.5px)] bg-gradient-to-b from-slate-900/90 to-[#070a12]/95 h-full flex flex-col justify-between">
+                <div className="relative z-10 p-4.5 sm:p-5 rounded-[calc(1rem-1.5px)] bg-gradient-to-b from-white/95 to-slate-50/95 backdrop-blur-xl h-full flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-3">
-                    <div className="p-2 rounded-xl bg-slate-800/70 border border-slate-700/50 group-hover:scale-110 transition-transform">
+                    <div className="p-2 rounded-xl bg-amber-50/90 border border-amber-200/80 group-hover:scale-110 transition-transform">
                       <Icon className={`w-4.5 h-4.5 ${stat.color}`} />
                     </div>
-                    <span className="font-mono text-[9px] uppercase text-slate-500 tracking-widest">
+                    <span className="font-mono text-[9px] uppercase text-slate-400 font-semibold tracking-widest">
                       METRIC // 0{idx + 1}
                     </span>
                   </div>
 
-                  <div className="text-2xl sm:text-3xl font-extrabold font-heading text-white tracking-tight mb-1">
+                  <div className="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900 tracking-tight mb-1">
                     {stat.value}
                   </div>
 
-                  <div className="text-xs sm:text-sm font-semibold text-slate-200 mb-0.5">
+                  <div className="text-xs sm:text-sm font-semibold text-slate-800 mb-0.5">
                     {stat.label}
                   </div>
 
-                  <p className="text-[11px] sm:text-xs text-slate-400 leading-snug">
+                  <p className="text-[11px] sm:text-xs text-slate-500 leading-snug">
                     {stat.subtext}
                   </p>
                 </div>

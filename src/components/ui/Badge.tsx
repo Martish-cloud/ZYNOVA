@@ -18,24 +18,24 @@ export const Badge: React.FC<BadgeProps> = ({
 
   switch (variant) {
     case "gold":
-      colorStyles = "bg-amber-500/10 text-[#F4E4BC] border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.25)]";
-      dotColor = "bg-amber-400 shadow-[0_0_6px_#f59e0b]";
+      colorStyles = "bg-amber-50/90 text-amber-800 border-amber-400/50 shadow-[0_2px_12px_rgba(245,158,11,0.12)]";
+      dotColor = "bg-amber-500 shadow-[0_0_6px_#f59e0b]";
       break;
     case "cyan":
-      colorStyles = "bg-cyan-500/10 text-cyan-300 border-cyan-500/30 shadow-[0_0_12px_rgba(6,182,212,0.15)]";
-      dotColor = "bg-cyan-400";
+      colorStyles = "bg-cyan-50/90 text-cyan-800 border-cyan-400/50 shadow-[0_2px_12px_rgba(6,182,212,0.1)]";
+      dotColor = "bg-cyan-500";
       break;
     case "purple":
-      colorStyles = "bg-purple-500/10 text-purple-300 border-purple-500/30 shadow-[0_0_12px_rgba(168,85,247,0.15)]";
-      dotColor = "bg-purple-400";
+      colorStyles = "bg-purple-50/90 text-purple-800 border-purple-400/50 shadow-[0_2px_12px_rgba(168,85,247,0.1)]";
+      dotColor = "bg-purple-500";
       break;
     case "emerald":
-      colorStyles = "bg-emerald-500/10 text-emerald-300 border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.15)]";
-      dotColor = "bg-emerald-400";
+      colorStyles = "bg-emerald-50/90 text-emerald-800 border-emerald-400/50 shadow-[0_2px_12px_rgba(16,185,129,0.1)]";
+      dotColor = "bg-emerald-500";
       break;
     case "neutral":
-      colorStyles = "bg-slate-800/80 text-slate-300 border-slate-700/60";
-      dotColor = "bg-slate-400";
+      colorStyles = "bg-white/90 text-slate-700 border-slate-300/80 shadow-sm";
+      dotColor = "bg-slate-500";
       break;
   }
 

@@ -40,8 +40,8 @@ export const GlobalVideoBackground: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true" style={{ contain: "strict" }}>
-      {/* Tech 02 Video with Direct Hardware GPU Acceleration */}
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#f8fafc]" aria-hidden="true" style={{ contain: "strict" }}>
+      {/* Tech 02 Video with Direct Hardware GPU Acceleration (Subtle frosted light-glass motion backdrop) */}
       <video
         ref={videoRef}
         autoPlay
@@ -49,7 +49,7 @@ export const GlobalVideoBackground: React.FC = () => {
         muted
         playsInline
         preload="metadata"
-        className="w-full h-full object-cover object-center pointer-events-none"
+        className="w-full h-full object-cover object-center pointer-events-none opacity-[0.12] saturate-50"
         style={{
           transform: "translate3d(0, 0, 0)",
           backfaceVisibility: "hidden",
@@ -61,10 +61,10 @@ export const GlobalVideoBackground: React.FC = () => {
         <source src="/videos/Tech 02.mp4" type="video/mp4" />
       </video>
 
-      {/* Deep Obsidian Radial Vignette & Atmospheric Contrast Blends */}
-      <div className="absolute inset-0 bg-[#050609]/30 pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,#050609_88%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#050609]/50 via-transparent to-[#050609]/70 pointer-events-none" />
+      {/* Frosted Pearl-White & Soft Neutral Radial Glass Veil */}
+      <div className="absolute inset-0 bg-white/80 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.65)_20%,#f8fafc_90%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-[#f8fafc]/60 to-[#f1f5f9]/85 pointer-events-none" />
     </div>
   );
 };

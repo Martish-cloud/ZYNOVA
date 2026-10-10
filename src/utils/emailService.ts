@@ -142,7 +142,7 @@ export const createMailtoLink = (
     .filter(([, val]) => val !== undefined && val !== null && String(val).trim() !== "")
     .map(([key, val]) => `${key}: ${String(val).trim()}`);
 
-  const body = `Hello Zynova -Solutions Team,\n\nI am sending an enquiry with the following details:\n\n${lines.join(
+  const body = `Hello ZYNOVA Team,\n\nI am sending an enquiry with the following details:\n\n${lines.join(
     "\n"
   )}\n\nLooking forward to hearing from you!`;
 

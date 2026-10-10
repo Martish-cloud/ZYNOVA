@@ -203,28 +203,28 @@ export const TypewriterHeroHeadline: React.FC<TypewriterHeroHeadlineProps> = ({ 
   return (
     <h1
       ref={containerRef}
-      className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white max-w-4xl leading-[1.08] mb-4 flex flex-col items-center justify-center min-h-[105px] sm:min-h-[135px] md:min-h-[165px] lg:min-h-[185px] ${className}`}
+      className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 max-w-4xl leading-[1.08] mb-4 flex flex-col items-center justify-center min-h-[105px] sm:min-h-[135px] md:min-h-[165px] lg:min-h-[185px] ${className}`}
       aria-label={`${LINE_1} ${LINE_2}`}
     >
       {/* Line 1: BUILD. AUTOMATE. */}
-      <span className="inline-flex items-center justify-center min-h-[1.12em] text-slate-100">
+      <span className="inline-flex items-center justify-center min-h-[1.12em] text-slate-900">
         <span>{prefersReducedMotion ? LINE_1 : l1}</span>
         {cursorLine === 1 && !prefersReducedMotion && (
           <span
-            className="inline-block ml-1 sm:ml-1.5 w-[3px] sm:w-[4px] md:w-[6px] h-[0.78em] bg-amber-400 align-baseline animate-cursor-blink shadow-[0_0_14px_#f59e0b] rounded-[1px]"
+            className="inline-block ml-1 sm:ml-1.5 w-[3px] sm:w-[4px] md:w-[6px] h-[0.78em] bg-amber-500 align-baseline animate-cursor-blink shadow-[0_0_12px_rgba(245,158,11,0.5)] rounded-[1px]"
             aria-hidden="true"
           />
         )}
       </span>
 
-      {/* Line 2: SCALE WHAT'S NEXT. (Light Blue to Dark Blue Effect) */}
+      {/* Line 2: SCALE WHAT'S NEXT. (Ocean Blue to Deep Royal Blue Effect) */}
       <span className="inline-flex items-center justify-center min-h-[1.12em]">
-        <span className="bg-gradient-to-r from-[#7DD3FC] via-[#38BDF8] to-[#1D4ED8] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(56,189,248,0.35)]">
+        <span className="bg-gradient-to-r from-[#0284c7] via-[#0369a1] to-[#1d4ed8] bg-clip-text text-transparent">
           {prefersReducedMotion ? LINE_2 : l2}
         </span>
         {cursorLine === 2 && !prefersReducedMotion && (
           <span
-            className="inline-block ml-1 sm:ml-1.5 w-[3px] sm:w-[4px] md:w-[6px] h-[0.78em] bg-[#38BDF8] align-baseline animate-cursor-blink shadow-[0_0_16px_#38bdf8] rounded-[1px]"
+            className="inline-block ml-1 sm:ml-1.5 w-[3px] sm:w-[4px] md:w-[6px] h-[0.78em] bg-[#0284c7] align-baseline animate-cursor-blink shadow-[0_0_12px_rgba(2,132,199,0.5)] rounded-[1px]"
             aria-hidden="true"
           />
         )}

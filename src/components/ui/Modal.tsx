@@ -43,26 +43,26 @@ export const Modal: React.FC<ModalProps> = ({
     >
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
+        className="fixed inset-0 bg-slate-900/35 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Modal Container */}
       <div 
-        className={`relative w-full ${maxWidth} bg-[#0c0e17] border border-slate-700/70 rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8),0_0_40px_rgba(6,182,212,0.15)] overflow-hidden z-10 transition-all my-8 max-h-[90vh] flex flex-col`}
+        className={`relative w-full ${maxWidth} bg-white/95 backdrop-blur-2xl border border-slate-200/90 rounded-2xl shadow-[0_24px_60px_-15px_rgba(15,23,42,0.18),0_0_40px_rgba(245,158,11,0.08)] overflow-hidden z-10 transition-all my-8 max-h-[90vh] flex flex-col text-slate-900`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-3 sm:px-6 sm:py-3.5 border-b border-slate-800/80 bg-slate-900/50 shrink-0">
+        <div className="flex items-center justify-between px-5 py-3 sm:px-6 sm:py-3.5 border-b border-slate-200/90 bg-slate-50/80 shrink-0">
           {title ? (
-            <h3 className="text-base sm:text-lg font-bold text-white tracking-wide">{title}</h3>
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-wide">{title}</h3>
           ) : <div />}
           
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-full hover:bg-slate-800/80 transition-colors cursor-pointer"
+            className="p-1.5 text-slate-500 hover:text-slate-900 rounded-full hover:bg-slate-200/70 transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-4 h-4 sm:w-5 sm:h-5" />

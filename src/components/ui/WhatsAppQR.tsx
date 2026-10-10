@@ -24,14 +24,14 @@ export const WhatsAppQR: React.FC<WhatsAppQRProps> = ({
     >
       {/* Label Above QR */}
       <div className="flex items-center gap-1.5 mb-2.5">
-        <QrCode className="w-3.5 h-3.5 text-[#D4AF37]" />
-        <span className="text-xs font-mono font-bold tracking-widest text-[#F4E4BC] uppercase">
+        <QrCode className="w-3.5 h-3.5 text-amber-600" />
+        <span className="text-xs font-mono font-bold tracking-widest text-amber-800 uppercase">
           SCAN TO JOIN
         </span>
       </div>
 
       {/* QR Code Container with subtle animated glow border */}
-      <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white shadow-[0_0_25px_rgba(212,175,55,0.22)] hover:shadow-[0_0_35px_rgba(212,175,55,0.45)] ring-1 ring-[#D4AF37]/50 hover:ring-[#D4AF37] transition-all duration-300 transform hover:scale-[1.02]">
+      <div className="group relative p-3.5 sm:p-4 rounded-2xl bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08),0_0_20px_rgba(212,175,55,0.18)] hover:shadow-[0_12px_35px_rgba(212,175,55,0.3)] ring-1 ring-amber-400/60 hover:ring-amber-500 transition-all duration-300 transform hover:scale-[1.02]">
         {/* Subtle glowing ambient aura behind container */}
         <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-[#D4AF37]/20 via-[#F4E4BC]/30 to-[#D4AF37]/20 blur-md opacity-60 group-hover:opacity-100 transition-opacity pointer-events-none -z-10" />
 
@@ -40,7 +40,7 @@ export const WhatsAppQR: React.FC<WhatsAppQRProps> = ({
           {!imgError ? (
             <img
               src="/zynova-whatsapp-qr.png"
-              alt="Zynova -Solutions WhatsApp Group QR Code"
+              alt="ZYNOVA WhatsApp Group QR Code"
               width={size}
               height={size}
               onError={() => setImgError(true)}
@@ -55,7 +55,7 @@ export const WhatsAppQR: React.FC<WhatsAppQRProps> = ({
               fgColor="#0B0B0F"
               level="M"
               marginSize={2}
-              title="Zynova -Solutions WhatsApp Group QR Code"
+              title="ZYNOVA WhatsApp Group QR Code"
               className="block select-none"
             />
           )}
@@ -63,8 +63,8 @@ export const WhatsAppQR: React.FC<WhatsAppQRProps> = ({
       </div>
 
       {/* Label Below QR */}
-      <p className="text-[11px] sm:text-xs text-slate-400 mt-3 max-w-[220px] leading-relaxed">
-        Scan this QR code with your phone camera or WhatsApp to join the Zynova -Solutions group.
+      <p className="text-[11px] sm:text-xs text-slate-600 mt-3 max-w-[220px] leading-relaxed">
+        Scan this QR code with your phone camera or WhatsApp to join the ZYNOVA group.
       </p>
     </div>
   );

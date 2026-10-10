@@ -23,7 +23,7 @@ export const testimonialsData: TestimonialItem[] = [
     flag: "🇮🇳",
     service: "Business Website & Automation",
     review:
-      "Zynova -Solutions helped us turn our ideas into a clean and professional digital solution. The communication was clear, the workflow was structured, and the final result was easy for our team to work with.",
+      "ZYNOVA helped us turn our ideas into a clean and professional digital solution. The communication was clear, the workflow was structured, and the final result was easy for our team to work with.",
     rating: 4.5,
     avatar: "MC",
     image: "/images/testimonials/madhumita-chauhan.jpg",
@@ -68,7 +68,7 @@ export const testimonialsData: TestimonialItem[] = [
     flag: "🇬🇧",
     service: "Web Application Development",
     review:
-      "The development process was well organized from start to finish. Zynova -Solutions understood the requirements quickly and delivered a modern interface with a strong focus on usability.",
+      "The development process was well organized from start to finish. ZYNOVA understood the requirements quickly and delivered a modern interface with a strong focus on usability.",
     rating: 4.0,
     avatar: "RB",
     image: "/images/testimonials/robert-brown.jpg",

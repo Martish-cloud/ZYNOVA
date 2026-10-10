@@ -49,21 +49,21 @@ export const App: React.FC = () => {
 
   return (
     <CursorProvider>
-      <div className="relative min-h-screen bg-[#050609] text-[#f1f5f9] selection:bg-amber-500/25 selection:text-amber-100">
-        {/* Global Cinematic Tech 02 Background Video (Full website backdrop) */}
+      <div className="relative min-h-screen bg-[#f8fafc] text-[#0f172a] selection:bg-amber-500/20 selection:text-amber-900">
+        {/* Global Cinematic Tech 02 Background Video (Full website backdrop with Light Glass veil) */}
         <GlobalVideoBackground />
 
-        {/* Subtle Ambient Golden Atmosphere */}
+        {/* Subtle Ambient Light-Glass & Golden Atmosphere */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-          <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.04)_0%,transparent_70%)]" />
-          <div className="absolute top-[50%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(234,179,8,0.035)_0%,transparent_70%)]" />
-          <div className="absolute top-[80%] right-[10%] w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(217,119,6,0.03)_0%,transparent_70%)]" />
+          <div className="absolute top-[15%] right-[-8%] w-[620px] h-[620px] rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.08)_0%,transparent_70%)]" />
+          <div className="absolute top-[48%] left-[-8%] w-[620px] h-[620px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.06)_0%,transparent_70%)]" />
+          <div className="absolute top-[78%] right-[8%] w-[520px] h-[520px] rounded-full bg-[radial-gradient(circle,rgba(217,119,6,0.06)_0%,transparent_70%)]" />
         </div>
 
         {/* Custom Interactive Physics Cursor */}
         <CustomCursor />
 
-        {/* Fixed Glass Navbar */}
+        {/* Fixed Light Glass Navbar */}
         <Navbar />
 
         {/* Main Content Sections */}
@@ -74,7 +74,7 @@ export const App: React.FC = () => {
           {/* Quick Metrics Strip */}
           <Stats />
 
-          {/* About Zynova & Founder Card */}
+          {/* About ZYNOVA & Founder Card */}
           <About />
 
           {/* Large Services Section with Modal */}
@@ -92,7 +92,7 @@ export const App: React.FC = () => {
           {/* Selected Work Showcase with Filter & Detail Modal */}
           <Projects onDiscussProject={handleDiscussProject} />
 
-          {/* Why Zynova: 4 Pillars */}
+          {/* Why ZYNOVA: 4 Pillars */}
           <WhyZynova />
 
           {/* Industries We Serve */}
@@ -126,7 +126,7 @@ export const App: React.FC = () => {
           />
         </main>
 
-        {/* Agency Dark Footer */}
+        {/* Agency Light Glass Footer */}
         <Footer />
 
         {/* Floating WhatsApp Quick Action Button */}

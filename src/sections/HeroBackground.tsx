@@ -804,22 +804,22 @@ export const HeroBackground: React.FC = () => {
       }
 
       // --- 4. Central Headline Readability Pillow & Bottom Fade ---
-      // Radial vignette keeping the center text crystal clear
+      // Radial frosted-white vignette keeping the center text crystal clear
       ctx.save();
       const centerFade = ctx.createRadialGradient(
         width / 2, height / 2, 80,
         width / 2, height / 2, Math.max(width, height) * 0.65
       );
-      centerFade.addColorStop(0, "rgba(5, 6, 9, 0.45)");
-      centerFade.addColorStop(0.5, "rgba(5, 6, 9, 0.2)");
+      centerFade.addColorStop(0, "rgba(248, 250, 252, 0.65)");
+      centerFade.addColorStop(0.5, "rgba(248, 250, 252, 0.25)");
       centerFade.addColorStop(1, "transparent");
       ctx.fillStyle = centerFade;
       ctx.fillRect(0, 0, width, height);
 
-      // Bottom section blend into #0B0B0F
+      // Bottom section blend into #f8fafc
       const bottomFade = ctx.createLinearGradient(0, height - 120, 0, height);
-      bottomFade.addColorStop(0, "rgba(11, 11, 15, 0)");
-      bottomFade.addColorStop(1, "#0B0B0F");
+      bottomFade.addColorStop(0, "rgba(248, 250, 252, 0)");
+      bottomFade.addColorStop(1, "#f8fafc");
       ctx.fillStyle = bottomFade;
       ctx.fillRect(0, height - 120, width, 120);
       ctx.restore();
@@ -898,17 +898,17 @@ export const HeroBackground: React.FC = () => {
       className="absolute inset-0 pointer-events-none overflow-hidden z-0"
       aria-hidden="true"
     >
-      {/* Translucent Obsidian Tint */}
-      <div className="absolute inset-0 bg-[#050609]/40" />
+      {/* Translucent Frosted Pearl Tint */}
+      <div className="absolute inset-0 bg-white/35" />
 
       {/* Subtle digital dot matrix texture */}
-      <div className="absolute inset-0 opacity-[0.025] bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none" />
+      <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#d97706_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none" />
 
       {/* 3D Floating Tokens, Neon Rims & Specular Beams Canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block" />
 
       {/* Soft vignette gradient for headline contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050609]/20 to-[#0B0B0F]/90 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-[#f8fafc]/90 pointer-events-none" />
     </div>
   );
 };

@@ -23,9 +23,9 @@ export const handleContactSubmit = async (
       }
     });
 
-    const emailSubject = `🚀 New Project Enquiry: ${inquiry.name} (${inquiry.serviceRequired}) - Zynova -Solutions`;
+    const emailSubject = `🚀 New Project Enquiry: ${inquiry.name} (${inquiry.serviceRequired}) - ZYNOVA`;
     const emailBody = `
-New Client Enquiry Received on Zynova -Solutions Platform:
+New Client Enquiry Received on ZYNOVA Platform:
 
 • Client Name: ${inquiry.name}
 • Client Email: ${inquiry.email}
@@ -50,7 +50,7 @@ Inquiry ID: ${inquiry.id}
 
     res.status(201).json({
       success: true,
-      message: "Thank you! Your project inquiry has been received by Zynova -Solutions. Our leadership will review and respond within 12 hours.",
+      message: "Thank you! Your project inquiry has been received by ZYNOVA. Our leadership will review and respond within 12 hours.",
       inquiryId: inquiry.id
     });
   } catch (error) {
