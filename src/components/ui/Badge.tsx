@@ -18,24 +18,24 @@ export const Badge: React.FC<BadgeProps> = ({
 
   switch (variant) {
     case "gold":
-      colorStyles = "bg-amber-50/72 text-amber-900 border-amber-400/60 shadow-[0_4px_14px_rgba(245,158,11,0.14),inset_0_1px_0_rgba(255,255,255,0.8)]";
-      dotColor = "bg-amber-500 shadow-[0_0_6px_#f59e0b]";
+      colorStyles = "bg-amber-400/[0.16] text-amber-300 border-amber-400/40 shadow-[0_4px_16px_rgba(245,158,11,0.18),inset_0_1px_0_rgba(255,255,255,0.45)]";
+      dotColor = "bg-amber-400 shadow-[0_0_8px_#f59e0b]";
       break;
     case "cyan":
-      colorStyles = "bg-cyan-50/72 text-cyan-900 border-cyan-400/60 shadow-[0_4px_14px_rgba(6,182,212,0.12),inset_0_1px_0_rgba(255,255,255,0.8)]";
-      dotColor = "bg-cyan-500";
+      colorStyles = "bg-cyan-400/[0.16] text-cyan-200 border-cyan-400/40 shadow-[0_4px_16px_rgba(6,182,212,0.18),inset_0_1px_0_rgba(255,255,255,0.45)]";
+      dotColor = "bg-cyan-300 shadow-[0_0_8px_#06b6d4]";
       break;
     case "purple":
-      colorStyles = "bg-purple-50/72 text-purple-900 border-purple-400/60 shadow-[0_4px_14px_rgba(168,85,247,0.12),inset_0_1px_0_rgba(255,255,255,0.8)]";
-      dotColor = "bg-purple-500";
+      colorStyles = "bg-purple-400/[0.16] text-purple-200 border-purple-400/40 shadow-[0_4px_16px_rgba(168,85,247,0.18),inset_0_1px_0_rgba(255,255,255,0.45)]";
+      dotColor = "bg-purple-300 shadow-[0_0_8px_#c084fc]";
       break;
     case "emerald":
-      colorStyles = "bg-emerald-50/72 text-emerald-900 border-emerald-400/60 shadow-[0_4px_14px_rgba(16,185,129,0.12),inset_0_1px_0_rgba(255,255,255,0.8)]";
-      dotColor = "bg-emerald-500";
+      colorStyles = "bg-emerald-400/[0.16] text-emerald-200 border-emerald-400/40 shadow-[0_4px_16px_rgba(16,185,129,0.18),inset_0_1px_0_rgba(255,255,255,0.45)]";
+      dotColor = "bg-emerald-300 shadow-[0_0_8px_#34d399]";
       break;
     case "neutral":
-      colorStyles = "bg-white/62 text-slate-800 border-white/70 shadow-[0_4px_12px_rgba(15,23,42,0.06),inset_0_1px_0_rgba(255,255,255,0.82)]";
-      dotColor = "bg-slate-600";
+      colorStyles = "bg-white/[0.16] text-slate-100 border-white/30 shadow-[0_4px_14px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.45)]";
+      dotColor = "bg-slate-300 shadow-[0_0_8px_#cbd5e1]";
       break;
   }
 

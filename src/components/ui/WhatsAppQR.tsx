@@ -24,8 +24,8 @@ export const WhatsAppQR: React.FC<WhatsAppQRProps> = ({
     >
       {/* Label Above QR */}
       <div className="flex items-center gap-1.5 mb-2.5">
-        <QrCode className="w-3.5 h-3.5 text-amber-700" />
-        <span className="text-xs font-mono font-bold tracking-widest text-amber-900 uppercase">
+        <QrCode className="w-3.5 h-3.5 text-amber-400" />
+        <span className="text-xs font-mono font-bold tracking-widest text-amber-300 uppercase">
           SCAN TO JOIN
         </span>
       </div>
@@ -63,7 +63,7 @@ export const WhatsAppQR: React.FC<WhatsAppQRProps> = ({
       </div>
 
       {/* Label Below QR */}
-      <p className="text-[11px] sm:text-xs text-slate-800 font-medium mt-3 max-w-[220px] leading-relaxed">
+      <p className="text-[11px] sm:text-xs text-slate-300 font-medium mt-3 max-w-[220px] leading-relaxed">
         Scan this QR code with your phone camera or WhatsApp to join the ZYNOVA group.
       </p>
     </div>

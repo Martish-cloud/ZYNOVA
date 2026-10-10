@@ -24,7 +24,7 @@ export const WhyZynova: React.FC = () => {
       highlight: "12h Response Guarantee",
       description: "Typical response time within 12 hours. Clear, proactive communication across project milestones with zero ambiguity.",
       accent: "from-amber-500/20 to-yellow-500/20",
-      iconColor: "text-amber-600"
+      iconColor: "text-amber-300"
     },
     {
       number: "02",
@@ -33,7 +33,7 @@ export const WhyZynova: React.FC = () => {
       highlight: "Typed & Cloud-Native",
       description: "Solutions built using modern development, AI pipelines, and automation technologies designed for optimal velocity and durability.",
       accent: "from-yellow-500/20 to-amber-500/20",
-      iconColor: "text-amber-600"
+      iconColor: "text-amber-300"
     },
     {
       number: "03",
@@ -42,7 +42,7 @@ export const WhyZynova: React.FC = () => {
       highlight: "Tied to Real Outcomes",
       description: "Technology is designed around practical business requirements — ensuring your software drives real conversions, operational speed, and savings.",
       accent: "from-amber-500/20 to-yellow-500/20",
-      iconColor: "text-amber-600"
+      iconColor: "text-amber-300"
     },
     {
       number: "04",
@@ -51,12 +51,12 @@ export const WhyZynova: React.FC = () => {
       highlight: "100% Code & Asset Rights",
       description: "100% client ownership. Every line of code, design asset, and cloud configuration belongs entirely to you upon completion.",
       accent: "from-yellow-500/20 to-amber-500/20",
-      iconColor: "text-amber-600"
+      iconColor: "text-amber-300"
     }
   ];
 
   return (
-    <section id="why-zynova" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-white/25">
+    <section id="why-zynova" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="WHY WORK WITH ZYNOVA"
@@ -99,29 +99,29 @@ export const WhyZynova: React.FC = () => {
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3.5 sm:mb-4">
-                        <span className="font-mono text-xs font-bold text-slate-600 group-hover:text-amber-700 transition-colors">
+                        <span className="font-mono text-xs font-bold text-slate-400 group-hover:text-amber-300 transition-colors">
                           // {r.number}
                         </span>
-                        <div className="p-2.5 rounded-lg bg-amber-50/75 border border-amber-300/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] group-hover:scale-110 group-hover:border-amber-400 transition-transform">
+                        <div className="p-2.5 rounded-lg bg-amber-400/[0.16] border border-amber-400/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] group-hover:scale-110 group-hover:border-amber-300 transition-transform">
                           <Icon className={`w-4 h-4 sm:w-4.5 sm:h-4.5 ${r.iconColor}`} />
                         </div>
                       </div>
 
-                      <h3 className="text-base sm:text-lg font-bold font-heading text-slate-900 mb-1.5 group-hover:text-amber-800 transition-colors">
+                      <h3 className="text-base sm:text-lg font-bold font-heading text-white mb-1.5 group-hover:text-amber-300 transition-colors">
                         {r.title}
                       </h3>
 
-                      <div className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-amber-50/85 text-amber-900 mb-3 border border-amber-400/55 font-bold">
+                      <div className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-amber-400/[0.16] text-amber-300 mb-3 border border-amber-400/35 font-bold">
                         {r.highlight}
                       </div>
 
-                      <p className="text-xs text-slate-700 font-medium leading-relaxed">
+                      <p className="text-xs text-slate-200 font-normal leading-relaxed">
                         {r.description}
                       </p>
                     </div>
 
-                    <div className="pt-4 mt-4 border-t border-white/55 flex items-center gap-2 text-[10.5px] font-mono font-semibold text-slate-700">
-                      <Sparkles className="w-3 h-3 text-amber-600" />
+                    <div className="pt-4 mt-4 border-t border-white/20 flex items-center gap-2 text-[10.5px] font-mono font-semibold text-slate-300">
+                      <Sparkles className="w-3 h-3 text-amber-400" />
                       <span>Standard on every engagement</span>
                     </div>
                   </div>

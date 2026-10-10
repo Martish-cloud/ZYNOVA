@@ -63,7 +63,7 @@ export const TechStack: React.FC = () => {
   const marqueeList = [...technologiesData, ...technologiesData];
 
   return (
-    <section id="tech-stack" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-slate-200/70 overflow-hidden">
+    <section id="tech-stack" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-white/20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="OUR TECHNOLOGY STACK"
@@ -83,7 +83,7 @@ export const TechStack: React.FC = () => {
               className={`px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all cursor-pointer ${
                 activeCategory === cat
                   ? "bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-bold shadow-[0_6px_18px_rgba(245,158,11,0.3)]"
-                  : "liquid-glass-pill text-slate-800 hover:text-slate-950 hover:border-amber-400/55"
+                  : "liquid-glass-pill text-slate-200 hover:text-white hover:border-amber-400/55"
               }`}
             >
               {cat}
@@ -119,7 +119,7 @@ export const TechStack: React.FC = () => {
                 </div>
 
                 {/* Clean Label */}
-                <span className="font-heading font-bold text-[11px] sm:text-xs text-slate-900 group-hover:text-amber-800 transition-colors tracking-wide truncate max-w-full">
+                <span className="font-heading font-semibold text-[11px] sm:text-xs text-white group-hover:text-amber-300 transition-colors tracking-wide truncate max-w-full">
                   {tech.name}
                 </span>
               </div>
@@ -129,7 +129,7 @@ export const TechStack: React.FC = () => {
       </div>
 
       {/* Infinite Smooth Scrolling Marquee Bar */}
-      <div className="relative w-full overflow-hidden border-y border-white/45 py-3 sm:py-3.5 bg-white/35 backdrop-blur-xl saturate-150 shadow-sm">
+      <div className="relative w-full overflow-hidden border-y border-white/20 py-3 sm:py-3.5 bg-white/[0.12] backdrop-blur-xl saturate-150 shadow-sm">
         {/* Subtle Edge Fades */}
         <div className="absolute top-0 bottom-0 left-0 w-24 bg-gradient-to-r from-slate-950/35 to-transparent z-10 pointer-events-none" />
         <div className="absolute top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-slate-950/35 to-transparent z-10 pointer-events-none" />
@@ -140,11 +140,11 @@ export const TechStack: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl liquid-glass-subcard text-slate-900 font-mono text-xs font-semibold tracking-wider hover:border-amber-400/60 hover:text-amber-800 transition-colors shadow-xs"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl liquid-glass-subcard text-slate-100 font-mono text-xs font-semibold tracking-wider hover:border-amber-400/60 hover:text-amber-300 transition-colors shadow-xs"
               >
                 {MarqueeIcon && <MarqueeIcon className="w-3.5 h-3.5" size={14} />}
                 <span>{item.name}</span>
-                <span className="text-[10px] text-slate-700">&bull; {item.category}</span>
+                <span className="text-[10px] text-slate-400">&bull; {item.category}</span>
               </div>
             );
           })}

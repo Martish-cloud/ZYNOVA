@@ -65,7 +65,7 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
   const modalContent = (
     <>
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-10 bg-slate-900/35 backdrop-blur-xl animate-in fade-in duration-200"
+        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-10 bg-black/60 backdrop-blur-xl animate-in fade-in duration-200"
         onClick={onClose}
         role="dialog"
         aria-modal="true"
@@ -73,43 +73,43 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
       >
         {/* Main Modal Container */}
         <div
-          className="relative w-full max-w-6xl max-h-[90vh] flex flex-col rounded-3xl liquid-glass-panel border-white/80 overflow-hidden animate-in zoom-in-95 duration-200"
+          className="relative w-full max-w-6xl max-h-[90vh] flex flex-col rounded-3xl liquid-glass-panel !border-white/25 overflow-hidden animate-in zoom-in-95 duration-200 shadow-[0_24px_64px_rgba(0,0,0,0.5)]"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header Bar */}
-          <div className="p-6 sm:p-8 border-b border-white/60 flex items-start justify-between gap-4 shrink-0 bg-white/55">
+          <div className="p-6 sm:p-8 border-b border-white/20 flex items-start justify-between gap-4 shrink-0 bg-white/[0.08]">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider bg-amber-100/80 text-amber-900 border border-amber-400/60 uppercase">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider bg-amber-400/[0.16] text-amber-300 border border-amber-400/35 uppercase">
                   {category === "excel" ? (
                     <>
-                      <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-700" />
+                      <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-400" />
                       Excel Solutions
                     </>
                   ) : (
                     <>
-                      <BarChart3 className="w-3.5 h-3.5 text-amber-700" />
+                      <BarChart3 className="w-3.5 h-3.5 text-amber-400" />
                       Power BI Intelligence
                     </>
                   )}
                 </span>
-                <span className="text-xs font-mono font-semibold text-slate-700">
+                <span className="text-xs font-mono font-semibold text-slate-300">
                   {dashboards.length} Interactive Showcase{dashboards.length !== 1 ? "s" : ""}
                 </span>
               </div>
 
               <h2
                 id="dashboard-gallery-title"
-                className="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900 tracking-wide"
+                className="text-2xl sm:text-3xl font-heading font-extrabold text-white tracking-wide"
               >
                 {modalTitle}
               </h2>
 
-              <p className="text-xs sm:text-sm font-bold text-amber-800 font-mono">
+              <p className="text-xs sm:text-sm font-bold text-amber-300 font-mono">
                 {modalSubtitle}
               </p>
 
-              <p className="text-xs text-slate-800 font-medium max-w-2xl pt-1 leading-relaxed">
+              <p className="text-xs text-slate-200 font-normal max-w-2xl pt-1 leading-relaxed">
                 {categoryDescription}
               </p>
             </div>
@@ -120,7 +120,7 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
               onClick={onClose}
               onMouseEnter={() => setCursor("button")}
               onMouseLeave={resetCursor}
-              className="p-2.5 rounded-full liquid-glass-subcard text-slate-700 hover:text-slate-950 hover:border-amber-400 transition-all cursor-pointer shadow-sm shrink-0"
+              className="p-2.5 rounded-full liquid-glass-subcard text-slate-300 hover:text-white hover:border-amber-300 transition-all cursor-pointer shadow-sm shrink-0"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -136,10 +136,10 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
                   onClick={() => setSelectedImageIndex(index)}
                   onMouseEnter={() => setCursor("project", "INSPECT")}
                   onMouseLeave={resetCursor}
-                  className="group relative flex flex-col rounded-2xl liquid-glass-subcard hover:border-amber-500/60 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-[0_12px_30px_rgba(245,158,11,0.14)] cursor-pointer overflow-hidden"
+                  className="group relative flex flex-col rounded-2xl liquid-glass-subcard hover:border-amber-400/60 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-[0_12px_30px_rgba(245,158,11,0.14)] cursor-pointer overflow-hidden"
                 >
                   {/* Image Frame */}
-                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
                     <PortfolioImage
                       src={item.image}
                       alt={item.title}
@@ -150,9 +150,9 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
                     />
 
                     {/* Gradient Overlay & Hover Badge */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/35 via-transparent to-transparent opacity-50 group-hover:opacity-25 transition-opacity" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
 
-                    <div className="absolute top-3 right-3 p-2 rounded-lg bg-white/90 backdrop-blur-md border border-amber-500/40 text-amber-800 opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-sm">
+                    <div className="absolute top-3 right-3 p-2 rounded-lg bg-amber-400/[0.2] backdrop-blur-md border border-amber-400/50 text-amber-300 opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-sm">
                       <Eye className="w-4 h-4" />
                     </div>
                   </div>
@@ -160,12 +160,12 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
                   {/* Caption & Metadata */}
                   <div className="p-4 flex-1 flex flex-col justify-between space-y-2">
                     <div>
-                      <h4 className="text-sm font-heading font-bold text-slate-900 group-hover:text-amber-800 transition-colors flex items-center justify-between">
+                      <h4 className="text-sm font-heading font-bold text-white group-hover:text-amber-300 transition-colors flex items-center justify-between">
                         <span>{item.title}</span>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <ArrowUpRight className="w-3.5 h-3.5 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </h4>
                       {item.subtitle && (
-                        <p className="text-[11px] font-mono font-medium text-slate-700 mt-0.5">
+                        <p className="text-[11px] font-mono font-normal text-slate-300 mt-0.5">
                           {item.subtitle}
                         </p>
                       )}
@@ -176,7 +176,7 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
                         {item.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-white/75 text-slate-800 border border-white/80"
+                            className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded liquid-glass-subcard text-slate-200"
                           >
                             {tag}
                           </span>
@@ -190,12 +190,12 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
           </div>
 
           {/* Footer note */}
-          <div className="p-4 px-6 sm:px-8 border-t border-white/60 bg-white/55 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-800 font-medium">
+          <div className="p-4 px-6 sm:px-8 border-t border-white/20 bg-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-200 font-normal">
             <span className="flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               Click any dashboard to inspect in full-screen detail
             </span>
-            <span className="font-mono text-[11px] text-amber-800 font-bold">
+            <span className="font-mono text-[11px] text-amber-300 font-semibold">
               ESC or outside click to exit
             </span>
           </div>

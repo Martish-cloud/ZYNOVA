@@ -58,7 +58,7 @@ export const DashboardImageViewer: React.FC<DashboardImageViewerProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex flex-col items-center justify-between bg-white/95 backdrop-blur-2xl p-4 sm:p-6 select-none animate-in fade-in duration-200"
+      className="fixed inset-0 z-[70] flex flex-col items-center justify-between bg-black/80 backdrop-blur-2xl p-4 sm:p-6 select-none animate-in fade-in duration-200"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -70,10 +70,10 @@ export const DashboardImageViewer: React.FC<DashboardImageViewerProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-3">
-          <span className="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-400/50">
+          <span className="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-400/[0.16] text-amber-300 border border-amber-400/35">
             {currentItem.category === "excel" ? "EXCEL" : "POWER BI"}
           </span>
-          <span className="text-xs font-mono text-slate-500">
+          <span className="text-xs font-mono text-slate-300">
             {currentIndex + 1} of {dashboards.length}
           </span>
         </div>
@@ -83,7 +83,7 @@ export const DashboardImageViewer: React.FC<DashboardImageViewerProps> = ({
           onClick={onClose}
           onMouseEnter={() => setCursor("button")}
           onMouseLeave={resetCursor}
-          className="p-2.5 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:border-amber-500/60 hover:bg-slate-50 transition-all cursor-pointer shadow-md"
+          className="p-2.5 rounded-full liquid-glass-subcard text-slate-300 hover:text-white hover:border-amber-300 transition-all cursor-pointer shadow-md"
           aria-label="Close image viewer"
         >
           <X className="w-5 h-5" />
@@ -102,7 +102,7 @@ export const DashboardImageViewer: React.FC<DashboardImageViewerProps> = ({
             onClick={handlePrev}
             onMouseEnter={() => setCursor("button")}
             onMouseLeave={resetCursor}
-            className="absolute left-2 sm:left-4 z-20 p-3 rounded-full bg-white/95 hover:bg-white border border-slate-200 text-slate-800 hover:border-amber-500/60 hover:text-amber-700 transition-all shadow-lg cursor-pointer"
+            className="absolute left-2 sm:left-4 z-20 p-3 rounded-full liquid-glass-panel hover:bg-white/[0.2] border border-white/25 text-white hover:border-amber-300 hover:text-amber-300 transition-all shadow-lg cursor-pointer"
             aria-label="Previous dashboard"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -119,7 +119,7 @@ export const DashboardImageViewer: React.FC<DashboardImageViewerProps> = ({
             fallbackBadge={currentItem.category === "excel" ? "Excel" : "Power BI"}
             width={1200}
             height={800}
-            className="max-w-full max-h-[78vh] object-contain rounded-xl border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.15),0_0_30px_rgba(245,158,11,0.1)]"
+            className="max-w-full max-h-[78vh] object-contain rounded-xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(245,158,11,0.15)]"
           />
         </div>
 
@@ -130,7 +130,7 @@ export const DashboardImageViewer: React.FC<DashboardImageViewerProps> = ({
             onClick={handleNext}
             onMouseEnter={() => setCursor("button")}
             onMouseLeave={resetCursor}
-            className="absolute right-2 sm:right-4 z-20 p-3 rounded-full bg-white/95 hover:bg-white border border-slate-200 text-slate-800 hover:border-amber-500/60 hover:text-amber-700 transition-all shadow-lg cursor-pointer"
+            className="absolute right-2 sm:right-4 z-20 p-3 rounded-full liquid-glass-panel hover:bg-white/[0.2] border border-white/25 text-white hover:border-amber-300 hover:text-amber-300 transition-all shadow-lg cursor-pointer"
             aria-label="Next dashboard"
           >
             <ChevronRight className="w-6 h-6" />
@@ -143,16 +143,16 @@ export const DashboardImageViewer: React.FC<DashboardImageViewerProps> = ({
         className="w-full max-w-4xl text-center pb-2 z-10"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="text-base sm:text-lg font-heading font-bold text-slate-900 tracking-wide">
+        <h3 className="text-base sm:text-lg font-heading font-bold text-white tracking-wide">
           {currentItem.title}
         </h3>
         {currentItem.subtitle && (
-          <p className="text-xs text-amber-700 font-semibold font-mono mt-0.5">
+          <p className="text-xs text-amber-300 font-semibold font-mono mt-0.5">
             {currentItem.subtitle}
           </p>
         )}
         {currentItem.description && (
-          <p className="text-xs text-slate-600 max-w-2xl mx-auto mt-1 leading-relaxed hidden sm:block">
+          <p className="text-xs text-slate-200 max-w-2xl mx-auto mt-1 leading-relaxed hidden sm:block">
             {currentItem.description}
           </p>
         )}

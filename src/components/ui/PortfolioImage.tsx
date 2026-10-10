@@ -85,14 +85,14 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
 
   if (isPermanentlyFailed) {
     return (
-      <div className="w-full h-full min-h-[144px] flex flex-col items-center justify-center p-4 bg-gradient-to-b from-slate-50 via-white to-slate-100 border-b border-amber-500/20 text-center select-none">
-        <div className="p-2.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 mb-2 shadow-[0_2px_12px_rgba(245,158,11,0.15)]">
+      <div className="w-full h-full min-h-[144px] flex flex-col items-center justify-center p-4 liquid-glass-subcard border-b border-amber-400/40 text-center select-none">
+        <div className="p-2.5 rounded-full bg-amber-400/15 border border-amber-400/40 text-amber-300 mb-2 shadow-[0_2px_12px_rgba(245,158,11,0.25)]">
           {platform ? <Sparkles className="w-5 h-5" /> : <Layers className="w-5 h-5" />}
         </div>
-        <p className="text-xs font-bold font-heading text-slate-900 tracking-wide">
+        <p className="text-xs font-bold font-heading text-white tracking-wide">
           {fallbackTitle || alt.split(" - ")[0]}
         </p>
-        <span className="text-[10px] font-mono text-amber-700 mt-0.5">
+        <span className="text-[10px] font-mono text-amber-300 mt-0.5">
           {fallbackBadge || (platform ? `${platform} Showcase` : "Interactive Architecture")}
         </span>
       </div>

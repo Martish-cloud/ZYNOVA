@@ -154,24 +154,24 @@ export const CustomCursor: React.FC = () => {
     case "project":
     case "image":
       ringSize = "w-20 h-20";
-      ringClasses = "border-2 border-amber-500/80 bg-white/90 backdrop-blur-md shadow-[0_8px_25px_rgba(245,158,11,0.3)]";
+      ringClasses = "border-2 border-amber-400/80 liquid-glass-card shadow-[0_8px_25px_rgba(245,158,11,0.35)]";
       showLabel = true;
       break;
     case "button":
       ringSize = cursorText ? "w-20 h-20" : "w-14 h-14";
-      ringClasses = "border-2 border-amber-500/80 bg-white/85 backdrop-blur-sm shadow-[0_6px_20px_rgba(245,158,11,0.3)] scale-110";
+      ringClasses = "border-2 border-amber-400/80 liquid-glass-card shadow-[0_6px_20px_rgba(245,158,11,0.35)] scale-110";
       break;
     case "link":
       ringSize = cursorText ? "w-18 h-18" : "w-12 h-12";
-      ringClasses = "border border-amber-500/70 bg-amber-400/15 scale-105";
+      ringClasses = "border border-amber-400/70 bg-amber-400/20 backdrop-blur-sm scale-105";
       break;
     case "input":
       ringSize = "w-8 h-8";
-      ringClasses = "border border-amber-500/50 bg-transparent";
+      ringClasses = "border border-amber-400/60 bg-transparent";
       break;
     default:
       ringSize = "w-9 h-9";
-      ringClasses = "border border-amber-500/50 bg-amber-500/10";
+      ringClasses = "border border-amber-400/60 bg-amber-400/15 backdrop-blur-xs";
   }
 
   return (
@@ -182,7 +182,7 @@ export const CustomCursor: React.FC = () => {
       {/* Center glowing dot */}
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_10px_#f59e0b] pointer-events-none will-change-transform z-10"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_10px_#f59e0b] pointer-events-none will-change-transform z-10"
       />
 
       {/* Smooth lagging follower ring */}
@@ -193,7 +193,7 @@ export const CustomCursor: React.FC = () => {
         }`}
       >
         {showLabel && (
-          <span className="text-[10px] font-bold tracking-widest text-amber-800 uppercase select-none">
+          <span className="text-[10px] font-black tracking-widest text-amber-300 drop-shadow-sm uppercase select-none">
             {cursorText || (cursorType === "project" ? "VIEW" : "OPEN")}
           </span>
         )}

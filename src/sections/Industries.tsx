@@ -29,7 +29,7 @@ export const Industries: React.FC = () => {
   });
 
   const getIcon = (iconName: string) => {
-    const props = { className: "w-4 h-4 text-amber-600 group-hover:text-amber-700 transition-colors" };
+    const props = { className: "w-4 h-4 text-amber-300 group-hover:text-amber-200 transition-colors" };
     switch (iconName) {
       case "ShoppingBag": return <ShoppingBag {...props} />;
       case "Cpu": return <Cpu {...props} />;
@@ -46,7 +46,7 @@ export const Industries: React.FC = () => {
   };
 
   return (
-    <section id="industries" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-white/25">
+    <section id="industries" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="INDUSTRIES WE SERVE"
@@ -78,19 +78,19 @@ export const Industries: React.FC = () => {
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <div className="p-2 rounded-lg bg-amber-50/75 border border-amber-300/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] group-hover:scale-110 group-hover:border-amber-400 transition-all">
+                  <div className="p-2 rounded-lg bg-amber-400/[0.16] border border-amber-400/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] group-hover:scale-110 group-hover:border-amber-300 transition-all">
                     {getIcon(ind.icon)}
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-50/85 text-amber-900 border border-amber-400/55 font-bold">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-400/[0.16] text-amber-300 border border-amber-400/35 font-bold">
                     {ind.tag}
                   </span>
                 </div>
 
-                <h3 className="font-heading font-bold text-sm sm:text-[15px] text-slate-900 group-hover:text-amber-800 transition-colors mb-1.5">
+                <h3 className="font-heading font-bold text-sm sm:text-[15px] text-white group-hover:text-amber-300 transition-colors mb-1.5">
                   {ind.name}
                 </h3>
 
-                <p className="text-[11.5px] sm:text-xs text-slate-700 font-medium leading-relaxed">
+                <p className="text-[11.5px] sm:text-xs text-slate-200 font-normal leading-relaxed">
                   {ind.description}
                 </p>
               </div>

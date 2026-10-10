@@ -49,7 +49,7 @@ export const App: React.FC = () => {
 
   return (
     <CursorProvider>
-      <div className="relative min-h-screen bg-[#f8fafc] text-[#0f172a] selection:bg-amber-500/20 selection:text-amber-900">
+      <div className="relative min-h-screen bg-transparent text-[#f8fafc] selection:bg-amber-500/25 selection:text-amber-100">
         {/* Global Cinematic Tech 02 Background Video (Full website backdrop with Light Glass veil) */}
         <GlobalVideoBackground />
 

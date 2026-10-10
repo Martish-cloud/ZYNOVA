@@ -48,8 +48,8 @@ export const Navbar: React.FC = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? "py-2 sm:py-2.5 bg-white/62 backdrop-blur-xl saturate-150 border-b border-white/60 shadow-[0_8px_32px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.82)]"
-            : "py-2.5 sm:py-3 bg-white/50 backdrop-blur-xl saturate-150 border-b border-white/45 shadow-[0_4px_24px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.75)]"
+            ? "py-2 sm:py-2.5 bg-white/[0.14] backdrop-blur-xl saturate-150 border-b border-white/25 shadow-[0_8px_32px_rgba(0,0,0,0.22),inset_0_1px_0_rgba(255,255,255,0.35)]"
+            : "py-2.5 sm:py-3 bg-white/[0.10] backdrop-blur-xl saturate-150 border-b border-white/20 shadow-[0_4px_24px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.25)]"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -65,25 +65,25 @@ export const Navbar: React.FC = () => {
             className="group flex items-center gap-2 cursor-pointer"
           >
             <div className="relative w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-400 via-yellow-400 to-amber-600 p-[1.5px] transition-transform duration-300 group-hover:scale-105 shadow-[0_4px_14px_rgba(245,158,11,0.35)]">
-              <div className="w-full h-full bg-white/90 rounded-[7px] flex items-center justify-center">
-                <span className="font-heading font-black text-transparent bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 bg-clip-text text-base">
+              <div className="w-full h-full bg-slate-950/80 rounded-[7px] flex items-center justify-center">
+                <span className="font-heading font-black text-transparent bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text text-base">
                   Z
                 </span>
               </div>
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="font-heading text-sm sm:text-base lg:text-lg font-extrabold tracking-wider text-slate-900 flex items-center gap-1 whitespace-nowrap">
+              <span className="font-heading text-sm sm:text-base lg:text-lg font-extrabold tracking-wider text-white flex items-center gap-1 whitespace-nowrap">
                 {siteConfig.brandName}
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block shadow-[0_0_6px_#f59e0b] shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block shadow-[0_0_8px_#f59e0b] shrink-0" />
               </span>
-              <span className="text-[7.5px] sm:text-[8.5px] uppercase tracking-widest text-amber-800 font-mono hidden sm:block leading-none font-bold">
+              <span className="text-[7.5px] sm:text-[8.5px] uppercase tracking-widest text-amber-300 font-mono hidden sm:block leading-none font-bold">
                 STUDIO &bull; EST. 2026
               </span>
             </div>
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-0.5 bg-white/42 p-1 rounded-full border border-white/65 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_4px_16px_rgba(15,23,42,0.06)]">
+          <nav className="hidden lg:flex items-center gap-0.5 bg-white/[0.12] p-1 rounded-full border border-white/25 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_4px_16px_rgba(0,0,0,0.18)]">
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.id;
               return (
@@ -98,8 +98,8 @@ export const Navbar: React.FC = () => {
                   onMouseLeave={resetCursor}
                   className={`relative px-3 sm:px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? "text-amber-950 bg-white/85 shadow-[0_2px_10px_rgba(245,158,11,0.22),inset_0_1px_0_rgba(255,255,255,0.95)] border border-amber-400/60"
-                      : "text-slate-800 hover:text-slate-950 hover:bg-white/55 border border-transparent"
+                      ? "text-slate-950 bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-400 font-bold shadow-[0_2px_12px_rgba(245,158,11,0.35)] border border-amber-200"
+                      : "text-slate-200 hover:text-white hover:bg-white/[0.18] border border-transparent"
                   }`}
                 >
                   {link.name}
@@ -127,10 +127,10 @@ export const Navbar: React.FC = () => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               onMouseEnter={() => setCursor("button")}
               onMouseLeave={resetCursor}
-              className="lg:hidden p-2 rounded-xl bg-white/60 border border-white/70 text-slate-800 hover:text-slate-950 shadow-sm transition-colors"
+              className="lg:hidden p-2 rounded-xl bg-white/[0.14] border border-white/25 text-white hover:text-amber-300 shadow-sm transition-colors"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6 text-amber-600" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 text-amber-400" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
@@ -141,14 +141,14 @@ export const Navbar: React.FC = () => {
         <div className="fixed inset-0 z-30 lg:hidden" role="dialog" aria-modal="true">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-slate-900/25 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
+            className="fixed inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
             onClick={() => setMobileMenuOpen(false)}
           />
 
           {/* Menu Panel */}
-          <div className="fixed top-20 right-4 left-4 max-w-sm ml-auto liquid-glass-panel rounded-2xl shadow-[0_20px_50px_rgba(15,23,42,0.18)] p-6 overflow-hidden">
+          <div className="fixed top-20 right-4 left-4 max-w-sm ml-auto liquid-glass-panel rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.35)] p-6 overflow-hidden border border-white/25">
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase tracking-widest text-slate-700 font-mono mb-2 font-bold">
+              <span className="text-[10px] uppercase tracking-widest text-slate-300 font-mono mb-2 font-bold">
                 Navigation
               </span>
               {NAV_LINKS.map((link) => {
@@ -163,8 +163,8 @@ export const Navbar: React.FC = () => {
                     }}
                     className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
                       isActive
-                        ? "bg-amber-50/75 text-amber-950 border border-amber-400/60 shadow-sm"
-                        : "text-slate-800 hover:bg-white/55 hover:text-slate-950"
+                        ? "bg-amber-400/20 text-amber-300 border border-amber-400/50 shadow-sm"
+                        : "text-slate-200 hover:bg-white/[0.16] hover:text-white"
                     }`}
                   >
                     <span>{link.name}</span>
@@ -173,7 +173,7 @@ export const Navbar: React.FC = () => {
                 );
               })}
 
-              <div className="pt-4 mt-2 border-t border-white/50">
+              <div className="pt-4 mt-2 border-t border-white/20">
                 <a
                   href={`tel:${siteConfig.phoneTel}`}
                   aria-label={`Call ZYNOVA at ${siteConfig.phone}`}

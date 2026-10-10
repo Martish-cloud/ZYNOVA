@@ -33,20 +33,20 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose} title={project.title} maxWidth="max-w-3xl">
       <div className="space-y-6">
         {/* Subtitle & Badge */}
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/60 text-xs">
-          <span className="text-slate-800 font-semibold">{project.subtitle}</span>
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/20 text-xs">
+          <span className="text-slate-200 font-normal">{project.subtitle}</span>
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded bg-amber-100/80 text-amber-900 border border-amber-400/60 font-mono font-bold">
+            <span className="px-2 py-0.5 rounded bg-amber-400/[0.16] text-amber-300 border border-amber-400/35 font-mono font-bold">
               {project.badge}
             </span>
-            <span className="px-2 py-0.5 rounded liquid-glass-subcard text-slate-800 font-semibold font-mono uppercase">
+            <span className="px-2 py-0.5 rounded liquid-glass-subcard text-slate-300 font-semibold font-mono uppercase">
               {project.category}
             </span>
           </div>
         </div>
 
         {/* Visual Showcase with Real Project Mockup */}
-        <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden bg-slate-100 border border-white/75 shadow-lg group">
+        <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden bg-slate-900/60 border border-white/20 shadow-lg group">
           <PortfolioImage
             src={project.image}
             alt={project.title}
@@ -60,15 +60,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               project.platform ? "object-contain bg-slate-900" : "object-cover object-top"
             } transition-transform duration-700 group-hover:scale-[1.02]`}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
 
           {/* Floating badge & External full preview button */}
           <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
-            <div className="bg-white/80 backdrop-blur-xl saturate-150 px-4 py-2.5 rounded-lg border border-white/80 shadow-lg">
-              <span className="font-mono text-[10px] text-amber-800 font-bold uppercase tracking-widest block mb-0.5">
+            <div className="liquid-glass-panel px-4 py-2.5 rounded-lg border-white/30 shadow-lg">
+              <span className="font-mono text-[10px] text-amber-300 font-bold uppercase tracking-widest block mb-0.5">
                 {project.platform ? `${project.platform} Application • ${project.title}` : `${project.category} • ${project.badge}`}
               </span>
-              <h3 className="text-lg sm:text-xl font-black font-heading text-slate-900">
+              <h3 className="text-lg sm:text-xl font-black font-heading text-white">
                 {project.title}
               </h3>
             </div>
@@ -77,7 +77,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               href={project.image}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-2 rounded-lg bg-white/85 hover:bg-amber-50 text-xs font-mono font-bold text-amber-900 border border-amber-500/45 backdrop-blur-md inline-flex items-center gap-1.5 transition-colors shadow-lg cursor-pointer"
+              className="px-3 py-2 rounded-lg bg-amber-400/[0.16] hover:bg-amber-400/[0.25] text-xs font-mono font-bold text-amber-300 border border-amber-400/35 backdrop-blur-md inline-flex items-center gap-1.5 transition-colors shadow-lg cursor-pointer"
             >
               <span>Full View</span>
               <ExternalLink className="w-3.5 h-3.5" />
@@ -87,15 +87,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
         {/* Transparent Indicative Pricing & Tiers */}
         {project.pricing && (
-          <div className="p-4 rounded-xl liquid-glass-subcard border-amber-400/50 shadow-xs">
+          <div className="p-4 rounded-xl liquid-glass-subcard border-amber-400/40 shadow-xs">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-amber-800 font-bold block">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-amber-300 font-bold block">
                   {project.platform ? `${project.platform} Application Pricing` : "Project Pricing & Development Scope"}
                 </span>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-xs text-slate-800 font-semibold font-mono">Starting from:</span>
-                  <span className="text-lg sm:text-xl font-extrabold font-mono text-transparent bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-800 bg-clip-text">
+                  <span className="text-xs text-slate-200 font-medium font-mono">Starting from:</span>
+                  <span className="text-lg sm:text-xl font-extrabold font-mono text-transparent bg-gradient-to-r from-amber-300 via-yellow-300 to-amber-400 bg-clip-text">
                     {project.pricing.startingPrice}
                   </span>
                 </div>
@@ -112,7 +112,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               ) : (
-                <span className="px-3 py-1.5 rounded-lg liquid-glass-subcard text-[10px] font-mono font-semibold text-slate-700 select-none">
+                <span className="px-3 py-1.5 rounded-lg liquid-glass-subcard text-[10px] font-mono font-semibold text-slate-400 select-none">
                   DEMO COMING SOON
                 </span>
               )}
@@ -120,28 +120,28 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono">
               {project.pricing.basicPrice && (
-                <div className="p-2 rounded-lg bg-white/75 border border-white/80">
-                  <span className="text-[10px] text-slate-700 block uppercase font-bold">Basic Tier</span>
-                  <span className="font-bold text-slate-900">{project.pricing.basicPrice}</span>
+                <div className="p-2 rounded-lg liquid-glass-subcard border-white/20">
+                  <span className="text-[10px] text-slate-400 block uppercase font-bold">Basic Tier</span>
+                  <span className="font-bold text-white">{project.pricing.basicPrice}</span>
                 </div>
               )}
-              <div className="p-2 rounded-lg bg-white/75 border border-white/80">
-                <span className="text-[10px] text-slate-700 block uppercase font-bold">Standard Tier</span>
-                <span className="font-bold text-slate-900">{project.pricing.standardPrice}</span>
+              <div className="p-2 rounded-lg liquid-glass-subcard border-white/20">
+                <span className="text-[10px] text-slate-400 block uppercase font-bold">Standard Tier</span>
+                <span className="font-bold text-white">{project.pricing.standardPrice}</span>
               </div>
-              <div className="p-2 rounded-lg bg-amber-100/75 border border-amber-400/60">
-                <span className="text-[10px] text-amber-800 block uppercase font-bold">Premium Tier</span>
-                <span className="font-bold text-amber-900">{project.pricing.premiumPrice}</span>
+              <div className="p-2 rounded-lg bg-amber-400/[0.16] border border-amber-400/35">
+                <span className="text-[10px] text-amber-200 block uppercase font-bold">Premium Tier</span>
+                <span className="font-bold text-amber-300">{project.pricing.premiumPrice}</span>
               </div>
               {project.pricing.customPrice && (
-                <div className="col-span-2 sm:col-span-3 p-2 rounded-lg bg-white/75 border border-white/80 flex items-center justify-between">
-                  <span className="text-[10.5px] text-slate-800 uppercase font-bold">Custom Architecture &amp; Scale</span>
-                  <span className="font-bold text-amber-900">{project.pricing.customPrice}</span>
+                <div className="col-span-2 sm:col-span-3 p-2 rounded-lg liquid-glass-subcard border-white/20 flex items-center justify-between">
+                  <span className="text-[10.5px] text-slate-300 uppercase font-bold">Custom Architecture &amp; Scale</span>
+                  <span className="font-bold text-amber-300">{project.pricing.customPrice}</span>
                 </div>
               )}
             </div>
 
-            <p className="text-[10px] font-mono text-slate-700 font-medium mt-2.5 leading-tight">
+            <p className="text-[10px] font-mono text-slate-300 font-normal mt-2.5 leading-tight">
               *{project.pricing.pricingQualification || "Prices are indicative. Final pricing depends on features, integrations, content, design complexity and project requirements."}
             </p>
           </div>
@@ -149,10 +149,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
         {/* Overview */}
         <div>
-          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-700 font-bold mb-1">
+          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">
             Project Overview
           </h4>
-          <p className="text-sm text-slate-800 font-medium leading-relaxed">
+          <p className="text-sm text-slate-200 font-normal leading-relaxed">
             {project.overview}
           </p>
         </div>
@@ -160,21 +160,21 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
         {/* Challenge & Solution Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-4 rounded-xl liquid-glass-subcard">
-            <h5 className="text-xs font-mono uppercase tracking-wider text-rose-700 font-bold mb-1.5 flex items-center gap-1.5">
+            <h5 className="text-xs font-mono uppercase tracking-wider text-rose-400 font-bold mb-1.5 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
               The Business Challenge
             </h5>
-            <p className="text-xs text-slate-800 font-medium leading-relaxed">
+            <p className="text-xs text-slate-200 font-normal leading-relaxed">
               {project.challenge}
             </p>
           </div>
 
-          <div className="p-4 rounded-xl liquid-glass-subcard border-amber-400/50">
-            <h5 className="text-xs font-mono uppercase tracking-wider text-amber-800 font-bold mb-1.5 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_6px_#f59e0b]" />
+          <div className="p-4 rounded-xl liquid-glass-subcard border-amber-400/40">
+            <h5 className="text-xs font-mono uppercase tracking-wider text-amber-300 font-bold mb-1.5 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_#f59e0b]" />
               Engineered Solution
             </h5>
-            <p className="text-xs text-slate-800 font-medium leading-relaxed">
+            <p className="text-xs text-slate-200 font-normal leading-relaxed">
               {project.solution}
             </p>
           </div>
@@ -182,14 +182,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
         {/* Key Features */}
         <div>
-          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-700 font-bold mb-2.5 flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-amber-600" />
+          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-2.5 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-amber-400" />
             <span>Key Functional Highlights</span>
           </h4>
           <ul className="space-y-2">
             {project.keyFeatures.map((feat, idx) => (
-              <li key={idx} className="flex items-start gap-2.5 p-2 rounded-lg liquid-glass-subcard text-xs text-slate-800 font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
+              <li key={idx} className="flex items-start gap-2.5 p-2 rounded-lg liquid-glass-subcard text-xs text-slate-200 font-normal">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
                 <span>{feat}</span>
               </li>
             ))}
@@ -198,15 +198,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
         {/* Technology Stack Tags */}
         <div>
-          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-700 font-bold mb-2 flex items-center gap-1.5">
-            <Layers className="w-3.5 h-3.5 text-amber-600" />
+          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-2 flex items-center gap-1.5">
+            <Layers className="w-3.5 h-3.5 text-amber-400" />
             <span>Technologies Employed</span>
           </h4>
           <div className="flex flex-wrap gap-1.5">
             {project.technologies.map((t) => (
               <span
                 key={t}
-                className="px-2.5 py-1 rounded text-xs font-mono font-semibold liquid-glass-subcard text-slate-800"
+                className="px-2.5 py-1 rounded text-xs font-mono font-semibold liquid-glass-subcard text-slate-200"
               >
                 {t}
               </span>
@@ -215,9 +215,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
         </div>
 
         {/* Footer Action */}
-        <div className="pt-4 border-t border-white/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs text-slate-800 font-medium">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+        <div className="pt-4 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-xs text-slate-200 font-normal">
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
             <span>Fully customizable codebase with complete IP transfer</span>
           </div>
 
@@ -239,7 +239,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               <button
                 type="button"
                 disabled
-                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-500 text-xs font-mono cursor-not-allowed opacity-75 inline-flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl liquid-glass-subcard text-slate-400 text-xs font-mono cursor-not-allowed opacity-75 inline-flex items-center justify-center gap-2"
               >
                 <span>DEMO COMING SOON</span>
               </button>
@@ -248,12 +248,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             <MagneticButton
               variant="outline"
               onClick={handleDiscuss}
-              className="w-full sm:w-auto !py-2.5 !px-5 text-xs font-bold !rounded-xl border-amber-500/40 text-amber-800 hover:bg-amber-50"
+              className="w-full sm:w-auto !py-2.5 !px-5 text-xs font-bold !rounded-xl border-amber-400/40 text-amber-300 hover:bg-amber-400/[0.16]"
               cursorLabel="DISCUSS"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span>Discuss Similar Project</span>
-              <ArrowRight className="w-3.5 h-3.5 text-amber-600" />
+              <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
             </MagneticButton>
           </div>
         </div>

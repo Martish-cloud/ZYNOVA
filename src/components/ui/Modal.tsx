@@ -43,26 +43,26 @@ export const Modal: React.FC<ModalProps> = ({
     >
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-slate-900/35 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
+        className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Modal Container */}
       <div 
-        className={`relative w-full ${maxWidth} liquid-glass-panel border-white/80 rounded-2xl overflow-hidden z-10 transition-all my-8 max-h-[90vh] flex flex-col text-slate-900`}
+        className={`relative w-full ${maxWidth} liquid-glass-panel !border-white/25 rounded-2xl overflow-hidden z-10 transition-all my-8 max-h-[90vh] flex flex-col text-slate-100 shadow-[0_24px_64px_rgba(0,0,0,0.5)]`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-3 sm:px-6 sm:py-3.5 border-b border-white/60 bg-white/55 shrink-0">
+        <div className="flex items-center justify-between px-5 py-3 sm:px-6 sm:py-3.5 border-b border-white/20 bg-white/[0.08] shrink-0">
           {title ? (
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-wide">{title}</h3>
+            <h3 className="text-base sm:text-lg font-bold text-white tracking-wide">{title}</h3>
           ) : <div />}
           
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-slate-700 hover:text-slate-950 rounded-full hover:bg-white/70 transition-colors cursor-pointer"
+            className="p-1.5 text-slate-300 hover:text-white rounded-full hover:bg-white/[0.15] transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-4 h-4 sm:w-5 sm:h-5" />

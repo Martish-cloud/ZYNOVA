@@ -44,39 +44,39 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
       title="Machine Learning Engineer Portfolio"
       maxWidth="max-w-3xl"
     >
-      <div className="space-y-4 sm:space-y-5 text-slate-800">
+      <div className="space-y-4 sm:space-y-5 text-slate-100">
         {/* Subtitle & Category Badges */}
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-white/60 text-xs">
-          <span className="text-slate-800 font-mono font-semibold">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-white/20 text-xs">
+          <span className="text-slate-200 font-mono font-medium">
             Amit Halder &bull; Founder &amp; Technology Specialist
           </span>
           <div className="flex items-center gap-1.5">
-            <span className="px-2 py-0.5 rounded bg-amber-100/80 text-amber-900 border border-amber-400/60 font-mono text-[10.5px] font-bold flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-amber-600" />
+            <span className="px-2 py-0.5 rounded bg-amber-400/[0.16] text-amber-300 border border-amber-400/35 font-mono text-[10.5px] font-bold flex items-center gap-1">
+              <Sparkles className="w-3 h-3 text-amber-400" />
               <span>Machine Learning / AI / GenAI</span>
             </span>
           </div>
         </div>
 
-        {/* Visual Preview Screenshot (Preserving existing preview image, No iframe) */}
-        <div className="relative rounded-xl overflow-hidden border border-white/75 bg-slate-100 shadow-lg group">
+        {/* Visual Preview Screenshot */}
+        <div className="relative rounded-xl overflow-hidden border border-white/20 bg-slate-900 shadow-lg group">
           <img
             src="/projects/ml-portfolio-preview-v2.webp"
             alt="Amit Halder — Machine Learning & AI Portfolio Showcase"
             loading="lazy"
             className="w-full h-44 sm:h-56 md:h-64 object-cover object-top transition-transform duration-500 group-hover:scale-[1.01]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
 
           <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
-            <span className="text-[10px] sm:text-xs font-mono font-bold text-amber-900 bg-white/85 backdrop-blur-md px-2 py-0.5 rounded border border-amber-400/60 shadow-sm">
+            <span className="text-[10px] sm:text-xs font-mono font-bold text-amber-300 bg-amber-400/[0.16] backdrop-blur-md px-2 py-0.5 rounded border border-amber-400/35 shadow-sm">
               Live Interactive Portfolio Preview
             </span>
             <a
               href="/projects/ml-portfolio-preview-v2.webp"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/85 hover:bg-white text-slate-800 hover:text-slate-950 border border-white/80 transition-colors inline-flex items-center gap-1 shadow-sm font-semibold"
+              className="px-2 py-0.5 rounded text-[10px] font-mono liquid-glass-subcard text-slate-200 hover:text-white transition-colors inline-flex items-center gap-1 shadow-sm font-semibold"
             >
               <span>Full Image</span>
               <ExternalLink className="w-3 h-3" />
@@ -86,7 +86,7 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
 
         {/* Professional Description */}
         <div className="p-3.5 sm:p-4 rounded-xl liquid-glass-subcard">
-          <p className="text-xs sm:text-sm text-slate-800 font-medium leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-200 font-normal leading-relaxed">
             This is Amit Halder’s dedicated personal Machine Learning &amp; AI portfolio, showcasing specialized engineering capabilities across Large Language Model integrations, prompt engineering architectures, automated intelligence workflows, and deep business data analytics.
           </p>
         </div>
@@ -94,8 +94,8 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
         {/* Key Skills */}
         <div>
           <div className="flex items-center gap-1.5 mb-2">
-            <Cpu className="w-4 h-4 text-amber-600" />
-            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-amber-900">
+            <Cpu className="w-4 h-4 text-amber-400" />
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
               KEY SKILLS
             </h4>
           </div>
@@ -103,7 +103,7 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
             {keySkills.map((skill) => (
               <span
                 key={skill}
-                className="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-mono font-semibold liquid-glass-subcard text-slate-800 hover:border-amber-500/60 transition-colors shadow-2xs"
+                className="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-mono font-semibold liquid-glass-subcard text-slate-200 hover:border-amber-400/60 transition-colors shadow-2xs"
               >
                 {skill}
               </span>
@@ -114,8 +114,8 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
         {/* Certifications */}
         <div>
           <div className="flex items-center gap-1.5 mb-2">
-            <Award className="w-4 h-4 text-amber-600" />
-            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-amber-900">
+            <Award className="w-4 h-4 text-amber-400" />
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
               CERTIFICATIONS
             </h4>
           </div>
@@ -125,12 +125,12 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
                 key={cert.title}
                 className="p-2 sm:p-2.5 rounded-lg liquid-glass-subcard flex items-start gap-2 text-xs"
               >
-                <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 mt-0.5 shrink-0" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 mt-0.5 shrink-0" />
                 <div className="min-w-0">
-                  <div className="font-bold text-slate-900 truncate text-[11.5px] sm:text-xs">
+                  <div className="font-bold text-white truncate text-[11.5px] sm:text-xs">
                     {cert.title}
                   </div>
-                  <div className="text-[10px] font-mono text-amber-800 font-semibold">
+                  <div className="text-[10px] font-mono text-amber-300 font-semibold">
                     {cert.provider}
                   </div>
                 </div>
@@ -142,15 +142,15 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
         {/* Portfolio Highlights */}
         <div>
           <div className="flex items-center gap-1.5 mb-2">
-            <Sparkles className="w-4 h-4 text-amber-600" />
-            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-amber-900">
+            <Sparkles className="w-4 h-4 text-amber-400" />
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
               PORTFOLIO HIGHLIGHTS
             </h4>
           </div>
-          <ul className="space-y-1.5 text-xs text-slate-800 font-medium">
+          <ul className="space-y-1.5 text-xs text-slate-200 font-normal">
             {highlights.map((item, idx) => (
               <li key={idx} className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
                 <span>{item}</span>
               </li>
             ))}
@@ -158,8 +158,8 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
         </div>
 
         {/* Primary CTA Button: VISIT PORTFOLIO */}
-        <div className="pt-3 border-t border-white/60 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="text-[11px] font-mono font-medium text-slate-800 text-center sm:text-left">
+        <div className="pt-3 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <span className="text-[11px] font-mono font-normal text-slate-300 text-center sm:text-left">
             Direct access to interactive projects &amp; case studies
           </span>
           <a

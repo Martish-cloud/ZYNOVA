@@ -47,22 +47,22 @@ export const About: React.FC = () => {
     {
       title: "Full IP Transfer",
       description: "100% client ownership of repositories, code, design assets, and environments.",
-      iconColor: "text-amber-600"
+      iconColor: "text-amber-400"
     },
     {
       title: "Clean Engineering",
       description: "Modern typed stacks, clean modular architecture, and zero unnecessary bloat.",
-      iconColor: "text-amber-600"
+      iconColor: "text-amber-400"
     },
     {
       title: "Agile Turnaround",
       description: "Guaranteed responses within 12 hours with transparent development milestones.",
-      iconColor: "text-amber-600"
+      iconColor: "text-amber-400"
     },
     {
       title: "Actionable Analytics",
       description: "Deep mastery of Excel automation and Power BI to transform messy data into clarity.",
-      iconColor: "text-amber-600"
+      iconColor: "text-amber-400"
     }
   ];
 
@@ -107,7 +107,7 @@ export const About: React.FC = () => {
                     ? { transitionDelay: isNarrativeInView ? "140ms" : "0ms" }
                     : undefined
                 }
-                className={`text-slate-900 font-semibold leading-relaxed text-xs sm:text-sm ${
+                className={`text-slate-100 font-normal leading-relaxed text-xs sm:text-sm ${
                   !prefersReducedMotion
                     ? `transition-all duration-[680ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,opacity] ${
                         isNarrativeInView
@@ -121,14 +121,14 @@ export const About: React.FC = () => {
               </p>
 
               {/* Step 3: Second Supporting Paragraph — Typewriter + Story-Like Upward Reveal */}
-              <div className="text-slate-800 font-medium leading-relaxed text-xs sm:text-sm pt-2.5 border-t border-white/55">
+              <div className="text-slate-200 font-normal leading-relaxed text-xs sm:text-sm pt-2.5 border-t border-white/20">
                 <TypewriterText
                   text="Whether building an e-commerce platform from the ground up, engineering enterprise backend APIs, automating error-prone Excel workflows, or delivering high-level Power BI reporting models, our focus is uncompromising quality and long-term scalability."
                   isActive={isNarrativeInView}
                   triggerKey={narrativeTriggerCount}
                   startDelayMs={300}
                   durationMs={1350}
-                  cursorColorClass="bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]"
+                  cursorColorClass="bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.6)]"
                   withUpwardMotion={true}
                 />
               </div>
@@ -154,10 +154,10 @@ export const About: React.FC = () => {
                 >
                   <CheckCircle2 className={`w-4 h-4 ${item.iconColor} shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110`} />
                   <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 transition-colors duration-200">
+                    <h4 className="text-xs sm:text-sm font-bold text-white transition-colors duration-200">
                       {item.title}
                     </h4>
-                    <p className="text-[11px] sm:text-xs text-slate-700 font-medium mt-0.5 leading-relaxed">
+                    <p className="text-[11px] sm:text-xs text-slate-200 font-normal mt-0.5 leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -187,19 +187,19 @@ export const About: React.FC = () => {
             <div
               onMouseEnter={() => setCursor("project", "FOUNDER")}
               onMouseLeave={resetCursor}
-              className="relative p-6 sm:p-7 rounded-2xl liquid-glass-panel !border-amber-400/55 overflow-hidden group hover:!border-amber-500/80 transition-all duration-300"
+              className="relative p-6 sm:p-7 rounded-2xl liquid-glass-panel !border-amber-400/40 overflow-hidden group hover:!border-amber-400/70 transition-all duration-300"
             >
               {/* Corner decorative light */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/12 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl pointer-events-none" />
 
-              <div className="flex items-center justify-between mb-6 border-b border-white/55 pb-4">
+              <div className="flex items-center justify-between mb-6 border-b border-white/20 pb-4">
                 <div className="flex items-center gap-2">
-                  <Terminal className="w-4 h-4 text-amber-600" />
-                  <span className="font-mono text-xs uppercase tracking-wider text-slate-800 font-bold">
+                  <Terminal className="w-4 h-4 text-amber-400" />
+                  <span className="font-mono text-xs uppercase tracking-wider text-slate-200 font-bold">
                     FOUNDER IDENTITY
                   </span>
                 </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-50/85 text-amber-900 border border-amber-400/55 font-bold">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-400/[0.18] text-amber-300 border border-amber-400/40 font-bold">
                   VERIFIED
                 </span>
               </div>
@@ -207,49 +207,49 @@ export const About: React.FC = () => {
               {/* Founder Details */}
               <div className="space-y-4">
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-400 via-yellow-400 to-amber-600 p-[2px] shadow-[0_4px_20px_rgba(245,158,11,0.3)]">
-                  <div className="w-full h-full bg-white/90 rounded-[14px] flex items-center justify-center">
-                    <span className="font-heading font-black text-2xl text-transparent bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 bg-clip-text">
+                  <div className="w-full h-full bg-slate-950/80 rounded-[14px] flex items-center justify-center">
+                    <span className="font-heading font-black text-2xl text-transparent bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text">
                       AH
                     </span>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-2xl font-bold font-heading text-slate-900">
+                  <h4 className="text-2xl font-bold font-heading text-white">
                     {siteConfig.founder.name}
                   </h4>
-                  <p className="text-sm font-bold text-amber-800 mt-0.5">
+                  <p className="text-sm font-bold text-amber-300 mt-0.5">
                     {siteConfig.founder.role}
                   </p>
                 </div>
 
-                <div className="space-y-2 text-xs text-slate-800 font-semibold font-mono pt-2">
+                <div className="space-y-2 text-xs text-slate-200 font-medium font-mono pt-2">
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-amber-600" />
+                    <MapPin className="w-4 h-4 text-amber-400" />
                     <span>Location: {siteConfig.founder.location}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-amber-600" />
+                    <Clock className="w-4 h-4 text-amber-400" />
                     <span>Response Benchmark: {siteConfig.metrics.responseTime}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Cpu className="w-4 h-4 text-amber-600" />
+                    <Cpu className="w-4 h-4 text-amber-400" />
                     <span>Domain: Full-Stack Web, Mobile, Data Automation</span>
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-700 font-medium leading-relaxed pt-2 border-t border-white/55">
+                <p className="text-xs text-slate-200 font-normal leading-relaxed pt-2 border-t border-white/20">
                   {siteConfig.founder.bio}
                 </p>
 
                 {/* Machine Learning & AI Portfolio Showcase */}
                 <div className="pt-2 space-y-2">
                   <div className="flex items-center justify-between pb-0.5">
-                    <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-800 font-bold flex items-center gap-1.5">
-                      <Cpu className="w-3.5 h-3.5 text-amber-600" />
+                    <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-200 font-bold flex items-center gap-1.5">
+                      <Cpu className="w-3.5 h-3.5 text-amber-400" />
                       <span>PORTFOLIO SHOWCASE</span>
                     </span>
-                    <span className="text-[10px] font-mono text-amber-900 bg-amber-50/85 px-1.5 py-0.5 rounded border border-amber-400/55 font-bold">
+                    <span className="text-[10px] font-mono text-amber-300 bg-amber-400/[0.18] px-1.5 py-0.5 rounded border border-amber-400/40 font-bold">
                       Machine Learning &bull; AI
                     </span>
                   </div>
@@ -261,7 +261,7 @@ export const About: React.FC = () => {
                     }}
                     onMouseEnter={() => setCursor("project", "VIEW")}
                     onMouseLeave={resetCursor}
-                    className="relative rounded-xl overflow-hidden border border-white/70 hover:border-amber-500/70 bg-slate-100/70 group/img cursor-pointer transition-all duration-300 hover:shadow-[0_12px_28px_-10px_rgba(245,158,11,0.28)] flex flex-col justify-end"
+                    className="relative rounded-xl overflow-hidden border border-white/25 hover:border-amber-400/70 bg-slate-950/60 group/img cursor-pointer transition-all duration-300 hover:shadow-[0_12px_28px_-10px_rgba(245,158,11,0.28)] flex flex-col justify-end"
                   >
                     <img
                       src="/projects/ml-portfolio-preview-v2.webp"
@@ -269,12 +269,12 @@ export const About: React.FC = () => {
                       loading="lazy"
                       className="w-full h-36 sm:h-40 object-cover object-top opacity-95 group-hover/img:opacity-100 group-hover/img:scale-[1.02] transition-all duration-300"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/65 via-slate-900/20 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent pointer-events-none" />
 
                     {/* Top badge */}
                     <div className="absolute top-2.5 left-3 pointer-events-none">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/90 text-amber-900 border border-amber-400/60 backdrop-blur-md flex items-center gap-1 font-bold shadow-sm">
-                        <Sparkles className="w-3 h-3 text-amber-600" />
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-950/80 text-amber-300 border border-amber-400/50 backdrop-blur-md flex items-center gap-1 font-bold shadow-sm">
+                        <Sparkles className="w-3 h-3 text-amber-400" />
                         <span>AI / ML Portfolio</span>
                       </span>
                     </div>
@@ -291,8 +291,8 @@ export const About: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="pt-2 flex items-center gap-2 text-xs text-slate-700 font-medium">
-                  <ShieldCheck className="w-4 h-4 text-amber-600" />
+                <div className="pt-2 flex items-center gap-2 text-xs text-slate-300 font-normal">
+                  <ShieldCheck className="w-4 h-4 text-amber-400" />
                   <span>Committed to transparent deliverables &amp; high engineering standards.</span>
                 </div>
               </div>

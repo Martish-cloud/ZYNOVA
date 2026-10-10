@@ -57,13 +57,13 @@ export const Hero: React.FC = () => {
 
         {/* Founder Credential Line */}
         <div
-          className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full liquid-glass-pill text-[11px] sm:text-xs text-slate-800 font-medium mb-6 sm:mb-7 transition-all duration-700 delay-150 ease-out ${
+          className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full liquid-glass-pill text-[11px] sm:text-xs text-slate-200 font-medium mb-6 sm:mb-7 transition-all duration-700 delay-150 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           }`}
         >
-          <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
+          <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
           <span>
-            Founded by <span className="text-slate-950 font-bold">{siteConfig.founder.name}</span> &bull; {siteConfig.founder.location}
+            Founded by <span className="text-white font-bold">{siteConfig.founder.name}</span> &bull; {siteConfig.founder.location}
           </span>
         </div>
 
@@ -92,11 +92,11 @@ export const Hero: React.FC = () => {
               scrollToSection("services");
             }}
             variant="secondary"
-            className="!px-5 sm:!px-6 !py-2.5 sm:!py-3 text-xs sm:text-sm font-semibold !border-amber-500/45 hover:!border-amber-500 hover:!text-amber-900"
+            className="!px-5 sm:!px-6 !py-2.5 sm:!py-3 text-xs sm:text-sm font-semibold !text-slate-100 !border-amber-400/50 hover:!border-amber-400 hover:!text-amber-300"
             cursorLabel="SERVICES"
           >
             <span>Explore Services</span>
-            <ArrowRight className="w-4 h-4 text-amber-600" />
+            <ArrowRight className="w-4 h-4 text-amber-400" />
           </MagneticButton>
 
           <MagneticButton
@@ -107,10 +107,10 @@ export const Hero: React.FC = () => {
               scrollToSection("projects");
             }}
             variant="ghost"
-            className="!px-4 sm:!px-5 !py-2.5 sm:!py-3 text-xs sm:text-sm font-semibold liquid-glass-pill !text-slate-900 hover:!border-amber-500/60 hover:!text-amber-900"
+            className="!px-4 sm:!px-5 !py-2.5 sm:!py-3 text-xs sm:text-sm font-semibold liquid-glass-pill !text-slate-100 hover:!border-amber-400/60 hover:!text-amber-300"
             cursorLabel="WORK"
           >
-            <Layers className="w-4 h-4 text-slate-700" />
+            <Layers className="w-4 h-4 text-slate-300" />
             <span>View Projects</span>
           </MagneticButton>
         </div>
@@ -124,8 +124,8 @@ export const Hero: React.FC = () => {
           <span className="text-[11px] font-mono tracking-widest uppercase group-hover:tracking-wider transition-all font-semibold">
             SCROLL TO EXPLORE
           </span>
-          <div className="w-6 h-9 rounded-full border-2 border-white/65 bg-white/55 backdrop-blur-md flex items-start justify-center p-1 group-hover:border-amber-400 transition-colors shadow-sm">
-            <span className="w-1.5 h-2 rounded-full bg-amber-500 animate-bounce" />
+          <div className="w-6 h-9 rounded-full border-2 border-white/40 bg-white/[0.14] backdrop-blur-md flex items-start justify-center p-1 group-hover:border-amber-400 transition-colors shadow-sm">
+            <span className="w-1.5 h-2 rounded-full bg-amber-400 animate-bounce" />
           </div>
         </button>
       </div>

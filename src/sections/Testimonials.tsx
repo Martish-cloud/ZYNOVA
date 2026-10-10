@@ -36,7 +36,7 @@ const ClientAvatar: React.FC<{ name: string; avatar: string; image?: string }> =
 const RatingStars: React.FC<{ rating: number }> = ({ rating }) => {
   return (
     <div className="flex items-center gap-1.5 shrink-0 pt-0.5">
-      <div className="flex items-center gap-0.5 text-amber-500">
+      <div className="flex items-center gap-0.5 text-amber-400">
         {[1, 2, 3, 4, 5].map((starNum) => {
           const isFull = rating >= starNum;
           const isHalf = !isFull && rating >= starNum - 0.5;
@@ -67,7 +67,7 @@ const RatingStars: React.FC<{ rating: number }> = ({ rating }) => {
           );
         })}
       </div>
-      <span className="text-[11px] font-mono font-bold text-amber-700 ml-0.5">
+      <span className="text-[11px] font-mono font-bold text-amber-300 ml-0.5">
         {rating.toFixed(1)}
       </span>
     </div>
@@ -96,7 +96,7 @@ export const Testimonials: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-slate-200/70 overflow-hidden text-slate-800"
+      className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-white/20 overflow-hidden text-slate-100"
     >
       {/* Ambient background glow accents */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-b from-amber-300/15 via-yellow-200/10 to-transparent rounded-full blur-[150px] pointer-events-none z-0" />
@@ -148,7 +148,7 @@ export const Testimonials: React.FC = () => {
                     {/* Large Subtle Decorative Quotation Watermark */}
                     <span
                       aria-hidden="true"
-                      className="absolute -top-3 right-4 font-serif text-6xl sm:text-7xl text-amber-600/[0.12] group-hover:text-amber-600/[0.20] transition-colors pointer-events-none select-none leading-none z-0"
+                      className="absolute -top-3 right-4 font-serif text-6xl sm:text-7xl text-amber-400/[0.12] group-hover:text-amber-400/[0.20] transition-colors pointer-events-none select-none leading-none z-0"
                     >
                       &ldquo;
                     </span>
@@ -156,7 +156,7 @@ export const Testimonials: React.FC = () => {
                     {/* Inner Card Top Content */}
                     <div className="relative z-10 space-y-3">
                       {/* Client Profile Header & Rating */}
-                      <div className="flex items-start justify-between gap-3 border-b border-white/55 pb-3">
+                      <div className="flex items-start justify-between gap-3 border-b border-white/20 pb-3">
                         <div className="flex items-center gap-2.5">
                           <ClientAvatar
                             name={item.name}
@@ -165,21 +165,21 @@ export const Testimonials: React.FC = () => {
                           />
 
                           <div>
-                            <h3 className="font-heading text-sm sm:text-base font-bold text-slate-900 group-hover:text-amber-800 transition-colors flex items-center gap-1.5">
+                            <h3 className="font-heading text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors flex items-center gap-1.5">
                               <span>{item.name}</span>
                               {!item.isSample && (
                                 <span
                                   title="Verified Client"
-                                  className="text-amber-600 inline-flex items-center"
+                                  className="text-amber-400 inline-flex items-center"
                                 >
                                   <CheckCircle2 className="w-3.5 h-3.5" />
                                 </span>
                               )}
                             </h3>
-                            <p className="text-[11.5px] text-slate-800 font-semibold">
+                            <p className="text-[11.5px] text-amber-200 font-medium">
                               {item.role}
                             </p>
-                            <p className="text-[10.5px] font-mono text-slate-700 flex items-center gap-1 mt-0.5 font-medium">
+                            <p className="text-[10.5px] font-mono text-slate-300 flex items-center gap-1 mt-0.5 font-normal">
                               <span>{item.company}</span>
                               <span>&bull;</span>
                               <span>{item.flag}</span>
@@ -191,23 +191,23 @@ export const Testimonials: React.FC = () => {
                       </div>
 
                       {/* Review Narrative Quote */}
-                      <p className="text-xs text-slate-900 leading-relaxed italic font-sans font-medium pt-0.5">
+                      <p className="text-xs text-slate-200 leading-relaxed italic font-sans font-normal pt-0.5">
                         &ldquo;{item.review}&rdquo;
                       </p>
                     </div>
 
                     {/* Card Footer: Service Pill Badge */}
-                    <div className="relative z-10 pt-3.5 mt-3 border-t border-white/55 flex items-center justify-between gap-2">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-amber-100/80 text-amber-900 border border-amber-400/60 group-hover:border-amber-500 transition-colors">
+                    <div className="relative z-10 pt-3.5 mt-3 border-t border-white/20 flex items-center justify-between gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-amber-400/[0.16] text-amber-300 border border-amber-400/35 group-hover:border-amber-300 transition-colors">
                         {item.service.includes("📱") ? (
                           <span className="text-[11px] leading-none select-none">📱</span>
                         ) : (
-                          <Sparkles className="w-3 h-3 text-amber-600" />
+                          <Sparkles className="w-3 h-3 text-amber-400" />
                         )}
                         <span>{item.service.replace("📱", "").trim()}</span>
                       </span>
 
-                      <span className="text-[10.5px] font-mono text-slate-700 font-semibold">
+                      <span className="text-[10.5px] font-mono text-slate-300 font-medium">
                         {item.country}
                       </span>
                     </div>
@@ -220,8 +220,8 @@ export const Testimonials: React.FC = () => {
 
         {/* Global Market Footprint Trust Indicator */}
         <div className="p-4 sm:p-5 rounded-xl liquid-glass-panel border-amber-400/45 max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-900 font-heading mb-2.5">
-            <Globe2 className="w-4 h-4 text-amber-600" />
+          <div className="flex items-center justify-center gap-2 text-xs font-bold text-white font-heading mb-2.5">
+            <Globe2 className="w-4 h-4 text-amber-400" />
             <span>Supporting clients across India &amp; global markets</span>
           </div>
 
@@ -229,7 +229,7 @@ export const Testimonials: React.FC = () => {
             {globalMarkets.map((market) => (
               <span
                 key={market.name}
-                className="px-2.5 py-1 rounded-lg liquid-glass-subcard text-[11px] font-mono text-slate-900 font-semibold flex items-center gap-1.5 shadow-xs"
+                className="px-2.5 py-1 rounded-lg liquid-glass-subcard text-[11px] font-mono text-slate-100 font-medium flex items-center gap-1.5 shadow-xs"
               >
                 <span>{market.flag}</span>
                 <span>{market.name}</span>
@@ -237,7 +237,7 @@ export const Testimonials: React.FC = () => {
             ))}
           </div>
 
-          <p className="text-[10.5px] text-slate-800 font-mono font-medium mt-2.5">
+          <p className="text-[10.5px] text-slate-300 font-mono font-normal mt-2.5">
             Available for remote collaboration, contract engagements, and international client projects.
           </p>
         </div>
