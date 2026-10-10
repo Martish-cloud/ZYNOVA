@@ -279,7 +279,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Name */}
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                      <label className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                         Full Name *
                       </label>
                       <input
@@ -289,7 +289,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="e.g. Ankita Shrivastav"
-                        className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium placeholder-slate-400 focus:outline-none focus:border-amber-400/60 transition-colors ${
+                        className={`w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold placeholder:text-slate-300 placeholder:font-normal focus:outline-none focus:border-amber-400/80 transition-colors ${
                           errors.name ? "!border-rose-500" : ""
                         }`}
                       />
@@ -302,7 +302,7 @@ export const BookCall: React.FC<BookCallProps> = ({
 
                     {/* Email */}
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                      <label className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                         Work Email *
                       </label>
                       <input
@@ -312,7 +312,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Ankita.shri@yahoo.com"
-                        className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium placeholder-slate-400 focus:outline-none focus:border-amber-400/60 transition-colors ${
+                        className={`w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold placeholder:text-slate-300 placeholder:font-normal focus:outline-none focus:border-amber-400/80 transition-colors ${
                           errors.email ? "!border-rose-500" : ""
                         }`}
                       />
@@ -327,7 +327,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Company */}
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                      <label className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                         Company / Brand
                       </label>
                       <input
@@ -337,13 +337,13 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Acme Corp (Optional)"
-                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium placeholder-slate-400 focus:outline-none focus:border-amber-400/60 transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold placeholder:text-slate-300 placeholder:font-normal focus:outline-none focus:border-amber-400/80 transition-colors"
                       />
                     </div>
 
                     {/* Service */}
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                      <label className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                         Service Interested In
                       </label>
                       <select
@@ -351,10 +351,10 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium focus:outline-none focus:border-amber-400/60 transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-amber-400/80 transition-colors cursor-pointer"
                       >
                         {serviceOptions.map((opt) => (
-                          <option key={opt} value={opt} className="bg-slate-900 text-slate-100">
+                          <option key={opt} value={opt} className="bg-[#12100e] text-slate-100 py-1.5 font-medium">
                             {opt}
                           </option>
                         ))}
@@ -365,7 +365,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                   {/* Date & Time Preferences */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase flex items-center gap-1.5">
+                      <label className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-amber-400" />
                         <span>Preferred Date</span>
                       </label>
@@ -375,12 +375,12 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium focus:outline-none focus:border-amber-400/60 transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-amber-400/80 transition-colors"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase flex items-center gap-1.5">
+                      <label className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider flex items-center gap-1.5">
                         <Clock className="w-3.5 h-3.5 text-amber-400" />
                         <span>Preferred Time (UTC / IST)</span>
                       </label>
@@ -390,14 +390,14 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium focus:outline-none focus:border-amber-400/60 transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-amber-400/80 transition-colors"
                       />
                     </div>
                   </div>
 
                   {/* Message Brief */}
                   <div>
-                    <label className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                    <label className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                       Project Brief / Goals *
                     </label>
                     <textarea
@@ -407,7 +407,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                       onFocus={() => setCursor("input")}
                       onBlur={resetCursor}
                       placeholder="Tell us about the project requirements, existing stack, and expected timeframe..."
-                      className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium placeholder-slate-400 focus:outline-none focus:border-amber-400/60 transition-colors resize-none ${
+                      className={`w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold placeholder:text-slate-300 placeholder:font-normal focus:outline-none focus:border-amber-400/80 transition-colors resize-none ${
                         errors.message ? "!border-rose-500" : ""
                       }`}
                     />

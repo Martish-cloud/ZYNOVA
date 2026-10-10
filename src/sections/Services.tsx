@@ -3,6 +3,8 @@ import { createPortal } from "react-dom";
 import { servicesData } from "../data/services";
 import type { ServiceItem } from "../data/services";
 import { SectionHeading } from "../components/ui/SectionHeading";
+import { useInViewAnimation } from "../hooks/useInViewAnimation";
+import { CardBorderLight } from "../components/ui/CardBorderLight";
 import { useCursor } from "../context/useCursor";
 import {
   Layout,
@@ -67,6 +69,7 @@ interface ServiceCardProps {
   onOpenDetails: (service: ServiceItem) => void;
   onAddToCart: (service: ServiceItem, e: React.MouseEvent) => void;
   onUpdateQuantity: (id: string, delta: number, e: React.MouseEvent) => void;
+  retriggerKey?: string | number;
 }
 
 const ServiceCard = React.memo<ServiceCardProps>(({
@@ -74,35 +77,24 @@ const ServiceCard = React.memo<ServiceCardProps>(({
   quantity,
   onOpenDetails,
   onAddToCart,
-  onUpdateQuantity
+  onUpdateQuantity,
+  retriggerKey
 }) => {
   const { setCursor, resetCursor } = useCursor();
-  const serviceNum = parseInt(service.number, 10) || 1;
-  const shimmerDelay = `${-(serviceNum * 1.5)}s`;
 
   return (
     <div
       onClick={() => onOpenDetails(service)}
       onMouseEnter={() => setCursor("project", "EXPAND")}
       onMouseLeave={resetCursor}
-      className="group relative p-[1px] rounded-xl overflow-hidden bg-white/20 shadow-[0_8px_28px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_36px_-10px_rgba(245,158,11,0.35)] transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
+      className="group relative rounded-xl overflow-hidden liquid-glass-card shadow-[0_8px_28px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_36px_-10px_rgba(245,158,11,0.35)] transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
     >
-      {/* Continuous Animated Shimmer Stroke along Outer Border */}
-      <div
-        className="absolute -inset-[150%] animate-border-beam-spin pointer-events-none opacity-75 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background:
-            "conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 290deg, rgba(245, 158, 11, 0.25) 320deg, rgba(245, 158, 11, 0.9) 345deg, rgba(217, 119, 6, 1) 355deg, rgba(245, 158, 11, 0.9) 358deg, transparent 360deg)",
-          animationDelay: shimmerDelay
-        }}
-      />
+      {/* Synchronized Perimeter-Only Border Light (Zero interior bleed) */}
+      <CardBorderLight retriggerKey={retriggerKey} />
 
       {/* Inner Card Content */}
-      <div className="relative z-10 p-2 sm:p-2.5 md:p-3 rounded-[calc(0.75rem-1px)] bg-gradient-to-br from-white/[0.18] via-white/[0.14] to-white/[0.10] backdrop-blur-xl saturate-150 border border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_24px_rgba(0,0,0,0.18)] h-full flex flex-col justify-between overflow-hidden">
-        {/* Subtle top-corner accent gradient */}
-        <div className="absolute top-0 right-0 w-20 h-20 bg-amber-400/15 rounded-full blur-xl group-hover:bg-amber-400/25 transition-colors pointer-events-none" />
-
-      <div>
+      <div className="relative z-10 p-2 sm:p-2.5 md:p-3 rounded-xl bg-gradient-to-br from-white/[0.18] via-white/[0.14] to-white/[0.10] backdrop-blur-xl saturate-150 border border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_24px_rgba(0,0,0,0.18)] h-full flex flex-col justify-between overflow-hidden">
+        <div>
         {/* Header with Number and Icon */}
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-1">
@@ -239,6 +231,12 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
+  const { ref: sectionRef, isInView, triggerCount, prefersReducedMotion } = useInViewAnimation<HTMLElement>({
+    threshold: 0.1,
+    rootMargin: "0px 0px -5% 0px",
+    retrigger: true
+  });
+
   const filteredServices = useMemo(
     () => servicesData.filter((s) => s.category === activeCategory),
     [activeCategory]
@@ -316,7 +314,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
   };
 
   return (
-    <section id="services" className="py-12 sm:py-16 md:py-20 relative z-10 bg-transparent">
+    <section id="services" ref={sectionRef} className="py-12 sm:py-16 md:py-20 relative z-10 bg-transparent">
       <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8">
         <SectionHeading
           badge="WHAT WE BUILD"
@@ -359,22 +357,76 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
           </div>
         </div>
 
-        {/* Service Cards Grid - 5 Columns on Desktop (lg:grid-cols-5), 3 on Tablet (md:grid-cols-3), 2 on Mobile (grid-cols-2) */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-2.5 md:gap-3 xl:gap-3.5">
-          {filteredServices.map((service) => {
-            const cartItem = cart.find((item) => item.id === service.id);
-            return (
-              <ServiceCard
-                key={service.id}
-                service={service}
-                quantity={cartItem ? cartItem.quantity : 0}
-                onOpenDetails={handleOpenDetails}
-                onAddToCart={addToCart}
-                onUpdateQuantity={updateQuantity}
-              />
-            );
-          })}
-        </div>
+        {/* Service Cards Grid */}
+        {activeCategory === "web-software" ? (
+          <div className="space-y-2 sm:space-y-2.5 md:space-y-3 xl:space-y-3.5">
+            {/* Top Row: 5 Cards (Moves smoothly from Left to Right on scroll entrance) */}
+            <div
+              className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-2.5 md:gap-3 xl:gap-3.5 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                isInView && !prefersReducedMotion
+                  ? "lg:translate-x-0 opacity-100"
+                  : "lg:-translate-x-4 opacity-90"
+              }`}
+            >
+              {filteredServices.slice(0, 5).map((service) => {
+                const cartItem = cart.find((item) => item.id === service.id);
+                return (
+                  <ServiceCard
+                    key={service.id}
+                    service={service}
+                    quantity={cartItem ? cartItem.quantity : 0}
+                    onOpenDetails={handleOpenDetails}
+                    onAddToCart={addToCart}
+                    onUpdateQuantity={updateQuantity}
+                    retriggerKey={triggerCount}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Second Row: 5 Cards (Moves smoothly from Right to Left on scroll entrance) */}
+            <div
+              className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-2.5 md:gap-3 xl:gap-3.5 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                isInView && !prefersReducedMotion
+                  ? "lg:translate-x-0 opacity-100"
+                  : "lg:translate-x-4 opacity-90"
+              }`}
+            >
+              {filteredServices.slice(5, 10).map((service) => {
+                const cartItem = cart.find((item) => item.id === service.id);
+                return (
+                  <ServiceCard
+                    key={service.id}
+                    service={service}
+                    quantity={cartItem ? cartItem.quantity : 0}
+                    onOpenDetails={handleOpenDetails}
+                    onAddToCart={addToCart}
+                    onUpdateQuantity={updateQuantity}
+                    retriggerKey={triggerCount}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          /* Data & BI (7 Cards - Perimeter-only synchronized border light, zero interior bleed) */
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-2.5 md:gap-3 xl:gap-3.5">
+            {filteredServices.map((service) => {
+              const cartItem = cart.find((item) => item.id === service.id);
+              return (
+                <ServiceCard
+                  key={service.id}
+                  service={service}
+                  quantity={cartItem ? cartItem.quantity : 0}
+                  onOpenDetails={handleOpenDetails}
+                  onAddToCart={addToCart}
+                  onUpdateQuantity={updateQuantity}
+                  retriggerKey={triggerCount}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* ============================================================ */}

@@ -417,7 +417,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Full Name */}
                     <div>
-                      <label htmlFor="contact-name" className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                      <label htmlFor="contact-name" className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                         Full Name *
                       </label>
                       <input
@@ -428,7 +428,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Ankita Shrivastav"
-                        className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium placeholder-slate-400 focus:outline-none focus:border-amber-400/60 transition-colors ${
+                        className={`w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold placeholder:text-slate-300 placeholder:font-normal focus:outline-none focus:border-amber-400/80 transition-colors ${
                           errors.name ? "!border-rose-500" : ""
                         }`}
                       />
@@ -441,7 +441,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
 
                     {/* Work Email */}
                     <div>
-                      <label htmlFor="contact-email" className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                      <label htmlFor="contact-email" className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                         Work Email *
                       </label>
                       <input
@@ -452,7 +452,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="ankita@company.com"
-                        className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium placeholder-slate-400 focus:outline-none focus:border-amber-400/60 transition-colors ${
+                        className={`w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold placeholder:text-slate-300 placeholder:font-normal focus:outline-none focus:border-amber-400/80 transition-colors ${
                           errors.email ? "!border-rose-500" : ""
                         }`}
                       />
@@ -467,7 +467,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Company / Brand */}
                     <div>
-                      <label htmlFor="contact-company" className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                      <label htmlFor="contact-company" className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                         Company / Brand
                       </label>
                       <input
@@ -478,13 +478,13 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Your Organization"
-                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium placeholder-slate-400 focus:outline-none focus:border-amber-400/60 transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold placeholder:text-slate-300 placeholder:font-normal focus:outline-none focus:border-amber-400/80 transition-colors"
                       />
                     </div>
 
                     {/* Service Interested In */}
                     <div>
-                      <label htmlFor="contact-service" className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                      <label htmlFor="contact-service" className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                         Service Interested In
                       </label>
                       <select
@@ -493,10 +493,10 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onChange={(e) => setFormData({ ...formData, serviceRequired: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium focus:outline-none focus:border-amber-400/60 transition-colors cursor-pointer"
+                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-amber-400/80 transition-colors cursor-pointer"
                       >
                         {servicesList.map((srv) => (
-                          <option key={srv} value={srv} className="bg-slate-900 text-slate-100">
+                          <option key={srv} value={srv} className="bg-[#12100e] text-slate-100 py-1.5 font-medium">
                             {srv}
                           </option>
                         ))}
@@ -507,7 +507,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Preferred Date */}
                     <div>
-                      <label htmlFor="contact-date" className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                      <label htmlFor="contact-date" className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                         Preferred Date
                       </label>
                       <input
@@ -517,13 +517,13 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium focus:outline-none focus:border-amber-400/60 transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-amber-400/80 transition-colors"
                       />
                     </div>
 
                     {/* Preferred Time */}
                     <div>
-                      <label htmlFor="contact-time" className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                      <label htmlFor="contact-time" className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                         Preferred Time
                       </label>
                       <input
@@ -533,14 +533,14 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium focus:outline-none focus:border-amber-400/60 transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-amber-400/80 transition-colors"
                       />
                     </div>
                   </div>
 
                   {/* Project Brief */}
                   <div>
-                    <label htmlFor="contact-brief" className="block text-[11px] font-mono text-slate-200 font-bold mb-1 uppercase">
+                    <label htmlFor="contact-brief" className="block text-[11px] font-mono text-slate-100 font-bold mb-1.5 uppercase tracking-wider">
                       Project Brief *
                     </label>
                     <textarea
@@ -551,7 +551,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                       onFocus={() => setCursor("input")}
                       onBlur={resetCursor}
                       placeholder="Describe what you want to achieve, timeline expectations, or specific system requirements..."
-                      className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-medium placeholder-slate-400 focus:outline-none focus:border-amber-400/60 transition-colors resize-none ${
+                      className={`w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold placeholder:text-slate-300 placeholder:font-normal focus:outline-none focus:border-amber-400/80 transition-colors resize-none ${
                         errors.message ? "!border-rose-500" : ""
                       }`}
                     />
