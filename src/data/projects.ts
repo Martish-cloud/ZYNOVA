@@ -100,7 +100,7 @@ export const projectsData: ProjectItem[] = [
   },
   {
     id: "travelaya",
-    title: "Travelaya",
+    title: "TraveLaya",
     subtitle: "Travel / Booking Platform",
     category: "Web",
     filterCategory: "web",
@@ -295,11 +295,12 @@ export const projectsData: ProjectItem[] = [
     badge: "Restaurant / Food Ordering",
     image: "/projects/tastybites.webp",
     pricing: {
-      startingPrice: "$240",
-      basicPrice: "$240",
-      standardPrice: "$360 – $480",
-      premiumPrice: "$600 – $840",
-      customPrice: "Up to $960+"
+      startingPrice: "$420",
+      basicPrice: "$420",
+      standardPrice: "$720",
+      premiumPrice: "$1,400",
+      customPrice: "$2,200+",
+      pricingQualification: "Includes interactive digital menu, dish customization modifiers, cart drawer, payment integration & order pipeline."
     },
     demoUrl: "https://tasty-bites.zynovaprofessional.workers.dev"
   },
@@ -329,11 +330,12 @@ export const projectsData: ProjectItem[] = [
     badge: "Real Estate",
     image: "/projects/HomeX.webp",
     pricing: {
-      startingPrice: "$360",
-      basicPrice: "$360",
-      standardPrice: "$480 – $660",
-      premiumPrice: "$780 – $1,080",
-      customPrice: "Up to $1,440+"
+      startingPrice: "$440",
+      basicPrice: "$440",
+      standardPrice: "$740",
+      premiumPrice: "$1,450",
+      customPrice: "$2,400+",
+      pricingQualification: "Includes property listing search matrix, interactive map views, mortgage calculators & CRM-ready lead workflows."
     },
     demoUrl: "https://home-x-nu.vercel.app"
   },
@@ -963,3 +965,67 @@ export const mobileProjectsData: ProjectItem[] = [
 
 // Append mobile applications into master projectsData
 projectsData.push(...mobileProjectsData);
+
+// Lookup map for O(1) resolution without duplicating project records
+const projectByIdMap = new Map<string, ProjectItem>(
+  projectsData.map((p) => [p.id, p])
+);
+
+const pickProjectsByIds = (ids: readonly string[]): ProjectItem[] =>
+  ids
+    .map((id) => projectByIdMap.get(id))
+    .filter((p): p is ProjectItem => Boolean(p));
+
+// ============================================================
+// PRE-COMPUTED ORDERED COLLECTIONS (Zero Runtime Allocations)
+// ============================================================
+
+// 1. Websites -> A. Premium Websites
+export const PREMIUM_WEBSITES_COLLECTION: ProjectItem[] = pickProjectsByIds([
+  "hamhold-jewellery",
+  "aaranya-silks",
+  "tastybites",
+  "homex"
+]);
+
+// 1. Websites -> B. Business Websites
+export const BUSINESS_WEBSITES_COLLECTION: ProjectItem[] = pickProjectsByIds([
+  "trendzo",
+  "bizgrow",
+  "travelaya",
+  "mediwell",
+  "learnhub"
+]);
+
+// 1. Websites -> C. UI-Optimized Websites
+export const UI_OPTIMIZED_WEBSITES_COLLECTION: ProjectItem[] = pickProjectsByIds([
+  "bookverse",
+  "techzone",
+  "bloom-beauty",
+  "freshmart"
+]);
+
+// 2. Android Apps (SafeHer MUST be first)
+export const ANDROID_APPS_COLLECTION: ProjectItem[] = pickProjectsByIds([
+  "safeher-android",
+  "skillhub-android",
+  "snapstory-android",
+  "fitzone-android"
+]);
+
+// 3. iOS Apps -> A. Lifestyle & Wellness Apps
+export const IOS_LIFESTYLE_WELLNESS_COLLECTION: ProjectItem[] = pickProjectsByIds([
+  "nourish-ios",
+  "zenith-ios",
+  "eventify-ios",
+  "medsync-ios"
+]);
+
+// 3. iOS Apps -> B. Productivity & Everyday Apps
+export const IOS_PRODUCTIVITY_EVERYDAY_COLLECTION: ProjectItem[] = pickProjectsByIds([
+  "petpal-ios",
+  "mindflow-ios",
+  "taskly-ios",
+  "terratrack-ios"
+]);
+

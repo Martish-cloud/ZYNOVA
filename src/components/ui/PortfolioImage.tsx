@@ -13,7 +13,7 @@ interface PortfolioImageProps {
   fallbackBadge?: string;
 }
 
-export const PortfolioImage: React.FC<PortfolioImageProps> = ({
+export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
   src,
   alt,
   className = "",
@@ -30,14 +30,18 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = ({
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    setFallbackStage(0);
+    setIsPermanentlyFailed(false);
     if (imgRef.current && imgRef.current.complete) {
       setIsLoaded(true);
+    } else {
+      setIsLoaded(false);
     }
   }, [src]);
 
   // Compute WebP and PNG sources
   const { webpSrc, pngSrc, alternateSrc } = useMemo(() => {
-    let cleanSrc = src.trim();
+    const cleanSrc = src.trim();
     let webp = cleanSrc;
     let png = cleanSrc;
     let altSource: string | null = null;
@@ -114,9 +118,12 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = ({
         onLoad={() => setIsLoaded(true)}
         className={`${className} ${isLoaded || isPriority ? "opacity-100" : "opacity-90"} transition-opacity duration-300`}
         style={{
-          aspectRatio: `${width} / ${height}`
+          aspectRatio: `${width} / ${height}`,
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden"
         }}
       />
     </picture>
   );
-};
+});
+PortfolioImage.displayName = "PortfolioImage";

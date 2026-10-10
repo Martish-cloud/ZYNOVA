@@ -352,12 +352,41 @@
   will-change: transform;
 }
 
-/* Pause card floating animation on hover for effortless interaction */
+/* Pause card floating animation on hover or when section is offscreen for effortless interaction & GPU efficiency */
 .animate-subtle-float-1:hover,
 .animate-subtle-float-2:hover,
 .animate-subtle-float-3:hover,
-.animate-subtle-float-4:hover {
+.animate-subtle-float-4:hover,
+.is-offscreen .animate-subtle-float-1,
+.is-offscreen .animate-subtle-float-2,
+.is-offscreen .animate-subtle-float-3,
+.is-offscreen .animate-subtle-float-4 {
   animation-play-state: paused;
+}
+
+/* Smooth GPU-Composited Fade & Slide Entrance for Category/Collection Switching */
+@keyframes project-grid-enter {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-project-grid-enter {
+  animation: project-grid-enter 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hide horizontal scrollbar on touch category rails while keeping smooth scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Automatic Left-to-Right Continuous Project Showcase Loop */
