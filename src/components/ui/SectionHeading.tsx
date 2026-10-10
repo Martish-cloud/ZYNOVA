@@ -53,7 +53,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
 
       {/* Main Section Title */}
       <h2
-        className={`text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-2.5 sm:mb-3 leading-snug ${
+        className={`text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.65)] mb-2.5 sm:mb-3 leading-snug ${
           shouldAnimate
             ? `transition-all duration-700 delay-75 ease-out ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
@@ -63,7 +63,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
       >
         {title}{" "}
         {highlightedTitle && (
-          <span className="bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#FEF08A] via-[#FBBF24] to-[#F59E0B] bg-clip-text text-transparent">
             {highlightedTitle}
           </span>
         )}
@@ -72,7 +72,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
       {/* Subtitle with Entrance Motion */}
       {subtitle && (
         <p
-          className={`text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed max-w-2xl font-normal ${
+          className={`text-xs sm:text-sm md:text-base text-slate-200 drop-shadow-[0_1px_10px_rgba(0,0,0,0.65)] leading-relaxed max-w-2xl font-normal ${
             shouldAnimate
               ? `transition-all duration-700 delay-150 ease-out ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"

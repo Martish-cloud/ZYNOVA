@@ -44,7 +44,7 @@ export const Process: React.FC = () => {
         {/* Interactive Timeline Stepper on Desktop */}
         <div className="hidden lg:flex items-center justify-between mb-10 sm:mb-12 relative">
           {/* Connecting line */}
-          <div className="absolute top-1/2 left-4 right-4 h-0.5 bg-slate-200 -translate-y-1/2 z-0" />
+          <div className="absolute top-1/2 left-4 right-4 h-0.5 bg-white/30 -translate-y-1/2 z-0" />
           
           {processData.map((step, idx) => {
             const isSelected = activeStep === idx;
@@ -55,19 +55,19 @@ export const Process: React.FC = () => {
                 onMouseEnter={() => setCursor("button")}
                 onMouseLeave={resetCursor}
                 className={`relative z-10 flex flex-col items-center group cursor-pointer transition-transform ${
-                  isSelected ? "scale-105" : "opacity-80 hover:opacity-100"
+                  isSelected ? "scale-105" : "opacity-85 hover:opacity-100"
                 }`}
               >
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center font-heading font-black text-xs transition-all duration-300 ${
                     isSelected
-                      ? "bg-gradient-to-tr from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-bold shadow-[0_6px_18px_rgba(245,158,11,0.35)] border border-amber-300"
-                      : "bg-white border border-slate-300 text-slate-600 group-hover:border-amber-400/60 shadow-xs"
+                      ? "bg-gradient-to-tr from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-bold shadow-[0_6px_18px_rgba(245,158,11,0.45)] border border-amber-300"
+                      : "bg-white/90 border border-slate-200 text-slate-800 group-hover:border-amber-400/60 shadow-sm"
                   }`}
                 >
                   {step.number}
                 </div>
-                <span className="text-[10px] font-mono mt-1.5 font-bold tracking-wider text-slate-700 uppercase">
+                <span className="text-[10px] font-mono mt-1.5 font-bold tracking-wider text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.75)] uppercase">
                   {step.title}
                 </span>
               </button>

@@ -48,7 +48,7 @@ export const Hero: React.FC = () => {
 
         {/* Supporting Copy */}
         <p
-          className={`text-xs sm:text-sm md:text-base text-slate-600 max-w-2xl leading-relaxed mb-4 sm:mb-5 font-normal transition-all duration-700 delay-100 ease-out ${
+          className={`text-xs sm:text-sm md:text-base text-slate-100 drop-shadow-[0_2px_12px_rgba(0,0,0,0.7)] max-w-2xl leading-relaxed mb-4 sm:mb-5 font-normal transition-all duration-700 delay-100 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           }`}
         >
@@ -57,7 +57,7 @@ export const Hero: React.FC = () => {
 
         {/* Founder Credential Line */}
         <div
-          className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-amber-400/40 backdrop-blur-md text-[11px] sm:text-xs text-slate-600 mb-6 sm:mb-7 shadow-xs transition-all duration-700 delay-150 ease-out ${
+          className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/85 border border-amber-400/50 backdrop-blur-md text-[11px] sm:text-xs text-slate-700 mb-6 sm:mb-7 shadow-sm transition-all duration-700 delay-150 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           }`}
         >
@@ -107,10 +107,10 @@ export const Hero: React.FC = () => {
               scrollToSection("projects");
             }}
             variant="ghost"
-            className="!px-4 sm:!px-5 !py-2.5 sm:!py-3 text-xs sm:text-sm font-medium bg-white/70 backdrop-blur-sm border border-slate-200/90 hover:border-amber-500/50 hover:text-amber-800 shadow-2xs"
+            className="!px-4 sm:!px-5 !py-2.5 sm:!py-3 text-xs sm:text-sm font-semibold bg-white/85 backdrop-blur-md border border-slate-200/90 hover:border-amber-500/50 hover:text-amber-800 shadow-sm"
             cursorLabel="WORK"
           >
-            <Layers className="w-4 h-4 text-slate-500" />
+            <Layers className="w-4 h-4 text-slate-600" />
             <span>View Projects</span>
           </MagneticButton>
         </div>
@@ -118,13 +118,13 @@ export const Hero: React.FC = () => {
         {/* Subtle Scroll Down Indicator */}
         <button
           onClick={() => scrollToSection("stats")}
-          className="inline-flex flex-col items-center gap-2 text-slate-500 hover:text-amber-700 transition-colors cursor-pointer group"
+          className="inline-flex flex-col items-center gap-2 text-slate-200 hover:text-amber-300 drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)] transition-colors cursor-pointer group"
           aria-label="Scroll down to explore"
         >
           <span className="text-[11px] font-mono tracking-widest uppercase group-hover:tracking-wider transition-all font-semibold">
             SCROLL TO EXPLORE
           </span>
-          <div className="w-6 h-9 rounded-full border-2 border-slate-300 bg-white/70 backdrop-blur-sm flex items-start justify-center p-1 group-hover:border-amber-500 transition-colors shadow-2xs">
+          <div className="w-6 h-9 rounded-full border-2 border-white/60 bg-white/80 backdrop-blur-sm flex items-start justify-center p-1 group-hover:border-amber-400 transition-colors shadow-sm">
             <span className="w-1.5 h-2 rounded-full bg-amber-500 animate-bounce" />
           </div>
         </button>

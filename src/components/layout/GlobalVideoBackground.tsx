@@ -40,31 +40,31 @@ export const GlobalVideoBackground: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#f8fafc]" aria-hidden="true" style={{ contain: "strict" }}>
-      {/* Tech 02 Video with Direct Hardware GPU Acceleration (Subtle frosted light-glass motion backdrop) */}
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#0a0806]" aria-hidden="true" style={{ contain: "strict" }}>
+      {/* Effects Video - VDO (5) across entire background with 20% blur and Hardware GPU Acceleration */}
       <video
         ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
-        preload="metadata"
-        className="w-full h-full object-cover object-center pointer-events-none opacity-[0.12] saturate-50"
+        preload="auto"
+        className="w-full h-full object-cover object-center pointer-events-none"
         style={{
-          transform: "translate3d(0, 0, 0)",
+          filter: "blur(4px)",
+          WebkitFilter: "blur(4px)",
+          transform: "scale(1.04) translate3d(0, 0, 0)",
           backfaceVisibility: "hidden",
           WebkitBackfaceVisibility: "hidden"
         }}
-        src="/videos/tech-02.mp4"
+        src="/videos/vdo-5.mp4"
       >
-        <source src="/videos/tech-02.mp4" type="video/mp4" />
-        <source src="/videos/Tech 02.mp4" type="video/mp4" />
+        <source src="/videos/vdo-5.mp4" type="video/mp4" />
+        <source src="/Effects Video/VDO (5).mp4" type="video/mp4" />
       </video>
 
-      {/* Frosted Pearl-White & Soft Neutral Radial Glass Veil */}
-      <div className="absolute inset-0 bg-white/80 pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.65)_20%,#f8fafc_90%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-[#f8fafc]/60 to-[#f1f5f9]/85 pointer-events-none" />
+      {/* Subtle atmospheric contrast veil so Light Glassmorphism cards & headings pop over the 20% blurred video */}
+      <div className="absolute inset-0 bg-black/15 pointer-events-none" />
     </div>
   );
 };
