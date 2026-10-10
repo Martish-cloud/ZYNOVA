@@ -56,7 +56,7 @@ export const WhyZynova: React.FC = () => {
   ];
 
   return (
-    <section id="why-zynova" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-slate-200/70">
+    <section id="why-zynova" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-white/25">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="WHY WORK WITH ZYNOVA"
@@ -95,33 +95,33 @@ export const WhyZynova: React.FC = () => {
                   <div
                     onMouseEnter={() => setCursor("project", r.title)}
                     onMouseLeave={resetCursor}
-                    className="h-full group relative p-5 sm:p-5.5 rounded-xl bg-gradient-to-b from-white/90 to-slate-50/85 border border-slate-200/80 hover:border-amber-400/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(15,23,42,0.05),inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_20px_40px_-15px_rgba(245,158,11,0.18)] flex flex-col justify-between"
+                    className="h-full group relative p-5 sm:p-5.5 rounded-xl liquid-glass-card flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3.5 sm:mb-4">
-                        <span className="font-mono text-xs font-bold text-slate-400 group-hover:text-amber-600 transition-colors">
+                        <span className="font-mono text-xs font-bold text-slate-600 group-hover:text-amber-700 transition-colors">
                           // {r.number}
                         </span>
-                        <div className="p-2.5 rounded-lg bg-amber-50/80 border border-amber-200/80 group-hover:scale-110 group-hover:border-amber-400/50 transition-transform">
+                        <div className="p-2.5 rounded-lg bg-amber-50/75 border border-amber-300/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] group-hover:scale-110 group-hover:border-amber-400 transition-transform">
                           <Icon className={`w-4 h-4 sm:w-4.5 sm:h-4.5 ${r.iconColor}`} />
                         </div>
                       </div>
 
-                      <h3 className="text-base sm:text-lg font-bold font-heading text-slate-900 mb-1.5 group-hover:text-amber-700 transition-colors">
+                      <h3 className="text-base sm:text-lg font-bold font-heading text-slate-900 mb-1.5 group-hover:text-amber-800 transition-colors">
                         {r.title}
                       </h3>
 
-                      <div className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-amber-50/90 text-amber-800 mb-3 border border-amber-300/60 font-semibold">
+                      <div className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-amber-50/85 text-amber-900 mb-3 border border-amber-400/55 font-bold">
                         {r.highlight}
                       </div>
 
-                      <p className="text-xs text-slate-600 leading-relaxed">
+                      <p className="text-xs text-slate-700 font-medium leading-relaxed">
                         {r.description}
                       </p>
                     </div>
 
-                    <div className="pt-4 mt-4 border-t border-slate-200/80 flex items-center gap-2 text-[10.5px] font-mono text-slate-500">
-                      <Sparkles className="w-3 h-3 text-amber-500" />
+                    <div className="pt-4 mt-4 border-t border-white/55 flex items-center gap-2 text-[10.5px] font-mono font-semibold text-slate-700">
+                      <Sparkles className="w-3 h-3 text-amber-600" />
                       <span>Standard on every engagement</span>
                     </div>
                   </div>

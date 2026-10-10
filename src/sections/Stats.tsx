@@ -54,7 +54,7 @@ export const Stats: React.FC = () => {
     <section
       id="stats"
       ref={containerRef}
-      className="relative z-10 py-10 sm:py-12 bg-white/60 border-y border-slate-200/80 backdrop-blur-md"
+      className="relative z-10 py-10 sm:py-12 bg-white/18 border-y border-white/35 backdrop-blur-md"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5">
@@ -68,7 +68,7 @@ export const Stats: React.FC = () => {
                     ? { transitionDelay: isInView ? `${idx * 75}ms` : "0ms" }
                     : undefined
                 }
-                className={`relative p-[1.5px] rounded-2xl overflow-hidden bg-slate-200/80 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_8px_28px_rgba(15,23,42,0.05)] hover:shadow-[0_14px_34px_-8px_rgba(245,158,11,0.2)] group hover:-translate-y-1 ${
+                className={`relative p-[1.5px] rounded-2xl overflow-hidden bg-white/45 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_10px_32px_rgba(15,23,42,0.12)] hover:shadow-[0_16px_38px_-8px_rgba(245,158,11,0.24)] group hover:-translate-y-1 ${
                   isInView
                     ? "opacity-100 translate-y-0 scale-100"
                     : "opacity-0 translate-y-4 scale-[0.97]"
@@ -85,12 +85,12 @@ export const Stats: React.FC = () => {
                 />
 
                 {/* Card Interior */}
-                <div className="relative z-10 p-4.5 sm:p-5 rounded-[calc(1rem-1.5px)] bg-gradient-to-b from-white/95 to-slate-50/95 backdrop-blur-xl h-full flex flex-col justify-between">
+                <div className="relative z-10 p-4.5 sm:p-5 rounded-[calc(1rem-1.5px)] bg-gradient-to-br from-white/68 via-white/54 to-white/44 backdrop-blur-xl saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] h-full flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-3">
-                    <div className="p-2 rounded-xl bg-amber-50/90 border border-amber-200/80 group-hover:scale-110 transition-transform">
+                    <div className="p-2 rounded-xl bg-amber-50/75 border border-amber-300/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] group-hover:scale-110 transition-transform">
                       <Icon className={`w-4.5 h-4.5 ${stat.color}`} />
                     </div>
-                    <span className="font-mono text-[9px] uppercase text-slate-400 font-semibold tracking-widest">
+                    <span className="font-mono text-[9px] uppercase text-slate-600 font-bold tracking-widest">
                       METRIC // 0{idx + 1}
                     </span>
                   </div>
@@ -99,11 +99,11 @@ export const Stats: React.FC = () => {
                     {stat.value}
                   </div>
 
-                  <div className="text-xs sm:text-sm font-semibold text-slate-800 mb-0.5">
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 mb-0.5">
                     {stat.label}
                   </div>
 
-                  <p className="text-[11px] sm:text-xs text-slate-500 leading-snug">
+                  <p className="text-[11px] sm:text-xs text-slate-700 font-medium leading-snug">
                     {stat.subtext}
                   </p>
                 </div>

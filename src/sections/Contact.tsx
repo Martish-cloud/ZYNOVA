@@ -134,11 +134,11 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
         />
 
         {/* WhatsApp Community / Group Card */}
-        <div className="mb-8 sm:mb-10 rounded-2xl bg-gradient-to-br from-white/95 via-amber-50/40 to-white/95 border border-amber-400/40 hover:border-amber-400/70 backdrop-blur-2xl p-5 sm:p-6 lg:p-7 shadow-[0_16px_45px_rgba(15,23,42,0.07),inset_0_1px_0_rgba(255,255,255,0.95)] hover:shadow-[0_24px_60px_rgba(212,175,55,0.16)] transition-all duration-300">
+        <div className="mb-8 sm:mb-10 rounded-2xl liquid-glass-panel border-amber-400/45 hover:border-amber-400/70 p-5 sm:p-6 lg:p-7 transition-all duration-300">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
             {/* Left Side (Desktop) / Top (Mobile): Heading, Description, CTA Button */}
             <div className="md:col-span-7 lg:col-span-8 space-y-3 text-left">
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-50/90 border border-amber-300/70 text-[11px] font-mono font-semibold text-amber-800">
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-100/80 border border-amber-400/60 text-[11px] font-mono font-bold text-amber-900">
                 <WhatsAppIcon className="w-3.5 h-3.5 text-[#25D366]" />
                 <span>OFFICIAL WHATSAPP COMMUNITY</span>
               </div>
@@ -147,7 +147,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                 JOIN THE ZYNOVA COMMUNITY
               </h3>
 
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
+              <p className="text-xs sm:text-sm text-slate-800 font-medium leading-relaxed max-w-xl">
                 Connect with ZYNOVA on WhatsApp for project discussions, updates, enquiries and direct communication.
               </p>
 
@@ -178,12 +178,12 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Left Column: Direct Info & Professional Contact Cards */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-white/95 to-slate-50/90 border border-amber-400/40 backdrop-blur-2xl shadow-[0_16px_40px_rgba(15,23,42,0.06),inset_0_1px_0_rgba(255,255,255,0.95)] space-y-4">
+            <div className="p-5 sm:p-6 rounded-2xl liquid-glass-panel border-amber-400/45 space-y-4">
               <div>
                 <span className="font-heading text-xl font-black tracking-wide text-slate-900 block">
                   {siteConfig.brandName}
                 </span>
-                <span className="text-xs font-mono font-semibold text-amber-700">
+                <span className="text-xs font-mono font-bold text-amber-800">
                   {siteConfig.positioning}
                 </span>
               </div>
@@ -196,21 +196,21 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   aria-label={`Email ZYNOVA at ${siteConfig.contact.email}`}
                   onMouseEnter={() => setCursor("link")}
                   onMouseLeave={resetCursor}
-                  className="group p-3 sm:p-3.5 rounded-xl bg-white hover:bg-amber-50/50 border border-slate-200/90 hover:border-amber-400/70 transition-all duration-300 shadow-xs hover:shadow-[0_10px_25px_rgba(212,175,55,0.15)] flex flex-col justify-between min-h-[95px] focus:outline-none focus:ring-2 focus:ring-amber-400/60 cursor-pointer"
+                  className="group p-3 sm:p-3.5 rounded-xl liquid-glass-subcard hover:border-amber-400/70 transition-all duration-300 shadow-xs hover:shadow-[0_10px_25px_rgba(212,175,55,0.15)] flex flex-col justify-between min-h-[95px] focus:outline-none focus:ring-2 focus:ring-amber-400/60 cursor-pointer"
                 >
                   <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <div className="p-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-600 group-hover:scale-110 group-hover:text-amber-700 group-hover:border-amber-400 transition-all duration-300">
+                    <div className="p-1.5 rounded-lg bg-amber-100/80 border border-amber-300 text-amber-700 group-hover:scale-110 group-hover:text-amber-800 group-hover:border-amber-400 transition-all duration-300">
                       <Mail className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
                     </div>
-                    <span className="text-[9.5px] font-mono tracking-widest uppercase text-slate-500">
+                    <span className="text-[9.5px] font-mono tracking-widest uppercase text-slate-700 font-bold">
                       EMAIL
                     </span>
                   </div>
                   <div>
-                    <span className="font-mono text-xs font-semibold text-slate-900 group-hover:text-amber-800 transition-colors break-all block">
+                    <span className="font-mono text-xs font-bold text-slate-900 group-hover:text-amber-800 transition-colors break-all block">
                       {siteConfig.contact.email}
                     </span>
-                    <span className="text-[10.5px] text-amber-700 group-hover:text-amber-800 group-hover:underline flex items-center gap-1 mt-0.5 font-medium">
+                    <span className="text-[10.5px] text-amber-800 group-hover:text-amber-900 group-hover:underline flex items-center gap-1 mt-0.5 font-semibold">
                       Send us an email &rarr;
                     </span>
                   </div>
@@ -222,21 +222,21 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   aria-label={`Call ZYNOVA at ${siteConfig.contact.phone}`}
                   onMouseEnter={() => setCursor("link")}
                   onMouseLeave={resetCursor}
-                  className="group p-3 sm:p-3.5 rounded-xl bg-white hover:bg-amber-50/50 border border-slate-200/90 hover:border-amber-400/70 transition-all duration-300 shadow-xs hover:shadow-[0_10px_25px_rgba(212,175,55,0.15)] flex flex-col justify-between min-h-[95px] focus:outline-none focus:ring-2 focus:ring-amber-400/60 cursor-pointer"
+                  className="group p-3 sm:p-3.5 rounded-xl liquid-glass-subcard hover:border-amber-400/70 transition-all duration-300 shadow-xs hover:shadow-[0_10px_25px_rgba(212,175,55,0.15)] flex flex-col justify-between min-h-[95px] focus:outline-none focus:ring-2 focus:ring-amber-400/60 cursor-pointer"
                 >
                   <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <div className="p-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-600 group-hover:scale-110 group-hover:text-amber-700 group-hover:border-amber-400 transition-all duration-300">
+                    <div className="p-1.5 rounded-lg bg-amber-100/80 border border-amber-300 text-amber-700 group-hover:scale-110 group-hover:text-amber-800 group-hover:border-amber-400 transition-all duration-300">
                       <Phone className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-12" />
                     </div>
-                    <span className="text-[9.5px] font-mono tracking-widest uppercase text-slate-500">
+                    <span className="text-[9.5px] font-mono tracking-widest uppercase text-slate-700 font-bold">
                       PHONE
                     </span>
                   </div>
                   <div>
-                    <span className="font-mono text-xs font-semibold text-slate-900 group-hover:text-amber-800 transition-colors block">
+                    <span className="font-mono text-xs font-bold text-slate-900 group-hover:text-amber-800 transition-colors block">
                       {siteConfig.contact.phone}
                     </span>
-                    <span className="text-[10.5px] text-amber-700 group-hover:text-amber-800 group-hover:underline flex items-center gap-1 mt-0.5 font-medium">
+                    <span className="text-[10.5px] text-amber-800 group-hover:text-amber-900 group-hover:underline flex items-center gap-1 mt-0.5 font-semibold">
                       Call us &rarr;
                     </span>
                   </div>
@@ -250,61 +250,61 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   aria-label="Join the ZYNOVA WhatsApp group"
                   onMouseEnter={() => setCursor("button", "JOIN")}
                   onMouseLeave={resetCursor}
-                  className="group p-3 sm:p-3.5 rounded-xl bg-white hover:bg-amber-50/50 border border-slate-200/90 hover:border-amber-400/70 transition-all duration-300 shadow-xs hover:shadow-[0_10px_25px_rgba(212,175,55,0.15)] flex flex-col justify-between min-h-[95px] focus:outline-none focus:ring-2 focus:ring-amber-400/60 cursor-pointer sm:col-span-2"
+                  className="group p-3 sm:p-3.5 rounded-xl liquid-glass-subcard hover:border-amber-400/70 transition-all duration-300 shadow-xs hover:shadow-[0_10px_25px_rgba(212,175,55,0.15)] flex flex-col justify-between min-h-[95px] focus:outline-none focus:ring-2 focus:ring-amber-400/60 cursor-pointer sm:col-span-2"
                 >
                   <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <div className="p-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-[#25D366] group-hover:scale-110 group-hover:border-amber-400 transition-all duration-300">
+                    <div className="p-1.5 rounded-lg bg-emerald-100/80 border border-emerald-300 text-[#128C7E] group-hover:scale-110 group-hover:border-amber-400 transition-all duration-300">
                       <WhatsAppIcon className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-12" />
                     </div>
-                    <span className="text-[9.5px] font-mono font-semibold tracking-widest uppercase text-amber-700">
+                    <span className="text-[9.5px] font-mono font-bold tracking-widest uppercase text-amber-800">
                       WHATSAPP
                     </span>
                   </div>
                   <div>
-                    <span className="text-xs sm:text-sm font-semibold text-slate-900 group-hover:text-amber-800 transition-colors block">
+                    <span className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-amber-800 transition-colors block">
                       Join the ZYNOVA WhatsApp Group
                     </span>
-                    <span className="text-[10.5px] text-amber-700 group-hover:text-amber-800 group-hover:underline flex items-center gap-1 mt-0.5 font-medium">
+                    <span className="text-[10.5px] text-amber-800 group-hover:text-amber-900 group-hover:underline flex items-center gap-1 mt-0.5 font-semibold">
                       Connect on WhatsApp &rarr;
                     </span>
                   </div>
                 </a>
 
                 {/* Card 4: Location */}
-                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-slate-200/90 shadow-xs flex flex-col justify-between min-h-[95px]">
+                <div className="p-3 sm:p-3.5 rounded-xl liquid-glass-subcard shadow-xs flex flex-col justify-between min-h-[95px]">
                   <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <div className="p-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-600">
+                    <div className="p-1.5 rounded-lg bg-amber-100/80 border border-amber-300 text-amber-700">
                       <MapPin className="w-3.5 h-3.5" />
                     </div>
-                    <span className="text-[9.5px] font-mono tracking-widest uppercase text-slate-500">
+                    <span className="text-[9.5px] font-mono tracking-widest uppercase text-slate-700 font-bold">
                       LOCATION
                     </span>
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-slate-900 block">
+                    <span className="text-xs font-bold text-slate-900 block">
                       {siteConfig.contact.location}
                     </span>
-                    <span className="text-[10.5px] text-slate-500 block mt-0.5">
+                    <span className="text-[10.5px] text-slate-700 font-medium block mt-0.5">
                       HQ &amp; Engineering Operations
                     </span>
                   </div>
                 </div>
 
                 {/* Card 5: Response Time */}
-                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-slate-200/90 shadow-xs flex flex-col justify-between min-h-[95px]">
+                <div className="p-3 sm:p-3.5 rounded-xl liquid-glass-subcard shadow-xs flex flex-col justify-between min-h-[95px]">
                   <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <div className="p-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-600">
+                    <div className="p-1.5 rounded-lg bg-amber-100/80 border border-amber-300 text-amber-700">
                       <Clock className="w-3.5 h-3.5" />
                     </div>
-                    <span className="text-[9.5px] font-mono tracking-widest uppercase text-slate-500">
+                    <span className="text-[9.5px] font-mono tracking-widest uppercase text-slate-700 font-bold">
                       RESPONSE TIME
                     </span>
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-slate-900 block">
+                    <span className="text-xs font-bold text-slate-900 block">
                       {siteConfig.contact.responseGuarantee}
                     </span>
-                    <span className="text-[10.5px] text-emerald-600 block mt-0.5 font-semibold">
+                    <span className="text-[10.5px] text-emerald-700 block mt-0.5 font-bold">
                       Direct leadership review
                     </span>
                   </div>
@@ -312,17 +312,17 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
               </div>
 
               {/* BOOK A CALL CTA Block */}
-              <div className="pt-3 border-t border-slate-200/80">
+              <div className="pt-3 border-t border-white/55">
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-amber-700">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-800">
                     DIRECT CONSULTATION
                   </span>
-                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold text-emerald-600">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-emerald-700">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     Open for Booking
                   </span>
                 </div>
-                <p className="text-xs text-slate-600 leading-relaxed mb-3">
+                <p className="text-xs text-slate-800 font-medium leading-relaxed mb-3">
                   Prefer to schedule a dedicated technical discovery session? Pick a convenient time on our calendar.
                 </p>
                 <MagneticButton
@@ -341,11 +341,11 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
               </div>
 
               {/* Verification / Leadership Note */}
-              <div className="pt-3 border-t border-slate-200/80 text-xs text-slate-600 space-y-1.5">
+              <div className="pt-3 border-t border-white/55 text-xs text-slate-800 font-medium space-y-1.5">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
                   <span>
-                    Founder: <strong className="text-slate-900">{siteConfig.founder.name}</strong>
+                    Founder: <strong className="text-slate-950 font-bold">{siteConfig.founder.name}</strong>
                   </span>
                 </div>
                 <p className="text-[11.5px] leading-relaxed">
@@ -357,7 +357,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
 
           {/* Right Column: Interactive Contact Form */}
           <div className="lg:col-span-7">
-            <div className="p-5 sm:p-6 rounded-2xl bg-white/95 border border-amber-400/40 backdrop-blur-2xl shadow-[0_20px_50px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.95)] relative">
+            <div className="p-5 sm:p-6 rounded-2xl liquid-glass-panel border-amber-400/45 relative">
               <h3 className="text-xl sm:text-2xl font-bold font-heading text-slate-900 mb-4">
                 Send an Enquiry
               </h3>
@@ -370,8 +370,8 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   <h4 className="text-xl font-bold font-heading text-slate-900">
                     Enquiry Dispatched!
                   </h4>
-                  <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="text-slate-900 font-semibold">{formData.name}</span>. Your enquiry details for <span className="text-amber-700 font-semibold">{formData.serviceRequired}</span> have been sent directly to <span className="text-amber-800 font-mono font-semibold">{siteConfig.contact.email}</span>. Our team will review your project brief and reply to you at <span className="text-slate-900 font-mono">{formData.email}</span> within 12 hours.
+                  <p className="text-xs sm:text-sm text-slate-800 font-medium max-w-md mx-auto leading-relaxed">
+                    Thank you, <span className="text-slate-950 font-bold">{formData.name}</span>. Your enquiry details for <span className="text-amber-800 font-bold">{formData.serviceRequired}</span> have been sent directly to <span className="text-amber-900 font-mono font-bold">{siteConfig.contact.email}</span>. Our team will review your project brief and reply to you at <span className="text-slate-950 font-mono font-bold">{formData.email}</span> within 12 hours.
                   </p>
                   <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                     <a
@@ -406,7 +406,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                           message: ""
                         });
                       }}
-                      className="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:text-slate-900 hover:bg-slate-200 border border-slate-200 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400/50"
+                      className="px-4 py-2 rounded-lg text-xs font-semibold liquid-glass-subcard text-slate-800 hover:text-slate-950 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400/50"
                     >
                       Send Another Message
                     </button>
@@ -417,7 +417,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Full Name */}
                     <div>
-                      <label htmlFor="contact-name" className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                      <label htmlFor="contact-name" className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                         Full Name *
                       </label>
                       <input
@@ -428,12 +428,12 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Ankita Shrivastav"
-                        className={`w-full px-3.5 py-2 rounded-lg bg-white border text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors shadow-xs ${
-                          errors.name ? "border-rose-500" : "border-slate-300"
+                        className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium placeholder-slate-500 focus:outline-none transition-colors ${
+                          errors.name ? "!border-rose-500" : ""
                         }`}
                       />
                       {errors.name && (
-                        <span className="text-[10px] text-rose-600 mt-1 block">
+                        <span className="text-[10px] text-rose-700 font-semibold mt-1 block">
                           {errors.name}
                         </span>
                       )}
@@ -441,7 +441,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
 
                     {/* Work Email */}
                     <div>
-                      <label htmlFor="contact-email" className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                      <label htmlFor="contact-email" className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                         Work Email *
                       </label>
                       <input
@@ -452,12 +452,12 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="ankita@company.com"
-                        className={`w-full px-3.5 py-2 rounded-lg bg-white border text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors shadow-xs ${
-                          errors.email ? "border-rose-500" : "border-slate-300"
+                        className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium placeholder-slate-500 focus:outline-none transition-colors ${
+                          errors.email ? "!border-rose-500" : ""
                         }`}
                       />
                       {errors.email && (
-                        <span className="text-[10px] text-rose-600 mt-1 block">
+                        <span className="text-[10px] text-rose-700 font-semibold mt-1 block">
                           {errors.email}
                         </span>
                       )}
@@ -467,7 +467,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Company / Brand */}
                     <div>
-                      <label htmlFor="contact-company" className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                      <label htmlFor="contact-company" className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                         Company / Brand
                       </label>
                       <input
@@ -478,13 +478,13 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Your Organization"
-                        className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors shadow-xs"
+                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium placeholder-slate-500 focus:outline-none transition-colors"
                       />
                     </div>
 
                     {/* Service Interested In */}
                     <div>
-                      <label htmlFor="contact-service" className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                      <label htmlFor="contact-service" className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                         Service Interested In
                       </label>
                       <select
@@ -493,7 +493,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onChange={(e) => setFormData({ ...formData, serviceRequired: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors cursor-pointer shadow-xs"
+                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium focus:outline-none transition-colors cursor-pointer"
                       >
                         {servicesList.map((srv) => (
                           <option key={srv} value={srv} className="bg-white text-slate-900">
@@ -507,7 +507,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Preferred Date */}
                     <div>
-                      <label htmlFor="contact-date" className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                      <label htmlFor="contact-date" className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                         Preferred Date
                       </label>
                       <input
@@ -517,13 +517,13 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors shadow-xs"
+                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium focus:outline-none transition-colors"
                       />
                     </div>
 
                     {/* Preferred Time */}
                     <div>
-                      <label htmlFor="contact-time" className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                      <label htmlFor="contact-time" className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                         Preferred Time
                       </label>
                       <input
@@ -533,14 +533,14 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors shadow-xs"
+                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium focus:outline-none transition-colors"
                       />
                     </div>
                   </div>
 
                   {/* Project Brief */}
                   <div>
-                    <label htmlFor="contact-brief" className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                    <label htmlFor="contact-brief" className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                       Project Brief *
                     </label>
                     <textarea
@@ -551,12 +551,12 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                       onFocus={() => setCursor("input")}
                       onBlur={resetCursor}
                       placeholder="Describe what you want to achieve, timeline expectations, or specific system requirements..."
-                      className={`w-full px-3.5 py-2 rounded-lg bg-white border text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors resize-none shadow-xs ${
-                        errors.message ? "border-rose-500" : "border-slate-300"
+                      className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium placeholder-slate-500 focus:outline-none transition-colors resize-none ${
+                        errors.message ? "!border-rose-500" : ""
                       }`}
                     />
                     {errors.message && (
-                      <span className="text-[10px] text-rose-600 mt-1 block">
+                      <span className="text-[10px] text-rose-700 font-semibold mt-1 block">
                         {errors.message}
                       </span>
                     )}
@@ -586,14 +586,14 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
               )}
 
               {/* Secondary CTA: Prefer email? */}
-              <div className="mt-4 pt-3 border-t border-slate-200/80 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-600">
+              <div className="mt-4 pt-3 border-t border-white/55 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-800 font-medium">
                 <span>Prefer email?</span>
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
                   aria-label={`Email ZYNOVA directly at ${siteConfig.contact.email}`}
                   onMouseEnter={() => setCursor("link")}
                   onMouseLeave={resetCursor}
-                  className="font-mono text-amber-700 hover:text-amber-800 underline hover:no-underline transition-colors inline-flex items-center gap-1.5 font-semibold min-h-[44px] sm:min-h-0 py-1 cursor-pointer focus:outline-none focus:ring-1 focus:ring-amber-500/50 rounded"
+                  className="font-mono text-amber-800 hover:text-amber-900 underline hover:no-underline transition-colors inline-flex items-center gap-1.5 font-bold min-h-[44px] sm:min-h-0 py-1 cursor-pointer focus:outline-none focus:ring-1 focus:ring-amber-500/50 rounded"
                 >
                   <Mail className="w-3.5 h-3.5 text-amber-600" />
                   {siteConfig.contact.email}

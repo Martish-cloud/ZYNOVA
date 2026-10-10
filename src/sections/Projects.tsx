@@ -190,14 +190,14 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
       onMouseEnter={() => setCursor("project", "VIEW")}
       onMouseLeave={resetCursor}
       style={{ contain: "content" }}
-      className="group relative rounded-xl bg-white/85 backdrop-blur-md border border-emerald-500/35 hover:border-emerald-500/70 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 shadow-[0_8px_28px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_34px_-10px_rgba(16,185,129,0.22)] flex flex-col justify-between cursor-pointer overflow-hidden h-full gpu-layer"
+      className="group relative rounded-xl liquid-glass-card !border-emerald-400/50 hover:!border-emerald-500/80 hover:!shadow-[0_16px_38px_-10px_rgba(16,185,129,0.28)] flex flex-col justify-between cursor-pointer overflow-hidden h-full gpu-layer"
     >
       {/* Top border light sweep on hover */}
       <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20" />
 
       <div>
         {/* Visual Header Representation */}
-        <div className="w-full h-32 sm:h-36 md:h-40 relative overflow-hidden bg-slate-100 border-b border-slate-200/80 group-hover:border-emerald-400/40 transition-colors">
+        <div className="w-full h-32 sm:h-36 md:h-40 relative overflow-hidden bg-slate-100/70 border-b border-white/55 group-hover:border-emerald-400/50 transition-colors">
           <PortfolioImage
             src={excelDashboards[0]?.image || "/images/dashboards/excel/excel-dashboard-1.webp"}
             alt="Excel Dashboard Analytics"
@@ -210,7 +210,7 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
 
           {/* Top-left category tag */}
           <div className="absolute top-2 left-2 z-10">
-            <span className="px-1.5 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono uppercase tracking-widest bg-white/95 text-emerald-700 border border-emerald-500/30 flex items-center gap-1 shadow-xs font-semibold">
+            <span className="px-1.5 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono uppercase tracking-widest bg-white/88 backdrop-blur-md text-emerald-800 border border-emerald-500/40 flex items-center gap-1 shadow-xs font-bold">
               <FileSpreadsheet className="w-2.5 h-2.5 text-emerald-600" />
               <span>EXCEL</span>
             </span>
@@ -218,13 +218,13 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
 
           {/* Category Pill on top-right */}
           <div className="absolute top-2 right-2 z-10">
-            <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-mono font-semibold bg-white/95 text-emerald-700 border border-emerald-500/30 shadow-xs">
+            <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-mono font-bold bg-white/88 backdrop-blur-md text-emerald-800 border border-emerald-500/40 shadow-xs">
               {excelDashboards.length} DASHBOARDS
             </span>
           </div>
 
           {/* Floating Tag over Visual */}
-          <div className="absolute bottom-1.5 left-2 px-1.5 py-0.5 rounded bg-white/95 border border-emerald-500/30 text-[8px] sm:text-[8.5px] font-mono text-emerald-700 flex items-center gap-1 pointer-events-none shadow-xs font-medium">
+          <div className="absolute bottom-1.5 left-2 px-1.5 py-0.5 rounded bg-white/88 backdrop-blur-md border border-emerald-500/40 text-[8px] sm:text-[8.5px] font-mono text-emerald-800 flex items-center gap-1 pointer-events-none shadow-xs font-semibold">
             <Sparkles className="w-2.5 h-2.5 text-emerald-600" />
             <span>Formulas &bull; Auto</span>
           </div>
@@ -233,19 +233,19 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
         {/* Card Content Area */}
         <div className="p-3 sm:p-3.5 md:p-4">
           <div className="flex items-center justify-between gap-1.5 mb-1">
-            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-slate-900 group-hover:text-emerald-700 transition-colors truncate">
+            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-slate-900 group-hover:text-emerald-800 transition-colors truncate">
               Excel Dashboard Analytics
             </h3>
-            <span className="text-[8px] sm:text-[8.5px] font-mono px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0 font-semibold">
+            <span className="text-[8px] sm:text-[8.5px] font-mono px-1.5 py-0.5 rounded bg-emerald-50/80 text-emerald-800 border border-emerald-300/70 shrink-0 font-bold">
               Data &amp; BI
             </span>
           </div>
 
-          <p className="text-[9.5px] sm:text-[10.5px] font-semibold text-emerald-600 font-mono mb-1 truncate">
+          <p className="text-[9.5px] sm:text-[10.5px] font-bold text-emerald-700 font-mono mb-1 truncate">
             Dashboards &amp; Analytics
           </p>
 
-          <p className="text-[10.5px] sm:text-xs text-slate-600 leading-relaxed line-clamp-2 mb-2.5">
+          <p className="text-[10.5px] sm:text-xs text-slate-700 font-medium leading-relaxed line-clamp-2 mb-2.5">
             Interactive Excel dashboards, automated reporting, Pivot Tables, formulas, data analysis and reporting.
           </p>
 
@@ -254,7 +254,7 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
             {["Dashboards", "Pivot Tables", "Automation", "Formulas"].map((chip) => (
               <span
                 key={chip}
-                className="px-1.5 py-0.5 rounded text-[8.5px] sm:text-[9px] font-mono bg-slate-100/90 text-slate-700 border border-slate-200/80"
+                className="px-1.5 py-0.5 rounded text-[8.5px] sm:text-[9px] font-mono font-medium bg-white/50 text-slate-800 border border-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
               >
                 {chip}
               </span>
@@ -262,32 +262,32 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
           </div>
 
           {/* Direct Transparent Pricing Module */}
-          <div className="pt-2 border-t border-slate-200/80">
+          <div className="pt-2 border-t border-white/55">
             <div className="flex items-baseline justify-between gap-1 mb-1.5">
-              <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-slate-500 uppercase">
+              <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-slate-700 uppercase">
                 Starting From
               </span>
-              <span className="text-sm sm:text-base font-mono font-extrabold text-transparent bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 bg-clip-text">
+              <span className="text-sm sm:text-base font-mono font-extrabold text-transparent bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-800 bg-clip-text">
                 $18
               </span>
             </div>
-            <div className="grid grid-cols-3 gap-1 text-center bg-slate-50/90 rounded-lg p-1.5 border border-slate-200/80">
-              <div className="px-1 py-0.5 rounded bg-white border border-slate-200/60">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-500 font-semibold">Basic</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-700">$18</span>
+            <div className="grid grid-cols-3 gap-1 text-center liquid-glass-subcard rounded-lg p-1.5">
+              <div className="px-1 py-0.5 rounded bg-white/60 border border-white/75">
+                <span className="block text-[7.5px] font-mono uppercase text-slate-700 font-bold">Basic</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-800">$18</span>
               </div>
-              <div className="px-1 py-0.5 rounded bg-white border border-slate-200/60">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-500 font-semibold">Std</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-700">$65</span>
+              <div className="px-1 py-0.5 rounded bg-white/60 border border-white/75">
+                <span className="block text-[7.5px] font-mono uppercase text-slate-700 font-bold">Std</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-800">$65</span>
               </div>
-              <div className="px-1 py-0.5 rounded bg-white border border-slate-200/60">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-500 font-semibold">Prem</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-700">$176</span>
+              <div className="px-1 py-0.5 rounded bg-white/60 border border-white/75">
+                <span className="block text-[7.5px] font-mono uppercase text-slate-700 font-bold">Prem</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-800">$176</span>
               </div>
             </div>
             <div className="mt-1 flex items-center justify-between text-[8.5px] sm:text-[9.5px] font-mono">
-              <span className="text-slate-500">Range:</span>
-              <span className="text-emerald-700 font-semibold">$18 – $176</span>
+              <span className="text-slate-700 font-semibold">Range:</span>
+              <span className="text-emerald-800 font-bold">$18 – $176</span>
             </div>
           </div>
         </div>
@@ -295,7 +295,7 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
 
       {/* Bottom Action Line */}
       <div className="px-3 sm:px-3.5 md:px-4 pb-3 sm:pb-3.5 pt-0.5">
-        <div className="pt-2 border-t border-slate-200/80 flex items-center justify-between text-xs font-semibold text-emerald-600 group-hover:text-emerald-700 transition-colors">
+        <div className="pt-2 border-t border-white/55 flex items-center justify-between text-xs font-bold text-emerald-700 group-hover:text-emerald-800 transition-colors">
           <span className="font-heading uppercase tracking-wider text-[9.5px] sm:text-[10.5px]">View Dashboards</span>
           <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" />
         </div>
@@ -316,14 +316,14 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
       onMouseEnter={() => setCursor("project", "VIEW")}
       onMouseLeave={resetCursor}
       style={{ contain: "content" }}
-      className="group relative rounded-xl bg-white/85 backdrop-blur-md border border-amber-500/35 hover:border-amber-500/70 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 shadow-[0_8px_28px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_34px_-10px_rgba(245,158,11,0.22)] flex flex-col justify-between cursor-pointer overflow-hidden h-full gpu-layer"
+      className="group relative rounded-xl liquid-glass-card !border-amber-400/50 hover:!border-amber-500/80 hover:!shadow-[0_16px_38px_-10px_rgba(245,158,11,0.28)] flex flex-col justify-between cursor-pointer overflow-hidden h-full gpu-layer"
     >
       {/* Top border light sweep on hover */}
       <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-amber-400/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20" />
 
       <div>
         {/* Visual Header Representation */}
-        <div className="w-full h-32 sm:h-36 md:h-40 relative overflow-hidden bg-slate-100 border-b border-slate-200/80 group-hover:border-amber-400/40 transition-colors">
+        <div className="w-full h-32 sm:h-36 md:h-40 relative overflow-hidden bg-slate-100/70 border-b border-white/55 group-hover:border-amber-400/50 transition-colors">
           <PortfolioImage
             src={powerBIDashboards[0]?.image || "/images/dashboards/powerbi/powerbi-dashboard-1.webp"}
             alt="Power BI Dashboards — Professional"
@@ -336,7 +336,7 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
 
           {/* Top-left category tag */}
           <div className="absolute top-2 left-2 z-10">
-            <span className="px-1.5 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono uppercase tracking-widest bg-white/95 text-amber-700 border border-amber-500/30 flex items-center gap-1 shadow-xs font-semibold">
+            <span className="px-1.5 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono uppercase tracking-widest bg-white/88 backdrop-blur-md text-amber-800 border border-amber-500/40 flex items-center gap-1 shadow-xs font-bold">
               <BarChart3 className="w-2.5 h-2.5 text-amber-600" />
               <span>POWER BI</span>
             </span>
@@ -344,13 +344,13 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
 
           {/* Category Pill on top-right */}
           <div className="absolute top-2 right-2 z-10">
-            <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-mono font-semibold bg-white/95 text-amber-700 border border-amber-500/30 shadow-xs">
+            <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-mono font-bold bg-white/88 backdrop-blur-md text-amber-800 border border-amber-500/40 shadow-xs">
               {powerBIDashboards.length} DASHBOARDS
             </span>
           </div>
 
           {/* Floating Tag over Visual */}
-          <div className="absolute bottom-1.5 left-2 px-1.5 py-0.5 rounded bg-white/95 border border-amber-500/30 text-[8px] sm:text-[8.5px] font-mono text-amber-700 flex items-center gap-1 pointer-events-none shadow-xs font-medium">
+          <div className="absolute bottom-1.5 left-2 px-1.5 py-0.5 rounded bg-white/88 backdrop-blur-md border border-amber-500/40 text-[8px] sm:text-[8.5px] font-mono text-amber-800 flex items-center gap-1 pointer-events-none shadow-xs font-semibold">
             <TrendingUp className="w-2.5 h-2.5 text-amber-600" />
             <span>DAX &bull; BI Models</span>
           </div>
@@ -359,19 +359,19 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
         {/* Card Content Area */}
         <div className="p-3 sm:p-3.5 md:p-4">
           <div className="flex items-center justify-between gap-1.5 mb-1">
-            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-slate-900 group-hover:text-amber-700 transition-colors truncate">
+            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-slate-900 group-hover:text-amber-800 transition-colors truncate">
               Power BI Dashboards — Professional
             </h3>
-            <span className="text-[8px] sm:text-[8.5px] font-mono px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200 shrink-0 font-semibold">
+            <span className="text-[8px] sm:text-[8.5px] font-mono px-1.5 py-0.5 rounded bg-amber-50/80 text-amber-800 border border-amber-300/70 shrink-0 font-bold">
               Data &amp; BI
             </span>
           </div>
 
-          <p className="text-[9.5px] sm:text-[10.5px] font-semibold text-amber-600 font-mono mb-1 truncate">
+          <p className="text-[9.5px] sm:text-[10.5px] font-bold text-amber-700 font-mono mb-1 truncate">
             Enterprise BI Dashboards
           </p>
 
-          <p className="text-[10.5px] sm:text-xs text-slate-600 leading-relaxed line-clamp-2 mb-2.5">
+          <p className="text-[10.5px] sm:text-xs text-slate-700 font-medium leading-relaxed line-clamp-2 mb-2.5">
             Interactive executive business intelligence dashboards, DAX metrics, data modeling, automated ETL &amp; KPIs.
           </p>
 
@@ -380,7 +380,7 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
             {["Power BI", "DAX", "Data Modeling", "ETL Pipelines"].map((chip) => (
               <span
                 key={chip}
-                className="px-1.5 py-0.5 rounded text-[8.5px] sm:text-[9px] font-mono bg-slate-100/90 text-slate-700 border border-slate-200/80"
+                className="px-1.5 py-0.5 rounded text-[8.5px] sm:text-[9px] font-mono font-medium bg-white/50 text-slate-800 border border-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
               >
                 {chip}
               </span>
@@ -388,32 +388,32 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
           </div>
 
           {/* Direct Transparent Pricing Module */}
-          <div className="pt-2 border-t border-slate-200/80">
+          <div className="pt-2 border-t border-white/55">
             <div className="flex items-baseline justify-between gap-1 mb-1.5">
-              <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-slate-500 uppercase">
+              <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-slate-700 uppercase">
                 Starting From
               </span>
-              <span className="text-sm sm:text-base font-mono font-extrabold text-transparent bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 bg-clip-text">
+              <span className="text-sm sm:text-base font-mono font-extrabold text-transparent bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-800 bg-clip-text">
                 $21
               </span>
             </div>
-            <div className="grid grid-cols-3 gap-1 text-center bg-slate-50/90 rounded-lg p-1.5 border border-slate-200/80">
-              <div className="px-1 py-0.5 rounded bg-white border border-slate-200/60">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-500 font-semibold">Basic</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-amber-700">$21</span>
+            <div className="grid grid-cols-3 gap-1 text-center liquid-glass-subcard rounded-lg p-1.5">
+              <div className="px-1 py-0.5 rounded bg-white/60 border border-white/75">
+                <span className="block text-[7.5px] font-mono uppercase text-slate-700 font-bold">Basic</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-amber-800">$21</span>
               </div>
-              <div className="px-1 py-0.5 rounded bg-white border border-slate-200/60">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-500 font-semibold">Std</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-amber-700">$95</span>
+              <div className="px-1 py-0.5 rounded bg-white/60 border border-white/75">
+                <span className="block text-[7.5px] font-mono uppercase text-slate-700 font-bold">Std</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-amber-800">$95</span>
               </div>
-              <div className="px-1 py-0.5 rounded bg-white border border-slate-200/60">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-500 font-semibold">Prem</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-amber-700">$279</span>
+              <div className="px-1 py-0.5 rounded bg-white/60 border border-white/75">
+                <span className="block text-[7.5px] font-mono uppercase text-slate-700 font-bold">Prem</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-amber-800">$279</span>
               </div>
             </div>
             <div className="mt-1 flex items-center justify-between text-[8.5px] sm:text-[9.5px] font-mono">
-              <span className="text-slate-500">Range:</span>
-              <span className="text-amber-700 font-semibold">$21 – $279</span>
+              <span className="text-slate-700 font-semibold">Range:</span>
+              <span className="text-amber-800 font-bold">$21 – $279</span>
             </div>
           </div>
         </div>
@@ -421,7 +421,7 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
 
       {/* Bottom Action Line */}
       <div className="px-3 sm:px-3.5 md:px-4 pb-3 sm:pb-3.5 pt-0.5">
-        <div className="pt-2 border-t border-slate-200/80 flex items-center justify-between text-xs font-semibold text-amber-600 group-hover:text-amber-700 transition-colors">
+        <div className="pt-2 border-t border-white/55 flex items-center justify-between text-xs font-bold text-amber-700 group-hover:text-amber-800 transition-colors">
           <span className="font-heading uppercase tracking-wider text-[9.5px] sm:text-[10.5px]">View Dashboards</span>
           <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" />
         </div>
@@ -448,13 +448,13 @@ const ProjectCard = React.memo<{
       onMouseEnter={() => setCursor("project", "VIEW")}
       onMouseLeave={resetCursor}
       style={{ contain: "content" }}
-      className={`group relative rounded-xl bg-white/85 backdrop-blur-md border ${
+      className={`group relative rounded-xl liquid-glass-card ${
         project.platform === "iOS"
-          ? "border-purple-500/30 hover:border-purple-500/65 hover:shadow-[0_15px_30px_-10px_rgba(168,85,247,0.2)]"
+          ? "!border-purple-400/50 hover:!border-purple-500/80 hover:!shadow-[0_16px_34px_-10px_rgba(168,85,247,0.26)]"
           : project.platform === "Android"
-          ? "border-emerald-500/30 hover:border-emerald-500/65 hover:shadow-[0_15px_30px_-10px_rgba(16,185,129,0.2)]"
-          : "border-slate-200/90 hover:border-amber-500/65 hover:shadow-[0_15px_30px_-10px_rgba(245,158,11,0.2)]"
-      } shadow-[0_8px_28px_rgba(15,23,42,0.06)] transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 flex flex-col justify-between cursor-pointer overflow-hidden h-full gpu-layer`}
+          ? "!border-emerald-400/50 hover:!border-emerald-500/80 hover:!shadow-[0_16px_34px_-10px_rgba(16,185,129,0.26)]"
+          : "hover:!border-amber-500/75"
+      } flex flex-col justify-between cursor-pointer overflow-hidden h-full gpu-layer`}
     >
       {/* Subtle top-edge light sweep on hover */}
       <div
@@ -469,7 +469,7 @@ const ProjectCard = React.memo<{
 
       <div>
         {/* Visual Header Representation with Real Project / App Mockup */}
-        <div className="w-full h-28 sm:h-32 md:h-36 relative overflow-hidden bg-slate-100 border-b border-slate-200/80 group-hover:border-amber-400/40 transition-colors">
+        <div className="w-full h-28 sm:h-32 md:h-36 relative overflow-hidden bg-slate-100/70 border-b border-white/55 group-hover:border-amber-400/50 transition-colors">
           <PortfolioImage
             src={project.image}
             alt={`${project.title} - ${project.subtitle}`}
@@ -486,12 +486,12 @@ const ProjectCard = React.memo<{
           {/* Top-left category tag */}
           <div className="absolute top-1.5 left-1.5 z-10">
             <span
-              className={`px-1.5 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono uppercase tracking-widest shadow-xs border font-semibold ${
+              className={`px-1.5 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono uppercase tracking-widest shadow-xs border font-bold backdrop-blur-md ${
                 project.platform === "iOS"
-                  ? "bg-white/95 text-purple-700 border-purple-500/30"
+                  ? "bg-white/88 text-purple-800 border-purple-400/45"
                   : project.platform === "Android"
-                  ? "bg-white/95 text-emerald-700 border-emerald-500/30"
-                  : "bg-white/95 text-slate-800 border-slate-300"
+                  ? "bg-white/88 text-emerald-800 border-emerald-400/45"
+                  : "bg-white/88 text-slate-900 border-white/75"
               }`}
             >
               {project.platform ? `${project.platform} App` : project.category}
@@ -501,12 +501,12 @@ const ProjectCard = React.memo<{
           {/* Category Pill on top-right */}
           <div className="absolute top-1.5 right-1.5 z-10">
             <span
-              className={`px-1.5 py-0.5 rounded-full text-[8px] sm:text-[8.5px] font-mono font-semibold shadow-xs border ${
+              className={`px-1.5 py-0.5 rounded-full text-[8px] sm:text-[8.5px] font-mono font-bold shadow-xs border backdrop-blur-md ${
                 project.platform === "iOS"
-                  ? "bg-white/95 text-purple-700 border-purple-400/40"
+                  ? "bg-white/88 text-purple-800 border-purple-400/45"
                   : project.platform === "Android"
-                  ? "bg-white/95 text-emerald-700 border-emerald-400/40"
-                  : "bg-white/95 text-amber-700 border-amber-400/40"
+                  ? "bg-white/88 text-emerald-800 border-emerald-400/45"
+                  : "bg-white/88 text-amber-800 border-amber-400/45"
               }`}
             >
               {project.badge}
@@ -517,15 +517,15 @@ const ProjectCard = React.memo<{
         {/* Card Content Area */}
         <div className="p-2.5 sm:p-3 md:p-3.5">
           <div className="flex items-center justify-between gap-1 mb-0.5">
-            <h3 className="text-xs sm:text-sm font-bold font-heading text-slate-900 group-hover:text-amber-700 transition-colors line-clamp-1">
+            <h3 className="text-xs sm:text-sm font-bold font-heading text-slate-900 group-hover:text-amber-800 transition-colors line-clamp-1">
               {project.title}
             </h3>
             {project.platform && (
               <span
                 className={`text-[7.5px] sm:text-[8px] font-mono font-bold px-1 py-0.5 rounded shrink-0 ${
                   project.platform === "iOS"
-                    ? "text-purple-700 bg-purple-50 border border-purple-200"
-                    : "text-emerald-700 bg-emerald-50 border border-emerald-200"
+                    ? "text-purple-800 bg-purple-50/80 border border-purple-300/70"
+                    : "text-emerald-800 bg-emerald-50/80 border border-emerald-300/70"
                 }`}
               >
                 {project.platform}
@@ -533,11 +533,11 @@ const ProjectCard = React.memo<{
             )}
           </div>
 
-          <p className="text-[9px] sm:text-[9.5px] font-semibold text-slate-600 font-mono mb-1 line-clamp-1">
+          <p className="text-[9px] sm:text-[9.5px] font-bold text-slate-700 font-mono mb-1 line-clamp-1">
             {project.subtitle}
           </p>
 
-          <p className="text-[9.5px] sm:text-[10.5px] text-slate-600 leading-snug line-clamp-2 mb-2">
+          <p className="text-[9.5px] sm:text-[10.5px] text-slate-700 font-medium leading-snug line-clamp-2 mb-2">
             {project.shortDesc}
           </p>
 
@@ -546,13 +546,13 @@ const ProjectCard = React.memo<{
             {project.technologies.slice(0, 3).map((tech) => (
               <span
                 key={tech}
-                className="px-1 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono bg-slate-100/90 text-slate-700 border border-slate-200/80"
+                className="px-1 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono font-medium bg-white/50 text-slate-800 border border-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
               >
                 {tech}
               </span>
             ))}
             {project.technologies.length > 3 && (
-              <span className="px-1 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono bg-slate-100/60 text-slate-500">
+              <span className="px-1 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono font-semibold bg-white/40 text-slate-700 border border-white/55">
                 +{project.technologies.length - 3}
               </span>
             )}
@@ -560,52 +560,52 @@ const ProjectCard = React.memo<{
 
           {/* Direct Transparent Pricing Module */}
           {project.platform ? (
-            <div className="pt-1.5 border-t border-slate-200/80">
-              <div className="grid grid-cols-3 gap-0.5 text-center bg-slate-50/90 rounded-md p-1 border border-slate-200/80">
-                <div className="px-0.5 py-0.5 rounded bg-white border border-slate-200/60">
-                  <span className="block text-[7px] font-mono uppercase text-slate-500 font-semibold">Basic</span>
-                  <span className={`text-[10px] sm:text-[11px] font-mono font-bold ${project.platform === "iOS" ? "text-purple-700" : "text-emerald-700"}`}>
+            <div className="pt-1.5 border-t border-white/55">
+              <div className="grid grid-cols-3 gap-0.5 text-center liquid-glass-subcard rounded-md p-1">
+                <div className="px-0.5 py-0.5 rounded bg-white/60 border border-white/75">
+                  <span className="block text-[7px] font-mono uppercase text-slate-700 font-bold">Basic</span>
+                  <span className={`text-[10px] sm:text-[11px] font-mono font-bold ${project.platform === "iOS" ? "text-purple-800" : "text-emerald-800"}`}>
                     {project.pricing.basicPrice}
                   </span>
                 </div>
-                <div className="px-0.5 py-0.5 rounded bg-white border border-slate-200/60">
-                  <span className="block text-[7px] font-mono uppercase text-slate-500 font-semibold">Std</span>
-                  <span className={`text-[10px] sm:text-[11px] font-mono font-bold ${project.platform === "iOS" ? "text-purple-700" : "text-emerald-700"}`}>
+                <div className="px-0.5 py-0.5 rounded bg-white/60 border border-white/75">
+                  <span className="block text-[7px] font-mono uppercase text-slate-700 font-bold">Std</span>
+                  <span className={`text-[10px] sm:text-[11px] font-mono font-bold ${project.platform === "iOS" ? "text-purple-800" : "text-emerald-800"}`}>
                     {project.pricing.standardPrice}
                   </span>
                 </div>
-                <div className="px-0.5 py-0.5 rounded bg-white border border-slate-200/60">
-                  <span className="block text-[7px] font-mono uppercase text-slate-500 font-semibold">Prem</span>
-                  <span className="text-[10px] sm:text-[11px] font-mono font-bold text-amber-700">
+                <div className="px-0.5 py-0.5 rounded bg-white/60 border border-white/75">
+                  <span className="block text-[7px] font-mono uppercase text-slate-700 font-bold">Prem</span>
+                  <span className="text-[10px] sm:text-[11px] font-mono font-bold text-amber-800">
                     {project.pricing.premiumPrice}
                   </span>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="pt-1.5 border-t border-slate-200/80">
+            <div className="pt-1.5 border-t border-white/55">
               <div className="flex items-baseline justify-between gap-1 mb-1">
-                <span className="text-[8px] sm:text-[8.5px] font-mono font-bold tracking-wider text-slate-500 uppercase">
+                <span className="text-[8px] sm:text-[8.5px] font-mono font-bold tracking-wider text-slate-700 uppercase">
                   Starting From
                 </span>
-                <span className="text-xs sm:text-sm font-mono font-extrabold text-transparent bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 bg-clip-text">
+                <span className="text-xs sm:text-sm font-mono font-extrabold text-transparent bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-800 bg-clip-text">
                   {project.pricing.startingPrice}
                 </span>
               </div>
-              <div className="grid grid-cols-2 gap-0.5 text-[8.5px] sm:text-[9px] font-mono bg-slate-50/90 rounded-md p-1 border border-slate-200/80">
+              <div className="grid grid-cols-2 gap-0.5 text-[8.5px] sm:text-[9px] font-mono liquid-glass-subcard rounded-md p-1">
                 <div className="truncate">
-                  <span className="text-slate-500">Std: </span>
-                  <span className="text-slate-800 font-semibold">{project.pricing.standardPrice}</span>
+                  <span className="text-slate-700 font-medium">Std: </span>
+                  <span className="text-slate-900 font-bold">{project.pricing.standardPrice}</span>
                 </div>
                 <div className="truncate text-right">
-                  <span className="text-slate-500">Prem: </span>
-                  <span className="text-amber-700 font-semibold">{project.pricing.premiumPrice}</span>
+                  <span className="text-slate-700 font-medium">Prem: </span>
+                  <span className="text-amber-800 font-bold">{project.pricing.premiumPrice}</span>
                 </div>
               </div>
               {project.pricing.customPrice && (
                 <div className="mt-0.5 flex items-center justify-between text-[8px] sm:text-[8.5px] font-mono">
-                  <span className="text-slate-500">Custom Scope:</span>
-                  <span className="text-amber-700 font-semibold">{project.pricing.customPrice}</span>
+                  <span className="text-slate-700 font-semibold">Custom Scope:</span>
+                  <span className="text-amber-800 font-bold">{project.pricing.customPrice}</span>
                 </div>
               )}
             </div>
@@ -615,17 +615,17 @@ const ProjectCard = React.memo<{
 
       {/* Bottom Action Line: VIEW ARCHITECTURE & VISIT WEBSITE */}
       <div className="px-2.5 sm:px-3 md:px-3.5 pb-2.5 sm:pb-3 pt-0.5">
-        <div className="pt-1.5 border-t border-slate-200/80 flex items-center justify-between gap-1 text-xs">
+        <div className="pt-1.5 border-t border-white/55 flex items-center justify-between gap-1 text-xs">
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               onSelect(project);
             }}
-            className="font-heading uppercase tracking-wider text-[8.5px] sm:text-[9.5px] font-semibold text-slate-600 group-hover:text-amber-700 transition-colors flex items-center gap-0.5 cursor-pointer truncate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded"
+            className="font-heading uppercase tracking-wider text-[8.5px] sm:text-[9.5px] font-bold text-slate-800 group-hover:text-amber-800 transition-colors flex items-center gap-0.5 cursor-pointer truncate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded"
           >
             <span>VIEW ARCHITECTURE</span>
-            <ArrowRight className="w-2.5 h-2.5 text-slate-500 group-hover:text-amber-600 shrink-0" />
+            <ArrowRight className="w-2.5 h-2.5 text-slate-700 group-hover:text-amber-700 shrink-0" />
           </button>
 
           {project.demoUrl ? (
@@ -636,13 +636,13 @@ const ProjectCard = React.memo<{
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              className="px-1.5 py-0.5 rounded bg-amber-500/15 hover:bg-amber-500/25 active:scale-[0.97] text-amber-800 hover:text-amber-900 border border-amber-500/35 hover:border-amber-500/60 text-[8px] sm:text-[9px] font-mono font-bold flex items-center gap-0.5 transition-[background-color,border-color,transform] cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+              className="px-1.5 py-0.5 rounded bg-amber-500/20 hover:bg-amber-500/30 active:scale-[0.97] text-amber-900 hover:text-amber-950 border border-amber-500/45 hover:border-amber-500/70 text-[8px] sm:text-[9px] font-mono font-bold flex items-center gap-0.5 transition-[background-color,border-color,transform] cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
             >
               <span>VISIT WEBSITE</span>
               <ArrowRight className="w-2.5 h-2.5" />
             </a>
           ) : (
-            <span className="text-[7.5px] sm:text-[8px] font-mono text-slate-500 bg-slate-100/90 border border-slate-200/80 px-1 py-0.5 rounded select-none shrink-0">
+            <span className="text-[7.5px] sm:text-[8px] font-mono font-semibold text-slate-700 bg-white/50 border border-white/70 px-1 py-0.5 rounded select-none shrink-0">
               COMING SOON
             </span>
           )}
@@ -682,7 +682,7 @@ const BlockchainShowcaseCard = React.memo<{
       onMouseEnter={() => setCursor("project", "EXPAND")}
       onMouseLeave={resetCursor}
       style={{ contain: "content" }}
-      className="group relative rounded-2xl bg-white/88 backdrop-blur-md border border-amber-400/45 hover:border-amber-500/75 shadow-[0_12px_36px_rgba(15,23,42,0.07)] hover:shadow-[0_18px_42px_-10px_rgba(245,158,11,0.22)] transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 p-5 sm:p-6 md:p-7 cursor-pointer overflow-hidden gpu-layer"
+      className="group relative rounded-2xl liquid-glass-panel !border-amber-400/55 hover:!border-amber-500/80 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 p-5 sm:p-6 md:p-7 cursor-pointer overflow-hidden gpu-layer"
     >
       {/* Top border light sweep */}
       <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-amber-400/90 to-transparent opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -691,39 +691,39 @@ const BlockchainShowcaseCard = React.memo<{
         {/* Left Column: Service Overview & Tech Stack */}
         <div className="lg:col-span-7 space-y-3.5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-400/50">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider bg-amber-50/80 text-amber-900 border border-amber-400/60">
               <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
               <span>SERVICE // {service.number} &bull; WEB3 ARCHITECTURE</span>
             </span>
             {service.pricing && (
-              <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-slate-100 text-slate-800 border border-slate-200/90">
+              <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-white/55 text-slate-900 border border-white/75">
                 {service.pricing}
               </span>
             )}
           </div>
 
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-slate-900 group-hover:text-amber-700 transition-colors">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-slate-900 group-hover:text-amber-800 transition-colors">
             {service.title}
           </h3>
 
-          <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
             {service.shortDesc}
           </p>
 
-          <p className="text-xs text-slate-600 leading-relaxed">
+          <p className="text-xs text-slate-700 font-medium leading-relaxed">
             {service.fullDesc}
           </p>
 
           {/* Technologies */}
           <div className="pt-1">
-            <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold mb-1.5">
+            <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-700 font-bold mb-1.5">
               Core Protocols &amp; Technologies
             </span>
             <div className="flex flex-wrap gap-1.5">
               {service.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="px-2.5 py-1 rounded-md text-[10px] sm:text-xs font-mono font-medium bg-slate-100 text-slate-800 border border-slate-200/90"
+                  className="px-2.5 py-1 rounded-md text-[10px] sm:text-xs font-mono font-semibold bg-white/55 text-slate-900 border border-white/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
                 >
                   {tech}
                 </span>
@@ -733,30 +733,30 @@ const BlockchainShowcaseCard = React.memo<{
         </div>
 
         {/* Right Column: Deliverables & Preserved Pricing Tiers */}
-        <div className="lg:col-span-5 space-y-4 bg-slate-50/90 rounded-xl p-4 sm:p-5 border border-slate-200/90">
+        <div className="lg:col-span-5 space-y-4 liquid-glass-subcard rounded-xl p-4 sm:p-5">
           {/* Pricing Module */}
           {service.pricing && (
-            <div className="pb-3.5 border-b border-slate-200/80">
+            <div className="pb-3.5 border-b border-white/55">
               <div className="flex items-baseline justify-between gap-2 mb-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-700 font-bold">
                   Investment Range
                 </span>
-                <span className="text-base sm:text-lg font-mono font-extrabold text-amber-700">
+                <span className="text-base sm:text-lg font-mono font-extrabold text-amber-800">
                   {service.pricing}
                 </span>
               </div>
               <div className="grid grid-cols-3 gap-1.5 text-center">
-                <div className="p-1.5 rounded-lg bg-white border border-slate-200/80">
-                  <span className="block text-[8px] font-mono uppercase text-slate-500 font-semibold">Basic</span>
+                <div className="p-1.5 rounded-lg bg-white/60 border border-white/75">
+                  <span className="block text-[8px] font-mono uppercase text-slate-700 font-bold">Basic</span>
                   <span className="text-xs font-mono font-bold text-slate-900">$480</span>
                 </div>
-                <div className="p-1.5 rounded-lg bg-white border border-slate-200/80">
-                  <span className="block text-[8px] font-mono uppercase text-slate-500 font-semibold">Standard</span>
+                <div className="p-1.5 rounded-lg bg-white/60 border border-white/75">
+                  <span className="block text-[8px] font-mono uppercase text-slate-700 font-bold">Standard</span>
                   <span className="text-xs font-mono font-bold text-slate-900">$1,200</span>
                 </div>
-                <div className="p-1.5 rounded-lg bg-white border border-amber-300/70">
-                  <span className="block text-[8px] font-mono uppercase text-amber-700 font-semibold">Premium</span>
-                  <span className="text-xs font-mono font-bold text-amber-700">$2,400</span>
+                <div className="p-1.5 rounded-lg bg-white/65 border border-amber-400/70">
+                  <span className="block text-[8px] font-mono uppercase text-amber-800 font-bold">Premium</span>
+                  <span className="text-xs font-mono font-bold text-amber-800">$2,400</span>
                 </div>
               </div>
             </div>
@@ -764,12 +764,12 @@ const BlockchainShowcaseCard = React.memo<{
 
           {/* Deliverables */}
           <div>
-            <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold mb-2">
+            <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-700 font-bold mb-2">
               Verified Deliverables
             </span>
             <ul className="space-y-1.5">
               {service.deliverables.map((item) => (
-                <li key={item} className="flex items-start gap-2 text-xs text-slate-700">
+                <li key={item} className="flex items-start gap-2 text-xs text-slate-800 font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
@@ -785,7 +785,7 @@ const BlockchainShowcaseCard = React.memo<{
                 e.stopPropagation();
                 onOpenServiceModal(service);
               }}
-              className="flex-1 py-2 px-3 rounded-lg bg-white hover:bg-amber-50 text-slate-800 hover:text-amber-800 border border-slate-200/90 hover:border-amber-400/60 text-xs font-mono font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+              className="flex-1 py-2 px-3 rounded-lg bg-white/65 hover:bg-amber-50/85 text-slate-900 hover:text-amber-900 border border-white/75 hover:border-amber-400/70 text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
             >
               <Layers className="w-3.5 h-3.5 text-amber-600" />
               <span>VIEW DETAILS</span>
@@ -831,7 +831,7 @@ const DigitalMarketingShowcaseCard = React.memo<{
       onMouseEnter={() => setCursor("project", "DISCUSS")}
       onMouseLeave={resetCursor}
       style={{ contain: "content" }}
-      className="group relative rounded-2xl bg-white/88 backdrop-blur-md border border-amber-400/45 hover:border-amber-500/75 shadow-[0_12px_36px_rgba(15,23,42,0.07)] hover:shadow-[0_18px_42px_-10px_rgba(245,158,11,0.22)] transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 p-5 sm:p-6 md:p-7 cursor-pointer overflow-hidden gpu-layer"
+      className="group relative rounded-2xl liquid-glass-panel !border-amber-400/55 hover:!border-amber-500/80 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 p-5 sm:p-6 md:p-7 cursor-pointer overflow-hidden gpu-layer"
     >
       {/* Top border light sweep */}
       <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-amber-400/90 to-transparent opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -839,24 +839,24 @@ const DigitalMarketingShowcaseCard = React.memo<{
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         <div className="lg:col-span-7 space-y-3.5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-400/50">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider bg-amber-50/80 text-amber-900 border border-amber-400/60">
               <Megaphone className="w-3.5 h-3.5 text-amber-600" />
               <span>DIGITAL MARKETING &bull; ADVISORY &amp; GROWTH</span>
             </span>
-            <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-semibold bg-slate-100 text-slate-700 border border-slate-200/90">
+            <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-white/55 text-slate-800 border border-white/75">
               Custom Consultation Scope
             </span>
           </div>
 
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-slate-900 group-hover:text-amber-700 transition-colors">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-slate-900 group-hover:text-amber-800 transition-colors">
             Digital Marketing &amp; Search Visibility Engineering
           </h3>
 
-          <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
             Technical SEO architecture, conversion-focused landing funnels, email marketing integrations, and digital brand positioning tailored to your business goals.
           </p>
 
-          <p className="text-xs text-slate-600 leading-relaxed">
+          <p className="text-xs text-slate-700 font-medium leading-relaxed">
             Available as a dedicated service through our consultation &amp; discovery workflow. We integrate technical SEO best practices, Core Web Vitals optimization, and marketing automation directly into your digital presence.
           </p>
 
@@ -870,7 +870,7 @@ const DigitalMarketingShowcaseCard = React.memo<{
             ].map((tag) => (
               <span
                 key={tag}
-                className="px-2.5 py-1 rounded-md text-[10px] sm:text-xs font-mono font-medium bg-slate-100 text-slate-800 border border-slate-200/90"
+                className="px-2.5 py-1 rounded-md text-[10px] sm:text-xs font-mono font-semibold bg-white/55 text-slate-900 border border-white/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
               >
                 {tag}
               </span>
@@ -878,17 +878,17 @@ const DigitalMarketingShowcaseCard = React.memo<{
           </div>
         </div>
 
-        <div className="lg:col-span-5 space-y-4 bg-slate-50/90 rounded-xl p-4 sm:p-5 border border-slate-200/90">
-          <div className="pb-3 border-b border-slate-200/80">
-            <span className="block text-[10px] font-mono uppercase tracking-wider text-amber-700 font-bold mb-1">
+        <div className="lg:col-span-5 space-y-4 liquid-glass-subcard rounded-xl p-4 sm:p-5">
+          <div className="pb-3 border-b border-white/55">
+            <span className="block text-[10px] font-mono uppercase tracking-wider text-amber-800 font-bold mb-1">
               Portfolio &amp; Engagement Status
             </span>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-slate-700 font-medium leading-relaxed">
               Dedicated Digital Marketing campaigns and growth roadmaps are scoped individually based on your target market, channels, and existing web infrastructure.
             </p>
           </div>
 
-          <ul className="space-y-1.5 text-xs text-slate-700">
+          <ul className="space-y-1.5 text-xs text-slate-800 font-medium">
             <li className="flex items-start gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
               <span>Custom semantic markup &amp; search-friendly site architecture</span>
@@ -1166,7 +1166,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
                   className={`group relative shrink-0 inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-semibold tracking-wide transition-[transform,background-color,border-color,color,box-shadow] duration-250 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-1 active:scale-[0.98] ${
                     isActive
                       ? "bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-bold border border-amber-400/90 shadow-[0_6px_20px_rgba(245,158,11,0.32)]"
-                      : "bg-white/85 backdrop-blur-md text-slate-700 border border-slate-200/90 hover:text-slate-950 hover:bg-white/95 hover:border-amber-400/60 shadow-xs"
+                      : "liquid-glass-pill text-slate-800 hover:text-slate-950"
                   }`}
                 >
                   <Icon
@@ -1180,7 +1180,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
                     className={`px-1.5 py-0.2 rounded-full text-[9.5px] font-mono font-bold transition-colors ${
                       isActive
                         ? "bg-slate-950/15 text-slate-950"
-                        : "bg-slate-100 text-slate-600 group-hover:bg-amber-50 group-hover:text-amber-800"
+                        : "bg-white/60 text-slate-700 group-hover:bg-amber-50/85 group-hover:text-amber-900"
                     }`}
                   >
                     {cat.countLabel}
@@ -1200,7 +1200,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
             <div
               role="tablist"
               aria-label="Website Collections"
-              className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl bg-white/80 backdrop-blur-md border border-slate-200/90 shadow-[0_8px_24px_rgba(15,23,42,0.05)]"
+              className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl liquid-glass-card"
             >
               {WEBSITE_COLLECTIONS.map((sub) => {
                 const isSubActive = activeWebsiteCollection === sub.id;
@@ -1215,13 +1215,13 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
                     onMouseLeave={resetCursor}
                     className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-semibold transition-[transform,background-color,border-color,color,box-shadow] duration-200 cursor-pointer flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 active:scale-[0.98] ${
                       isSubActive
-                        ? "bg-gradient-to-r from-amber-50 via-amber-100/80 to-amber-50 text-amber-950 border border-amber-400/80 font-bold shadow-[0_3px_12px_rgba(245,158,11,0.18)]"
-                        : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent"
+                        ? "bg-gradient-to-r from-amber-50/90 via-amber-100/85 to-amber-50/90 text-amber-950 border border-amber-400/80 font-bold shadow-[0_3px_12px_rgba(245,158,11,0.18)]"
+                        : "text-slate-800 hover:text-slate-950 hover:bg-white/55 border border-transparent"
                     }`}
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full ${
-                        isSubActive ? "bg-amber-500 shadow-[0_0_6px_#f59e0b]" : "bg-slate-300"
+                        isSubActive ? "bg-amber-500 shadow-[0_0_6px_#f59e0b]" : "bg-slate-400"
                       }`}
                     />
                     <span>{sub.label}</span>
@@ -1229,7 +1229,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
                       className={`text-[9.5px] font-mono px-1.5 py-0.5 rounded-md ${
                         isSubActive
                           ? "bg-amber-500/20 text-amber-900 font-bold"
-                          : "bg-slate-100 text-slate-500"
+                          : "bg-white/55 text-slate-700 font-semibold"
                       }`}
                     >
                       {sub.count}
@@ -1246,7 +1246,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
             <div
               role="tablist"
               aria-label="iOS App Collections"
-              className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl bg-white/80 backdrop-blur-md border border-slate-200/90 shadow-[0_8px_24px_rgba(15,23,42,0.05)]"
+              className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl liquid-glass-card"
             >
               {IOS_COLLECTIONS.map((sub) => {
                 const isSubActive = activeIosCollection === sub.id;
@@ -1261,13 +1261,13 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
                     onMouseLeave={resetCursor}
                     className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-semibold transition-[transform,background-color,border-color,color,box-shadow] duration-200 cursor-pointer flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 active:scale-[0.98] ${
                       isSubActive
-                        ? "bg-gradient-to-r from-amber-50 via-amber-100/80 to-amber-50 text-amber-950 border border-amber-400/80 font-bold shadow-[0_3px_12px_rgba(245,158,11,0.18)]"
-                        : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent"
+                        ? "bg-gradient-to-r from-amber-50/90 via-amber-100/85 to-amber-50/90 text-amber-950 border border-amber-400/80 font-bold shadow-[0_3px_12px_rgba(245,158,11,0.18)]"
+                        : "text-slate-800 hover:text-slate-950 hover:bg-white/55 border border-transparent"
                     }`}
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full ${
-                        isSubActive ? "bg-amber-500 shadow-[0_0_6px_#f59e0b]" : "bg-slate-300"
+                        isSubActive ? "bg-amber-500 shadow-[0_0_6px_#f59e0b]" : "bg-slate-400"
                       }`}
                     />
                     <span>{sub.label}</span>
@@ -1275,7 +1275,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
                       className={`text-[9.5px] font-mono px-1.5 py-0.5 rounded-md ${
                         isSubActive
                           ? "bg-amber-500/20 text-amber-900 font-bold"
-                          : "bg-slate-100 text-slate-500"
+                          : "bg-white/55 text-slate-700 font-semibold"
                       }`}
                     >
                       {sub.count}
@@ -1290,17 +1290,17 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
         {/* Active Collection Context Header Bar */}
         <div
           key={`meta-${viewKey}`}
-          className="mb-5 sm:mb-6 px-3.5 sm:px-4 py-2.5 rounded-xl bg-white/80 backdrop-blur-md border border-slate-200/90 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 animate-project-grid-enter"
+          className="mb-5 sm:mb-6 px-3.5 sm:px-4 py-2.5 rounded-xl liquid-glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 animate-project-grid-enter"
         >
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="px-2 py-0.5 rounded text-[9.5px] font-mono font-bold uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-400/50">
+            <span className="px-2 py-0.5 rounded text-[9.5px] font-mono font-bold uppercase tracking-wider bg-amber-50/80 text-amber-900 border border-amber-400/60">
               {activeCollectionMeta.badge}
             </span>
             <h3 className="text-xs sm:text-sm font-bold font-heading text-slate-900">
               {activeCollectionMeta.label}
             </h3>
           </div>
-          <p className="text-[11px] sm:text-xs text-slate-600 leading-snug">
+          <p className="text-[11px] sm:text-xs text-slate-700 font-medium leading-snug">
             {activeCollectionMeta.description}
           </p>
         </div>
@@ -1368,7 +1368,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
 
         {/* Subtle Pricing Disclaimer */}
         <div className="mt-8 text-center">
-          <p className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-slate-200/80 text-[11px] sm:text-xs font-mono text-slate-700 max-w-2xl mx-auto shadow-xs">
+          <p className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full liquid-glass-pill text-[11px] sm:text-xs font-mono font-medium text-slate-800 max-w-2xl mx-auto">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
             <span>Prices are indicative. Final pricing depends on features, integrations, content, design complexity and project requirements.</span>
           </p>

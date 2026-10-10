@@ -81,13 +81,13 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
       variantStyles = "bg-gradient-to-r from-[#F4E4BC] via-[#D4AF37] to-[#B89228] text-slate-950 font-bold shadow-[0_4px_24px_rgba(212,175,55,0.35)] hover:shadow-[0_6px_34px_rgba(212,175,55,0.55)] border border-amber-300/70 hover:brightness-105";
       break;
     case "secondary":
-      variantStyles = "bg-white/85 hover:bg-white text-slate-800 border border-slate-300/90 hover:border-amber-500/60 backdrop-blur-md shadow-sm";
+      variantStyles = "bg-white/58 hover:bg-white/78 text-slate-900 border border-white/70 hover:border-amber-500/65 backdrop-blur-xl saturate-150 shadow-[0_6px_20px_rgba(15,23,42,0.1),inset_0_1px_0_rgba(255,255,255,0.85)]";
       break;
     case "outline":
-      variantStyles = "bg-white/60 backdrop-blur-sm text-amber-800 border border-amber-500/45 hover:bg-amber-50 hover:border-amber-500 shadow-[0_2px_12px_rgba(245,158,11,0.12)]";
+      variantStyles = "bg-white/48 backdrop-blur-md saturate-140 text-amber-900 border border-amber-500/55 hover:bg-amber-50/75 hover:border-amber-500 shadow-[0_4px_14px_rgba(245,158,11,0.12),inset_0_1px_0_rgba(255,255,255,0.8)]";
       break;
     case "ghost":
-      variantStyles = "bg-transparent text-slate-700 hover:text-amber-800 hover:bg-amber-500/10";
+      variantStyles = "bg-transparent text-slate-800 hover:text-amber-900 hover:bg-amber-500/15";
       break;
   }
 

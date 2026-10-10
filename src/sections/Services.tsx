@@ -85,7 +85,7 @@ const ServiceCard = React.memo<ServiceCardProps>(({
       onClick={() => onOpenDetails(service)}
       onMouseEnter={() => setCursor("project", "EXPAND")}
       onMouseLeave={resetCursor}
-      className="group relative p-[1px] rounded-xl overflow-hidden bg-slate-200/90 shadow-[0_8px_24px_rgba(15,23,42,0.05)] hover:shadow-[0_14px_32px_-10px_rgba(245,158,11,0.22)] transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
+      className="group relative p-[1px] rounded-xl overflow-hidden bg-white/45 shadow-[0_8px_28px_rgba(15,23,42,0.12)] hover:shadow-[0_16px_36px_-10px_rgba(245,158,11,0.26)] transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
     >
       {/* Continuous Animated Shimmer Stroke along Outer Border */}
       <div
@@ -98,51 +98,51 @@ const ServiceCard = React.memo<ServiceCardProps>(({
       />
 
       {/* Inner Card Content */}
-      <div className="relative z-10 p-2 sm:p-2.5 md:p-3 rounded-[calc(0.75rem-1px)] bg-gradient-to-b from-white/95 via-white/90 to-slate-50/95 backdrop-blur-xl h-full flex flex-col justify-between overflow-hidden">
+      <div className="relative z-10 p-2 sm:p-2.5 md:p-3 rounded-[calc(0.75rem-1px)] bg-gradient-to-br from-white/68 via-white/54 to-white/44 backdrop-blur-xl saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] h-full flex flex-col justify-between overflow-hidden">
         {/* Subtle top-corner accent gradient */}
-        <div className="absolute top-0 right-0 w-20 h-20 bg-amber-500/8 rounded-full blur-xl group-hover:bg-amber-500/15 transition-colors pointer-events-none" />
+        <div className="absolute top-0 right-0 w-20 h-20 bg-amber-500/10 rounded-full blur-xl group-hover:bg-amber-500/20 transition-colors pointer-events-none" />
 
       <div>
         {/* Header with Number and Icon */}
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-1">
-            <span className="font-mono text-[9px] sm:text-[10px] font-bold text-slate-400 group-hover:text-amber-600 transition-colors">
+            <span className="font-mono text-[9px] sm:text-[10px] font-bold text-slate-600 group-hover:text-amber-700 transition-colors">
               // {service.number}
             </span>
             {service.pricing && (
-              <span className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-400/40">
+              <span className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono font-bold bg-amber-50/80 text-amber-900 border border-amber-400/50">
                 {service.pricing}
               </span>
             )}
           </div>
-          <div className="p-1 sm:p-1.5 rounded-lg bg-amber-50/80 border border-amber-200/80 group-hover:scale-110 group-hover:border-amber-400 transition-all">
+          <div className="p-1 sm:p-1.5 rounded-lg bg-amber-50/75 border border-amber-300/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] group-hover:scale-110 group-hover:border-amber-400 transition-all">
             {renderServiceIcon(service.icon)}
           </div>
         </div>
 
         {/* Title */}
-        <h3 className="text-xs sm:text-sm font-bold font-heading text-slate-900 group-hover:text-amber-700 transition-colors mb-1 leading-snug line-clamp-2">
+        <h3 className="text-xs sm:text-sm font-bold font-heading text-slate-900 group-hover:text-amber-800 transition-colors mb-1 leading-snug line-clamp-2">
           {service.title}
         </h3>
 
         {/* Short Description */}
-        <p className="text-[9.5px] sm:text-[10.5px] text-slate-600 leading-snug mb-1.5 line-clamp-2 sm:line-clamp-3">
+        <p className="text-[9.5px] sm:text-[10.5px] text-slate-700 font-medium leading-snug mb-1.5 line-clamp-2 sm:line-clamp-3">
           {service.shortDesc}
         </p>
 
         {/* Pricing Box */}
         {service.pricing && (
-          <div className="mb-1.5 px-1.5 py-1 rounded-md bg-gradient-to-r from-amber-50/90 to-amber-50/40 border border-amber-300/50">
+          <div className="mb-1.5 px-1.5 py-1 rounded-md bg-gradient-to-r from-amber-50/75 to-white/50 border border-amber-400/55 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
             <div className="flex items-baseline justify-between gap-1">
-              <span className="text-[7.5px] sm:text-[8px] font-mono uppercase tracking-wider text-amber-700 font-semibold truncate">
+              <span className="text-[7.5px] sm:text-[8px] font-mono uppercase tracking-wider text-amber-800 font-bold truncate">
                 From {service.pricing.split(" ")[0]}
               </span>
-              <span className="text-[10px] sm:text-[11px] font-mono font-bold text-amber-800 shrink-0">
+              <span className="text-[10px] sm:text-[11px] font-mono font-extrabold text-amber-900 shrink-0">
                 {service.pricing}
               </span>
             </div>
             {service.pricingNote && (
-              <span className="text-[7.5px] sm:text-[8px] text-slate-500 italic block truncate mt-0.5">
+              <span className="text-[7.5px] sm:text-[8px] text-slate-700 font-medium italic block truncate mt-0.5">
                 {service.pricingNote}
               </span>
             )}
@@ -156,21 +156,21 @@ const ServiceCard = React.memo<ServiceCardProps>(({
           {service.technologies.slice(0, 2).map((tech) => (
             <span
               key={tech}
-              className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono bg-slate-100 text-slate-700 border border-slate-200/90"
+              className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono font-medium bg-white/55 text-slate-800 border border-white/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
             >
               {tech}
             </span>
           ))}
           {service.technologies.length > 2 && (
-            <span className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono bg-slate-100/60 text-slate-500">
+            <span className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono font-semibold bg-white/45 text-slate-700 border border-white/60">
               +{service.technologies.length - 2}
             </span>
           )}
         </div>
 
         {/* Bottom Action Line: Deliverables + Quick Cart Action */}
-        <div className="pt-1.5 border-t border-slate-200/80 flex items-center justify-between gap-1">
-          <span className="text-[9px] sm:text-[10px] font-semibold text-slate-600 group-hover:text-amber-700 transition-colors flex items-center gap-0.5">
+        <div className="pt-1.5 border-t border-white/55 flex items-center justify-between gap-1">
+          <span className="text-[9px] sm:text-[10px] font-bold text-slate-800 group-hover:text-amber-800 transition-colors flex items-center gap-0.5">
             <span>Details</span>
             <ArrowUpRight className="w-2.5 h-2.5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </span>
@@ -179,23 +179,23 @@ const ServiceCard = React.memo<ServiceCardProps>(({
           {quantity > 0 ? (
             <div
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-0.5 bg-amber-50 border border-amber-400/50 rounded-md px-1 py-0.5"
+              className="flex items-center gap-0.5 bg-amber-50/85 border border-amber-400/65 rounded-md px-1 py-0.5"
             >
               <button
                 type="button"
                 onClick={(e) => onUpdateQuantity(service.id, -1, e)}
-                className="w-3.5 h-3.5 rounded flex items-center justify-center text-amber-800 hover:bg-amber-200/60 text-[9px]"
+                className="w-3.5 h-3.5 rounded flex items-center justify-center text-amber-900 hover:bg-amber-200/70 text-[9px]"
                 title="Decrease"
               >
                 <Minus className="w-2 h-2" />
               </button>
-              <span className="text-[9px] font-mono font-bold text-amber-900 px-0.5">
+              <span className="text-[9px] font-mono font-bold text-amber-950 px-0.5">
                 {quantity}
               </span>
               <button
                 type="button"
                 onClick={(e) => onUpdateQuantity(service.id, 1, e)}
-                className="w-3.5 h-3.5 rounded flex items-center justify-center text-amber-800 hover:bg-amber-200/60 text-[9px]"
+                className="w-3.5 h-3.5 rounded flex items-center justify-center text-amber-900 hover:bg-amber-200/70 text-[9px]"
                 title="Increase"
               >
                 <Plus className="w-2 h-2" />
@@ -205,7 +205,7 @@ const ServiceCard = React.memo<ServiceCardProps>(({
             <button
               type="button"
               onClick={(e) => onAddToCart(service, e)}
-              className="px-1.5 py-0.5 rounded-md bg-amber-50 hover:bg-amber-400 text-amber-800 hover:text-slate-950 border border-amber-400/50 text-[9px] font-mono font-bold flex items-center gap-0.5 transition-all cursor-pointer"
+              className="px-1.5 py-0.5 rounded-md bg-amber-50/80 hover:bg-amber-400 text-amber-900 hover:text-slate-950 border border-amber-400/60 text-[9px] font-mono font-bold flex items-center gap-0.5 transition-all cursor-pointer"
               title="Add service to inquiry cart"
             >
               <Plus className="w-2 h-2" />
@@ -328,7 +328,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
 
         {/* Category Switcher Tabs */}
         <div className="flex justify-center mb-6 sm:mb-7">
-          <div className="inline-flex p-1 rounded-full bg-white/85 border border-slate-200/90 backdrop-blur-md shadow-sm">
+          <div className="inline-flex p-1 rounded-full liquid-glass-pill">
             <button
               onClick={() => setActiveCategory("web-software")}
               onMouseEnter={() => setCursor("button")}
@@ -336,7 +336,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
               className={`flex items-center gap-1.5 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 activeCategory === "web-software"
                   ? "bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-bold shadow-[0_4px_15px_rgba(245,158,11,0.3)]"
-                  : "text-slate-600 hover:text-slate-900"
+                  : "text-slate-800 hover:text-slate-950"
               }`}
             >
               <Code className="w-3.5 h-3.5" />
@@ -350,7 +350,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
               className={`flex items-center gap-1.5 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 activeCategory === "data-business"
                   ? "bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-bold shadow-[0_4px_15px_rgba(245,158,11,0.3)]"
-                  : "text-slate-600 hover:text-slate-900"
+                  : "text-slate-800 hover:text-slate-950"
               }`}
             >
               <Database className="w-3.5 h-3.5" />
@@ -384,11 +384,11 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
       {/* ============================================================ */}
       {cart.length > 0 && (
         <div className="fixed bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 w-[94%] max-w-4xl z-40 animate-in fade-in slide-in-from-bottom-3 duration-300">
-          <div className="rounded-xl bg-white/95 border border-amber-400/60 backdrop-blur-xl shadow-[0_15px_35px_rgba(15,23,42,0.14),0_0_25px_rgba(245,158,11,0.18)] px-3 sm:px-4 py-2 sm:py-2.5">
+          <div className="rounded-xl liquid-glass-panel !border-amber-400/65 shadow-[0_15px_35px_rgba(15,23,42,0.16),0_0_25px_rgba(245,158,11,0.2)] px-3 sm:px-4 py-2 sm:py-2.5">
             {/* --- DESKTOP VIEW: Exactly 1 Compact Horizontal Line (~48px) --- */}
             <div className="hidden md:flex items-center justify-between gap-3 text-xs">
               <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                <div className="flex items-center gap-1.5 text-amber-700 font-mono font-bold uppercase tracking-wider text-[11px] shrink-0">
+                <div className="flex items-center gap-1.5 text-amber-800 font-mono font-bold uppercase tracking-wider text-[11px] shrink-0">
                   <ShoppingBag className="w-4 h-4 text-amber-600" />
                   <span>Selected ({getCartCount()}):</span>
                 </div>
@@ -397,24 +397,24 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
                   {cart.slice(0, 3).map((item) => (
                     <span
                       key={item.id}
-                      className="px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[10.5px] font-mono text-slate-700 flex items-center gap-1"
+                      className="px-2 py-0.5 rounded-full bg-white/60 border border-white/75 text-[10.5px] font-mono text-slate-800 font-medium flex items-center gap-1"
                     >
                       <span className="truncate max-w-[120px]">{item.title}</span>
-                      <span className="text-amber-700 font-bold">×{item.quantity}</span>
+                      <span className="text-amber-800 font-bold">×{item.quantity}</span>
                     </span>
                   ))}
                   {cart.length > 3 && (
-                    <span className="text-[10.5px] font-mono text-slate-500">
+                    <span className="text-[10.5px] font-mono font-semibold text-slate-700">
                       +{cart.length - 3} more
                     </span>
                   )}
                 </div>
 
-                <div className="h-4 w-px bg-slate-200 shrink-0" />
+                <div className="h-4 w-px bg-white/60 shrink-0" />
 
                 <div className="flex items-baseline gap-1 shrink-0 font-mono">
-                  <span className="text-[10.5px] text-slate-500">Total:</span>
-                  <span className="text-sm font-extrabold text-amber-700">
+                  <span className="text-[10.5px] text-slate-700 font-semibold">Total:</span>
+                  <span className="text-sm font-extrabold text-amber-800">
                     ${getCartTotal().toLocaleString()}
                   </span>
                 </div>
@@ -424,7 +424,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
                 <button
                   type="button"
                   onClick={() => setIsCartModalOpen(true)}
-                  className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200 text-[11px] font-mono font-semibold transition-colors cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg bg-white/65 hover:bg-white/85 text-slate-800 hover:text-slate-950 border border-white/75 text-[11px] font-mono font-bold transition-colors cursor-pointer"
                 >
                   VIEW CART
                 </button>
@@ -441,7 +441,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
                 <button
                   type="button"
                   onClick={clearCart}
-                  className="p-1 rounded text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                  className="p-1 rounded text-slate-600 hover:text-slate-900 hover:bg-white/60"
                   title="Clear Cart"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -453,27 +453,27 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
             <div className="flex md:hidden flex-col gap-1.5">
               {/* Line 1: Items summary & Total */}
               <div className="flex items-center justify-between text-[11px]">
-                <div className="flex items-center gap-1 text-amber-700 font-mono font-bold truncate">
+                <div className="flex items-center gap-1 text-amber-800 font-mono font-bold truncate">
                   <ShoppingBag className="w-3.5 h-3.5 shrink-0" />
                   <span>Cart ({getCartCount()}):</span>
-                  <span className="text-slate-700 font-normal truncate max-w-[150px]">
+                  <span className="text-slate-800 font-medium truncate max-w-[150px]">
                     {cart.map((c) => `${c.title.split(" ")[0]}×${c.quantity}`).join(", ")}
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1 font-mono shrink-0 pl-1">
-                  <span className="text-[10px] text-slate-500">Total:</span>
-                  <span className="text-xs font-bold text-amber-700">
+                  <span className="text-[10px] text-slate-700 font-semibold">Total:</span>
+                  <span className="text-xs font-bold text-amber-800">
                     ${getCartTotal().toLocaleString()}
                   </span>
                 </div>
               </div>
 
               {/* Line 2: Actions */}
-              <div className="flex items-center justify-between gap-1.5 pt-1 border-t border-slate-200/80">
+              <div className="flex items-center justify-between gap-1.5 pt-1 border-t border-white/55">
                 <button
                   type="button"
                   onClick={() => setIsCartModalOpen(true)}
-                  className="flex-1 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-200 text-[10px] font-mono font-semibold text-center"
+                  className="flex-1 py-1 rounded-md bg-white/65 text-slate-800 border border-white/75 text-[10px] font-mono font-bold text-center"
                 >
                   VIEW CART
                 </button>
@@ -488,7 +488,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
                 <button
                   type="button"
                   onClick={clearCart}
-                  className="p-1 text-slate-400 hover:text-slate-700"
+                  className="p-1 text-slate-600 hover:text-slate-900"
                   title="Clear"
                 >
                   <X className="w-3 h-3" />
@@ -504,9 +504,9 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
       {/* ============================================================ */}
       {isCartModalOpen && typeof document !== "undefined" && createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/35 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="relative w-full max-w-lg rounded-2xl bg-white/95 backdrop-blur-2xl border border-amber-400/50 shadow-2xl p-4 sm:p-5 flex flex-col max-h-[85vh]">
+          <div className="relative w-full max-w-lg rounded-2xl liquid-glass-panel !border-amber-400/60 shadow-2xl p-4 sm:p-5 flex flex-col max-h-[85vh]">
             {/* Modal Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-3">
+            <div className="flex items-center justify-between pb-3 border-b border-white/55 mb-3">
               <div className="flex items-center gap-2">
                 <ShoppingBag className="w-4 h-4 text-amber-600" />
                 <h3 className="text-sm sm:text-base font-bold font-heading text-slate-900">
@@ -516,7 +516,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
               <button
                 type="button"
                 onClick={() => setIsCartModalOpen(false)}
-                className="p-1 rounded-lg bg-slate-100 text-slate-500 hover:text-slate-900 border border-slate-200"
+                className="p-1 rounded-lg bg-white/60 text-slate-700 hover:text-slate-950 border border-white/75"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -527,37 +527,37 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
               {cart.map((item) => (
                 <div
                   key={item.id}
-                  className="p-2.5 rounded-xl bg-slate-50/90 border border-slate-200/90 flex items-center justify-between gap-2"
+                  className="p-2.5 rounded-xl liquid-glass-subcard flex items-center justify-between gap-2"
                 >
                   <div className="min-w-0 flex-1">
-                    <span className="text-[9px] font-mono text-amber-700 font-semibold uppercase block">
+                    <span className="text-[9px] font-mono text-amber-800 font-bold uppercase block">
                       {item.category}
                     </span>
                     <h4 className="text-xs font-bold text-slate-900 truncate">
                       {item.title}
                     </h4>
-                    <span className="text-[10px] font-mono text-slate-500">
+                    <span className="text-[10px] font-mono text-slate-700 font-medium">
                       ${item.price} each • Subtotal: ${(item.price * item.quantity).toLocaleString()}
                     </span>
                   </div>
 
                   {/* Quantity and Delete */}
                   <div className="flex items-center gap-2 shrink-0">
-                    <div className="flex items-center bg-white border border-slate-200 rounded-lg p-0.5">
+                    <div className="flex items-center bg-white/65 border border-white/80 rounded-lg p-0.5">
                       <button
                         type="button"
                         onClick={(e) => updateQuantity(item.id, -1, e)}
-                        className="w-6 h-6 rounded flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 text-xs"
+                        className="w-6 h-6 rounded flex items-center justify-center text-slate-700 hover:text-slate-950 hover:bg-white/80 text-xs"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
-                      <span className="w-6 text-center text-xs font-mono font-bold text-amber-700">
+                      <span className="w-6 text-center text-xs font-mono font-bold text-amber-800">
                         {item.quantity}
                       </span>
                       <button
                         type="button"
                         onClick={(e) => updateQuantity(item.id, 1, e)}
-                        className="w-6 h-6 rounded flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 text-xs"
+                        className="w-6 h-6 rounded flex items-center justify-center text-slate-700 hover:text-slate-950 hover:bg-white/80 text-xs"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
@@ -566,7 +566,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
                     <button
                       type="button"
                       onClick={(e) => removeFromCart(item.id, e)}
-                      className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 transition-colors"
+                      className="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50/80 transition-colors"
                       title="Remove"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -577,15 +577,15 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
             </div>
 
             {/* Modal Footer / Summary & Actions */}
-            <div className="pt-3 border-t border-slate-200 mt-3 space-y-2.5">
+            <div className="pt-3 border-t border-white/55 mt-3 space-y-2.5">
               <div className="flex items-baseline justify-between font-mono">
-                <span className="text-xs text-slate-600">Estimated Total:</span>
-                <span className="text-base sm:text-lg font-black text-transparent bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 bg-clip-text">
+                <span className="text-xs text-slate-800 font-semibold">Estimated Total:</span>
+                <span className="text-base sm:text-lg font-black text-transparent bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-800 bg-clip-text">
                   ${getCartTotal().toLocaleString()}
                 </span>
               </div>
 
-              <p className="text-[9.5px] font-mono text-slate-500 leading-tight">
+              <p className="text-[9.5px] font-mono text-slate-700 font-medium leading-tight">
                 *Prices are indicative starting estimates. Final scope and custom deliverables will be confirmed in your consultation.
               </p>
 
@@ -593,7 +593,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
                 <button
                   type="button"
                   onClick={clearCart}
-                  className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 border border-slate-200 text-xs font-mono transition-colors"
+                  className="px-3 py-2 rounded-xl bg-white/60 hover:bg-white/80 text-slate-800 hover:text-slate-950 border border-white/75 text-xs font-mono font-semibold transition-colors"
                 >
                   Clear All
                 </button>

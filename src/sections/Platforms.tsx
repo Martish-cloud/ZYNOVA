@@ -59,9 +59,9 @@ export const Platforms: React.FC = () => {
                 />
 
                 {/* Top-right Indicator Icon */}
-                <div className="absolute top-2.5 right-2.5 text-slate-400 group-hover:text-amber-600 transition-colors">
+                <div className="absolute top-2.5 right-2.5 text-slate-600 group-hover:text-amber-700 transition-colors">
                   {plat.hasServiceList ? (
-                    <Layers className="w-3.5 h-3.5 text-amber-500" />
+                    <Layers className="w-3.5 h-3.5 text-amber-600" />
                   ) : (
                     <ExternalLink className="w-3.5 h-3.5" />
                   )}
@@ -76,12 +76,12 @@ export const Platforms: React.FC = () => {
                 </div>
 
                 {/* Clean Platform Name */}
-                <span className="font-heading font-bold text-xs sm:text-sm text-slate-800 group-hover:text-amber-700 transition-colors tracking-wide">
+                <span className="font-heading font-bold text-xs sm:text-sm text-slate-900 group-hover:text-amber-800 transition-colors tracking-wide">
                   {plat.name}
                 </span>
 
                 {plat.hasServiceList && (
-                  <span className="text-[9px] font-mono text-amber-600 mt-1 font-semibold tracking-tight">
+                  <span className="text-[9px] font-mono text-amber-700 mt-1 font-bold tracking-tight">
                     View Services
                   </span>
                 )}
@@ -96,7 +96,7 @@ export const Platforms: React.FC = () => {
                   onClick={(e) => handleCardClick(plat, e)}
                   onMouseEnter={() => setCursor("project", "SERVICES")}
                   onMouseLeave={resetCursor}
-                  className="group relative p-4 sm:p-5 rounded-xl bg-white/80 border border-slate-200/80 hover:border-amber-400/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 shadow-[0_8px_24px_rgba(15,23,42,0.05),inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_20px_40px_-15px_rgba(245,158,11,0.18)] flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden w-full"
+                  className="group relative p-4 sm:p-5 rounded-xl liquid-glass-card hover:border-amber-400/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden w-full"
                 >
                   {cardContent}
                 </button>
@@ -111,7 +111,7 @@ export const Platforms: React.FC = () => {
                 rel="noreferrer"
                 onMouseEnter={() => setCursor("project", plat.name)}
                 onMouseLeave={resetCursor}
-                className="group relative p-4 sm:p-5 rounded-xl bg-white/80 border border-slate-200/80 hover:border-amber-400/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 shadow-[0_8px_24px_rgba(15,23,42,0.05),inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_20px_40px_-15px_rgba(245,158,11,0.18)] flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden"
+                className="group relative p-4 sm:p-5 rounded-xl liquid-glass-card hover:border-amber-400/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden"
               >
                 {cardContent}
               </a>

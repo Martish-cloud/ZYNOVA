@@ -46,7 +46,7 @@ export const Industries: React.FC = () => {
   };
 
   return (
-    <section id="industries" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-slate-200/70">
+    <section id="industries" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-white/25">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="INDUSTRIES WE SERVE"
@@ -70,7 +70,7 @@ export const Industries: React.FC = () => {
               }
               onMouseEnter={() => setCursor("project", ind.name)}
               onMouseLeave={resetCursor}
-              className={`group p-4 sm:p-4.5 rounded-xl bg-white/80 border border-slate-200/80 hover:border-amber-400/60 hover:bg-white/95 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2 hover:scale-[1.025] shadow-[0_8px_24px_rgba(15,23,42,0.05),inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_20px_40px_-12px_rgba(245,158,11,0.18)] active:scale-[0.98] active:-translate-y-0.5 flex flex-col justify-between cursor-pointer ${
+              className={`group p-4 sm:p-4.5 rounded-xl liquid-glass-card transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2 hover:scale-[1.025] active:scale-[0.98] active:-translate-y-0.5 flex flex-col justify-between cursor-pointer ${
                 isGridInView
                   ? "opacity-100 translate-y-0 scale-100"
                   : "opacity-0 translate-y-5 scale-[0.96]"
@@ -78,19 +78,19 @@ export const Industries: React.FC = () => {
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <div className="p-2 rounded-lg bg-amber-50/80 border border-amber-200/80 group-hover:scale-110 group-hover:border-amber-400/50 transition-all">
+                  <div className="p-2 rounded-lg bg-amber-50/75 border border-amber-300/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] group-hover:scale-110 group-hover:border-amber-400 transition-all">
                     {getIcon(ind.icon)}
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-50/90 text-amber-800 border border-amber-300/60 font-semibold">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-50/85 text-amber-900 border border-amber-400/55 font-bold">
                     {ind.tag}
                   </span>
                 </div>
 
-                <h3 className="font-heading font-bold text-sm sm:text-[15px] text-slate-900 group-hover:text-amber-700 transition-colors mb-1.5">
+                <h3 className="font-heading font-bold text-sm sm:text-[15px] text-slate-900 group-hover:text-amber-800 transition-colors mb-1.5">
                   {ind.name}
                 </h3>
 
-                <p className="text-[11.5px] sm:text-xs text-slate-600 leading-relaxed">
+                <p className="text-[11.5px] sm:text-xs text-slate-700 font-medium leading-relaxed">
                   {ind.description}
                 </p>
               </div>

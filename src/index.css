@@ -42,41 +42,128 @@
   background: #d4af37;
 }
 
-/* Light Glassmorphism Classes */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+/* Light Liquid Glass Design Tokens & Utility System */
+:root {
+  --glass-surface: linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.42) 100%);
+  --glass-surface-strong: linear-gradient(135deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.52) 100%);
+  --glass-surface-subtle: rgba(255, 255, 255, 0.38);
+  --glass-surface-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.74) 0%, rgba(255, 255, 255, 0.54) 100%);
+  --glass-border: rgba(255, 255, 255, 0.58);
+  --glass-border-subtle: rgba(255, 255, 255, 0.48);
+  --glass-border-gold: rgba(245, 158, 11, 0.48);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 rgba(255, 255, 255, 0.25);
+  --glass-shadow: 0 10px 32px rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 rgba(255, 255, 255, 0.22);
+  --glass-shadow-hover: 0 18px 42px -10px rgba(245, 158, 11, 0.26), 0 8px 24px rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.94);
+  --glass-blur: blur(18px) saturate(150%);
+  --glass-blur-strong: blur(22px) saturate(155%);
+  --glass-radius: 1.5rem;
 }
 
-.glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.86) 0%, rgba(248, 250, 252, 0.76) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+.glass-panel,
+.liquid-glass-panel {
+  background: var(--glass-surface-strong);
+  backdrop-filter: var(--glass-blur-strong);
+  -webkit-backdrop-filter: var(--glass-blur-strong);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-card,
+.liquid-glass-card {
+  background: var(--glass-surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: background 0.28s ease, border-color 0.28s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card-hover {
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease, box-shadow 0.3s ease, background 0.28s ease;
 }
-.glass-card-hover:hover {
-  border-color: rgba(245, 158, 11, 0.55);
-  box-shadow: 0 16px 36px -10px rgba(245, 158, 11, 0.22), 0 4px 16px rgba(15, 23, 42, 0.06);
+
+.glass-card-hover:hover,
+.liquid-glass-card:hover {
+  background: var(--glass-surface-hover);
+  border-color: rgba(245, 158, 11, 0.58);
+  box-shadow: var(--glass-shadow-hover);
   transform: translateY(-4px);
+}
+
+/* Nested sub-cards, pills & metric boxes inside glass containers (no redundant blur stacking) */
+.liquid-glass-subcard {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.32) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.liquid-glass-subcard:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.42) 100%);
+  border-color: rgba(245, 158, 11, 0.52);
+  box-shadow: 0 8px 22px rgba(245, 158, 11, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.90);
+}
+
+.liquid-glass-pill {
+  background: rgba(255, 255, 255, 0.46);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.80);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.liquid-glass-pill:hover {
+  background: rgba(255, 255, 255, 0.64);
+  border-color: rgba(245, 158, 11, 0.55);
+}
+
+.liquid-glass-input {
+  background: rgba(255, 255, 255, 0.54);
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 0 rgba(255, 255, 255, 0.75);
+  transition: background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.liquid-glass-input:hover {
+  background: rgba(255, 255, 255, 0.66);
+  border-color: rgba(245, 158, 11, 0.45);
+}
+
+.liquid-glass-input:focus {
+  background: rgba(255, 255, 255, 0.80);
+  border-color: rgba(245, 158, 11, 0.75);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  outline: none;
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-panel,
+  .liquid-glass-panel,
+  .glass-card,
+  .liquid-glass-card,
+  .liquid-glass-pill {
+    background: rgba(255, 255, 255, 0.88);
+  }
 }
 
 /* Mobile GPU optimization: reduce heavy blur filters on small screens */
 @media (max-width: 768px) {
-  .glass-panel {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  :root {
+    --glass-blur: blur(10px) saturate(135%);
+    --glass-blur-strong: blur(12px) saturate(140%);
   }
-  .glass-card {
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+  .glass-panel,
+  .liquid-glass-panel {
+    backdrop-filter: blur(12px) saturate(135%);
+    -webkit-backdrop-filter: blur(12px) saturate(135%);
+  }
+  .glass-card,
+  .liquid-glass-card,
+  .liquid-glass-pill {
+    backdrop-filter: blur(8px) saturate(130%);
+    -webkit-backdrop-filter: blur(8px) saturate(130%);
   }
 }
 

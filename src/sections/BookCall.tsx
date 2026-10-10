@@ -157,14 +157,14 @@ export const BookCall: React.FC<BookCallProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Left Column: Direct Booking Option & Info */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="p-4.5 sm:p-5 rounded-xl bg-gradient-to-b from-white/90 to-slate-50/85 border border-amber-400/35 hover:border-amber-400/60 backdrop-blur-xl shadow-[0_12px_32px_rgba(15,23,42,0.06),inset_0_1px_0_rgba(255,255,255,0.95)] transition-colors">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-600 font-semibold block mb-1.5">
+            <div className="p-4.5 sm:p-5 rounded-xl liquid-glass-card border-amber-400/45 hover:border-amber-400/70 transition-colors">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-700 font-bold block mb-1.5">
                 OPTION 01 &bull; INSTANT SYNC
               </span>
               <h3 className="text-base sm:text-lg font-bold font-heading text-slate-900 mb-1.5">
                 Book Directly via Calendar
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed mb-4">
+              <p className="text-xs text-slate-800 font-medium leading-relaxed mb-4">
                 Prefer to grab an immediate slot on our calendar? Connect via our direct scheduling link for a video discovery call.
               </p>
 
@@ -182,32 +182,32 @@ export const BookCall: React.FC<BookCallProps> = ({
                 <ExternalLink className="w-3.5 h-3.5 text-slate-950" />
               </MagneticButton>
 
-              <p className="text-[10px] text-slate-500 mt-2.5 text-center">
-                Replace <code className="font-mono text-amber-700 font-semibold">siteConfig.bookingURL</code> with your Calendly / Cal.com link
+              <p className="text-[10px] text-slate-700 font-medium mt-2.5 text-center">
+                Replace <code className="font-mono text-amber-800 font-bold">siteConfig.bookingURL</code> with your Calendly / Cal.com link
               </p>
             </div>
 
-            <div className="p-4.5 sm:p-5 rounded-xl bg-white/80 border border-slate-200/80 backdrop-blur-xl shadow-sm space-y-3">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 font-mono flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <div className="p-4.5 sm:p-5 rounded-xl liquid-glass-card space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 font-mono flex items-center gap-2">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
                 <span>What to Expect on the Call</span>
               </h4>
 
-              <ul className="space-y-2 text-xs text-slate-700">
+              <ul className="space-y-2 text-xs text-slate-800 font-medium">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
                   <span>30-minute high-level technical feasibility assessment</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
                   <span>Recommended architecture, timeline, and phased milestones</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
                   <span>Direct consultation with Founder Amit Halder</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
                   <span>Strict NDA and client privacy guaranteed</span>
                 </li>
               </ul>
@@ -216,8 +216,8 @@ export const BookCall: React.FC<BookCallProps> = ({
 
           {/* Right Column: Interactive Schedule Request Form */}
           <div className="lg:col-span-7">
-            <div className="p-5 sm:p-6 rounded-2xl bg-white/90 border border-amber-400/35 backdrop-blur-2xl shadow-[0_20px_50px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.95)] relative">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-600 font-semibold block mb-1.5">
+            <div className="p-5 sm:p-6 rounded-2xl liquid-glass-panel border-amber-400/45 relative">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-700 font-bold block mb-1.5">
                 OPTION 02 &bull; BESPOKE REQUEST
               </span>
               <h3 className="text-xl sm:text-2xl font-bold font-heading text-slate-900 mb-4">
@@ -232,8 +232,8 @@ export const BookCall: React.FC<BookCallProps> = ({
                   <h4 className="text-xl font-bold font-heading text-slate-900">
                     Request Received!
                   </h4>
-                  <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="text-slate-900 font-semibold">{formData.name}</span>. Your discovery call request was delivered directly to <span className="text-amber-700 font-mono font-semibold">{siteConfig.contact.email}</span>. We will review your project brief and confirm the calendar invitation within 12 hours.
+                  <p className="text-xs sm:text-sm text-slate-800 font-medium max-w-md mx-auto leading-relaxed">
+                    Thank you, <span className="text-slate-950 font-bold">{formData.name}</span>. Your discovery call request was delivered directly to <span className="text-amber-800 font-mono font-bold">{siteConfig.contact.email}</span>. We will review your project brief and confirm the calendar invitation within 12 hours.
                   </p>
                   <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                     <a
@@ -268,7 +268,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                           message: ""
                         });
                       }}
-                      className="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:text-slate-900 hover:bg-slate-200 transition-colors cursor-pointer"
+                      className="px-4 py-2 rounded-lg text-xs font-semibold liquid-glass-subcard text-slate-800 hover:text-slate-950 transition-colors cursor-pointer"
                     >
                       Send Another Request
                     </button>
@@ -279,7 +279,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Name */}
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                      <label className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                         Full Name *
                       </label>
                       <input
@@ -289,12 +289,12 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="e.g. Ankita Shrivastav"
-                        className={`w-full px-3.5 py-2 rounded-lg bg-white border text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors shadow-xs ${
-                          errors.name ? "border-rose-500" : "border-slate-300"
+                        className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium placeholder-slate-500 focus:outline-none transition-colors ${
+                          errors.name ? "!border-rose-500" : ""
                         }`}
                       />
                       {errors.name && (
-                        <span className="text-[10px] text-rose-600 mt-1 block">
+                        <span className="text-[10px] text-rose-700 font-semibold mt-1 block">
                           {errors.name}
                         </span>
                       )}
@@ -302,7 +302,7 @@ export const BookCall: React.FC<BookCallProps> = ({
 
                     {/* Email */}
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                      <label className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                         Work Email *
                       </label>
                       <input
@@ -312,12 +312,12 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Ankita.shri@yahoo.com"
-                        className={`w-full px-3.5 py-2 rounded-lg bg-white border text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors shadow-xs ${
-                          errors.email ? "border-rose-500" : "border-slate-300"
+                        className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium placeholder-slate-500 focus:outline-none transition-colors ${
+                          errors.email ? "!border-rose-500" : ""
                         }`}
                       />
                       {errors.email && (
-                        <span className="text-[10px] text-rose-600 mt-1 block">
+                        <span className="text-[10px] text-rose-700 font-semibold mt-1 block">
                           {errors.email}
                         </span>
                       )}
@@ -327,7 +327,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Company */}
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                      <label className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                         Company / Brand
                       </label>
                       <input
@@ -337,13 +337,13 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Acme Corp (Optional)"
-                        className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors shadow-xs"
+                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium placeholder-slate-500 focus:outline-none transition-colors"
                       />
                     </div>
 
                     {/* Service */}
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                      <label className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                         Service Interested In
                       </label>
                       <select
@@ -351,7 +351,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors shadow-xs"
+                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium focus:outline-none transition-colors"
                       >
                         {serviceOptions.map((opt) => (
                           <option key={opt} value={opt} className="bg-white text-slate-900">
@@ -365,7 +365,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                   {/* Date & Time Preferences */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase flex items-center gap-1.5">
+                      <label className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-amber-600" />
                         <span>Preferred Date</span>
                       </label>
@@ -375,12 +375,12 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors shadow-xs"
+                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium focus:outline-none transition-colors"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase flex items-center gap-1.5">
+                      <label className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase flex items-center gap-1.5">
                         <Clock className="w-3.5 h-3.5 text-amber-600" />
                         <span>Preferred Time (UTC / IST)</span>
                       </label>
@@ -390,14 +390,14 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors shadow-xs"
+                        className="w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium focus:outline-none transition-colors"
                       />
                     </div>
                   </div>
 
                   {/* Message Brief */}
                   <div>
-                    <label className="block text-[11px] font-mono text-slate-600 font-semibold mb-1 uppercase">
+                    <label className="block text-[11px] font-mono text-slate-800 font-bold mb-1 uppercase">
                       Project Brief / Goals *
                     </label>
                     <textarea
@@ -407,12 +407,12 @@ export const BookCall: React.FC<BookCallProps> = ({
                       onFocus={() => setCursor("input")}
                       onBlur={resetCursor}
                       placeholder="Tell us about the project requirements, existing stack, and expected timeframe..."
-                      className={`w-full px-3.5 py-2 rounded-lg bg-white border text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30 transition-colors resize-none shadow-xs ${
-                        errors.message ? "border-rose-500" : "border-slate-300"
+                      className={`w-full px-3.5 py-2 rounded-lg liquid-glass-input text-xs sm:text-sm text-slate-900 font-medium placeholder-slate-500 focus:outline-none transition-colors resize-none ${
+                        errors.message ? "!border-rose-500" : ""
                       }`}
                     />
                     {errors.message && (
-                      <span className="text-[10px] text-rose-600 mt-1 block">
+                      <span className="text-[10px] text-rose-700 font-semibold mt-1 block">
                         {errors.message}
                       </span>
                     )}

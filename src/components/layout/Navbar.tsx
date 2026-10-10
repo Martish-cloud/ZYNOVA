@@ -48,8 +48,8 @@ export const Navbar: React.FC = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? "py-2 sm:py-2.5 bg-white/85 backdrop-blur-xl border-b border-slate-200/90 shadow-[0_8px_30px_rgba(15,23,42,0.06)]"
-            : "py-2.5 sm:py-3 bg-white/75 backdrop-blur-lg border-b border-slate-200/70 shadow-[0_2px_20px_rgba(15,23,42,0.04)]"
+            ? "py-2 sm:py-2.5 bg-white/62 backdrop-blur-xl saturate-150 border-b border-white/60 shadow-[0_8px_32px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.82)]"
+            : "py-2.5 sm:py-3 bg-white/50 backdrop-blur-xl saturate-150 border-b border-white/45 shadow-[0_4px_24px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.75)]"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -65,7 +65,7 @@ export const Navbar: React.FC = () => {
             className="group flex items-center gap-2 cursor-pointer"
           >
             <div className="relative w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-400 via-yellow-400 to-amber-600 p-[1.5px] transition-transform duration-300 group-hover:scale-105 shadow-[0_4px_14px_rgba(245,158,11,0.35)]">
-              <div className="w-full h-full bg-white rounded-[7px] flex items-center justify-center">
+              <div className="w-full h-full bg-white/90 rounded-[7px] flex items-center justify-center">
                 <span className="font-heading font-black text-transparent bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 bg-clip-text text-base">
                   Z
                 </span>
@@ -76,14 +76,14 @@ export const Navbar: React.FC = () => {
                 {siteConfig.brandName}
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block shadow-[0_0_6px_#f59e0b] shrink-0" />
               </span>
-              <span className="text-[7.5px] sm:text-[8.5px] uppercase tracking-widest text-amber-700/80 font-mono hidden sm:block leading-none font-semibold">
+              <span className="text-[7.5px] sm:text-[8.5px] uppercase tracking-widest text-amber-800 font-mono hidden sm:block leading-none font-bold">
                 STUDIO &bull; EST. 2026
               </span>
             </div>
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-0.5 bg-slate-100/85 p-1 rounded-full border border-slate-200/90 backdrop-blur-md shadow-inner">
+          <nav className="hidden lg:flex items-center gap-0.5 bg-white/42 p-1 rounded-full border border-white/65 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_4px_16px_rgba(15,23,42,0.06)]">
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.id;
               return (
@@ -98,8 +98,8 @@ export const Navbar: React.FC = () => {
                   onMouseLeave={resetCursor}
                   className={`relative px-3 sm:px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? "text-amber-900 bg-white shadow-[0_2px_10px_rgba(245,158,11,0.2)] border border-amber-400/50"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-white/70 border border-transparent"
+                      ? "text-amber-950 bg-white/85 shadow-[0_2px_10px_rgba(245,158,11,0.22),inset_0_1px_0_rgba(255,255,255,0.95)] border border-amber-400/60"
+                      : "text-slate-800 hover:text-slate-950 hover:bg-white/55 border border-transparent"
                   }`}
                 >
                   {link.name}
@@ -127,7 +127,7 @@ export const Navbar: React.FC = () => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               onMouseEnter={() => setCursor("button")}
               onMouseLeave={resetCursor}
-              className="lg:hidden p-2 rounded-xl bg-white/90 border border-slate-200/90 text-slate-700 hover:text-slate-900 shadow-sm transition-colors"
+              className="lg:hidden p-2 rounded-xl bg-white/60 border border-white/70 text-slate-800 hover:text-slate-950 shadow-sm transition-colors"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? <X className="w-6 h-6 text-amber-600" /> : <Menu className="w-6 h-6" />}
@@ -146,9 +146,9 @@ export const Navbar: React.FC = () => {
           />
 
           {/* Menu Panel */}
-          <div className="fixed top-20 right-4 left-4 max-w-sm ml-auto bg-white/95 backdrop-blur-2xl border border-slate-200/90 rounded-2xl shadow-[0_20px_50px_rgba(15,23,42,0.15)] p-6 overflow-hidden">
+          <div className="fixed top-20 right-4 left-4 max-w-sm ml-auto liquid-glass-panel rounded-2xl shadow-[0_20px_50px_rgba(15,23,42,0.18)] p-6 overflow-hidden">
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase tracking-widest text-slate-500 font-mono mb-2 font-semibold">
+              <span className="text-[10px] uppercase tracking-widest text-slate-700 font-mono mb-2 font-bold">
                 Navigation
               </span>
               {NAV_LINKS.map((link) => {
@@ -161,19 +161,19 @@ export const Navbar: React.FC = () => {
                       e.preventDefault();
                       handleLinkClick(link.href);
                     }}
-                    className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                    className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
                       isActive
-                        ? "bg-amber-50 text-amber-900 border border-amber-400/50 font-semibold"
-                        : "text-slate-700 hover:bg-slate-100/80 hover:text-slate-900"
+                        ? "bg-amber-50/75 text-amber-950 border border-amber-400/60 shadow-sm"
+                        : "text-slate-800 hover:bg-white/55 hover:text-slate-950"
                     }`}
                   >
                     <span>{link.name}</span>
-                    <ArrowUpRight className="w-4 h-4 opacity-50" />
+                    <ArrowUpRight className="w-4 h-4 opacity-60" />
                   </a>
                 );
               })}
 
-              <div className="pt-4 mt-2 border-t border-slate-200">
+              <div className="pt-4 mt-2 border-t border-white/50">
                 <a
                   href={`tel:${siteConfig.phoneTel}`}
                   aria-label={`Call ZYNOVA at ${siteConfig.phone}`}

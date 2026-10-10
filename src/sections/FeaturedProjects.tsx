@@ -139,31 +139,31 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
 }) => {
   return (
     <div
-      className="w-[300px] sm:w-[360px] md:w-[395px] shrink-0 group relative rounded-2xl sm:rounded-3xl p-3.5 sm:p-4.5 bg-white/85 backdrop-blur-xl border border-slate-200/90 hover:border-amber-500/60 transition-all duration-300 shadow-[0_12px_36px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_50px_rgba(245,158,11,0.18)] hover:-translate-y-1.5 flex flex-col justify-between select-none"
+      className="w-[300px] sm:w-[360px] md:w-[395px] shrink-0 group relative rounded-2xl sm:rounded-3xl p-3.5 sm:p-4.5 liquid-glass-card flex flex-col justify-between select-none"
     >
       {/* Ambient subtle top glow */}
       <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-amber-400/70 to-transparent pointer-events-none" />
 
       <div>
         {/* Card Browser-style Top Bar */}
-        <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-200/80">
+        <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-white/55">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-red-400 inline-block" />
             <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block" />
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block" />
-            <span className="text-[10px] text-slate-500 font-mono ml-1.5 truncate max-w-[130px] sm:max-w-[160px]">
+            <span className="text-[10px] text-slate-700 font-semibold font-mono ml-1.5 truncate max-w-[130px] sm:max-w-[160px]">
               {project.url.replace(/^https?:\/\//, "")}
             </span>
           </div>
 
-          <div className="flex items-center gap-1 text-[10px] uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-400/40">
+          <div className="flex items-center gap-1 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-amber-50/80 text-amber-900 border border-amber-400/55">
             <Sparkles className="w-2.5 h-2.5 text-amber-600" />
             <span>{project.badge}</span>
           </div>
         </div>
 
         {/* Project Preview Image */}
-        <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-200/80 group-hover:border-amber-500/40 transition-colors">
+        <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden bg-slate-100/70 border border-white/60 group-hover:border-amber-500/45 transition-colors">
           <PortfolioImage
             src={project.image}
             alt={`${project.title} Preview`}
@@ -174,7 +174,7 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/35 via-transparent to-transparent opacity-50" />
 
           {/* Live Status indicator badge */}
-          <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-white/95 backdrop-blur-md border border-slate-200/90 flex items-center gap-1.5 text-[10px] text-slate-800 font-semibold shadow-sm">
+          <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-white/88 backdrop-blur-md border border-white/80 flex items-center gap-1.5 text-[10px] text-slate-900 font-bold shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>Live Production</span>
           </div>
@@ -183,14 +183,14 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
         {/* Card Content Details */}
         <div className="pt-3.5 sm:pt-4">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-[11px] font-semibold tracking-wider uppercase text-amber-700">
+            <span className="text-[11px] font-bold tracking-wider uppercase text-amber-800">
               {project.category}
             </span>
             <div className="flex items-center gap-1">
               {project.tech.slice(0, 2).map((t) => (
                 <span
                   key={t}
-                  className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200/80"
+                  className="text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded bg-white/55 text-slate-800 border border-white/75"
                 >
                   {t}
                 </span>
@@ -198,19 +198,19 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
             </div>
           </div>
 
-          <h3 className="font-heading text-base sm:text-lg font-bold text-slate-900 mb-1.5 tracking-tight group-hover:text-amber-700 transition-colors flex items-center justify-between">
+          <h3 className="font-heading text-base sm:text-lg font-bold text-slate-900 mb-1.5 tracking-tight group-hover:text-amber-800 transition-colors flex items-center justify-between">
             <span>{project.title}</span>
             <ArrowUpRight className="w-4 h-4 text-amber-600 opacity-80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </h3>
 
-          <p className="text-xs text-slate-600 leading-relaxed mb-4 line-clamp-2">
+          <p className="text-xs text-slate-700 font-medium leading-relaxed mb-4 line-clamp-2">
             {project.description}
           </p>
         </div>
       </div>
 
       {/* Action Buttons: Visit Website & View Architecture */}
-      <div className="flex items-center gap-2 pt-2 border-t border-slate-200/80">
+      <div className="flex items-center gap-2 pt-2 border-t border-white/55">
         <a
           href={project.url}
           target="_blank"
@@ -230,7 +230,7 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
           onClick={onOpenArchitecture}
           tabIndex={isDuplicate ? -1 : 0}
           aria-hidden={isDuplicate ? "true" : undefined}
-          className="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-medium text-slate-700 hover:text-amber-800 bg-slate-100/90 hover:bg-amber-50 border border-slate-200/90 hover:border-amber-500/40 transition-all duration-200 active:scale-[0.98]"
+          className="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-semibold text-slate-800 hover:text-amber-900 bg-white/55 hover:bg-amber-50/85 border border-white/75 hover:border-amber-500/50 transition-all duration-200 active:scale-[0.98]"
           aria-label={`View architecture details for ${project.title}`}
         >
           <Layers className="w-3.5 h-3.5 text-amber-600" />
@@ -295,7 +295,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
   return (
     <section
       id="featured-projects"
-      className="py-14 sm:py-20 md:py-24 relative z-10 bg-transparent border-t border-slate-200/80 overflow-hidden"
+      className="py-14 sm:py-20 md:py-24 relative z-10 bg-transparent border-t border-white/25 overflow-hidden"
       aria-label="Featured Projects Showcase"
     >
       {/* Background Decorative Glow */}
@@ -323,16 +323,16 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
                   setActiveProjectIndex(idx);
                   handleOpenModal(proj);
                 }}
-                className={`group relative px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 flex items-center gap-1.5 ${
+                className={`group relative px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-1.5 ${
                   isActive
-                    ? "bg-amber-50 text-amber-900 border border-amber-400/60 shadow-[0_4px_15px_rgba(245,158,11,0.2)] font-semibold"
-                    : "bg-white/80 backdrop-blur-md text-slate-600 border border-slate-200/90 hover:text-slate-900 hover:border-amber-400/50 hover:bg-white shadow-2xs"
+                    ? "bg-amber-50/85 text-amber-950 border border-amber-400/75 shadow-[0_4px_15px_rgba(245,158,11,0.22),inset_0_1px_0_rgba(255,255,255,0.9)] font-bold backdrop-blur-md"
+                    : "liquid-glass-pill text-slate-800 hover:text-slate-950"
                 }`}
                 aria-label={`View ${proj.title} architecture`}
               >
                 <span
-                  className={`text-[10px] sm:text-xs font-mono font-semibold ${
-                    isActive ? "text-amber-600" : "text-slate-400 group-hover:text-slate-600"
+                  className={`text-[10px] sm:text-xs font-mono font-bold ${
+                    isActive ? "text-amber-700" : "text-slate-600 group-hover:text-slate-800"
                   }`}
                 >
                   0{idx + 1}
@@ -358,9 +358,9 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
           setTimeout(() => setIsTouchPaused(false), 3000);
         }}
       >
-        {/* Soft Left and Right Edge Gradient Vignettes */}
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-20 md:w-28 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent z-20" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-20 md:w-28 bg-gradient-to-l from-[#f8fafc] via-[#f8fafc]/80 to-transparent z-20" />
+        {/* Soft Left and Right Edge Gradient Vignettes compatible with dark ambient video */}
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 sm:w-14 md:w-20 bg-gradient-to-r from-slate-950/35 to-transparent z-20" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 sm:w-14 md:w-20 bg-gradient-to-l from-slate-950/35 to-transparent z-20" />
 
         {/* Moving Dual-Track Flex Row */}
         <div
@@ -403,12 +403,12 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
 
       {/* Showcase Control Bar & Instructions */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 sm:mt-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 p-3.5 sm:p-4 rounded-xl bg-white/80 border border-slate-200/90 backdrop-blur-md shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-4 p-3.5 sm:p-4 rounded-xl liquid-glass-card">
           {/* Navigation Controls: Left, Pause/Play, Right */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => handleNudge("left")}
-              className="p-2 sm:p-2.5 rounded-lg bg-slate-100 hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 transition-all hover:scale-105 active:scale-95"
+              className="p-2 sm:p-2.5 rounded-lg liquid-glass-subcard text-slate-800 hover:text-amber-800 transition-all hover:scale-105 active:scale-95"
               aria-label="Previous Project"
               title="Previous Project"
             >
@@ -417,7 +417,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
 
             <button
               onClick={() => setIsManuallyPaused((prev) => !prev)}
-              className="px-3 py-2 sm:py-2.5 rounded-lg bg-slate-100 hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 transition-all flex items-center gap-1.5 text-xs font-mono font-semibold"
+              className="px-3 py-2 sm:py-2.5 rounded-lg liquid-glass-subcard text-slate-800 hover:text-amber-800 transition-all flex items-center gap-1.5 text-xs font-mono font-bold"
               aria-label={isManuallyPaused ? "Resume auto motion" : "Pause auto motion"}
               title={isManuallyPaused ? "Resume auto motion" : "Pause auto motion"}
             >
@@ -436,7 +436,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
 
             <button
               onClick={() => handleNudge("right")}
-              className="p-2 sm:p-2.5 rounded-lg bg-slate-100 hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 transition-all hover:scale-105 active:scale-95"
+              className="p-2 sm:p-2.5 rounded-lg liquid-glass-subcard text-slate-800 hover:text-amber-800 transition-all hover:scale-105 active:scale-95"
               aria-label="Next Project"
               title="Next Project"
             >
@@ -445,7 +445,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
           </div>
 
           {/* Quick Helper Badge */}
-          <p className="text-[11px] sm:text-xs text-slate-600 flex items-center gap-2">
+          <p className="text-[11px] sm:text-xs text-slate-800 font-medium flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
             <span>Hover or tap any card to pause • Continuous left-to-right showcase</span>
           </p>
@@ -453,7 +453,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
           {/* Direct CTA */}
           <button
             onClick={() => handleOpenModal(FEATURED_PROJECTS[activeProjectIndex])}
-            className="text-xs font-semibold text-amber-700 hover:text-amber-800 flex items-center gap-1 transition-colors"
+            className="text-xs font-bold text-amber-800 hover:text-amber-900 flex items-center gap-1 transition-colors"
           >
             <span>View Architecture details</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
