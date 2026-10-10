@@ -84,16 +84,25 @@ const ServiceCard = React.memo<ServiceCardProps>(({
 
   return (
     <div
+      tabIndex={0}
+      role="button"
+      aria-label={`View details for ${service.title}`}
       onClick={() => onOpenDetails(service)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpenDetails(service);
+        }
+      }}
       onMouseEnter={() => setCursor("project", "EXPAND")}
       onMouseLeave={resetCursor}
-      className="group relative rounded-xl overflow-hidden liquid-glass-card shadow-[0_8px_28px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_36px_-10px_rgba(245,158,11,0.35)] transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
+      className="group relative rounded-xl overflow-hidden liquid-glass-card shadow-[0_8px_28px_rgba(0,0,0,0.32)] hover:shadow-[0_16px_36px_-10px_rgba(245,158,11,0.28)] transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
     >
       {/* Synchronized Perimeter-Only Border Light (Zero interior bleed) */}
       <CardBorderLight retriggerKey={retriggerKey} />
 
       {/* Inner Card Content */}
-      <div className="relative z-10 p-2 sm:p-2.5 md:p-3 rounded-xl bg-gradient-to-br from-white/[0.18] via-white/[0.14] to-white/[0.10] backdrop-blur-xl saturate-150 border border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_24px_rgba(0,0,0,0.18)] h-full flex flex-col justify-between overflow-hidden">
+      <div className="relative z-10 p-2 sm:p-2.5 md:p-3 rounded-xl bg-gradient-to-br from-slate-950/75 via-slate-900/65 to-slate-950/80 backdrop-blur-xl saturate-150 border border-white/20 group-hover:border-amber-400/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_8px_24px_rgba(0,0,0,0.35)] h-full flex flex-col justify-between overflow-hidden transition-colors duration-300">
         <div>
         {/* Header with Number and Icon */}
         <div className="flex items-center justify-between mb-1.5">
@@ -107,24 +116,24 @@ const ServiceCard = React.memo<ServiceCardProps>(({
               </span>
             )}
           </div>
-          <div className="p-1 sm:p-1.5 rounded-lg bg-amber-400/[0.18] border border-amber-400/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] group-hover:scale-110 group-hover:border-amber-300 transition-all">
+          <div className="p-1 sm:p-1.5 rounded-lg bg-amber-400/[0.18] border border-amber-400/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] group-hover:scale-105 group-hover:border-amber-300 transition-transform">
             {renderServiceIcon(service.icon)}
           </div>
         </div>
 
         {/* Title */}
-        <h3 className="text-xs sm:text-sm font-bold font-heading text-white group-hover:text-amber-300 transition-colors mb-1 leading-snug line-clamp-2">
+        <h3 className="text-xs sm:text-sm font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors mb-1 leading-snug line-clamp-2">
           {service.title}
         </h3>
 
         {/* Short Description */}
-        <p className="text-[9.5px] sm:text-[10.5px] text-slate-200 font-normal leading-snug mb-1.5 line-clamp-2 sm:line-clamp-3">
+        <p className="text-[9.5px] sm:text-[10.5px] text-[#B7F0C1] font-normal leading-snug mb-1.5 line-clamp-2 sm:line-clamp-3">
           {service.shortDesc}
         </p>
 
         {/* Pricing Box */}
         {service.pricing && (
-          <div className="mb-1.5 px-1.5 py-1 rounded-md bg-white/[0.10] border border-amber-400/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
+          <div className="mb-1.5 px-1.5 py-1 rounded-md bg-slate-950/50 border border-amber-400/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]">
             <div className="flex items-baseline justify-between gap-1">
               <span className="text-[7.5px] sm:text-[8px] font-mono uppercase tracking-wider text-amber-300 font-bold truncate">
                 From {service.pricing.split(" ")[0]}
@@ -148,20 +157,20 @@ const ServiceCard = React.memo<ServiceCardProps>(({
           {service.technologies.slice(0, 2).map((tech) => (
             <span
               key={tech}
-              className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono font-medium bg-white/[0.14] text-slate-200 border border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
+              className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono font-medium bg-white/[0.12] text-slate-100 border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]"
             >
               {tech}
             </span>
           ))}
           {service.technologies.length > 2 && (
-            <span className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono font-semibold bg-white/[0.10] text-slate-300 border border-white/20">
+            <span className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono font-semibold bg-white/[0.08] text-slate-300 border border-white/15">
               +{service.technologies.length - 2}
             </span>
           )}
         </div>
 
         {/* Bottom Action Line: Deliverables + Quick Cart Action */}
-        <div className="pt-1.5 border-t border-white/20 flex items-center justify-between gap-1">
+        <div className="pt-1.5 border-t border-white/15 flex items-center justify-between gap-1">
           <span className="text-[9px] sm:text-[10px] font-bold text-slate-200 group-hover:text-amber-300 transition-colors flex items-center gap-0.5">
             <span>Details</span>
             <ArrowUpRight className="w-2.5 h-2.5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

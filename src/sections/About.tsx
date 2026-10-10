@@ -99,7 +99,7 @@ export const About: React.FC = () => {
             </h3>
 
             {/* Supporting Narrative Glass Panel for High Readability */}
-            <div className="p-4 sm:p-5 rounded-2xl liquid-glass-panel space-y-3.5">
+            <div className="p-4 sm:p-5 rounded-2xl liquid-glass-panel !bg-gradient-to-br !from-slate-950/75 !via-slate-900/65 !to-slate-950/80 border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.22)] space-y-3.5">
               {/* Step 2: First Supporting Paragraph — Left-to-Right + Subtle Upward Reveal */}
               <p
                 style={
@@ -121,7 +121,7 @@ export const About: React.FC = () => {
               </p>
 
               {/* Step 3: Second Supporting Paragraph — Typewriter + Story-Like Upward Reveal */}
-              <div className="text-slate-200 font-normal leading-relaxed text-xs sm:text-sm pt-2.5 border-t border-white/20">
+              <div className="text-slate-100 font-normal leading-relaxed text-xs sm:text-sm pt-2.5 border-t border-white/15">
                 <TypewriterText
                   text="Whether building an e-commerce platform from the ground up, engineering enterprise backend APIs, automating error-prone Excel workflows, or delivering high-level Power BI reporting models, our focus is uncompromising quality and long-term scalability."
                   isActive={isNarrativeInView}
@@ -139,6 +139,9 @@ export const About: React.FC = () => {
               {commitments.map((item, idx) => (
                 <div
                   key={item.title}
+                  tabIndex={0}
+                  role="region"
+                  aria-label={item.title}
                   style={
                     !prefersReducedMotion
                       ? {
@@ -146,15 +149,15 @@ export const About: React.FC = () => {
                         }
                       : undefined
                   }
-                  className={`p-3.5 rounded-xl liquid-glass-card flex items-start gap-2.5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:scale-[1.02] active:scale-[0.98] cursor-pointer ${
+                  className={`group p-3.5 rounded-xl liquid-glass-card !bg-gradient-to-br !from-slate-950/75 !via-slate-900/65 !to-slate-950/80 border border-white/20 hover:!border-amber-400/50 shadow-[0_8px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.18)] hover:shadow-[0_12px_28px_-8px_rgba(245,158,11,0.22),inset_0_1px_0_rgba(255,255,255,0.25)] flex items-start gap-2.5 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/80 ${
                     isCommitmentsInView
-                      ? "opacity-100 translate-y-0 scale-100"
-                      : "opacity-0 translate-y-5 scale-95"
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
                   }`}
                 >
-                  <CheckCircle2 className={`w-4 h-4 ${item.iconColor} shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110`} />
+                  <CheckCircle2 className={`w-4 h-4 ${item.iconColor} shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-105`} />
                   <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-white transition-colors duration-200">
+                    <h4 className="text-xs sm:text-sm font-bold text-white group-hover:text-amber-300 transition-colors duration-200">
                       {item.title}
                     </h4>
                     <p className="text-[11px] sm:text-xs text-slate-200 font-normal mt-0.5 leading-relaxed">
@@ -185,17 +188,20 @@ export const About: React.FC = () => {
             }`}
           >
             <div
+              tabIndex={0}
+              role="region"
+              aria-label="Founder Identity"
               onMouseEnter={() => setCursor("project", "FOUNDER")}
               onMouseLeave={resetCursor}
-              className="relative p-6 sm:p-7 rounded-2xl liquid-glass-panel !border-amber-400/40 overflow-hidden group hover:!border-amber-400/70 transition-all duration-300"
+              className="relative p-6 sm:p-7 rounded-2xl liquid-glass-panel !bg-gradient-to-br !from-slate-950/80 !via-slate-900/70 !to-slate-950/85 !border-amber-400/40 overflow-hidden group hover:!border-amber-400/70 shadow-[0_16px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.22)] hover:shadow-[0_20px_48px_-10px_rgba(245,158,11,0.25),inset_0_1px_0_rgba(255,255,255,0.28)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/80"
             >
               {/* Corner decorative light */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl pointer-events-none" />
 
-              <div className="flex items-center justify-between mb-6 border-b border-white/20 pb-4">
+              <div className="flex items-center justify-between mb-6 border-b border-white/15 pb-4">
                 <div className="flex items-center gap-2">
                   <Terminal className="w-4 h-4 text-amber-400" />
-                  <span className="font-mono text-xs uppercase tracking-wider text-slate-200 font-bold">
+                  <span className="font-mono text-xs uppercase tracking-wider text-slate-100 font-bold">
                     FOUNDER IDENTITY
                   </span>
                 </div>
@@ -238,14 +244,14 @@ export const About: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-200 font-normal leading-relaxed pt-2 border-t border-white/20">
+                <p className="text-xs text-slate-100 font-normal leading-relaxed pt-2 border-t border-white/15">
                   {siteConfig.founder.bio}
                 </p>
 
                 {/* Machine Learning & AI Portfolio Showcase */}
                 <div className="pt-2 space-y-2">
                   <div className="flex items-center justify-between pb-0.5">
-                    <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-200 font-bold flex items-center gap-1.5">
+                    <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-100 font-bold flex items-center gap-1.5">
                       <Cpu className="w-3.5 h-3.5 text-amber-400" />
                       <span>PORTFOLIO SHOWCASE</span>
                     </span>
@@ -255,13 +261,23 @@ export const About: React.FC = () => {
                   </div>
 
                   <div
+                    tabIndex={0}
+                    role="button"
+                    aria-label="View Amit Halder Machine Learning & AI Portfolio Showcase Details"
                     onClick={() => {
                       resetCursor();
                       setIsPortfolioModalOpen(true);
                     }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        resetCursor();
+                        setIsPortfolioModalOpen(true);
+                      }
+                    }}
                     onMouseEnter={() => setCursor("project", "VIEW")}
                     onMouseLeave={resetCursor}
-                    className="relative rounded-xl overflow-hidden border border-white/25 hover:border-amber-400/70 bg-slate-950/60 group/img cursor-pointer transition-all duration-300 hover:shadow-[0_12px_28px_-10px_rgba(245,158,11,0.28)] flex flex-col justify-end"
+                    className="relative rounded-xl overflow-hidden border border-white/20 hover:border-amber-400/70 bg-slate-950/80 group/img cursor-pointer transition-all duration-300 hover:shadow-[0_12px_28px_-10px_rgba(245,158,11,0.28)] flex flex-col justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/80"
                   >
                     <img
                       src="/projects/ml-portfolio-preview-v2.webp"
@@ -291,7 +307,7 @@ export const About: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="pt-2 flex items-center gap-2 text-xs text-slate-300 font-normal">
+                <div className="pt-2 flex items-center gap-2 text-xs text-slate-200 font-normal">
                   <ShieldCheck className="w-4 h-4 text-amber-400" />
                   <span>Committed to transparent deliverables &amp; high engineering standards.</span>
                 </div>

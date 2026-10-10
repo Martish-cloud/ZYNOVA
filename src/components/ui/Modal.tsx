@@ -50,19 +50,19 @@ export const Modal: React.FC<ModalProps> = ({
 
       {/* Modal Container */}
       <div 
-        className={`relative w-full ${maxWidth} liquid-glass-panel !border-white/25 rounded-2xl overflow-hidden z-10 transition-all my-8 max-h-[90vh] flex flex-col text-slate-100 shadow-[0_24px_64px_rgba(0,0,0,0.5)]`}
+        className={`relative w-full ${maxWidth} liquid-glass-panel !bg-slate-950/90 !backdrop-blur-2xl !border-white/20 rounded-2xl overflow-hidden z-10 transition-all my-8 max-h-[90vh] flex flex-col text-slate-100 shadow-[0_28px_72px_rgba(0,0,0,0.65)]`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-3 sm:px-6 sm:py-3.5 border-b border-white/20 bg-white/[0.08] shrink-0">
+        <div className="flex items-center justify-between px-5 py-3 sm:px-6 sm:py-3.5 border-b border-white/15 bg-slate-900/60 shrink-0">
           {title ? (
-            <h3 className="text-base sm:text-lg font-bold text-white tracking-wide">{title}</h3>
+            <h3 className="text-base sm:text-lg font-bold text-white tracking-wide font-heading">{title}</h3>
           ) : <div />}
           
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-slate-300 hover:text-white rounded-full hover:bg-white/[0.15] transition-colors cursor-pointer"
+            className="p-1.5 text-slate-300 hover:text-white rounded-full hover:bg-white/[0.15] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/80"
             aria-label="Close modal"
           >
             <X className="w-4 h-4 sm:w-5 sm:h-5" />

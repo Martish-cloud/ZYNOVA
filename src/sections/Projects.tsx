@@ -233,7 +233,7 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
         {/* Card Content Area */}
         <div className="p-3 sm:p-3.5 md:p-4">
           <div className="flex items-center justify-between gap-1.5 mb-1">
-            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-white group-hover:text-emerald-300 transition-colors truncate">
+            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors truncate">
               Excel Dashboard Analytics
             </h3>
             <span className="text-[8px] sm:text-[8.5px] font-mono px-1.5 py-0.5 rounded bg-emerald-400/[0.18] text-emerald-300 border border-emerald-400/40 shrink-0 font-bold">
@@ -245,7 +245,7 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
             Dashboards &amp; Analytics
           </p>
 
-          <p className="text-[10.5px] sm:text-xs text-slate-200 font-normal leading-relaxed line-clamp-2 mb-2.5">
+          <p className="text-[10.5px] sm:text-xs text-[#B7F0C1] font-normal leading-relaxed line-clamp-2 mb-2.5">
             Interactive Excel dashboards, automated reporting, Pivot Tables, formulas, data analysis and reporting.
           </p>
 
@@ -359,7 +359,7 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
         {/* Card Content Area */}
         <div className="p-3 sm:p-3.5 md:p-4">
           <div className="flex items-center justify-between gap-1.5 mb-1">
-            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-white group-hover:text-amber-300 transition-colors truncate">
+            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors truncate">
               Power BI Dashboards — Professional
             </h3>
             <span className="text-[8px] sm:text-[8.5px] font-mono px-1.5 py-0.5 rounded bg-amber-400/[0.18] text-amber-300 border border-amber-400/40 shrink-0 font-bold">
@@ -371,7 +371,7 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
             Enterprise BI Dashboards
           </p>
 
-          <p className="text-[10.5px] sm:text-xs text-slate-200 font-normal leading-relaxed line-clamp-2 mb-2.5">
+          <p className="text-[10.5px] sm:text-xs text-[#B7F0C1] font-normal leading-relaxed line-clamp-2 mb-2.5">
             Interactive executive business intelligence dashboards, DAX metrics, data modeling, automated ETL &amp; KPIs.
           </p>
 
@@ -517,7 +517,7 @@ const ProjectCard = React.memo<{
         {/* Card Content Area */}
         <div className="p-2.5 sm:p-3 md:p-3.5">
           <div className="flex items-center justify-between gap-1 mb-0.5">
-            <h3 className="text-xs sm:text-sm font-bold font-heading text-white group-hover:text-amber-300 transition-colors line-clamp-1">
+            <h3 className="text-xs sm:text-sm font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors line-clamp-1">
               {project.title}
             </h3>
             {project.platform && (
@@ -537,7 +537,7 @@ const ProjectCard = React.memo<{
             {project.subtitle}
           </p>
 
-          <p className="text-[9.5px] sm:text-[10.5px] text-slate-200 font-normal leading-snug line-clamp-2 mb-2">
+          <p className="text-[9.5px] sm:text-[10.5px] text-[#B7F0C1] font-normal leading-snug line-clamp-2 mb-2">
             {project.shortDesc}
           </p>
 
@@ -702,11 +702,11 @@ const BlockchainShowcaseCard = React.memo<{
             )}
           </div>
 
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-white group-hover:text-amber-300 transition-colors">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors">
             {service.title}
           </h3>
 
-          <p className="text-xs sm:text-sm text-slate-100 font-medium leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#B7F0C1] font-medium leading-relaxed">
             {service.shortDesc}
           </p>
 
@@ -848,11 +848,11 @@ const DigitalMarketingShowcaseCard = React.memo<{
             </span>
           </div>
 
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-white group-hover:text-amber-300 transition-colors">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors">
             Digital Marketing &amp; Search Visibility Engineering
           </h3>
 
-          <p className="text-xs sm:text-sm text-slate-100 font-medium leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#B7F0C1] font-medium leading-relaxed">
             Technical SEO architecture, conversion-focused landing funnels, email marketing integrations, and digital brand positioning tailored to your business goals.
           </p>
 

@@ -44,17 +44,17 @@
 
 /* Light Liquid Glass Design Tokens & Utility System */
 :root {
-  /* Translucent Light Glass Surfaces (0.12 - 0.24 opacity range) */
-  --glass-surface: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.12) 100%);
-  --glass-surface-strong: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.15) 100%);
-  --glass-surface-subtle: rgba(255, 255, 255, 0.12);
-  --glass-surface-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.16) 100%);
-  --glass-border: rgba(255, 255, 255, 0.30);
-  --glass-border-subtle: rgba(255, 255, 255, 0.22);
+  /* Translucent Liquid Glass Surfaces (Slightly darkened for optimal contrast & readability) */
+  --glass-surface: linear-gradient(135deg, rgba(22, 20, 28, 0.72) 0%, rgba(12, 11, 16, 0.78) 100%);
+  --glass-surface-strong: linear-gradient(135deg, rgba(24, 22, 32, 0.82) 0%, rgba(14, 12, 20, 0.88) 100%);
+  --glass-surface-subtle: rgba(18, 16, 24, 0.62);
+  --glass-surface-hover: linear-gradient(135deg, rgba(30, 27, 38, 0.78) 0%, rgba(16, 14, 24, 0.84) 100%);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-border-subtle: rgba(255, 255, 255, 0.15);
   --glass-border-gold: rgba(245, 158, 11, 0.45);
-  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.42), inset 0 -1px 0 rgba(255, 255, 255, 0.12);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.38), inset 0 -1px 0 rgba(255, 255, 255, 0.12);
-  --glass-shadow-hover: 0 16px 40px -8px rgba(245, 158, 11, 0.26), 0 8px 28px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.50);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.20), inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+  --glass-shadow-hover: 0 16px 40px -8px rgba(245, 158, 11, 0.28), 0 8px 28px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.32);
   --glass-blur: blur(18px) saturate(145%);
   --glass-blur-strong: blur(22px) saturate(150%);
   --glass-radius: 1.5rem;
@@ -65,6 +65,26 @@
   --glass-text-muted: #CBD5E1;
   --glass-text-accent: #FFD166;
   --glass-text-gold: #FFB000;
+
+  /* Premium Project & Service Card Color Hierarchy */
+  --card-title-blue: #9BD7FF;
+  --card-title-blue-hover: #BAE6FD;
+  --card-desc-green: #B7F0C1;
+}
+
+/* Card Title & Description Shared Typography Classes */
+.card-title-blue {
+  color: var(--card-title-blue);
+  transition: color 0.2s ease;
+}
+
+.group:hover .card-title-blue,
+.card-title-blue:hover {
+  color: var(--card-title-blue-hover);
+}
+
+.card-desc-green {
+  color: var(--card-desc-green);
 }
 
 .glass-panel,
@@ -102,31 +122,31 @@
 
 /* Nested sub-cards, pills & metric boxes inside glass containers (no redundant blur stacking) */
 .liquid-glass-subcard {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.10) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.26);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.20), inset 0 1px 0 rgba(255, 255, 255, 0.18);
   color: var(--glass-text-secondary);
   transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .liquid-glass-subcard:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.14) 100%);
-  border-color: rgba(245, 158, 11, 0.48);
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.26);
 }
 
 .liquid-glass-pill {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.22);
   color: var(--glass-text-secondary);
   transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .liquid-glass-pill:hover {
-  background: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.16);
   border-color: rgba(245, 158, 11, 0.50);
 }
 

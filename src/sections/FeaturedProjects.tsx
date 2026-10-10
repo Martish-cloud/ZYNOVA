@@ -198,12 +198,12 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
             </div>
           </div>
 
-          <h3 className="font-heading text-base sm:text-lg font-bold text-white mb-1.5 tracking-tight group-hover:text-amber-300 transition-colors flex items-center justify-between">
+          <h3 className="font-heading text-base sm:text-lg font-bold text-[#9BD7FF] mb-1.5 tracking-tight group-hover:text-[#BAE6FD] transition-colors flex items-center justify-between">
             <span>{project.title}</span>
             <ArrowUpRight className="w-4 h-4 text-amber-400 opacity-80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </h3>
 
-          <p className="text-xs text-slate-200 font-normal leading-relaxed mb-4 line-clamp-2">
+          <p className="text-xs text-[#B7F0C1] font-normal leading-relaxed mb-4 line-clamp-2">
             {project.description}
           </p>
         </div>

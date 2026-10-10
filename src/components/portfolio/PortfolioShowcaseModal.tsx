@@ -85,8 +85,8 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
         </div>
 
         {/* Professional Description */}
-        <div className="p-3.5 sm:p-4 rounded-xl liquid-glass-subcard">
-          <p className="text-xs sm:text-sm text-slate-200 font-normal leading-relaxed">
+        <div className="p-3.5 sm:p-4 rounded-xl liquid-glass-subcard !bg-slate-900/70 !border-white/20">
+          <p className="text-xs sm:text-sm text-slate-100 font-normal leading-relaxed">
             This is Amit Halder’s dedicated personal Machine Learning &amp; AI portfolio, showcasing specialized engineering capabilities across Large Language Model integrations, prompt engineering architectures, automated intelligence workflows, and deep business data analytics.
           </p>
         </div>
@@ -103,7 +103,7 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
             {keySkills.map((skill) => (
               <span
                 key={skill}
-                className="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-mono font-semibold liquid-glass-subcard text-slate-200 hover:border-amber-400/60 transition-colors shadow-2xs"
+                className="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-mono font-semibold liquid-glass-subcard !bg-slate-900/70 !border-white/20 text-slate-100 hover:border-amber-400/60 transition-colors shadow-2xs"
               >
                 {skill}
               </span>
@@ -123,7 +123,7 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
             {certifications.map((cert) => (
               <div
                 key={cert.title}
-                className="p-2 sm:p-2.5 rounded-lg liquid-glass-subcard flex items-start gap-2 text-xs"
+                className="p-2 sm:p-2.5 rounded-lg liquid-glass-subcard !bg-slate-900/70 !border-white/20 flex items-start gap-2 text-xs"
               >
                 <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 mt-0.5 shrink-0" />
                 <div className="min-w-0">
@@ -147,7 +147,7 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
               PORTFOLIO HIGHLIGHTS
             </h4>
           </div>
-          <ul className="space-y-1.5 text-xs text-slate-200 font-normal">
+          <ul className="space-y-1.5 text-xs text-slate-100 font-normal">
             {highlights.map((item, idx) => (
               <li key={idx} className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />

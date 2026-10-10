@@ -91,10 +91,10 @@ export const DataSolutions: React.FC = () => {
             <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-amber-400/[0.18] border border-amber-400/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] flex items-center justify-center text-amber-400 mb-2.5 group-hover:scale-105 transition-transform">
               <Filter className="w-4.5 h-4.5" />
             </div>
-            <h3 className="font-heading text-sm sm:text-base font-bold text-white mb-1 tracking-tight">
+            <h3 className="font-heading text-sm sm:text-base font-bold text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors mb-1 tracking-tight">
               Data Cleaning &amp; Merging
             </h3>
-            <p className="text-xs text-slate-200 font-normal leading-normal sm:leading-relaxed">
+            <p className="text-xs text-[#B7F0C1] font-normal leading-normal sm:leading-relaxed">
               Systematic elimination of duplicates, syntax sanitization, date/currency normalization, and multi-file master merging using advanced Excel Power Query.
             </p>
           </div>
@@ -111,10 +111,10 @@ export const DataSolutions: React.FC = () => {
             <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-amber-400/[0.18] border border-amber-400/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] flex items-center justify-center text-amber-400 mb-2.5 group-hover:scale-105 transition-transform">
               <FileSpreadsheet className="w-4.5 h-4.5" />
             </div>
-            <h3 className="font-heading text-sm sm:text-base font-bold text-white mb-1 tracking-tight">
+            <h3 className="font-heading text-sm sm:text-base font-bold text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors mb-1 tracking-tight">
               Automated Excel Dashboards
             </h3>
-            <p className="text-xs text-slate-200 font-normal leading-normal sm:leading-relaxed">
+            <p className="text-xs text-[#B7F0C1] font-normal leading-normal sm:leading-relaxed">
               Bespoke operational dashboards featuring dynamic timeline slicers, automated KPI variance indicators, scenario toggles, and one-click refresh buttons.
             </p>
           </div>
@@ -131,10 +131,10 @@ export const DataSolutions: React.FC = () => {
             <div className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-amber-400/[0.18] border border-amber-400/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] flex items-center justify-center text-amber-400 mb-2.5 group-hover:scale-105 transition-transform">
               <BarChart3 className="w-4.5 h-4.5" />
             </div>
-            <h3 className="font-heading text-sm sm:text-base font-bold text-white mb-1 tracking-tight">
+            <h3 className="font-heading text-sm sm:text-base font-bold text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors mb-1 tracking-tight">
               Enterprise Power BI Models
             </h3>
-            <p className="text-xs text-slate-200 font-normal leading-normal sm:leading-relaxed">
+            <p className="text-xs text-[#B7F0C1] font-normal leading-normal sm:leading-relaxed">
               Production-grade Star Schema modeling, complex DAX time-intelligence formulas (YoY, MoM, moving averages), drill-through views, and scheduled cloud sync.
             </p>
           </div>

@@ -73,11 +73,11 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
       >
         {/* Main Modal Container */}
         <div
-          className="relative w-full max-w-6xl max-h-[90vh] flex flex-col rounded-3xl liquid-glass-panel !border-white/25 overflow-hidden animate-in zoom-in-95 duration-200 shadow-[0_24px_64px_rgba(0,0,0,0.5)]"
+          className="relative w-full max-w-6xl max-h-[90vh] flex flex-col rounded-3xl liquid-glass-panel !bg-slate-950/90 !backdrop-blur-2xl !border-white/20 overflow-hidden animate-in zoom-in-95 duration-200 shadow-[0_28px_72px_rgba(0,0,0,0.65)]"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header Bar */}
-          <div className="p-6 sm:p-8 border-b border-white/20 flex items-start justify-between gap-4 shrink-0 bg-white/[0.08]">
+          <div className="p-6 sm:p-8 border-b border-white/15 flex items-start justify-between gap-4 shrink-0 bg-slate-900/60">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider bg-amber-400/[0.16] text-amber-300 border border-amber-400/35 uppercase">
@@ -160,12 +160,12 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
                   {/* Caption & Metadata */}
                   <div className="p-4 flex-1 flex flex-col justify-between space-y-2">
                     <div>
-                      <h4 className="text-sm font-heading font-bold text-white group-hover:text-amber-300 transition-colors flex items-center justify-between">
+                      <h4 className="text-sm font-heading font-bold text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors flex items-center justify-between">
                         <span>{item.title}</span>
                         <ArrowUpRight className="w-3.5 h-3.5 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </h4>
                       {item.subtitle && (
-                        <p className="text-[11px] font-mono font-normal text-slate-300 mt-0.5">
+                        <p className="text-[11px] font-mono font-normal text-[#B7F0C1] mt-0.5">
                           {item.subtitle}
                         </p>
                       )}

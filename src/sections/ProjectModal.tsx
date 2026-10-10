@@ -87,7 +87,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
         {/* Transparent Indicative Pricing & Tiers */}
         {project.pricing && (
-          <div className="p-4 rounded-xl liquid-glass-subcard border-amber-400/40 shadow-xs">
+          <div className="p-4 rounded-xl liquid-glass-subcard !bg-slate-950/70 border !border-amber-400/40 shadow-xs">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-wider text-amber-300 font-bold block">
@@ -120,22 +120,22 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono">
               {project.pricing.basicPrice && (
-                <div className="p-2 rounded-lg liquid-glass-subcard border-white/20">
-                  <span className="text-[10px] text-slate-400 block uppercase font-bold">Basic Tier</span>
+                <div className="p-2 rounded-lg liquid-glass-subcard !bg-slate-900/70 border !border-white/20">
+                  <span className="text-[10px] text-slate-300 block uppercase font-bold">Basic Tier</span>
                   <span className="font-bold text-white">{project.pricing.basicPrice}</span>
                 </div>
               )}
-              <div className="p-2 rounded-lg liquid-glass-subcard border-white/20">
-                <span className="text-[10px] text-slate-400 block uppercase font-bold">Standard Tier</span>
+              <div className="p-2 rounded-lg liquid-glass-subcard !bg-slate-900/70 border !border-white/20">
+                <span className="text-[10px] text-slate-300 block uppercase font-bold">Standard Tier</span>
                 <span className="font-bold text-white">{project.pricing.standardPrice}</span>
               </div>
-              <div className="p-2 rounded-lg bg-amber-400/[0.16] border border-amber-400/35">
+              <div className="p-2 rounded-lg bg-amber-400/[0.18] border border-amber-400/40">
                 <span className="text-[10px] text-amber-200 block uppercase font-bold">Premium Tier</span>
                 <span className="font-bold text-amber-300">{project.pricing.premiumPrice}</span>
               </div>
               {project.pricing.customPrice && (
-                <div className="col-span-2 sm:col-span-3 p-2 rounded-lg liquid-glass-subcard border-white/20 flex items-center justify-between">
-                  <span className="text-[10.5px] text-slate-300 uppercase font-bold">Custom Architecture &amp; Scale</span>
+                <div className="col-span-2 sm:col-span-3 p-2 rounded-lg liquid-glass-subcard !bg-slate-900/70 border !border-white/20 flex items-center justify-between">
+                  <span className="text-[10.5px] text-slate-200 uppercase font-bold">Custom Architecture &amp; Scale</span>
                   <span className="font-bold text-amber-300">{project.pricing.customPrice}</span>
                 </div>
               )}
@@ -149,32 +149,32 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
         {/* Overview */}
         <div>
-          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">
+          <h4 className="text-xs font-mono uppercase tracking-wider text-amber-300 font-bold mb-1">
             Project Overview
           </h4>
-          <p className="text-sm text-slate-200 font-normal leading-relaxed">
+          <p className="text-sm text-slate-100 font-normal leading-relaxed">
             {project.overview}
           </p>
         </div>
 
         {/* Challenge & Solution Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 rounded-xl liquid-glass-subcard">
-            <h5 className="text-xs font-mono uppercase tracking-wider text-rose-400 font-bold mb-1.5 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+          <div className="p-4 rounded-xl liquid-glass-subcard !bg-rose-950/20 border !border-rose-500/30">
+            <h5 className="text-xs font-mono uppercase tracking-wider text-rose-300 font-bold mb-1.5 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
               The Business Challenge
             </h5>
-            <p className="text-xs text-slate-200 font-normal leading-relaxed">
+            <p className="text-xs text-slate-100 font-normal leading-relaxed">
               {project.challenge}
             </p>
           </div>
 
-          <div className="p-4 rounded-xl liquid-glass-subcard border-amber-400/40">
+          <div className="p-4 rounded-xl liquid-glass-subcard !bg-amber-950/20 border !border-amber-400/40">
             <h5 className="text-xs font-mono uppercase tracking-wider text-amber-300 font-bold mb-1.5 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_#f59e0b]" />
               Engineered Solution
             </h5>
-            <p className="text-xs text-slate-200 font-normal leading-relaxed">
+            <p className="text-xs text-slate-100 font-normal leading-relaxed">
               {project.solution}
             </p>
           </div>
@@ -182,14 +182,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
         {/* Key Features */}
         <div>
-          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-2.5 flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-amber-400" />
+          <h4 className="text-xs font-mono uppercase tracking-wider text-[#9BD7FF] font-bold mb-2.5 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-[#9BD7FF]" />
             <span>Key Functional Highlights</span>
           </h4>
           <ul className="space-y-2">
             {project.keyFeatures.map((feat, idx) => (
-              <li key={idx} className="flex items-start gap-2.5 p-2 rounded-lg liquid-glass-subcard text-xs text-slate-200 font-normal">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+              <li key={idx} className="flex items-start gap-2.5 p-2 rounded-lg liquid-glass-subcard !bg-slate-900/60 border !border-white/15 text-xs text-slate-100 font-normal">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#9BD7FF] mt-1.5 shrink-0" />
                 <span>{feat}</span>
               </li>
             ))}
@@ -198,7 +198,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
         {/* Technology Stack Tags */}
         <div>
-          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-2 flex items-center gap-1.5">
+          <h4 className="text-xs font-mono uppercase tracking-wider text-slate-300 font-bold mb-2 flex items-center gap-1.5">
             <Layers className="w-3.5 h-3.5 text-amber-400" />
             <span>Technologies Employed</span>
           </h4>
@@ -206,7 +206,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             {project.technologies.map((t) => (
               <span
                 key={t}
-                className="px-2.5 py-1 rounded text-xs font-mono font-semibold liquid-glass-subcard text-slate-200"
+                className="px-2.5 py-1 rounded text-xs font-mono font-semibold liquid-glass-subcard !bg-slate-900/70 !border-white/20 text-slate-100"
               >
                 {t}
               </span>
