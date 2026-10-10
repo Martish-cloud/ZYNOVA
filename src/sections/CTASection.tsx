@@ -6,9 +6,9 @@ import { useInViewAnimation } from "../hooks/useInViewAnimation";
 import { ArrowRight, ShieldCheck, Calendar, Sparkles } from "lucide-react";
 
 export const CTASection: React.FC = () => {
-  const { ref: sectionRef, isInView, prefersReducedMotion } = useInViewAnimation<HTMLElement>({
-    threshold: 0.15,
-    rootMargin: "0px 0px -30px 0px",
+  const { ref: sectionRef, isInView, triggerCount, prefersReducedMotion } = useInViewAnimation<HTMLElement>({
+    threshold: 0.16,
+    rootMargin: "0px 0px -6% 0px",
     retrigger: true
   });
 
@@ -30,7 +30,7 @@ export const CTASection: React.FC = () => {
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="rounded-3xl bg-white/85 border border-white/80 backdrop-blur-2xl p-7 sm:p-10 md:p-12 shadow-[0_24px_60px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.95)]">
           <div
-            className={`mb-3.5 flex justify-center transition-all duration-500 ease-out ${
+            className={`mb-3.5 flex justify-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2.5 pointer-events-none"
             }`}
           >
@@ -38,20 +38,26 @@ export const CTASection: React.FC = () => {
           </div>
 
           <h2
-            className={`text-2xl sm:text-4xl md:text-5xl font-black font-heading text-slate-900 tracking-tight mb-3.5 leading-tight transition-all duration-700 delay-75 ease-out ${
+            className={`text-2xl sm:text-4xl md:text-5xl font-black font-heading text-slate-900 tracking-tight mb-3.5 leading-tight transition-all duration-700 delay-75 ease-[cubic-bezier(0.16,1,0.3,1)] ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
             LET&apos;S BUILD SOMETHING{" "}
             <TypewriterText
               text="EXTRAORDINARY."
+              isActive={isVisible}
+              triggerKey={triggerCount}
+              inline={true}
+              startDelayMs={220}
+              durationMs={750}
+              cursorColorClass="bg-amber-600"
               className="bg-gradient-to-r from-[#b45309] via-[#d97706] to-[#92400e] bg-clip-text text-transparent drop-shadow-[0_2px_18px_rgba(217,119,6,0.2)]"
             />
           </h2>
 
           <p
-            className={`text-xs sm:text-sm md:text-base text-slate-600 max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed transition-all duration-700 delay-150 ease-out ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+            className={`text-xs sm:text-sm md:text-base text-slate-600 max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed transition-all duration-700 delay-150 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              isVisible ? "opacity-100 translate-x-0 translate-y-0" : "opacity-0 -translate-x-4 translate-y-2.5"
             }`}
           >
             Have an ambitious idea, legacy system to modernize, or high-volume business dataset to untangle? Let&apos;s engineer a scalable, durable digital solution.

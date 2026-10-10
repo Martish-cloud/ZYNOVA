@@ -323,6 +323,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
           title="Engineered Solutions Built Around"
           highlightedTitle="Your Business."
           subtitle="From responsive client experiences and resilient backend architectures to advanced Power BI dashboards and Excel automation models."
+          subtitleVariant="typewriter"
         />
 
         {/* Category Switcher Tabs */}

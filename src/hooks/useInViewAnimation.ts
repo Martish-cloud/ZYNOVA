@@ -5,66 +5,64 @@ interface UseInViewAnimationOptions {
   threshold?: number;
   rootMargin?: string;
   retrigger?: boolean;
-  failSafeMs?: number;
 }
 
 export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
   options: UseInViewAnimationOptions = {}
 ) {
   const {
-    threshold = 0.15,
-    rootMargin = "0px 0px -30px 0px",
-    retrigger = true,
-    failSafeMs = 1200
+    threshold = 0.16,
+    rootMargin = "0px 0px -6% 0px",
+    retrigger = true
   } = options;
 
   const ref = useRef<T | null>(null);
   const prefersReducedMotion = useReducedMotion();
-  
-  // If reduced motion is preferred, immediately start as visible
+
   const [isInView, setIsInView] = useState<boolean>(() => prefersReducedMotion);
+  const [triggerCount, setTriggerCount] = useState<number>(() => (prefersReducedMotion ? 1 : 0));
+  const inViewRef = useRef<boolean>(prefersReducedMotion);
 
   useEffect(() => {
     if (prefersReducedMotion) {
+      inViewRef.current = true;
       setIsInView(true);
+      setTriggerCount((c) => (c === 0 ? 1 : c));
       return;
     }
 
     const node = ref.current;
     if (!node) return;
 
-    // Check if IntersectionObserver is supported
     if (typeof IntersectionObserver === "undefined") {
+      inViewRef.current = true;
       setIsInView(true);
+      setTriggerCount(1);
       return;
     }
 
     let isDisposed = false;
-
-    // Fail-safe visibility timeout: guarantees text is never permanently stuck hidden without triggering layout thrashing
-    let failSafeTimer: ReturnType<typeof setTimeout> | null = setTimeout(() => {
-      if (!isDisposed) {
-        setIsInView(true);
-      }
-    }, failSafeMs);
+    const enterThreshold = Math.min(Math.max(threshold, 0.05), 0.5);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (isDisposed) return;
+        if (isDisposed || !entry) return;
 
-        if (entry.isIntersecting) {
-          if (failSafeTimer) {
-            clearTimeout(failSafeTimer);
-            failSafeTimer = null;
+        if (entry.isIntersecting && entry.intersectionRatio >= enterThreshold) {
+          if (!inViewRef.current) {
+            inViewRef.current = true;
+            setIsInView(true);
+            setTriggerCount((prev) => prev + 1);
           }
-          setIsInView(true);
-        } else if (retrigger) {
-          // When scrolled out of the trigger area, reset so it can re-trigger cleanly upon return
-          setIsInView(false);
+        } else if (!entry.isIntersecting && entry.intersectionRatio <= 0.01) {
+          if (retrigger && inViewRef.current) {
+            inViewRef.current = false;
+            setIsInView(false);
+          }
         }
       },
       {
-        threshold,
+        threshold: [0, enterThreshold],
         rootMargin
       }
     );
@@ -73,10 +71,15 @@ export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
 
     return () => {
       isDisposed = true;
-      if (failSafeTimer) clearTimeout(failSafeTimer);
       observer.disconnect();
     };
-  }, [threshold, rootMargin, retrigger, failSafeMs, prefersReducedMotion]);
+  }, [threshold, rootMargin, retrigger, prefersReducedMotion]);
 
-  return { ref, isInView: prefersReducedMotion ? true : isInView, prefersReducedMotion };
+  return {
+    ref,
+    isInView: prefersReducedMotion ? true : isInView,
+    triggerCount: prefersReducedMotion ? 1 : triggerCount,
+    prefersReducedMotion
+  };
 }
+

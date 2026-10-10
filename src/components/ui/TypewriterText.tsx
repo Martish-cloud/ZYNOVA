@@ -3,168 +3,127 @@ import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 interface TypewriterTextProps {
   text: string;
-  typingSpeed?: number;
-  deletingSpeed?: number;
-  pauseHold?: number;
-  pauseRestart?: number;
+  isActive?: boolean;
+  triggerKey?: number | string;
+  startDelayMs?: number;
+  durationMs?: number;
   className?: string;
-  cursorClassName?: string;
+  cursorColorClass?: string;
+  withUpwardMotion?: boolean;
+  inline?: boolean;
 }
 
-export const TypewriterText: React.FC<TypewriterTextProps> = ({
+export const TypewriterText: React.FC<TypewriterTextProps> = React.memo(({
   text,
-  typingSpeed = 90,
-  deletingSpeed = 45,
-  pauseHold = 3400,
-  pauseRestart = 500,
+  isActive = true,
+  triggerKey = 0,
+  startDelayMs = 150,
+  durationMs,
   className = "",
-  cursorClassName = "bg-[#D4AF37] shadow-[0_0_14px_#f59e0b]"
+  cursorColorClass = "bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.7)]",
+  withUpwardMotion = false,
+  inline = false
 }) => {
   const prefersReducedMotion = useReducedMotion();
-  const containerRef = useRef<HTMLSpanElement>(null);
+  const [charCount, setCharCount] = useState<number>(() =>
+    prefersReducedMotion ? text.length : 0
+  );
+  const [isTyping, setIsTyping] = useState<boolean>(false);
+
+  const rafRef = useRef<number | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [isInView, setIsInView] = useState<boolean>(false);
-  const [displayText, setDisplayText] = useState<string>(() => (prefersReducedMotion ? text : ""));
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
-  const [isHolding, setIsHolding] = useState<boolean>(false);
+  // Compute balanced typing duration based on text length (650ms - 1400ms)
+  const effectiveDuration = durationMs ?? Math.min(Math.max(text.length * 7.5, 650), 1400);
 
-  // Clear any active timer safely
-  const clearActiveTimer = () => {
-    if (timerRef.current !== null) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
-  };
-
-  // 1. Viewport Intersection Observer (with reset on scroll-away)
   useEffect(() => {
     if (prefersReducedMotion) {
-      setDisplayText(text);
+      setCharCount(text.length);
+      setIsTyping(false);
       return;
     }
 
-    const node = containerRef.current;
-    if (!node) return;
-
-    if (typeof IntersectionObserver === "undefined") {
-      setIsInView(true);
-      return;
-    }
-
-    let isDisposed = false;
-
-    // Fail-safe visibility timeout: guarantees text is visible if observer lags or fails
-    const failSafeTimer = setTimeout(() => {
-      if (!isDisposed && node) {
-        const rect = node.getBoundingClientRect();
-        if (rect.top < window.innerHeight + 100 && rect.bottom > -100) {
-          setIsInView(true);
-        }
+    if (!isActive) {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
       }
-    }, 1500);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      setCharCount(0);
+      setIsTyping(false);
+      return;
+    }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (isDisposed) return;
-        if (entry.isIntersecting) {
-          setIsInView(true);
+    setCharCount(0);
+    setIsTyping(true);
+
+    let startTime: number | null = null;
+
+    timerRef.current = setTimeout(() => {
+      const step = (timestamp: number) => {
+        if (startTime === null) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / effectiveDuration, 1);
+
+        const nextChars = Math.floor(progress * text.length);
+        setCharCount(nextChars);
+
+        if (progress < 1) {
+          rafRef.current = requestAnimationFrame(step);
         } else {
-          // When user scrolls away from this section, cleanly reset so it can re-trigger
-          setIsInView(false);
-          clearActiveTimer();
-          setDisplayText("");
-          setIsDeleting(false);
-          setIsHolding(false);
+          setCharCount(text.length);
+          setIsTyping(false);
+          rafRef.current = null;
         }
-      },
-      {
-        threshold: 0.15,
-        rootMargin: "0px 0px -20px 0px"
-      }
-    );
+      };
 
-    observer.observe(node);
+      rafRef.current = requestAnimationFrame(step);
+    }, startDelayMs);
 
     return () => {
-      isDisposed = true;
-      clearTimeout(failSafeTimer);
-      clearActiveTimer();
-      observer.disconnect();
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
     };
-  }, [prefersReducedMotion, text]);
+  }, [text, isActive, triggerKey, startDelayMs, effectiveDuration, prefersReducedMotion]);
 
-  // 2. Typing / Deleting Loop (runs ONLY when isInView is true)
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      setDisplayText(text);
-      return;
-    }
-
-    if (!isInView) {
-      clearActiveTimer();
-      return;
-    }
-
-    clearActiveTimer();
-
-    if (isHolding) {
-      timerRef.current = setTimeout(() => {
-        setIsHolding(false);
-        setIsDeleting(true);
-      }, pauseHold);
-      return clearActiveTimer;
-    }
-
-    if (!isDeleting) {
-      if (displayText.length < text.length) {
-        const nextChar = text[displayText.length];
-        const delay = nextChar === "." ? typingSpeed + 160 : typingSpeed;
-        timerRef.current = setTimeout(() => {
-          setDisplayText(text.slice(0, displayText.length + 1));
-        }, delay);
-      } else {
-        // Full text reached, enter hold phase
-        setIsHolding(true);
-      }
-    } else {
-      if (displayText.length > 0) {
-        timerRef.current = setTimeout(() => {
-          setDisplayText(text.slice(0, displayText.length - 1));
-        }, deletingSpeed);
-      } else {
-        // Fully deleted, pause briefly then start typing again
-        timerRef.current = setTimeout(() => {
-          setIsDeleting(false);
-        }, pauseRestart);
-      }
-    }
-
-    return clearActiveTimer;
-  }, [
-    isInView,
-    displayText,
-    isDeleting,
-    isHolding,
-    text,
-    typingSpeed,
-    deletingSpeed,
-    pauseHold,
-    pauseRestart,
-    prefersReducedMotion
-  ]);
+  const displayedText = prefersReducedMotion ? text : text.slice(0, charCount);
+  const showCursor = !prefersReducedMotion && isTyping && charCount < text.length;
+  const displayMode = inline ? "inline-block align-bottom" : "block";
 
   return (
-    <span ref={containerRef} className="inline-flex items-center">
-      <span className={className}>
-        {prefersReducedMotion ? text : displayText}
+    <span
+      aria-label={text}
+      className={`relative ${displayMode} ${
+        withUpwardMotion && !prefersReducedMotion
+          ? `transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+            }`
+          : ""
+      }`}
+    >
+      {/* Invisible full text reserves exact multi-line height/width so layout never shifts */}
+      <span aria-hidden="true" className={`invisible select-none pointer-events-none ${displayMode}`}>
+        {text}
       </span>
-      {!prefersReducedMotion && (
-        <span
-          className={`inline-block ml-1 sm:ml-1.5 w-[3px] sm:w-[4px] md:w-[6px] h-[0.78em] align-baseline animate-cursor-blink rounded-[1px] ${cursorClassName}`}
-          aria-hidden="true"
-        />
-      )}
+
+      {/* Progressive typewriter overlay */}
+      <span aria-hidden="true" className={`absolute inset-0 ${displayMode}`}>
+        <span className={className}>{displayedText}</span>
+        {showCursor && (
+          <span
+            className={`inline-block w-[2px] h-[0.95em] ml-[2px] align-[-0.12em] rounded-full animate-cursor-blink ${cursorColorClass}`}
+          />
+        )}
+      </span>
     </span>
   );
-};
+});

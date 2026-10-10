@@ -1,6 +1,7 @@
 import React from "react";
 import { industriesData } from "../data/industries";
 import { SectionHeading } from "../components/ui/SectionHeading";
+import { useInViewAnimation } from "../hooks/useInViewAnimation";
 import { useCursor } from "../context/useCursor";
 import {
   ShoppingBag,
@@ -17,6 +18,15 @@ import {
 
 export const Industries: React.FC = () => {
   const { setCursor, resetCursor } = useCursor();
+  const {
+    ref: gridRef,
+    isInView: isGridInView,
+    prefersReducedMotion
+  } = useInViewAnimation<HTMLDivElement>({
+    threshold: 0.14,
+    rootMargin: "0px 0px -6% 0px",
+    retrigger: true
+  });
 
   const getIcon = (iconName: string) => {
     const props = { className: "w-4 h-4 text-amber-600 group-hover:text-amber-700 transition-colors" };
@@ -43,15 +53,28 @@ export const Industries: React.FC = () => {
           title="Digital Solutions Engineered for"
           highlightedTitle="Diverse Sectors."
           subtitle="Tailored digital architectures and reporting pipelines designed to meet the unique operational challenges of modern industry verticals."
+          subtitleVariant="ltr"
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-3.5">
-          {industriesData.map((ind) => (
+        <div
+          ref={gridRef}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-3.5"
+        >
+          {industriesData.map((ind, idx) => (
             <div
               key={ind.name}
+              style={
+                !prefersReducedMotion
+                  ? { transitionDelay: isGridInView ? `${idx * 60}ms` : "0ms" }
+                  : undefined
+              }
               onMouseEnter={() => setCursor("project", ind.name)}
               onMouseLeave={resetCursor}
-              className="group p-4 sm:p-4.5 rounded-xl bg-white/80 border border-slate-200/80 hover:border-amber-400/60 hover:bg-white/95 backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.025] shadow-[0_8px_24px_rgba(15,23,42,0.05),inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_20px_40px_-12px_rgba(245,158,11,0.18)] active:scale-[0.98] active:-translate-y-0.5 flex flex-col justify-between cursor-pointer"
+              className={`group p-4 sm:p-4.5 rounded-xl bg-white/80 border border-slate-200/80 hover:border-amber-400/60 hover:bg-white/95 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2 hover:scale-[1.025] shadow-[0_8px_24px_rgba(15,23,42,0.05),inset_0_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_20px_40px_-12px_rgba(245,158,11,0.18)] active:scale-[0.98] active:-translate-y-0.5 flex flex-col justify-between cursor-pointer ${
+                isGridInView
+                  ? "opacity-100 translate-y-0 scale-100"
+                  : "opacity-0 translate-y-5 scale-[0.96]"
+              }`}
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -78,3 +101,4 @@ export const Industries: React.FC = () => {
     </section>
   );
 };
+

@@ -1,6 +1,7 @@
 import React from "react";
 import { SectionHeading } from "../components/ui/SectionHeading";
 import { testimonialsData } from "../data/testimonials";
+import { useInViewAnimation } from "../hooks/useInViewAnimation";
 import { useCursor } from "../context/useCursor";
 import { Star, CheckCircle2, Globe2, Sparkles } from "lucide-react";
 
@@ -75,6 +76,15 @@ const RatingStars: React.FC<{ rating: number }> = ({ rating }) => {
 
 export const Testimonials: React.FC = () => {
   const { setCursor, resetCursor } = useCursor();
+  const {
+    ref: gridRef,
+    isInView: isGridInView,
+    prefersReducedMotion
+  } = useInViewAnimation<HTMLDivElement>({
+    threshold: 0.14,
+    rootMargin: "0px 0px -6% 0px",
+    retrigger: true
+  });
 
   const globalMarkets = [
     { name: "India", flag: "🇮🇳" },
@@ -100,94 +110,113 @@ export const Testimonials: React.FC = () => {
           highlightedTitle="Say."
           subtitle="Feedback from businesses and professionals who have worked with ZYNOVA across technology, automation, data analytics and digital solutions."
           badgeVariant="gold"
+          subtitleVariant="ltr"
           align="center"
         />
 
-        {/* Testimonials 3-Column Responsive Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-10 sm:mb-12">
+        {/* Testimonials 3-Column Responsive Grid with Staggered Scroll Reveal */}
+        <div
+          ref={gridRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-10 sm:mb-12"
+        >
           {testimonialsData.map((item, index) => {
             const floatClass = ["animate-subtle-float-1", "animate-subtle-float-2", "animate-subtle-float-3", "animate-subtle-float-4"][index % 4];
             return (
-              <div key={item.id} className={`h-full ${floatClass}`}>
-                <div
-                  onMouseEnter={() => setCursor("project", "READ")}
-                  onMouseLeave={resetCursor}
-                  className="h-full group relative flex flex-col justify-between rounded-2xl bg-gradient-to-b from-white/90 via-white/85 to-slate-50/85 border border-slate-200/80 hover:border-amber-400/60 backdrop-blur-xl p-4.5 sm:p-5 shadow-[0_12px_36px_rgba(15,23,42,0.06),inset_0_1px_0_rgba(255,255,255,0.95)] hover:shadow-[0_20px_50px_rgba(245,158,11,0.14)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] overflow-hidden"
-                >
-              {/* Large Subtle Decorative Quotation Watermark */}
-              <span
-                aria-hidden="true"
-                className="absolute -top-3 right-4 font-serif text-6xl sm:text-7xl text-amber-500/[0.08] group-hover:text-amber-500/[0.15] transition-colors pointer-events-none select-none leading-none z-0"
+              <div
+                key={item.id}
+                style={
+                  !prefersReducedMotion
+                    ? { transitionDelay: isGridInView ? `${index * 70}ms` : "0ms" }
+                    : undefined
+                }
+                className={`h-full ${
+                  !prefersReducedMotion
+                    ? `transition-all duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,opacity] ${
+                        isGridInView
+                          ? "opacity-100 translate-y-0 scale-100"
+                          : "opacity-0 translate-y-5 scale-[0.97]"
+                      }`
+                    : ""
+                }`}
               >
-                &ldquo;
-              </span>
+                <div className={`h-full ${floatClass}`}>
+                  <div
+                    onMouseEnter={() => setCursor("project", "READ")}
+                    onMouseLeave={resetCursor}
+                    className="h-full group relative flex flex-col justify-between rounded-2xl bg-gradient-to-b from-white/90 via-white/85 to-slate-50/85 border border-slate-200/80 hover:border-amber-400/60 backdrop-blur-xl p-4.5 sm:p-5 shadow-[0_12px_36px_rgba(15,23,42,0.06),inset_0_1px_0_rgba(255,255,255,0.95)] hover:shadow-[0_20px_50px_rgba(245,158,11,0.14)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] overflow-hidden"
+                  >
+                    {/* Large Subtle Decorative Quotation Watermark */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute -top-3 right-4 font-serif text-6xl sm:text-7xl text-amber-500/[0.08] group-hover:text-amber-500/[0.15] transition-colors pointer-events-none select-none leading-none z-0"
+                    >
+                      &ldquo;
+                    </span>
 
-              {/* Inner Card Top Content */}
-              <div className="relative z-10 space-y-3">
-                {/* Client Profile Header & Rating */}
-                <div className="flex items-start justify-between gap-3 border-b border-slate-200/80 pb-3">
-                  <div className="flex items-center gap-2.5">
-                    {/* Avatar with Image and Initials Fallback */}
-                    <ClientAvatar
-                      name={item.name}
-                      avatar={item.avatar}
-                      image={item.image}
-                    />
+                    {/* Inner Card Top Content */}
+                    <div className="relative z-10 space-y-3">
+                      {/* Client Profile Header & Rating */}
+                      <div className="flex items-start justify-between gap-3 border-b border-slate-200/80 pb-3">
+                        <div className="flex items-center gap-2.5">
+                          <ClientAvatar
+                            name={item.name}
+                            avatar={item.avatar}
+                            image={item.image}
+                          />
 
-                    {/* Client Name & Designation */}
-                    <div>
-                      <h3 className="font-heading text-sm sm:text-base font-bold text-slate-900 group-hover:text-amber-700 transition-colors flex items-center gap-1.5">
-                        <span>{item.name}</span>
-                        {!item.isSample && (
-                          <span
-                            title="Verified Client"
-                            className="text-amber-500 inline-flex items-center"
-                          >
-                            <CheckCircle2 className="w-3.5 h-3.5" />
-                          </span>
-                        )}
-                      </h3>
-                      <p className="text-[11.5px] text-slate-600 font-medium">
-                        {item.role}
-                      </p>
-                      <p className="text-[10.5px] font-mono text-slate-500 flex items-center gap-1 mt-0.5">
-                        <span>{item.company}</span>
-                        <span>&bull;</span>
-                        <span>{item.flag}</span>
+                          <div>
+                            <h3 className="font-heading text-sm sm:text-base font-bold text-slate-900 group-hover:text-amber-700 transition-colors flex items-center gap-1.5">
+                              <span>{item.name}</span>
+                              {!item.isSample && (
+                                <span
+                                  title="Verified Client"
+                                  className="text-amber-500 inline-flex items-center"
+                                >
+                                  <CheckCircle2 className="w-3.5 h-3.5" />
+                                </span>
+                              )}
+                            </h3>
+                            <p className="text-[11.5px] text-slate-600 font-medium">
+                              {item.role}
+                            </p>
+                            <p className="text-[10.5px] font-mono text-slate-500 flex items-center gap-1 mt-0.5">
+                              <span>{item.company}</span>
+                              <span>&bull;</span>
+                              <span>{item.flag}</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <RatingStars rating={item.rating} />
+                      </div>
+
+                      {/* Review Narrative Quote */}
+                      <p className="text-xs text-slate-700 leading-relaxed italic font-sans font-normal pt-0.5">
+                        &ldquo;{item.review}&rdquo;
                       </p>
                     </div>
+
+                    {/* Card Footer: Service Pill Badge */}
+                    <div className="relative z-10 pt-3.5 mt-3 border-t border-slate-200/80 flex items-center justify-between gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-semibold bg-amber-50/90 text-amber-800 border border-amber-300/60 group-hover:border-amber-400 transition-colors">
+                        {item.service.includes("📱") ? (
+                          <span className="text-[11px] leading-none select-none">📱</span>
+                        ) : (
+                          <Sparkles className="w-3 h-3 text-amber-500" />
+                        )}
+                        <span>{item.service.replace("📱", "").trim()}</span>
+                      </span>
+
+                      <span className="text-[10.5px] font-mono text-slate-500">
+                        {item.country}
+                      </span>
+                    </div>
                   </div>
-
-                  {/* Rating Stars & Numeric Value */}
-                  <RatingStars rating={item.rating} />
                 </div>
-
-                {/* Review Narrative Quote */}
-                <p className="text-xs text-slate-700 leading-relaxed italic font-sans font-normal pt-0.5">
-                  &ldquo;{item.review}&rdquo;
-                </p>
               </div>
-
-              {/* Card Footer: Service Pill Badge */}
-              <div className="relative z-10 pt-3.5 mt-3 border-t border-slate-200/80 flex items-center justify-between gap-2">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-semibold bg-amber-50/90 text-amber-800 border border-amber-300/60 group-hover:border-amber-400 transition-colors">
-                  {item.service.includes("📱") ? (
-                    <span className="text-[11px] leading-none select-none">📱</span>
-                  ) : (
-                    <Sparkles className="w-3 h-3 text-amber-500" />
-                  )}
-                  <span>{item.service.replace("📱", "").trim()}</span>
-                </span>
-
-                <span className="text-[10.5px] font-mono text-slate-500">
-                  {item.country}
-                </span>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+            );
+          })}
+        </div>
 
         {/* Global Market Footprint Trust Indicator */}
         <div className="p-4 sm:p-5 rounded-xl bg-gradient-to-r from-white/90 via-amber-50/40 to-white/90 border border-amber-400/35 backdrop-blur-xl max-w-4xl mx-auto text-center shadow-[0_12px_32px_rgba(15,23,42,0.06)]">
@@ -216,3 +245,4 @@ export const Testimonials: React.FC = () => {
     </section>
   );
 };
+

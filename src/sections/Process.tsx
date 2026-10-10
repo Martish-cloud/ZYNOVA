@@ -39,6 +39,7 @@ export const Process: React.FC = () => {
           title="A Disciplined Seven-Step"
           highlightedTitle="Delivery Pipeline."
           subtitle="From initial discovery and architectural blueprinting to testing, release, and long-term support."
+          subtitleVariant="typewriter"
         />
 
         {/* Interactive Timeline Stepper on Desktop */}

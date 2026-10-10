@@ -4,16 +4,16 @@ import { useInViewAnimation } from "../hooks/useInViewAnimation";
 import { Clock, Briefcase, Layers, ShieldCheck } from "lucide-react";
 
 export const Stats: React.FC = () => {
-  const { ref: containerRef, isInView } = useInViewAnimation<HTMLDivElement>({
-    threshold: 0.15,
-    rootMargin: "0px 0px -20px 0px",
+  const { ref: containerRef, isInView, prefersReducedMotion } = useInViewAnimation<HTMLDivElement>({
+    threshold: 0.16,
+    rootMargin: "0px 0px -6% 0px",
     retrigger: true
   });
 
-  const countHours = useCountUp(12, 1200, isInView);
-  const countIndustries = useCountUp(8, 1400, isInView);
-  const countProjects = useCountUp(35, 1600, isInView);
-  const countOwnership = useCountUp(100, 1800, isInView);
+  const countHours = useCountUp(12, 1100, isInView);
+  const countIndustries = useCountUp(8, 1250, isInView);
+  const countProjects = useCountUp(35, 1400, isInView);
+  const countOwnership = useCountUp(100, 1550, isInView);
 
   const stats = [
     {
@@ -63,7 +63,16 @@ export const Stats: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="relative p-[1.5px] rounded-2xl overflow-hidden bg-slate-200/80 transition-all duration-300 shadow-[0_8px_28px_rgba(15,23,42,0.05)] hover:shadow-[0_14px_34px_-8px_rgba(245,158,11,0.2)] group hover:-translate-y-1"
+                style={
+                  !prefersReducedMotion
+                    ? { transitionDelay: isInView ? `${idx * 75}ms` : "0ms" }
+                    : undefined
+                }
+                className={`relative p-[1.5px] rounded-2xl overflow-hidden bg-slate-200/80 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_8px_28px_rgba(15,23,42,0.05)] hover:shadow-[0_14px_34px_-8px_rgba(245,158,11,0.2)] group hover:-translate-y-1 ${
+                  isInView
+                    ? "opacity-100 translate-y-0 scale-100"
+                    : "opacity-0 translate-y-4 scale-[0.97]"
+                }`}
               >
                 {/* Continuous Animated Shimmer Stroke along Outer Border */}
                 <div

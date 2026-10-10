@@ -1,6 +1,7 @@
 import React, { useState, Suspense } from "react";
 import { siteConfig } from "../config/siteConfig";
 import { SectionHeading } from "../components/ui/SectionHeading";
+import { TypewriterText } from "../components/ui/TypewriterText";
 import { useCursor } from "../context/useCursor";
 import { useInViewAnimation } from "../hooks/useInViewAnimation";
 import { ShieldCheck, MapPin, Terminal, Cpu, Clock, CheckCircle2, Sparkles, ExternalLink } from "lucide-react";
@@ -13,9 +14,32 @@ export const About: React.FC = () => {
   const { setCursor, resetCursor } = useCursor();
   const [isPortfolioModalOpen, setIsPortfolioModalOpen] = useState(false);
 
-  const { ref: commitmentsRef, isInView: isCommitmentsInView } = useInViewAnimation<HTMLDivElement>({
+  const {
+    ref: narrativeRef,
+    isInView: isNarrativeInView,
+    triggerCount: narrativeTriggerCount,
+    prefersReducedMotion
+  } = useInViewAnimation<HTMLDivElement>({
+    threshold: 0.16,
+    rootMargin: "0px 0px -6% 0px",
+    retrigger: true
+  });
+
+  const {
+    ref: commitmentsRef,
+    isInView: isCommitmentsInView
+  } = useInViewAnimation<HTMLDivElement>({
     threshold: 0.15,
-    rootMargin: "0px 0px -20px 0px",
+    rootMargin: "0px 0px -6% 0px",
+    retrigger: true
+  });
+
+  const {
+    ref: founderRef,
+    isInView: isFounderInView
+  } = useInViewAnimation<HTMLDivElement>({
+    threshold: 0.15,
+    rootMargin: "0px 0px -6% 0px",
     retrigger: true
   });
 
@@ -50,35 +74,82 @@ export const About: React.FC = () => {
           title="Technology Built Around"
           highlightedTitle="Your Vision."
           subtitle="ZYNOVA is a digital technology brand focused on building modern software, websites, applications, automation systems, and data-driven business solutions."
+          subtitleVariant="ltr"
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Column: Mission & Capabilities */}
-          <div className="lg:col-span-7 space-y-4 sm:space-y-5">
-            <h3 className="text-xl sm:text-2xl font-bold font-heading text-slate-900 leading-snug">
-              Practical digital engineering for ambitious entrepreneurs &amp; enterprises.
+          <div ref={narrativeRef} className="lg:col-span-7 space-y-4 sm:space-y-5">
+            {/* Step 1: High-Contrast Main Subheading with Slide-Up / Pop-Up Reveal */}
+            <h3
+              className={`text-xl sm:text-2xl md:text-[26px] font-bold font-heading text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.8)] leading-snug border-l-3 border-amber-400 pl-3.5 sm:pl-4 ${
+                !prefersReducedMotion
+                  ? `transition-all duration-[680ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,opacity] ${
+                      isNarrativeInView
+                        ? "opacity-100 translate-y-0 scale-100"
+                        : "opacity-0 translate-y-4 scale-[0.98]"
+                    }`
+                  : ""
+              }`}
+            >
+              Practical digital engineering for{" "}
+              <span className="bg-gradient-to-r from-[#FEF08A] via-[#FBBF24] to-[#F59E0B] bg-clip-text text-transparent">
+                ambitious entrepreneurs &amp; enterprises.
+              </span>
             </h3>
 
-            <p className="text-slate-600 leading-relaxed text-xs sm:text-sm">
-              At ZYNOVA, we believe software must be resilient, beautiful, and directly tied to business results. We combine modern full-stack development, mobile engineering, AI workflows, and precision data analytics to solve tangible challenges.
-            </p>
+            {/* Supporting Narrative Glass Panel for High Readability */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/90 shadow-[0_12px_32px_rgba(15,23,42,0.07),inset_0_1px_0_rgba(255,255,255,0.95)] space-y-3.5">
+              {/* Step 2: First Supporting Paragraph — Left-to-Right + Subtle Upward Reveal */}
+              <p
+                style={
+                  !prefersReducedMotion
+                    ? { transitionDelay: isNarrativeInView ? "140ms" : "0ms" }
+                    : undefined
+                }
+                className={`text-slate-800 font-medium leading-relaxed text-xs sm:text-sm ${
+                  !prefersReducedMotion
+                    ? `transition-all duration-[680ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,opacity] ${
+                        isNarrativeInView
+                          ? "opacity-100 translate-x-0 translate-y-0"
+                          : "opacity-0 -translate-x-5 translate-y-2.5"
+                      }`
+                    : ""
+                }`}
+              >
+                At ZYNOVA, we believe software must be resilient, beautiful, and directly tied to business results. We combine modern full-stack development, mobile engineering, AI workflows, and precision data analytics to solve tangible challenges.
+              </p>
 
-            <p className="text-slate-600 leading-relaxed text-xs sm:text-sm">
-              Whether building an e-commerce platform from the ground up, engineering enterprise backend APIs, automating error-prone Excel workflows, or delivering high-level Power BI reporting models, our focus is uncompromising quality and long-term scalability.
-            </p>
+              {/* Step 3: Second Supporting Paragraph — Typewriter + Story-Like Upward Reveal */}
+              <div className="text-slate-700 leading-relaxed text-xs sm:text-sm pt-2.5 border-t border-slate-200/80">
+                <TypewriterText
+                  text="Whether building an e-commerce platform from the ground up, engineering enterprise backend APIs, automating error-prone Excel workflows, or delivering high-level Power BI reporting models, our focus is uncompromising quality and long-term scalability."
+                  isActive={isNarrativeInView}
+                  triggerKey={narrativeTriggerCount}
+                  startDelayMs={300}
+                  durationMs={1350}
+                  cursorColorClass="bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]"
+                  withUpwardMotion={true}
+                />
+              </div>
+            </div>
 
-            {/* Core Values / Commitments with Popup/Floating & Entrance Animations */}
-            <div ref={commitmentsRef} className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            {/* Step 4: Core Values / Commitments with Controlled Staggered Sequence */}
+            <div ref={commitmentsRef} className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               {commitments.map((item, idx) => (
                 <div
                   key={item.title}
-                  style={{
-                    transitionDelay: `${idx * 120}ms`
-                  }}
-                  className={`p-3.5 rounded-xl bg-white/80 backdrop-blur-xl border border-slate-200/90 hover:border-amber-500/60 hover:bg-white flex items-start gap-2.5 transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.025] shadow-[0_8px_24px_rgba(15,23,42,0.05)] hover:shadow-[0_16px_32px_-8px_rgba(245,158,11,0.2)] active:scale-[0.98] active:-translate-y-0.5 cursor-pointer ${
+                  style={
+                    !prefersReducedMotion
+                      ? {
+                          transitionDelay: isCommitmentsInView ? `${idx * 80}ms` : "0ms"
+                        }
+                      : undefined
+                  }
+                  className={`p-3.5 rounded-xl bg-white/85 backdrop-blur-xl border border-slate-200/90 hover:border-amber-500/60 hover:bg-white flex items-start gap-2.5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:scale-[1.02] shadow-[0_8px_24px_rgba(15,23,42,0.05)] hover:shadow-[0_16px_32px_-8px_rgba(245,158,11,0.2)] active:scale-[0.98] cursor-pointer ${
                     isCommitmentsInView
                       ? "opacity-100 translate-y-0 scale-100"
-                      : "opacity-0 translate-y-6 scale-95"
+                      : "opacity-0 translate-y-5 scale-95"
                   }`}
                 >
                   <CheckCircle2 className={`w-4 h-4 ${item.iconColor} shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110`} />
@@ -95,8 +166,24 @@ export const About: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Founder Card */}
-          <div className="lg:col-span-5">
+          {/* Right Column: Founder Card with Scroll-Triggered Reveal */}
+          <div
+            ref={founderRef}
+            style={
+              !prefersReducedMotion
+                ? { transitionDelay: isFounderInView ? "180ms" : "0ms" }
+                : undefined
+            }
+            className={`lg:col-span-5 ${
+              !prefersReducedMotion
+                ? `transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,opacity] ${
+                    isFounderInView
+                      ? "opacity-100 translate-y-0 scale-100"
+                      : "opacity-0 translate-y-6 scale-[0.97]"
+                  }`
+                : ""
+            }`}
+          >
             <div
               onMouseEnter={() => setCursor("project", "FOUNDER")}
               onMouseLeave={resetCursor}
