@@ -32,7 +32,7 @@ interface CarouselRowProps {
 const IndustryCarouselRow: React.FC<CarouselRowProps> = ({
   items,
   direction,
-  speed = 28,
+  speed = 46,
   isSectionInView,
   prefersReducedMotion,
   setCursor,
@@ -51,12 +51,12 @@ const IndustryCarouselRow: React.FC<CarouselRowProps> = ({
 
   // Metrics (measured on mount and resize)
   const [metrics, setMetrics] = useState({
-    cardWidth: 232,
+    cardWidth: 236,
     gap: 14,
     containerWidth: 1200
   });
 
-  const isHoveredRef = useRef(false);
+  const isSlowedRef = useRef(false);
   const txRef = useRef(0);
   const lastTimeRef = useRef<number | null>(null);
   const rafIdRef = useRef<number | null>(null);
@@ -67,20 +67,20 @@ const IndustryCarouselRow: React.FC<CarouselRowProps> = ({
       if (!containerRef.current) return;
       const cw = containerRef.current.clientWidth;
 
-      let cardW = 232;
+      let cardW = 236;
       let gapW = 14;
 
       if (cw < 480) {
-        cardW = Math.max(220, Math.min(260, cw - 52));
+        cardW = Math.max(220, Math.min(260, cw - 48));
         gapW = 10;
       } else if (cw < 768) {
-        cardW = 224;
+        cardW = 226;
         gapW = 12;
       } else if (cw < 1024) {
-        cardW = 228;
-        gapW = 12;
-      } else {
         cardW = 232;
+        gapW = 14;
+      } else {
+        cardW = 236;
         gapW = 14;
       }
 
@@ -114,7 +114,7 @@ const IndustryCarouselRow: React.FC<CarouselRowProps> = ({
     };
   }, [items.length]);
 
-  // Main animation loop
+  // Main animation loop: runs continuously without freezing
   useEffect(() => {
     if (prefersReducedMotion) {
       if (rafIdRef.current) {
@@ -135,16 +135,19 @@ const IndustryCarouselRow: React.FC<CarouselRowProps> = ({
       const dt = Math.min((time - lastTimeRef.current) / 1000, 0.1);
       lastTimeRef.current = time;
 
-      // Only advance position if visible and not hovered
-      if (isSectionInView && !isHoveredRef.current && document.visibilityState === "visible") {
+      // Only advance position when tab is visible
+      if (document.visibilityState === "visible") {
+        // When card is actively hovered, glide at subtle half-speed for easy reading without freezing
+        const currentSpeed = isSlowedRef.current ? speed * 0.35 : speed;
+
         if (direction === "ltr") {
-          txRef.current += speed * dt;
+          txRef.current += currentSpeed * dt;
           // When tx reaches 0, wrap back seamlessly by exactly 1 set length
           if (txRef.current >= 0) {
             txRef.current -= setLength;
           }
         } else {
-          txRef.current -= speed * dt;
+          txRef.current -= currentSpeed * dt;
           // When tx reaches -2 * setLength, wrap forward seamlessly by 1 set length
           if (txRef.current <= -2 * setLength) {
             txRef.current += setLength;
@@ -170,23 +173,26 @@ const IndustryCarouselRow: React.FC<CarouselRowProps> = ({
         const cardCenter = cardLeft + cardWidth / 2;
         const distFromCenter = Math.abs(cardCenter - center);
 
-        // If card is far offscreen outside the container bounds, hide completely
-        if (cardLeft > containerWidth + 60 || cardLeft + cardWidth < -60) {
+        // If card is far offscreen outside the container bounds, hide
+        if (cardLeft > containerWidth + 80 || cardLeft + cardWidth < -80) {
           cardEl.style.opacity = "0";
+          cardEl.style.visibility = "hidden";
           continue;
+        } else {
+          cardEl.style.visibility = "visible";
         }
 
         const normDist = Math.min(1, distFromCenter / Math.max(1, halfWidth));
 
         // Subtle, restrained scale-depth effect (0.88 - 1.00)
         // Center cards are closest to normal size (1.00), edge cards slightly smaller (0.88)
-        const scale = 1.00 - 0.12 * Math.pow(normDist, 1.4);
+        const scale = 1.00 - 0.12 * Math.pow(normDist, 1.35);
 
-        // Opacity smoothly transitions from 1.00 at center to ~0.84 near edges
-        const opacity = 1.00 - 0.16 * Math.pow(normDist, 1.3);
+        // Opacity smoothly transitions from 1.00 at center to ~0.82 near edges
+        const opacity = 1.00 - 0.18 * Math.pow(normDist, 1.25);
 
         cardEl.style.transform = `scale(${scale.toFixed(3)}) translateZ(0)`;
-        cardEl.style.opacity = Math.max(0.72, opacity).toFixed(3);
+        cardEl.style.opacity = Math.max(0.70, opacity).toFixed(3);
       }
 
       rafIdRef.current = requestAnimationFrame(animate);
@@ -206,22 +212,10 @@ const IndustryCarouselRow: React.FC<CarouselRowProps> = ({
   return (
     <div
       ref={containerRef}
-      onMouseEnter={() => {
-        isHoveredRef.current = true;
-      }}
-      onMouseLeave={() => {
-        isHoveredRef.current = false;
-      }}
-      onTouchStart={() => {
-        isHoveredRef.current = true;
-      }}
-      onTouchEnd={() => {
-        isHoveredRef.current = false;
-      }}
       className="relative w-full overflow-hidden py-2 sm:py-2.5 select-none"
       style={{
-        maskImage: "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
-        WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)"
+        maskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)"
       }}
     >
       <div
@@ -251,8 +245,14 @@ const IndustryCarouselRow: React.FC<CarouselRowProps> = ({
             >
               <div
                 tabIndex={isPrimaryAccessible ? 0 : -1}
-                onMouseEnter={() => setCursor("project", ind.name)}
-                onMouseLeave={resetCursor}
+                onMouseEnter={() => {
+                  isSlowedRef.current = true;
+                  setCursor("project", ind.name);
+                }}
+                onMouseLeave={() => {
+                  isSlowedRef.current = false;
+                  resetCursor();
+                }}
                 className="group p-4 sm:p-4.5 rounded-xl liquid-glass-card transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 active:scale-[0.98] flex flex-col justify-between cursor-pointer min-h-[178px] sm:min-h-[188px] border border-white/10 hover:border-amber-400/50 shadow-lg hover:shadow-amber-500/10"
               >
                 <div>
@@ -289,9 +289,9 @@ export const Industries: React.FC = () => {
     isInView: isSectionInView,
     prefersReducedMotion
   } = useInViewAnimation<HTMLDivElement>({
-    threshold: 0.1,
-    rootMargin: "0px 0px -4% 0px",
-    retrigger: true
+    threshold: 0.05,
+    rootMargin: "150px 0px 150px 0px",
+    retrigger: false
   });
 
   // Top row: Exactly items 0 to 4
@@ -328,65 +328,32 @@ export const Industries: React.FC = () => {
         />
 
         <div ref={sectionRef} className="w-full">
-          {prefersReducedMotion ? (
-            /* Accessible, static fallback grid when reduced motion is preferred */
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-3.5">
-              {industriesData.map((ind) => (
-                <div
-                  key={ind.name}
-                  onMouseEnter={() => setCursor("project", ind.name)}
-                  onMouseLeave={resetCursor}
-                  className="group p-4 sm:p-4.5 rounded-xl liquid-glass-card flex flex-col justify-between cursor-pointer min-h-[178px] sm:min-h-[188px] border border-white/10 hover:border-amber-400/50"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="p-2 rounded-lg bg-amber-400/[0.16] border border-amber-400/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]">
-                        {getIcon(ind.icon)}
-                      </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-400/[0.16] text-amber-300 border border-amber-400/35 font-bold">
-                        {ind.tag}
-                      </span>
-                    </div>
+          {/* Coordinated Two-Row Horizontal Carousel Animation */}
+          <div className="space-y-3 sm:space-y-4">
+            {/* TOP ROW: Moves Left to Right */}
+            <IndustryCarouselRow
+              items={topRowItems}
+              direction="ltr"
+              speed={46}
+              isSectionInView={isSectionInView}
+              prefersReducedMotion={prefersReducedMotion}
+              setCursor={setCursor}
+              resetCursor={resetCursor}
+              getIcon={getIcon}
+            />
 
-                    <h3 className="font-heading font-bold text-sm sm:text-[15px] text-white group-hover:text-amber-300 transition-colors mb-1.5">
-                      {ind.name}
-                    </h3>
-
-                    <p className="text-[11.5px] sm:text-xs text-slate-200 font-normal leading-relaxed">
-                      {ind.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            /* Coordinated Two-Row Horizontal Carousel Animation */
-            <div className="space-y-3 sm:space-y-4">
-              {/* TOP ROW: Moves Left to Right */}
-              <IndustryCarouselRow
-                items={topRowItems}
-                direction="ltr"
-                speed={26}
-                isSectionInView={isSectionInView}
-                prefersReducedMotion={prefersReducedMotion}
-                setCursor={setCursor}
-                resetCursor={resetCursor}
-                getIcon={getIcon}
-              />
-
-              {/* BOTTOM ROW: Moves Right to Left */}
-              <IndustryCarouselRow
-                items={bottomRowItems}
-                direction="rtl"
-                speed={26}
-                isSectionInView={isSectionInView}
-                prefersReducedMotion={prefersReducedMotion}
-                setCursor={setCursor}
-                resetCursor={resetCursor}
-                getIcon={getIcon}
-              />
-            </div>
-          )}
+            {/* BOTTOM ROW: Moves Right to Left */}
+            <IndustryCarouselRow
+              items={bottomRowItems}
+              direction="rtl"
+              speed={46}
+              isSectionInView={isSectionInView}
+              prefersReducedMotion={prefersReducedMotion}
+              setCursor={setCursor}
+              resetCursor={resetCursor}
+              getIcon={getIcon}
+            />
+          </div>
         </div>
       </div>
     </section>
