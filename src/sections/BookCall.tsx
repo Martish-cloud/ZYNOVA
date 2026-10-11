@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { siteConfig } from "../config/siteConfig";
 import { SectionHeading } from "../components/ui/SectionHeading";
 import { MagneticButton } from "../components/ui/MagneticButton";
+import { WhatsAppIcon } from "../components/ui/WhatsAppIcon";
 import { useCursor } from "../context/useCursor";
 import confetti from "canvas-confetti";
 import { sendEnquiryEmail, createMailtoLink } from "../utils/emailService";
@@ -12,7 +13,9 @@ import {
   CheckCircle2,
   Sparkles,
   Send,
-  Mail
+  Mail,
+  Phone,
+  AlertCircle
 } from "lucide-react";
 
 interface BookCallProps {
@@ -55,6 +58,7 @@ export const BookCall: React.FC<BookCallProps> = ({
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const serviceOptions = [
     "Web Development",
@@ -91,10 +95,11 @@ export const BookCall: React.FC<BookCallProps> = ({
     if (!validate()) return;
 
     setIsSubmitting(true);
+    setSubmitError(null);
 
     try {
       // 1. Dispatch discovery call request to team.zynova@gmail.com
-      await sendEnquiryEmail({
+      const res = await sendEnquiryEmail({
         subject: `New Discovery Call Booking: ${formData.name} (${formData.preferredDate || "Immediate"} @ ${formData.preferredTime || "Flexible"}) - ZYNOVA`,
         senderEmail: formData.email,
         senderName: formData.name,
@@ -118,29 +123,35 @@ export const BookCall: React.FC<BookCallProps> = ({
           body: JSON.stringify(formData)
         }).catch(() => {});
       }
-    } catch (dispatchErr) {
-      console.warn("Discovery call dispatch notice:", dispatchErr);
-    } finally {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
 
-      // Trigger celebratory confetti
-      try {
-        confetti({
-          particleCount: 60,
-          spread: 70,
-          origin: { y: 0.7 }
-        });
-      } catch {
-        // Fallback gracefully
-      }
+      if (res && res.success) {
+        setIsSubmitted(true);
+        try {
+          confetti({
+            particleCount: 60,
+            spread: 70,
+            origin: { y: 0.7 }
+          });
+        } catch {}
 
-      if (onSuccess) {
-        onSuccess(
-          "Discovery Call Request Confirmed!",
-          `Your booking request has been sent directly to ${siteConfig.contact.email}. Amit Halder & the team will review and confirm your slot within 12 hours.`
+        if (onSuccess) {
+          onSuccess(
+            "Discovery Call Request Confirmed!",
+            `Your booking request has been sent directly to ${siteConfig.contact.email}. Amit Halder & the team will review and confirm your slot within 12 hours.`
+          );
+        }
+      } else {
+        setSubmitError(
+          "Unable to automatically dispatch via web relay. Please click below to send via your email client or WhatsApp directly."
         );
       }
+    } catch (dispatchErr) {
+      console.warn("Discovery call dispatch notice:", dispatchErr);
+      setSubmitError(
+        "Could not dispatch your booking request. Please reach out directly via WhatsApp or Email below."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -159,32 +170,38 @@ export const BookCall: React.FC<BookCallProps> = ({
           <div className="lg:col-span-5 space-y-4">
             <div className="p-4.5 sm:p-5 rounded-xl liquid-glass-card border-amber-400/45 hover:border-amber-400/70 transition-colors">
               <span className="text-[11px] font-mono uppercase tracking-wider text-amber-300 font-bold block mb-1.5">
-                OPTION 01 &bull; INSTANT SYNC
+                OPTION 01 &bull; INSTANT CONTACT
               </span>
               <h3 className="text-base sm:text-lg font-bold font-heading text-white mb-1.5">
-                Book Directly via Calendar
+                Direct WhatsApp or Call
               </h3>
               <p className="text-xs text-slate-200 font-normal leading-relaxed mb-4">
-                Prefer to grab an immediate slot on our calendar? Connect via our direct scheduling link for a video discovery call.
+                Need an immediate conversation? Connect directly with Founder Amit Halder for a prompt discussion regarding your digital project.
               </p>
 
-              <MagneticButton
-                asAnchor
-                href={siteConfig.bookingURL}
-                target="_blank"
-                rel="noreferrer"
-                variant="gold"
-                className="w-full !py-2.5 text-xs font-bold justify-center shadow-[0_8px_20px_rgba(245,158,11,0.3)]"
-                cursorLabel="CALENDAR"
-              >
-                <Calendar className="w-4 h-4 text-slate-950" />
-                <span>Book Directly on Calendar</span>
-                <ExternalLink className="w-3.5 h-3.5 text-slate-950" />
-              </MagneticButton>
+              <div className="space-y-2.5">
+                <MagneticButton
+                  asAnchor
+                  href={siteConfig.whatsappChatURL}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="gold"
+                  className="w-full !py-2.5 text-xs font-bold justify-center shadow-[0_8px_20px_rgba(245,158,11,0.3)]"
+                  cursorLabel="WHATSAPP"
+                >
+                  <WhatsAppIcon className="w-4 h-4 text-slate-950" />
+                  <span>Chat on WhatsApp Directly</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-950" />
+                </MagneticButton>
 
-              <p className="text-[10px] text-slate-300 font-normal mt-2.5 text-center">
-                Replace <code className="font-mono text-amber-300 font-bold">siteConfig.bookingURL</code> with your Calendly / Cal.com link
-              </p>
+                <a
+                  href={`tel:${siteConfig.phoneTel}`}
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl liquid-glass-subcard text-slate-200 hover:text-white text-xs font-semibold border border-white/20 hover:border-amber-400/50 transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Call {siteConfig.phone}</span>
+                </a>
+              </div>
             </div>
 
             <div className="p-4.5 sm:p-5 rounded-xl liquid-glass-card space-y-3">
@@ -223,6 +240,44 @@ export const BookCall: React.FC<BookCallProps> = ({
               <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-4">
                 Request a Custom Time Slot
               </h3>
+
+              {submitError && (
+                <div className="mb-4 p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/50 text-xs text-rose-200 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                    <span>{submitError}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <a
+                      href={createMailtoLink(
+                        `Discovery Call Booking: ${formData.name}`,
+                        {
+                          "Client Name": formData.name,
+                          "Work Email": formData.email,
+                          "Company": formData.company,
+                          "Service": formData.service,
+                          "Requested Date": formData.preferredDate,
+                          "Preferred Time": formData.preferredTime,
+                          "Scope": formData.message
+                        }
+                      )}
+                      className="px-3 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 border border-rose-400/40 text-[11px] font-semibold text-rose-100 flex items-center gap-1.5"
+                    >
+                      <Mail className="w-3 h-3" />
+                      <span>Send via Email Client</span>
+                    </a>
+                    <a
+                      href={siteConfig.whatsappChatURL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-[11px] font-semibold text-emerald-200 flex items-center gap-1.5"
+                    >
+                      <WhatsAppIcon className="w-3 h-3 text-emerald-400" />
+                      <span>Chat on WhatsApp</span>
+                    </a>
+                  </div>
+                </div>
+              )}
 
               {isSubmitted ? (
                 <div className="py-8 text-center space-y-3 animate-in fade-in zoom-in-95 duration-300">
@@ -353,6 +408,11 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onBlur={resetCursor}
                         className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-amber-400/80 transition-colors cursor-pointer"
                       >
+                        {formData.service && !serviceOptions.includes(formData.service) && (
+                          <option value={formData.service} className="bg-[#12100e] text-amber-300 py-1.5 font-bold">
+                            {formData.service}
+                          </option>
+                        )}
                         {serviceOptions.map((opt) => (
                           <option key={opt} value={opt} className="bg-[#12100e] text-slate-100 py-1.5 font-medium">
                             {opt}

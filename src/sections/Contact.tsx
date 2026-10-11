@@ -15,7 +15,8 @@ import {
   Calendar,
   Send,
   CheckCircle2,
-  ShieldCheck
+  ShieldCheck,
+  AlertCircle
 } from "lucide-react";
 
 interface ContactProps {
@@ -38,6 +39,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const servicesList = [
     "Full-Stack Web Development",
@@ -71,10 +73,11 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
     if (!validate()) return;
 
     setIsSubmitting(true);
+    setSubmitError(null);
 
     try {
       // 1. Send enquiry email directly to team.zynova@gmail.com via multi-tier relay
-      await sendEnquiryEmail({
+      const res = await sendEnquiryEmail({
         subject: `New Project Enquiry: ${formData.name} - ${formData.serviceRequired} [ZYNOVA]`,
         senderEmail: formData.email,
         senderName: formData.name,
@@ -98,28 +101,37 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
           body: JSON.stringify(formData)
         }).catch(() => {});
       }
-    } catch (err) {
-      console.warn("Contact enquiry delivery notice:", err);
-    } finally {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
 
-      try {
-        confetti({
-          particleCount: 50,
-          spread: 60,
-          origin: { y: 0.8 }
-        });
-      } catch {
-        // Safe fallback
-      }
+      if (res && res.success) {
+        setIsSubmitted(true);
+        try {
+          confetti({
+            particleCount: 50,
+            spread: 60,
+            origin: { y: 0.8 }
+          });
+        } catch {
+          // Safe fallback
+        }
 
-      if (onSuccess) {
-        onSuccess(
-          "Enquiry Dispatched!",
-          `Thank you, ${formData.name}. Your enquiry has been sent directly to ${siteConfig.contact.email}. We will review and reply within 12 hours.`
+        if (onSuccess) {
+          onSuccess(
+            "Enquiry Dispatched!",
+            `Thank you, ${formData.name}. Your enquiry has been sent directly to ${siteConfig.contact.email}. We will review and reply within 12 hours.`
+          );
+        }
+      } else {
+        setSubmitError(
+          "We could not dispatch your enquiry automatically. Please use the direct email or WhatsApp button below to reach us directly."
         );
       }
+    } catch (err) {
+      console.warn("Contact enquiry delivery notice:", err);
+      setSubmitError(
+        "Network notice: please click below to send via your email client or WhatsApp directly."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -140,30 +152,43 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
             <div className="md:col-span-7 lg:col-span-8 space-y-3 text-left">
               <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-400/[0.16] border border-amber-400/35 text-[11px] font-mono font-bold text-amber-300">
                 <WhatsAppIcon className="w-3.5 h-3.5 text-[#25D366]" />
-                <span>OFFICIAL WHATSAPP COMMUNITY</span>
+                <span>OFFICIAL WHATSAPP COMMUNITY &amp; CHAT</span>
               </div>
 
               <h3 className="text-xl sm:text-2xl font-black font-heading tracking-tight text-white">
-                JOIN THE ZYNOVA COMMUNITY
+                CONNECT WITH ZYNOVA ON WHATSAPP
               </h3>
 
               <p className="text-xs sm:text-sm text-slate-200 font-normal leading-relaxed max-w-xl">
-                Connect with ZYNOVA on WhatsApp for project discussions, updates, enquiries and direct communication.
+                Connect with ZYNOVA on WhatsApp for 1-on-1 project consultations, requirements discussions, updates, and direct communication.
               </p>
 
-              <div className="pt-1.5">
+              <div className="pt-1.5 flex flex-wrap gap-3">
+                <MagneticButton
+                  asAnchor
+                  href={siteConfig.whatsappChatURL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="gold"
+                  className="w-full sm:w-auto !py-2.5 sm:!py-3 !px-5 sm:!px-6 text-xs sm:text-sm font-bold shadow-[0_8px_25px_rgba(212,175,55,0.3)] cursor-pointer"
+                  cursorLabel="CHAT"
+                  aria-label="Chat directly on WhatsApp with ZYNOVA"
+                >
+                  <WhatsAppIcon className="w-4 h-4 text-slate-950" />
+                  <span>CHAT 1-ON-1 ON WHATSAPP &rarr;</span>
+                </MagneticButton>
+
                 <MagneticButton
                   asAnchor
                   href={siteConfig.whatsappGroupURL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  variant="gold"
-                  className="w-full sm:w-auto !py-2.5 sm:!py-3 !px-5 sm:!px-6 text-xs sm:text-sm font-bold shadow-[0_8px_25px_rgba(212,175,55,0.3)] cursor-pointer"
-                  cursorLabel="JOIN"
-                  aria-label="Join the ZYNOVA WhatsApp group"
+                  variant="outline"
+                  className="w-full sm:w-auto !py-2.5 sm:!py-3 !px-5 sm:!px-6 text-xs sm:text-sm font-bold border-amber-400/40 text-amber-300 hover:bg-amber-400/[0.16] cursor-pointer"
+                  cursorLabel="GROUP"
+                  aria-label="Join the ZYNOVA WhatsApp community group"
                 >
-                  <WhatsAppIcon className="w-4 h-4 text-slate-950" />
-                  <span>JOIN WHATSAPP GROUP &rarr;</span>
+                  <span>JOIN WHATSAPP GROUP</span>
                 </MagneticButton>
               </div>
             </div>
@@ -362,6 +387,44 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                 Send an Enquiry
               </h3>
 
+              {submitError && (
+                <div className="mb-4 p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/50 text-xs text-rose-200 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                    <span>{submitError}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <a
+                      href={createMailtoLink(
+                        `Project Enquiry: ${formData.name}`,
+                        {
+                          "Full Name": formData.name,
+                          "Work Email": formData.email,
+                          "Company": formData.company,
+                          "Service": formData.serviceRequired,
+                          "Preferred Meeting Date": formData.preferredDate,
+                          "Preferred Meeting Time": formData.preferredTime,
+                          "Scope": formData.message
+                        }
+                      )}
+                      className="px-3 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 border border-rose-400/40 text-[11px] font-semibold text-rose-100 flex items-center gap-1.5"
+                    >
+                      <Mail className="w-3 h-3" />
+                      <span>Send via Email Client</span>
+                    </a>
+                    <a
+                      href={siteConfig.whatsappChatURL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-[11px] font-semibold text-emerald-200 flex items-center gap-1.5"
+                    >
+                      <WhatsAppIcon className="w-3 h-3 text-emerald-400" />
+                      <span>Chat on WhatsApp</span>
+                    </a>
+                  </div>
+                </div>
+              )}
+
               {isSubmitted ? (
                 <div className="py-8 text-center space-y-3 animate-in fade-in duration-300">
                   <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 flex items-center justify-center mx-auto shadow-[0_8px_20px_rgba(16,185,129,0.25)]">
@@ -495,6 +558,11 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onBlur={resetCursor}
                         className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-amber-400/80 transition-colors cursor-pointer"
                       >
+                        {formData.serviceRequired && !servicesList.includes(formData.serviceRequired) && (
+                          <option value={formData.serviceRequired} className="bg-[#12100e] text-amber-300 py-1.5 font-bold">
+                            {formData.serviceRequired}
+                          </option>
+                        )}
                         {servicesList.map((srv) => (
                           <option key={srv} value={srv} className="bg-[#12100e] text-slate-100 py-1.5 font-medium">
                             {srv}

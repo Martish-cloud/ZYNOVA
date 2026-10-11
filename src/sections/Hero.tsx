@@ -31,19 +31,19 @@ export const Hero: React.FC = () => {
       <HeroBackground />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
-        {/* Top Micro Badge */}
+        {/* Top Micro Badge with Official Brand Tagline */}
         <div
           className={`mb-3.5 sm:mb-4 transition-all duration-700 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 pointer-events-none"
           }`}
         >
-          <Badge variant="gold" className="py-1 px-3 text-xs font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-            <span>PREMIUM DIGITAL SOLUTIONS &bull; EST. 2026</span>
+          <Badge variant="gold" className="py-1 px-3.5 text-[11px] sm:text-xs font-semibold tracking-wide">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <span>BUILDING DIGITAL SOLUTIONS &bull; EMPOWERING BUSINESS GROWTH</span>
           </Badge>
         </div>
 
-        {/* Cinematic Typewriter Main Headline */}
+        {/* Cinematic Main Headline */}
         <TypewriterHeroHeadline />
 
         {/* Supporting Copy */}
@@ -63,7 +63,7 @@ export const Hero: React.FC = () => {
         >
           <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
           <span>
-            Founded by <span className="text-white font-bold">{siteConfig.founder.name}</span> &bull; {siteConfig.founder.location}
+            Founded by <span className="text-white font-bold">{siteConfig.founder.name}</span> &bull; {siteConfig.founder.location} &bull; <span className="text-amber-300 font-semibold">{siteConfig.metrics.responseTime} Response</span>
           </span>
         </div>
 

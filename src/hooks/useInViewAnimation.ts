@@ -20,6 +20,7 @@ export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
   const prefersReducedMotion = useReducedMotion();
 
   const [isInView, setIsInView] = useState<boolean>(() => prefersReducedMotion);
+  const [hasEnteredView, setHasEnteredView] = useState<boolean>(() => prefersReducedMotion);
   const [triggerCount, setTriggerCount] = useState<number>(() => (prefersReducedMotion ? 1 : 0));
   const inViewRef = useRef<boolean>(prefersReducedMotion);
 
@@ -27,6 +28,7 @@ export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
     if (prefersReducedMotion) {
       inViewRef.current = true;
       setIsInView(true);
+      setHasEnteredView(true);
       setTriggerCount((c) => (c === 0 ? 1 : c));
       return;
     }
@@ -37,8 +39,18 @@ export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
     if (typeof IntersectionObserver === "undefined") {
       inViewRef.current = true;
       setIsInView(true);
+      setHasEnteredView(true);
       setTriggerCount(1);
       return;
+    }
+
+    // Immediate check if element is already within viewport on mount
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      inViewRef.current = true;
+      setIsInView(true);
+      setHasEnteredView(true);
+      setTriggerCount(1);
     }
 
     let isDisposed = false;
@@ -52,6 +64,7 @@ export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
           if (!inViewRef.current) {
             inViewRef.current = true;
             setIsInView(true);
+            setHasEnteredView(true);
             setTriggerCount((prev) => prev + 1);
           }
         } else if (!entry.isIntersecting && entry.intersectionRatio <= 0.01) {
@@ -77,7 +90,8 @@ export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
 
   return {
     ref,
-    isInView: prefersReducedMotion ? true : isInView,
+    isInView: prefersReducedMotion ? true : (hasEnteredView || isInView),
+    isDirectlyInViewport: isInView,
     triggerCount: prefersReducedMotion ? 1 : triggerCount,
     prefersReducedMotion
   };

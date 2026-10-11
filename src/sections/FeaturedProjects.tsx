@@ -29,7 +29,7 @@ export interface FeaturedProject {
   tech: string[];
 }
 
-export const FEATURED_PROJECTS: FeaturedProject[] = [
+const FEATURED_PROJECTS: FeaturedProject[] = [
   {
     id: "ml-ai-portfolio",
     title: "ML & AI Portfolio",

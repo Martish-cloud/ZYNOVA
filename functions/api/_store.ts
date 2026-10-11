@@ -65,7 +65,7 @@ export const getStartOfCurrentMonth = (): Date => {
  */
 export const calculateStats = (
   donations: DonationRecord[],
-  distributions: DistributionRecord[]
+  _distributions: DistributionRecord[]
 ): TransparencyResponse => {
   const startOfMonth = getStartOfCurrentMonth();
 

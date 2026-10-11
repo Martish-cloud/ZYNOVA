@@ -3,7 +3,7 @@ import { siteConfig } from "../../config/siteConfig";
 import { useScrollSpy } from "../../hooks/useScrollSpy";
 import { useCursor } from "../../context/useCursor";
 import { MagneticButton } from "../ui/MagneticButton";
-import { Menu, X, ArrowUpRight, Phone } from "lucide-react";
+import { Menu, X, ArrowUpRight, Phone, Sparkles } from "lucide-react";
 
 // Static Section IDs for scrollspy (stable reference)
 const SECTION_IDS = [
@@ -112,13 +112,17 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center gap-2.5">
             <MagneticButton
               asAnchor
-              href={`tel:${siteConfig.phoneTel}`}
+              href="#book-call"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick("#book-call");
+              }}
               variant="primary"
               className="group hidden sm:inline-flex !py-1.5 !px-3.5 text-xs font-bold shadow-[0_4px_18px_rgba(245,158,11,0.3)] hover:shadow-[0_6px_24px_rgba(245,158,11,0.45)] cursor-pointer"
-              cursorLabel="CALL"
-              aria-label={`Call ZYNOVA at ${siteConfig.phone}`}
+              cursorLabel="BOOK"
+              aria-label="Book a discovery call with ZYNOVA"
             >
-              <Phone className="w-3 h-3 text-slate-950 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+              <Sparkles className="w-3 h-3 text-slate-950 transition-transform duration-300 group-hover:scale-110" />
               <span>BOOK A CALL</span>
             </MagneticButton>
 
@@ -173,15 +177,27 @@ export const Navbar: React.FC = () => {
                 );
               })}
 
-              <div className="pt-4 mt-2 border-t border-white/20">
+              <div className="pt-4 mt-2 border-t border-white/20 space-y-2">
+                <a
+                  href="#book-call"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLinkClick("#book-call");
+                  }}
+                  className="group w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-bold text-sm shadow-[0_4px_18px_rgba(245,158,11,0.3)] hover:shadow-[0_6px_25px_rgba(245,158,11,0.45)] min-h-[44px] transition-all cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4 text-slate-950" />
+                  <span>BOOK A DISCOVERY CALL</span>
+                </a>
+
                 <a
                   href={`tel:${siteConfig.phoneTel}`}
-                  aria-label={`Call ZYNOVA at ${siteConfig.phone}`}
+                  aria-label={`Call ZYNOVA directly at ${siteConfig.phone}`}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="group w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-bold text-sm shadow-[0_4px_18px_rgba(245,158,11,0.3)] hover:shadow-[0_6px_25px_rgba(245,158,11,0.45)] min-h-[44px] transition-all cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl liquid-glass-subcard text-white font-medium text-xs border border-white/20 min-h-[44px] transition-colors hover:text-amber-300"
                 >
-                  <Phone className="w-4 h-4 text-slate-950 transition-transform duration-300 group-hover:rotate-12" />
-                  <span>BOOK A CALL</span>
+                  <Phone className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Call {siteConfig.phone}</span>
                 </a>
               </div>
             </div>

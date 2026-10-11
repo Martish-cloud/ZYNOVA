@@ -188,12 +188,12 @@ export const Footer: React.FC = () => {
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
               {platformKeys.map((key) => {
                 const url = siteConfig.freelancePlatforms[key];
+                const isExternal = url && url !== "#";
                 return (
                   <a
                     key={key}
-                    href={url}
-                    target="_blank"
-                    rel="noreferrer"
+                    href={isExternal ? url : "#platforms"}
+                    {...(isExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                     onMouseEnter={() => setCursor("link")}
                     onMouseLeave={resetCursor}
                     className="footer-hub-badge px-2.5 py-1 rounded-md text-xs font-semibold liquid-glass-subcard text-slate-200 hover:text-white hover:border-amber-400/50 capitalize transition-colors"
@@ -267,8 +267,8 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3 sm:gap-4">
-            <span className="font-mono text-[11px] text-slate-300 font-bold">
-              BUILD &bull; AUTOMATE &bull; SCALE
+            <span className="font-mono text-[10.5px] sm:text-[11px] text-slate-300 font-semibold tracking-wide">
+              {siteConfig.tagline}
             </span>
             <button
               onClick={scrollToTop}

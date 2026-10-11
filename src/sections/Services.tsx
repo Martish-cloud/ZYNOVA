@@ -122,12 +122,12 @@ const ServiceCard = React.memo<ServiceCardProps>(({
         </div>
 
         {/* Title */}
-        <h3 className="text-xs sm:text-sm font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors mb-1 leading-snug line-clamp-2">
+        <h3 className="text-xs sm:text-sm font-bold font-heading text-white group-hover:text-amber-300 transition-colors mb-1 leading-snug line-clamp-2">
           {service.title}
         </h3>
 
         {/* Short Description */}
-        <p className="text-[9.5px] sm:text-[10.5px] text-[#B7F0C1] font-normal leading-snug mb-1.5 line-clamp-2 sm:line-clamp-3">
+        <p className="text-[10px] sm:text-[11px] text-slate-200 font-normal leading-relaxed mb-2 line-clamp-2 sm:line-clamp-3">
           {service.shortDesc}
         </p>
 

@@ -12,7 +12,7 @@ import {
   PeoplePerHour_Icon,
   Truelancer_Icon
 } from "../components/icons/PlatformIcons";
-import { ExternalLink, Layers } from "lucide-react";
+import { ExternalLink, Layers, ArrowRight } from "lucide-react";
 
 const platformIconMap: Record<string, React.FC<{ className?: string; size?: number }>> = {
   upwork: Upwork_Icon,
@@ -34,6 +34,11 @@ export const Platforms: React.FC = () => {
     }
   };
 
+  const scrollToContact = () => {
+    const el = document.getElementById("contact");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section id="platforms" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,7 +52,8 @@ export const Platforms: React.FC = () => {
         {/* Icons-Only Platform Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 max-w-5xl mx-auto">
           {platformsData.map((plat) => {
-            const url = plat.hasServiceList ? undefined : siteConfig.freelancePlatforms[plat.configKey];
+            const rawUrl = plat.hasServiceList ? undefined : siteConfig.freelancePlatforms[plat.configKey];
+            const hasExternalUrl = Boolean(rawUrl && rawUrl !== "#");
             const IconComponent = platformIconMap[plat.id];
 
             const cardContent = (
@@ -62,8 +68,10 @@ export const Platforms: React.FC = () => {
                 <div className="absolute top-2.5 right-2.5 text-slate-400 group-hover:text-amber-300 transition-colors">
                   {plat.hasServiceList ? (
                     <Layers className="w-3.5 h-3.5 text-amber-300" />
-                  ) : (
+                  ) : hasExternalUrl ? (
                     <ExternalLink className="w-3.5 h-3.5" />
+                  ) : (
+                    <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-300" />
                   )}
                 </div>
 
@@ -80,11 +88,15 @@ export const Platforms: React.FC = () => {
                   {plat.name}
                 </span>
 
-                {plat.hasServiceList && (
+                {plat.hasServiceList ? (
                   <span className="text-[9px] font-mono text-amber-300 mt-1 font-bold tracking-tight">
                     View Services
                   </span>
-                )}
+                ) : !hasExternalUrl ? (
+                  <span className="text-[9px] font-mono text-slate-400 group-hover:text-amber-300 mt-1 font-semibold tracking-tight">
+                    Contract on Request
+                  </span>
+                ) : null}
               </>
             );
 
@@ -103,10 +115,26 @@ export const Platforms: React.FC = () => {
               );
             }
 
+            if (!hasExternalUrl) {
+              return (
+                <button
+                  key={plat.name}
+                  type="button"
+                  onClick={scrollToContact}
+                  onMouseEnter={() => setCursor("project", "ENQUIRE")}
+                  onMouseLeave={resetCursor}
+                  className="group relative p-4 sm:p-5 rounded-xl liquid-glass-card hover:border-amber-400/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden w-full"
+                  aria-label={`${plat.name} contract available on request - contact ZYNOVA`}
+                >
+                  {cardContent}
+                </button>
+              );
+            }
+
             return (
               <a
                 key={plat.name}
-                href={url}
+                href={rawUrl}
                 target="_blank"
                 rel="noreferrer"
                 onMouseEnter={() => setCursor("project", plat.name)}

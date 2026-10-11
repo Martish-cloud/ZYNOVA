@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zynova.tech/sitemap.xml
+Sitemap: https://zynova.co.in/sitemap.xml

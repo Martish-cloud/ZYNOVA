@@ -67,7 +67,7 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
         cancelAnimationFrame(animFrameRef.current);
       }
     };
-  }, [value, durationMs]);
+  }, [value, durationMs, prefersReducedMotion]);
 
   return (
     <span className={`inline-block tabular-nums font-mono ${className}`}>

@@ -7,6 +7,7 @@ export interface SiteConfig {
   phoneTel: string;
   location: string;
   whatsappGroupURL: string;
+  whatsappChatURL: string;
   founder: {
     name: string;
     role: string;
@@ -26,6 +27,7 @@ export interface SiteConfig {
     location: string;
     responseGuarantee: string;
     whatsappGroupURL: string;
+    whatsappChatURL: string;
     formSubmitEndpoint: string;
     contactApi: string;
     bookingApi: string;
@@ -54,13 +56,14 @@ export interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
   brandName: "ZYNOVA",
-  tagline: "BUILD. AUTOMATE. SCALE.",
+  tagline: "Building Digital Solutions. Empowering Business Growth.",
   positioning: "Premium Digital Solutions & Software Development",
   email: "team.zynova@gmail.com",
   phone: "+91 70036 60883",
   phoneTel: "+917003660883",
   location: "West Bengal, India",
   whatsappGroupURL: "https://chat.whatsapp.com/invite/zynova",
+  whatsappChatURL: "https://wa.me/917003660883?text=Hello%20ZYNOVA%20Team%2C%20I%20would%20like%20to%20discuss%20a%20project%20enquiry.",
   founder: {
     name: "Amit Halder",
     role: "Founder & Managing Director",
@@ -80,11 +83,12 @@ export const siteConfig: SiteConfig = {
     location: "West Bengal, India",
     responseGuarantee: "Within 12 Hours",
     whatsappGroupURL: "https://chat.whatsapp.com/invite/zynova",
+    whatsappChatURL: "https://wa.me/917003660883?text=Hello%20ZYNOVA%20Team%2C%20I%20would%20like%20to%20discuss%20a%20project%20enquiry.",
     formSubmitEndpoint: "https://formsubmit.co/ajax/team.zynova@gmail.com",
     contactApi: "/api/contact",
     bookingApi: "/api/bookings"
   },
-  bookingURL: "#",
+  bookingURL: "#book-call",
   fiverrURL: "https://tinyurl.com/5eadbvh9",
   freelancerURL: "#",
   truelancerURL: "#",
