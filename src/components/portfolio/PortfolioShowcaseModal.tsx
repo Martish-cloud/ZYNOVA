@@ -157,20 +157,31 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
           </ul>
         </div>
 
-        {/* Primary CTA Button: VISIT PORTFOLIO */}
+        {/* Primary CTA Buttons: ML & AI and Data Entry Executive Portfolios */}
         <div className="pt-3 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-[11px] font-mono font-normal text-slate-300 text-center sm:text-left">
             Direct access to interactive projects &amp; case studies
           </span>
-          <a
-            href="https://k-zynova2.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-heading font-bold text-xs sm:text-sm tracking-wider uppercase flex items-center justify-center gap-2 hover:brightness-105 active:scale-[0.98] transition-all shadow-[0_4px_20px_rgba(245,158,11,0.3)] cursor-pointer"
-          >
-            <span>VISIT PORTFOLIO</span>
-            <ExternalLink className="w-4 h-4 text-slate-950" />
-          </a>
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <a
+              href="https://amit-mlEngineer.zynova.co.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-heading font-bold text-xs sm:text-sm tracking-wider uppercase flex items-center justify-center gap-2 hover:brightness-105 active:scale-[0.98] transition-all shadow-[0_4px_20px_rgba(245,158,11,0.3)] cursor-pointer"
+            >
+              <span>ML &amp; AI PORTFOLIO</span>
+              <ExternalLink className="w-4 h-4 text-slate-950" />
+            </a>
+            <a
+              href="https://amit-halder-data-entry-executive.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl liquid-glass-subcard !border-white/25 hover:!border-amber-400/60 text-slate-100 hover:text-amber-300 font-heading font-bold text-xs sm:text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm active:scale-[0.98]"
+            >
+              <span>DATA ENTRY EXECUTIVE</span>
+              <ExternalLink className="w-4 h-4 text-amber-400" />
+            </a>
+          </div>
         </div>
       </div>
     </Modal>

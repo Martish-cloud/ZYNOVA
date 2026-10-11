@@ -62,7 +62,7 @@ export const projectsData: ProjectItem[] = [
       premiumPrice: "$900 – $1,200",
       customPrice: "Up to $1,440+"
     },
-    demoUrl: "https://trendzo-e-commarce.zynovaprofessional.workers.dev"
+    demoUrl: "https://trendzo-taupe.vercel.app/"
   },
   {
     id: "bizgrow",
@@ -131,7 +131,7 @@ export const projectsData: ProjectItem[] = [
       premiumPrice: "$960 – $1,320",
       customPrice: "Up to $1,800+"
     },
-    demoUrl: "https://travelaya.zynovaprofessional.workers.dev"
+    demoUrl: "https://travelaya.zynova.co.in"
   },
   {
     id: "mediwell",
@@ -234,7 +234,7 @@ export const projectsData: ProjectItem[] = [
       customPrice: "$2,500+",
       pricingQualification: "Includes luxury editorial UI, campaign hero, mobile responsiveness, product catalogs & direct consultation integration."
     },
-    demoUrl: "https://hamhold-jewellery.zynovaprofessional.workers.dev/"
+    demoUrl: "https://hamhold.zynova.co.in"
   },
   {
     id: "aaranya-silks",
@@ -267,7 +267,7 @@ export const projectsData: ProjectItem[] = [
       customPrice: "$2,500+",
       pricingQualification: "Includes bespoke luxury fashion catalog, collection lookbooks, mobile e-commerce, and direct consultation integration."
     },
-    demoUrl: "https://aaranya-silks.zynovaprofessional.workers.dev/"
+    demoUrl: "https://aaranya-silks.zynova.co.in"
   },
   {
     id: "tastybites",
@@ -302,7 +302,7 @@ export const projectsData: ProjectItem[] = [
       customPrice: "$2,200+",
       pricingQualification: "Includes interactive digital menu, dish customization modifiers, cart drawer, payment integration & order pipeline."
     },
-    demoUrl: "https://tasty-bites.zynovaprofessional.workers.dev"
+    demoUrl: "https://tastybites.zynova.co.in"
   },
   {
     id: "homex",
@@ -337,7 +337,7 @@ export const projectsData: ProjectItem[] = [
       customPrice: "$2,400+",
       pricingQualification: "Includes property listing search matrix, interactive map views, mortgage calculators & CRM-ready lead workflows."
     },
-    demoUrl: "https://home-x-nu.vercel.app"
+    demoUrl: "https://homex.zynova.co.in"
   },
 
   // --- F. UI-OPTIMIZED COLLECTION ---
@@ -373,7 +373,7 @@ export const projectsData: ProjectItem[] = [
       premiumPrice: "$780 – $1,020",
       customPrice: "Up to $1,200+"
     },
-    demoUrl: "https://bookverse.zynovaprofessional.workers.dev/"
+    demoUrl: "https://book-verse-gold-one.vercel.app/"
   },
   {
     id: "techzone",
@@ -442,7 +442,7 @@ export const projectsData: ProjectItem[] = [
       premiumPrice: "$780 – $1,020",
       customPrice: "Up to $1,200+"
     },
-    demoUrl: "https://bloom-beauty-cosmetics.zynovaprofessional.workers.dev"
+    demoUrl: "https://bloom-beauty-cosmetics.vercel.app/"
   },
   {
     id: "freshmart",
@@ -476,7 +476,7 @@ export const projectsData: ProjectItem[] = [
       premiumPrice: "$960 – $1,320",
       customPrice: "Up to $1,560+"
     },
-    demoUrl: "https://freshmart.zynovaprofessional.workers.dev"
+    demoUrl: "https://fresh-mart-nu-cyan.vercel.app/"
   },
   {
     id: "petcare",
@@ -580,7 +580,37 @@ export const rPythonProject: ProjectItem = {
     customPrice: "$2,800+",
     pricingQualification: "Pricing is 10–15% higher than web projects reflecting specialized mathematical modeling, statistical analysis, and algorithmic engineering."
   },
-  demoUrl: "https://k-zynova2.vercel.app/"
+  demoUrl: "https://amit-mlEngineer.zynova.co.in"
+};
+
+// Amit Halder Data Entry Executive Portfolio
+export const dataEntryExecutiveProject: ProjectItem = {
+  id: "amit-halder-data-entry",
+  title: "Amit Halder — Data Entry Executive",
+  subtitle: "Executive Data Processing & Spreadsheet Operations",
+  category: "Data",
+  filterCategory: "data",
+  shortDesc: "Accurate data management, automated spreadsheet models, cross-dataset reconciliation, and executive reporting solutions.",
+  overview: "Dedicated professional data processing and executive operations portfolio showcasing high-accuracy data consolidation, cleanup pipelines, master records maintenance, and reporting workflows.",
+  challenge: "Ensuring zero-error rate, rapid throughput, and automated validation across large-volume disparate business records.",
+  solution: "Developed systematic data validation pipelines, keyboard-driven macro automation, and structured indexing architectures.",
+  technologies: ["Excel", "Google Sheets", "Power Query", "Data Processing", "Automation"],
+  keyFeatures: [
+    "High-accuracy data entry, cleaning, and standardization pipelines",
+    "Cross-table multi-file master data reconciliation and verification",
+    "Automated data validation rules and error-checking workflows",
+    "Executive reporting summaries and KPI metric aggregation"
+  ],
+  gradientTheme: "from-blue-950/40 via-cyan-950/30 to-slate-900/50",
+  badge: "Executive Portfolio",
+  image: "/projects/amit-halder-portfolio.webp",
+  pricing: {
+    startingPrice: "$18",
+    basicPrice: "$18",
+    standardPrice: "$65",
+    premiumPrice: "$176"
+  },
+  demoUrl: "https://amit-halder-data-entry-executive.vercel.app/"
 };
 
 export const mobileProjectsData: ProjectItem[] = [

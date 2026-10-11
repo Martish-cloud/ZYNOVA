@@ -35,7 +35,7 @@ const FEATURED_PROJECTS: FeaturedProject[] = [
     title: "ML & AI Portfolio",
     category: "AI / Machine Learning",
     description: "Machine Learning, Generative AI, intelligent automation, and AI-powered solutions.",
-    url: "https://k-zynova2.vercel.app/",
+    url: "https://amit-mlEngineer.zynova.co.in",
     image: "/projects/ml-portfolio-preview-v2.webp",
     badge: "Flagship AI",
     tech: ["PyTorch", "LLMs", "FastAPI", "Next.js"]
@@ -45,7 +45,7 @@ const FEATURED_PROJECTS: FeaturedProject[] = [
     title: "HAMHOLD Jewellery",
     category: "Luxury E-Commerce",
     description: "A premium jewellery e-commerce experience featuring elegant product presentation and luxury-inspired design.",
-    url: "https://hamhold-jewellery.zynovaprofessional.workers.dev/",
+    url: "https://hamhold.zynova.co.in",
     image: "/projects/hamhold-jewellery.webp",
     badge: "Luxury Brand",
     tech: ["React", "Tailwind CSS", "Cloudflare", "Framer"]
@@ -55,7 +55,7 @@ const FEATURED_PROJECTS: FeaturedProject[] = [
     title: "Aaranya Silks",
     category: "Luxury Fashion / Saree E-commerce",
     description: "A premium Indian ethnic fashion and saree e-commerce website featuring elegant collections and a refined online shopping experience.",
-    url: "https://aaranya-silks.zynovaprofessional.workers.dev/",
+    url: "https://aaranya-silks.zynova.co.in",
     image: "/projects/aaranya-silks.webp",
     badge: "Luxury Fashion",
     tech: ["React", "Tailwind CSS", "Cloudflare", "E-commerce"]
@@ -65,7 +65,7 @@ const FEATURED_PROJECTS: FeaturedProject[] = [
     title: "FreshMart",
     category: "Web Application",
     description: "A modern grocery shopping platform with an intuitive product discovery and shopping experience.",
-    url: "https://freshmart.zynovaprofessional.workers.dev/",
+    url: "https://fresh-mart-nu-cyan.vercel.app/",
     image: "/projects/FreshMart.webp",
     badge: "Live Platform",
     tech: ["TypeScript", "React", "Cloudflare", "Vite"]
@@ -75,7 +75,7 @@ const FEATURED_PROJECTS: FeaturedProject[] = [
     title: "BookVerse",
     category: "Digital Bookstore",
     description: "A modern online bookstore experience featuring curated books and a clean browsing interface.",
-    url: "https://bookverse.zynovaprofessional.workers.dev/",
+    url: "https://book-verse-gold-one.vercel.app/",
     image: "/projects/BookVerse.webp",
     badge: "Interactive Web",
     tech: ["React", "Modern UI/UX", "Tailwind", "Workers"]
