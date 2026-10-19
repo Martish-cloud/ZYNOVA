@@ -13,7 +13,7 @@ export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
   const {
     threshold = 0.16,
     rootMargin = "0px 0px -6% 0px",
-    retrigger = true
+    retrigger = false
   } = options;
 
   const ref = useRef<T | null>(null);
@@ -47,10 +47,13 @@ export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
     // Immediate check if element is already within viewport on mount
     const rect = node.getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
-      inViewRef.current = true;
-      setIsInView(true);
-      setHasEnteredView(true);
-      setTriggerCount(1);
+      if (!inViewRef.current) {
+        inViewRef.current = true;
+        setIsInView(true);
+        setHasEnteredView(true);
+        setTriggerCount((c) => (c === 0 ? 1 : c));
+      }
+      if (!retrigger) return;
     }
 
     let isDisposed = false;
@@ -66,6 +69,9 @@ export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
             setIsInView(true);
             setHasEnteredView(true);
             setTriggerCount((prev) => prev + 1);
+            if (!retrigger) {
+              observer.disconnect();
+            }
           }
         } else if (!entry.isIntersecting && entry.intersectionRatio <= 0.01) {
           if (retrigger && inViewRef.current) {

@@ -12,8 +12,7 @@ export const WhyZynova: React.FC = () => {
     prefersReducedMotion
   } = useInViewAnimation<HTMLDivElement>({
     threshold: 0.15,
-    rootMargin: "0px 0px -6% 0px",
-    retrigger: true
+    rootMargin: "0px 0px -6% 0px"
   });
 
   const reasons = [
@@ -56,7 +55,7 @@ export const WhyZynova: React.FC = () => {
   ];
 
   return (
-    <section id="why-zynova" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-white/20">
+    <section id="why-zynova" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-[#E5D9C8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="WHY WORK WITH ZYNOVA"
@@ -96,33 +95,33 @@ export const WhyZynova: React.FC = () => {
                   aria-label={r.title}
                   onMouseEnter={() => setCursor("project", r.title)}
                   onMouseLeave={resetCursor}
-                  className="h-full group relative p-5 sm:p-5.5 rounded-xl liquid-glass-card !bg-gradient-to-br !from-slate-950/75 !via-slate-900/65 !to-slate-950/80 border border-white/20 hover:!border-amber-400/60 shadow-[0_8px_24px_rgba(0,0,0,0.32),inset_0_1px_0_rgba(255,255,255,0.20)] hover:shadow-[0_16px_36px_-8px_rgba(245,158,11,0.25),inset_0_1px_0_rgba(255,255,255,0.28)] transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 cursor-pointer"
+                  className="h-full group relative p-5 sm:p-5.5 rounded-xl liquid-glass-card !bg-white/95 border border-[#E5D9C8] hover:!border-[#B58A45]/60 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 cursor-pointer"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3.5 sm:mb-4">
-                      <span className="font-mono text-xs font-bold text-amber-400/80 group-hover:text-amber-300 transition-colors">
+                      <span className="font-mono text-xs font-bold text-[#B58A45]">
                         // {r.number}
                       </span>
-                      <div className="p-2.5 rounded-lg bg-amber-400/[0.18] border border-amber-400/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] group-hover:scale-105 group-hover:border-amber-300 transition-all duration-300">
-                        <Icon className={`w-4 h-4 sm:w-4.5 sm:h-4.5 ${r.iconColor}`} />
+                      <div className="p-2.5 rounded-lg bg-[#B58A45]/10 border border-[#B58A45]/30 group-hover:scale-105 transition-all duration-300">
+                        <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#B58A45]" />
                       </div>
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-bold font-heading text-white mb-1.5 group-hover:text-amber-300 transition-colors">
+                    <h3 className="text-base sm:text-lg font-bold font-heading text-[#292720] mb-1.5 group-hover:text-[#B58A45] transition-colors">
                       {r.title}
                     </h3>
 
-                    <div className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-amber-400/[0.18] text-amber-300 mb-3 border border-amber-400/40 font-bold shadow-xs">
+                    <div className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-[#B58A45]/10 text-[#8C6527] mb-3 border border-[#B58A45]/30 font-bold shadow-xs">
                       {r.highlight}
                     </div>
 
-                    <p className="text-xs text-slate-200 font-normal leading-relaxed">
+                    <p className="text-xs text-[#574F44] font-normal leading-relaxed">
                       {r.description}
                     </p>
                   </div>
 
-                  <div className="pt-4 mt-4 border-t border-white/15 flex items-center gap-2 text-[10.5px] font-mono font-semibold text-slate-200">
-                    <Sparkles className="w-3 h-3 text-amber-400" />
+                  <div className="pt-4 mt-4 border-t border-[#E5D9C8] flex items-center gap-2 text-[10.5px] font-mono font-semibold text-[#756C60]">
+                    <Sparkles className="w-3 h-3 text-[#B58A45]" />
                     <span>Standard on every engagement</span>
                   </div>
                 </div>

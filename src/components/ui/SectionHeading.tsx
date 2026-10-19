@@ -30,7 +30,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
   const { ref, isInView, triggerCount, prefersReducedMotion } = useInViewAnimation<HTMLDivElement>({
     threshold: 0.16,
     rootMargin: "0px 0px -6% 0px",
-    retrigger: true
+    retrigger: false
   });
 
   const shouldAnimate = fadeInOut && !prefersReducedMotion;
@@ -47,7 +47,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
       ref={ref}
       className={`mb-8 sm:mb-10 md:mb-12 ${isCenter ? "text-center max-w-3xl mx-auto" : "max-w-2xl"} ${className}`}
     >
-      {/* Badge with Controlled Slide-Up Reveal */}
+      {/* Badge with Slide-Up Reveal */}
       <div
         className={`mb-2.5 sm:mb-3 flex ${isCenter ? "justify-center" : "justify-start"} ${
           shouldAnimate
@@ -62,9 +62,9 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
         <Badge variant={badgeVariant}>{badge}</Badge>
       </div>
 
-      {/* Main Section Title with Word-Staggered Slide-Up / Pop-Up Reveal */}
+      {/* Main Section Title */}
       <h2
-        className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.65)] mb-2.5 sm:mb-3 leading-snug"
+        className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#292720] mb-2.5 sm:mb-3 leading-snug"
       >
         {titleWords.map((word, idx) => (
           <React.Fragment key={`t-${idx}-${word}`}>
@@ -103,7 +103,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
                       }
                     : undefined
                 }
-                className={`inline-block bg-gradient-to-r from-[#FEF08A] via-[#FBBF24] to-[#F59E0B] bg-clip-text text-transparent ${
+                className={`inline-block bg-gradient-to-r from-[#B58A45] via-[#C99E56] to-[#9E7432] bg-clip-text text-transparent ${
                   shouldAnimate
                     ? `transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,opacity] ${
                         isVisible
@@ -121,10 +121,10 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
         })}
       </h2>
 
-      {/* Supporting Description: Typewriter or Left-to-Right + Upward Reveal */}
+      {/* Supporting Description */}
       {subtitle && (
         <div
-          className={`text-xs sm:text-sm md:text-base text-slate-200 drop-shadow-[0_1px_10px_rgba(0,0,0,0.65)] leading-relaxed max-w-2xl font-normal ${
+          className={`text-xs sm:text-sm md:text-base text-[#756C60] leading-relaxed max-w-2xl font-normal ${
             isCenter ? "mx-auto" : ""
           }`}
         >
@@ -166,3 +166,4 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
   );
 });
 
+SectionHeading.displayName = "SectionHeading";

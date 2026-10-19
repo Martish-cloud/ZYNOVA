@@ -11,7 +11,23 @@ interface PortfolioImageProps {
   platform?: "iOS" | "Android";
   fallbackTitle?: string;
   fallbackBadge?: string;
+  videoSrc?: string;
 }
+
+const resolveVideoSrc = (src: string, alt: string, explicitVideo?: string): string | null => {
+  if (explicitVideo) return explicitVideo;
+  const combined = (src + " " + alt).toLowerCase();
+  if (combined.includes("tastybites") || combined.includes("tasty bites") || combined.includes("tasty-bites")) {
+    return "/videos/Tasty Bites.mp4";
+  }
+  if (combined.includes("hamhold")) {
+    return "/videos/HAMHOLD.mp4";
+  }
+  if (combined.includes("aaranya")) {
+    return "/videos/Aaranya Silks.mp4";
+  }
+  return null;
+};
 
 export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
   src,
@@ -22,24 +38,24 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
   height = 500,
   platform,
   fallbackTitle,
-  fallbackBadge
+  fallbackBadge,
+  videoSrc: explicitVideo
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [fallbackStage, setFallbackStage] = useState<number>(0);
   const [isPermanentlyFailed, setIsPermanentlyFailed] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+
   const imgRef = useRef<HTMLImageElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setFallbackStage(0);
-    setIsPermanentlyFailed(false);
-    if (imgRef.current && imgRef.current.complete) {
-      setIsLoaded(true);
-    } else {
-      setIsLoaded(false);
-    }
-  }, [src]);
+  const activeVideo = useMemo(() => {
+    if (videoFailed) return null;
+    return resolveVideoSrc(src, alt, explicitVideo);
+  }, [src, alt, explicitVideo, videoFailed]);
 
-  // Compute WebP and PNG sources
+  // Compute WebP and PNG sources for poster / fallback
   const { webpSrc, pngSrc, alternateSrc } = useMemo(() => {
     const cleanSrc = src.trim();
     let webp = cleanSrc;
@@ -52,7 +68,6 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
       webp = cleanSrc.replace(/\.png$/, ".webp");
     }
 
-    // Generate alternate URL for spaces vs hyphens
     if (cleanSrc.includes("-")) {
       altSource = cleanSrc.replace(/-/g, " ");
     } else if (cleanSrc.includes(" ")) {
@@ -62,7 +77,7 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
     return { webpSrc: webp, pngSrc: png, alternateSrc: altSource };
   }, [src]);
 
-  // Current active source based on fallback stage
+  // Current active image source based on fallback stage
   const currentSrc = useMemo(() => {
     if (fallbackStage === 0) return webpSrc;
     if (fallbackStage === 1) return pngSrc;
@@ -70,60 +85,141 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
     return pngSrc;
   }, [fallbackStage, webpSrc, pngSrc, alternateSrc]);
 
-  const handleError = () => {
+  const prevSrcRef = useRef(src);
+  if (prevSrcRef.current !== src) {
+    prevSrcRef.current = src;
+    setFallbackStage(0);
+    setIsPermanentlyFailed(false);
+    setVideoFailed(false);
+  }
+
+  // Lazy loading & playback management for project preview video
+  useEffect(() => {
+    if (!activeVideo) return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+
+    const playVideo = () => {
+      video.muted = true;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay policy or low power mode fallback
+        });
+      }
+    };
+
+    const pauseVideo = () => {
+      video.pause();
+    };
+
+    let observer: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== "undefined" && containerRef.current) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              playVideo();
+            } else {
+              pauseVideo();
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "100px" }
+      );
+      observer.observe(containerRef.current);
+    } else {
+      playVideo();
+    }
+
+    return () => {
+      if (observer) observer.disconnect();
+    };
+  }, [activeVideo]);
+
+  const handleImageError = () => {
     if (fallbackStage === 0) {
-      // Step 1: WebP failed -> switch to lossless PNG
       setFallbackStage(1);
     } else if (fallbackStage === 1 && alternateSrc) {
-      // Step 2: PNG failed -> try naming variant
       setFallbackStage(2);
     } else {
-      // Step 3: All network attempts exhausted -> render graceful card fallback
       setIsPermanentlyFailed(true);
     }
   };
 
+  const handleVideoError = () => {
+    // If video fails to load, gracefully fall back to the static image
+    setVideoFailed(true);
+  };
+
   if (isPermanentlyFailed) {
     return (
-      <div className="w-full h-full min-h-[144px] flex flex-col items-center justify-center p-4 liquid-glass-subcard border-b border-amber-400/40 text-center select-none">
-        <div className="p-2.5 rounded-full bg-amber-400/15 border border-amber-400/40 text-amber-300 mb-2 shadow-[0_2px_12px_rgba(245,158,11,0.25)]">
+      <div className="w-full h-full min-h-[144px] flex flex-col items-center justify-center p-4 bg-[#FAF7F0] border-b border-[#E5D9C8] text-center select-none">
+        <div className="p-2.5 rounded-full bg-[#B58A45]/15 border border-[#B58A45]/30 text-[#B58A45] mb-2 shadow-sm">
           {platform ? <Sparkles className="w-5 h-5" /> : <Layers className="w-5 h-5" />}
         </div>
-        <p className="text-xs font-bold font-heading text-white tracking-wide">
+        <p className="text-xs font-bold font-heading text-[#292720] tracking-wide">
           {fallbackTitle || alt.split(" - ")[0]}
         </p>
-        <span className="text-[10px] font-mono text-amber-300 mt-0.5">
-          {fallbackBadge || (platform ? `${platform} Showcase` : "Interactive Architecture")}
+        <span className="text-[10px] font-mono text-[#B58A45] mt-0.5">
+          {fallbackBadge || (platform ? `${platform} Showcase` : "Interactive Platform")}
         </span>
       </div>
     );
   }
 
   return (
-    <picture className="w-full h-full block">
-      {/* Primary modern WebP source for high performance */}
-      {fallbackStage === 0 && <source srcSet={webpSrc} type="image/webp" />}
-      {/* Reliable PNG fallback source for older mobile browsers / WebViews */}
-      {(fallbackStage === 0 || fallbackStage === 1) && <source srcSet={pngSrc} type="image/png" />}
-      <img
-        ref={imgRef}
-        src={currentSrc}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={isPriority ? "eager" : "lazy"}
-        decoding="async"
-        fetchPriority={isPriority ? "high" : "auto"}
-        onError={handleError}
-        onLoad={() => setIsLoaded(true)}
-        className={`${className} ${isLoaded || isPriority ? "opacity-100" : "opacity-90"} transition-opacity duration-300`}
-        style={{
-          aspectRatio: `${width} / ${height}`,
-          backfaceVisibility: "hidden",
-          WebkitBackfaceVisibility: "hidden"
-        }}
-      />
-    </picture>
+    <div ref={containerRef} className="relative w-full h-full overflow-hidden block">
+      {activeVideo ? (
+        <div className="w-full h-full relative">
+          <video
+            ref={videoRef}
+            src={activeVideo}
+            poster={currentSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload={isPriority ? "auto" : "metadata"}
+            onError={handleVideoError}
+            onLoadedData={() => setIsLoaded(true)}
+            className={`${className} w-full h-full object-cover transition-opacity duration-500 opacity-100`}
+            style={{
+              aspectRatio: `${width} / ${height}`,
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden"
+            }}
+          />
+        </div>
+      ) : (
+        <picture className="w-full h-full block">
+          {fallbackStage === 0 && <source srcSet={webpSrc} type="image/webp" />}
+          {(fallbackStage === 0 || fallbackStage === 1) && <source srcSet={pngSrc} type="image/png" />}
+          <img
+            ref={imgRef}
+            src={currentSrc}
+            alt={alt}
+            width={width}
+            height={height}
+            loading={isPriority ? "eager" : "lazy"}
+            decoding="async"
+            fetchPriority={isPriority ? "high" : "auto"}
+            onError={handleImageError}
+            onLoad={() => setIsLoaded(true)}
+            className={`${className} ${isLoaded || isPriority ? "opacity-100" : "opacity-90"} transition-opacity duration-300`}
+            style={{
+              aspectRatio: `${width} / ${height}`,
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden"
+            }}
+          />
+        </picture>
+      )}
+    </div>
   );
 });
+
 PortfolioImage.displayName = "PortfolioImage";

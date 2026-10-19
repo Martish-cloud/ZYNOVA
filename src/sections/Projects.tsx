@@ -190,14 +190,14 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
       onMouseEnter={() => setCursor("project", "VIEW")}
       onMouseLeave={resetCursor}
       style={{ contain: "content" }}
-      className="group relative rounded-xl liquid-glass-card !border-emerald-400/40 hover:!border-emerald-400/80 hover:!shadow-[0_16px_38px_-10px_rgba(16,185,129,0.28)] flex flex-col justify-between cursor-pointer overflow-hidden h-full gpu-layer"
+      className="group relative rounded-xl liquid-glass-card !border-emerald-600/30 hover:!border-emerald-600/60 hover:!shadow-[0_16px_38px_-10px_rgba(16,185,129,0.2)] flex flex-col justify-between cursor-pointer overflow-hidden h-full gpu-layer"
     >
       {/* Top border light sweep on hover */}
-      <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20" />
+      <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-emerald-600/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20" />
 
       <div>
         {/* Visual Header Representation */}
-        <div className="w-full h-32 sm:h-36 md:h-40 relative overflow-hidden bg-slate-950/60 border-b border-white/20 group-hover:border-emerald-400/50 transition-colors">
+        <div className="w-full h-32 sm:h-36 md:h-40 relative overflow-hidden bg-[#F0E4D2]/40 border-b border-[#E5D9C8] group-hover:border-emerald-600/40 transition-colors">
           <PortfolioImage
             src={excelDashboards[0]?.image || "/images/dashboards/excel/excel-dashboard-1.webp"}
             alt="Excel Dashboard Analytics"
@@ -206,11 +206,11 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
             fallbackTitle="Excel Dashboard Analytics"
             fallbackBadge="Data & BI"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
 
           {/* Top-left category tag */}
           <div className="absolute top-2 left-2 z-10">
-            <span className="px-1.5 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono uppercase tracking-widest bg-slate-950/80 backdrop-blur-md text-emerald-300 border border-emerald-400/40 flex items-center gap-1 shadow-xs font-bold">
+            <span className="px-1.5 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono uppercase tracking-widest bg-[#292720]/80 backdrop-blur-md text-emerald-300 border border-emerald-400/40 flex items-center gap-1 shadow-xs font-bold">
               <FileSpreadsheet className="w-2.5 h-2.5 text-emerald-400" />
               <span>EXCEL</span>
             </span>
@@ -218,13 +218,13 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
 
           {/* Category Pill on top-right */}
           <div className="absolute top-2 right-2 z-10">
-            <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-mono font-bold bg-slate-950/80 backdrop-blur-md text-emerald-300 border border-emerald-400/40 shadow-xs">
+            <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-mono font-bold bg-[#292720]/80 backdrop-blur-md text-emerald-300 border border-emerald-400/40 shadow-xs">
               {excelDashboards.length} DASHBOARDS
             </span>
           </div>
 
           {/* Floating Tag over Visual */}
-          <div className="absolute bottom-1.5 left-2 px-1.5 py-0.5 rounded bg-slate-950/80 backdrop-blur-md border border-emerald-400/40 text-[8px] sm:text-[8.5px] font-mono text-emerald-300 flex items-center gap-1 pointer-events-none shadow-xs font-semibold">
+          <div className="absolute bottom-1.5 left-2 px-1.5 py-0.5 rounded bg-[#292720]/80 backdrop-blur-md border border-emerald-400/40 text-[8px] sm:text-[8.5px] font-mono text-emerald-300 flex items-center gap-1 pointer-events-none shadow-xs font-semibold">
             <Sparkles className="w-2.5 h-2.5 text-emerald-400" />
             <span>Formulas &bull; Auto</span>
           </div>
@@ -233,19 +233,19 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
         {/* Card Content Area */}
         <div className="p-3 sm:p-3.5 md:p-4">
           <div className="flex items-center justify-between gap-1.5 mb-1">
-            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors truncate">
+            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-[#292720] group-hover:text-emerald-700 transition-colors truncate">
               Excel Dashboard Analytics
             </h3>
-            <span className="text-[8px] sm:text-[8.5px] font-mono px-1.5 py-0.5 rounded bg-emerald-400/[0.18] text-emerald-300 border border-emerald-400/40 shrink-0 font-bold">
+            <span className="text-[8px] sm:text-[8.5px] font-mono px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-300 shrink-0 font-bold">
               Data &amp; BI
             </span>
           </div>
 
-          <p className="text-[9.5px] sm:text-[10.5px] font-bold text-emerald-400 font-mono mb-1 truncate">
+          <p className="text-[9.5px] sm:text-[10.5px] font-bold text-emerald-700 font-mono mb-1 truncate">
             Dashboards &amp; Analytics
           </p>
 
-          <p className="text-[10.5px] sm:text-xs text-[#B7F0C1] font-normal leading-relaxed line-clamp-2 mb-2.5">
+          <p className="text-[10.5px] sm:text-xs text-[#574F44] font-normal leading-relaxed line-clamp-2 mb-2.5">
             Interactive Excel dashboards, automated reporting, Pivot Tables, formulas, data analysis and reporting.
           </p>
 
@@ -254,7 +254,7 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
             {["Dashboards", "Pivot Tables", "Automation", "Formulas"].map((chip) => (
               <span
                 key={chip}
-                className="px-1.5 py-0.5 rounded text-[8.5px] sm:text-[9px] font-mono font-medium bg-white/[0.14] text-slate-200 border border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"
+                className="px-1.5 py-0.5 rounded text-[8.5px] sm:text-[9px] font-mono font-medium bg-[#FAF7F0] text-[#574F44] border border-[#E5D9C8]"
               >
                 {chip}
               </span>
@@ -262,32 +262,32 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
           </div>
 
           {/* Direct Transparent Pricing Module */}
-          <div className="pt-2 border-t border-white/20">
+          <div className="pt-2 border-t border-[#E5D9C8]">
             <div className="flex items-baseline justify-between gap-1 mb-1.5">
-              <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-slate-300 uppercase">
+              <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-[#756C60] uppercase">
                 Starting From
               </span>
-              <span className="text-sm sm:text-base font-mono font-extrabold text-emerald-300">
+              <span className="text-sm sm:text-base font-mono font-extrabold text-emerald-700">
                 $18
               </span>
             </div>
-            <div className="grid grid-cols-3 gap-1 text-center liquid-glass-subcard rounded-lg p-1.5">
-              <div className="px-1 py-0.5 rounded bg-white/[0.12] border border-white/25">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-300 font-bold">Basic</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-300">$18</span>
+            <div className="grid grid-cols-3 gap-1 text-center liquid-glass-subcard rounded-lg p-1.5 border border-[#E5D9C8]">
+              <div className="px-1 py-0.5 rounded bg-white border border-[#E5D9C8]">
+                <span className="block text-[7.5px] font-mono uppercase text-[#756C60] font-bold">Basic</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-700">$18</span>
               </div>
-              <div className="px-1 py-0.5 rounded bg-white/[0.12] border border-white/25">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-300 font-bold">Std</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-300">$65</span>
+              <div className="px-1 py-0.5 rounded bg-white border border-[#E5D9C8]">
+                <span className="block text-[7.5px] font-mono uppercase text-[#756C60] font-bold">Std</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-700">$65</span>
               </div>
-              <div className="px-1 py-0.5 rounded bg-white/[0.12] border border-white/25">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-300 font-bold">Prem</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-300">$176</span>
+              <div className="px-1 py-0.5 rounded bg-white border border-[#E5D9C8]">
+                <span className="block text-[7.5px] font-mono uppercase text-[#756C60] font-bold">Prem</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-emerald-700">$176</span>
               </div>
             </div>
             <div className="mt-1 flex items-center justify-between text-[8.5px] sm:text-[9.5px] font-mono">
-              <span className="text-slate-300 font-medium">Range:</span>
-              <span className="text-emerald-300 font-bold">$18 – $176</span>
+              <span className="text-[#756C60] font-medium">Range:</span>
+              <span className="text-emerald-700 font-bold">$18 – $176</span>
             </div>
           </div>
         </div>
@@ -295,7 +295,7 @@ const ExcelCard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
 
       {/* Bottom Action Line */}
       <div className="px-3 sm:px-3.5 md:px-4 pb-3 sm:pb-3.5 pt-0.5">
-        <div className="pt-2 border-t border-white/20 flex items-center justify-between text-xs font-bold text-emerald-400 group-hover:text-emerald-300 transition-colors">
+        <div className="pt-2 border-t border-[#E5D9C8] flex items-center justify-between text-xs font-bold text-emerald-700 group-hover:text-emerald-800 transition-colors">
           <span className="font-heading uppercase tracking-wider text-[9.5px] sm:text-[10.5px]">View Dashboards</span>
           <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" />
         </div>
@@ -316,14 +316,14 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
       onMouseEnter={() => setCursor("project", "VIEW")}
       onMouseLeave={resetCursor}
       style={{ contain: "content" }}
-      className="group relative rounded-xl liquid-glass-card !border-amber-400/40 hover:!border-amber-400/80 hover:!shadow-[0_16px_38px_-10px_rgba(245,158,11,0.28)] flex flex-col justify-between cursor-pointer overflow-hidden h-full gpu-layer"
+      className="group relative rounded-xl liquid-glass-card !border-[#B58A45]/30 hover:!border-[#B58A45]/70 hover:!shadow-[0_16px_38px_-10px_rgba(181,138,69,0.2)] flex flex-col justify-between cursor-pointer overflow-hidden h-full gpu-layer"
     >
       {/* Top border light sweep on hover */}
-      <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-amber-400/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20" />
+      <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-[#B58A45]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20" />
 
       <div>
         {/* Visual Header Representation */}
-        <div className="w-full h-32 sm:h-36 md:h-40 relative overflow-hidden bg-slate-950/60 border-b border-white/20 group-hover:border-amber-400/50 transition-colors">
+        <div className="w-full h-32 sm:h-36 md:h-40 relative overflow-hidden bg-[#F0E4D2]/40 border-b border-[#E5D9C8] group-hover:border-[#B58A45]/40 transition-colors">
           <PortfolioImage
             src={powerBIDashboards[0]?.image || "/images/dashboards/powerbi/powerbi-dashboard-1.webp"}
             alt="Power BI Dashboards — Professional"
@@ -332,11 +332,11 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
             fallbackTitle="Power BI Dashboards"
             fallbackBadge="Data & BI"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
 
           {/* Top-left category tag */}
           <div className="absolute top-2 left-2 z-10">
-            <span className="px-1.5 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono uppercase tracking-widest bg-slate-950/80 backdrop-blur-md text-amber-300 border border-amber-400/40 flex items-center gap-1 shadow-xs font-bold">
+            <span className="px-1.5 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono uppercase tracking-widest bg-[#292720]/80 backdrop-blur-md text-amber-300 border border-amber-400/40 flex items-center gap-1 shadow-xs font-bold">
               <BarChart3 className="w-2.5 h-2.5 text-amber-400" />
               <span>POWER BI</span>
             </span>
@@ -344,13 +344,13 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
 
           {/* Category Pill on top-right */}
           <div className="absolute top-2 right-2 z-10">
-            <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-mono font-bold bg-slate-950/80 backdrop-blur-md text-amber-300 border border-amber-400/40 shadow-xs">
+            <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-mono font-bold bg-[#292720]/80 backdrop-blur-md text-amber-300 border border-amber-400/40 shadow-xs">
               {powerBIDashboards.length} DASHBOARDS
             </span>
           </div>
 
           {/* Floating Tag over Visual */}
-          <div className="absolute bottom-1.5 left-2 px-1.5 py-0.5 rounded bg-slate-950/80 backdrop-blur-md border border-amber-400/40 text-[8px] sm:text-[8.5px] font-mono text-amber-300 flex items-center gap-1 pointer-events-none shadow-xs font-semibold">
+          <div className="absolute bottom-1.5 left-2 px-1.5 py-0.5 rounded bg-[#292720]/80 backdrop-blur-md border border-amber-400/40 text-[8px] sm:text-[8.5px] font-mono text-amber-300 flex items-center gap-1 pointer-events-none shadow-xs font-semibold">
             <TrendingUp className="w-2.5 h-2.5 text-amber-400" />
             <span>DAX &bull; BI Models</span>
           </div>
@@ -359,19 +359,19 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
         {/* Card Content Area */}
         <div className="p-3 sm:p-3.5 md:p-4">
           <div className="flex items-center justify-between gap-1.5 mb-1">
-            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors truncate">
+            <h3 className="text-xs sm:text-sm md:text-base font-bold font-heading text-[#292720] group-hover:text-[#B58A45] transition-colors truncate">
               Power BI Dashboards — Professional
             </h3>
-            <span className="text-[8px] sm:text-[8.5px] font-mono px-1.5 py-0.5 rounded bg-amber-400/[0.18] text-amber-300 border border-amber-400/40 shrink-0 font-bold">
+            <span className="text-[8px] sm:text-[8.5px] font-mono px-1.5 py-0.5 rounded bg-[#B58A45]/10 text-[#8C6527] border border-[#B58A45]/30 shrink-0 font-bold">
               Data &amp; BI
             </span>
           </div>
 
-          <p className="text-[9.5px] sm:text-[10.5px] font-bold text-amber-400 font-mono mb-1 truncate">
+          <p className="text-[9.5px] sm:text-[10.5px] font-bold text-[#B58A45] font-mono mb-1 truncate">
             Enterprise BI Dashboards
           </p>
 
-          <p className="text-[10.5px] sm:text-xs text-[#B7F0C1] font-normal leading-relaxed line-clamp-2 mb-2.5">
+          <p className="text-[10.5px] sm:text-xs text-[#574F44] font-normal leading-relaxed line-clamp-2 mb-2.5">
             Interactive executive business intelligence dashboards, DAX metrics, data modeling, automated ETL &amp; KPIs.
           </p>
 
@@ -380,7 +380,7 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
             {["Power BI", "DAX", "Data Modeling", "ETL Pipelines"].map((chip) => (
               <span
                 key={chip}
-                className="px-1.5 py-0.5 rounded text-[8.5px] sm:text-[9px] font-mono font-medium bg-white/[0.14] text-slate-200 border border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"
+                className="px-1.5 py-0.5 rounded text-[8.5px] sm:text-[9px] font-mono font-medium bg-[#FAF7F0] text-[#574F44] border border-[#E5D9C8]"
               >
                 {chip}
               </span>
@@ -388,32 +388,32 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
           </div>
 
           {/* Direct Transparent Pricing Module */}
-          <div className="pt-2 border-t border-white/20">
+          <div className="pt-2 border-t border-[#E5D9C8]">
             <div className="flex items-baseline justify-between gap-1 mb-1.5">
-              <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-slate-300 uppercase">
+              <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-[#756C60] uppercase">
                 Starting From
               </span>
-              <span className="text-sm sm:text-base font-mono font-extrabold text-amber-300">
+              <span className="text-sm sm:text-base font-mono font-extrabold text-[#B58A45]">
                 $21
               </span>
             </div>
-            <div className="grid grid-cols-3 gap-1 text-center liquid-glass-subcard rounded-lg p-1.5">
-              <div className="px-1 py-0.5 rounded bg-white/[0.12] border border-white/25">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-300 font-bold">Basic</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-amber-300">$21</span>
+            <div className="grid grid-cols-3 gap-1 text-center liquid-glass-subcard rounded-lg p-1.5 border border-[#E5D9C8]">
+              <div className="px-1 py-0.5 rounded bg-white border border-[#E5D9C8]">
+                <span className="block text-[7.5px] font-mono uppercase text-[#756C60] font-bold">Basic</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-[#B58A45]">$21</span>
               </div>
-              <div className="px-1 py-0.5 rounded bg-white/[0.12] border border-white/25">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-300 font-bold">Std</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-amber-300">$95</span>
+              <div className="px-1 py-0.5 rounded bg-white border border-[#E5D9C8]">
+                <span className="block text-[7.5px] font-mono uppercase text-[#756C60] font-bold">Std</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-[#B58A45]">$95</span>
               </div>
-              <div className="px-1 py-0.5 rounded bg-white/[0.12] border border-white/25">
-                <span className="block text-[7.5px] font-mono uppercase text-slate-300 font-bold">Prem</span>
-                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-amber-300">$279</span>
+              <div className="px-1 py-0.5 rounded bg-white border border-[#E5D9C8]">
+                <span className="block text-[7.5px] font-mono uppercase text-[#756C60] font-bold">Prem</span>
+                <span className="text-[10.5px] sm:text-xs font-mono font-bold text-[#B58A45]">$279</span>
               </div>
             </div>
             <div className="mt-1 flex items-center justify-between text-[8.5px] sm:text-[9.5px] font-mono">
-              <span className="text-slate-300 font-medium">Range:</span>
-              <span className="text-amber-300 font-bold">$21 – $279</span>
+              <span className="text-[#756C60] font-medium">Range:</span>
+              <span className="text-[#B58A45] font-bold">$21 – $279</span>
             </div>
           </div>
         </div>
@@ -421,7 +421,7 @@ const PowerBICard = React.memo<{ onSelect: () => void }>(({ onSelect }) => {
 
       {/* Bottom Action Line */}
       <div className="px-3 sm:px-3.5 md:px-4 pb-3 sm:pb-3.5 pt-0.5">
-        <div className="pt-2 border-t border-white/20 flex items-center justify-between text-xs font-bold text-amber-400 group-hover:text-amber-300 transition-colors">
+        <div className="pt-2 border-t border-[#E5D9C8] flex items-center justify-between text-xs font-bold text-[#B58A45] group-hover:text-[#8C6527] transition-colors">
           <span className="font-heading uppercase tracking-wider text-[9.5px] sm:text-[10.5px]">View Dashboards</span>
           <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" />
         </div>
@@ -450,26 +450,26 @@ const ProjectCard = React.memo<{
       style={{ contain: "content" }}
       className={`group relative rounded-xl liquid-glass-card ${
         project.platform === "iOS"
-          ? "!border-purple-400/50 hover:!border-purple-500/80 hover:!shadow-[0_16px_34px_-10px_rgba(168,85,247,0.26)]"
+          ? "!border-purple-500/40 hover:!border-purple-600/70 hover:!shadow-[0_16px_34px_-10px_rgba(168,85,247,0.2)]"
           : project.platform === "Android"
-          ? "!border-emerald-400/50 hover:!border-emerald-500/80 hover:!shadow-[0_16px_34px_-10px_rgba(16,185,129,0.26)]"
-          : "hover:!border-amber-500/75"
+          ? "!border-emerald-600/40 hover:!border-emerald-600/70 hover:!shadow-[0_16px_34px_-10px_rgba(16,185,129,0.2)]"
+          : "!border-[#E5D9C8] hover:!border-[#B58A45]/60 hover:!shadow-md"
       } flex flex-col justify-between cursor-pointer overflow-hidden h-full gpu-layer`}
     >
       {/* Subtle top-edge light sweep on hover */}
       <div
         className={`absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent ${
           project.platform === "iOS"
-            ? "via-purple-400/80"
+            ? "via-purple-500/80"
             : project.platform === "Android"
-            ? "via-emerald-400/80"
-            : "via-amber-400/80"
+            ? "via-emerald-500/80"
+            : "via-[#B58A45]/80"
         } to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20`}
       />
 
       <div>
         {/* Visual Header Representation with Real Project / App Mockup */}
-        <div className="w-full h-28 sm:h-32 md:h-36 relative overflow-hidden bg-slate-950/60 border-b border-white/20 group-hover:border-amber-400/50 transition-colors">
+        <div className="w-full h-28 sm:h-32 md:h-36 relative overflow-hidden bg-[#F0E4D2]/40 border-b border-[#E5D9C8] group-hover:border-[#B58A45]/40 transition-colors">
           <PortfolioImage
             src={project.image}
             alt={`${project.title} - ${project.subtitle}`}
@@ -480,18 +480,18 @@ const ProjectCard = React.memo<{
             className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.04]"
           />
 
-          {/* Bottom gradient fade so image seamlessly transitions into card */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent pointer-events-none" />
+          {/* Bottom gradient fade */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
 
           {/* Top-left category tag */}
           <div className="absolute top-1.5 left-1.5 z-10">
             <span
               className={`px-1.5 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono uppercase tracking-widest shadow-xs border font-bold backdrop-blur-md ${
                 project.platform === "iOS"
-                  ? "bg-slate-950/80 text-purple-300 border-purple-400/40"
+                  ? "bg-[#292720]/80 text-purple-300 border-purple-400/40"
                   : project.platform === "Android"
-                  ? "bg-slate-950/80 text-emerald-300 border-emerald-400/40"
-                  : "bg-slate-950/80 text-white border-white/25"
+                  ? "bg-[#292720]/80 text-emerald-300 border-emerald-400/40"
+                  : "bg-[#292720]/80 text-white border-white/20"
               }`}
             >
               {project.platform ? `${project.platform} App` : project.category}
@@ -503,10 +503,10 @@ const ProjectCard = React.memo<{
             <span
               className={`px-1.5 py-0.5 rounded-full text-[8px] sm:text-[8.5px] font-mono font-bold shadow-xs border backdrop-blur-md ${
                 project.platform === "iOS"
-                  ? "bg-slate-950/80 text-purple-300 border-purple-400/40"
+                  ? "bg-[#292720]/80 text-purple-300 border-purple-400/40"
                   : project.platform === "Android"
-                  ? "bg-slate-950/80 text-emerald-300 border-emerald-400/40"
-                  : "bg-slate-950/80 text-amber-300 border-amber-400/40"
+                  ? "bg-[#292720]/80 text-emerald-300 border-emerald-400/40"
+                  : "bg-[#292720]/80 text-amber-300 border-amber-400/40"
               }`}
             >
               {project.badge}
@@ -517,15 +517,15 @@ const ProjectCard = React.memo<{
         {/* Card Content Area */}
         <div className="p-2.5 sm:p-3 md:p-3.5">
           <div className="flex items-center justify-between gap-1 mb-0.5">
-            <h3 className="text-xs sm:text-sm font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors line-clamp-1">
+            <h3 className="text-xs sm:text-sm font-bold font-heading text-[#292720] group-hover:text-[#B58A45] transition-colors line-clamp-1">
               {project.title}
             </h3>
             {project.platform && (
               <span
                 className={`text-[7.5px] sm:text-[8px] font-mono font-bold px-1 py-0.5 rounded shrink-0 ${
                   project.platform === "iOS"
-                    ? "text-purple-300 bg-purple-400/[0.18] border border-purple-400/40"
-                    : "text-emerald-300 bg-emerald-400/[0.18] border border-emerald-400/40"
+                    ? "text-purple-700 bg-purple-50 border border-purple-200"
+                    : "text-emerald-700 bg-emerald-50 border border-emerald-200"
                 }`}
               >
                 {project.platform}
@@ -533,11 +533,11 @@ const ProjectCard = React.memo<{
             )}
           </div>
 
-          <p className="text-[9px] sm:text-[9.5px] font-medium text-slate-300 font-mono mb-1 line-clamp-1">
+          <p className="text-[9px] sm:text-[9.5px] font-medium text-[#756C60] font-mono mb-1 line-clamp-1">
             {project.subtitle}
           </p>
 
-          <p className="text-[9.5px] sm:text-[10.5px] text-[#B7F0C1] font-normal leading-snug line-clamp-2 mb-2">
+          <p className="text-[9.5px] sm:text-[10.5px] text-[#574F44] font-normal leading-snug line-clamp-2 mb-2">
             {project.shortDesc}
           </p>
 
@@ -546,13 +546,13 @@ const ProjectCard = React.memo<{
             {project.technologies.slice(0, 3).map((tech) => (
               <span
                 key={tech}
-                className="px-1 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono font-medium bg-white/[0.14] text-slate-200 border border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"
+                className="px-1 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono font-medium bg-[#FAF7F0] text-[#574F44] border border-[#E5D9C8]"
               >
                 {tech}
               </span>
             ))}
             {project.technologies.length > 3 && (
-              <span className="px-1 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono font-semibold bg-white/[0.10] text-slate-300 border border-white/20">
+              <span className="px-1 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono font-semibold bg-[#FAF7F0] text-[#756C60] border border-[#E5D9C8]">
                 +{project.technologies.length - 3}
               </span>
             )}
@@ -560,52 +560,52 @@ const ProjectCard = React.memo<{
 
           {/* Direct Transparent Pricing Module */}
           {project.platform ? (
-            <div className="pt-1.5 border-t border-white/20">
-              <div className="grid grid-cols-3 gap-0.5 text-center liquid-glass-subcard rounded-md p-1">
-                <div className="px-0.5 py-0.5 rounded bg-white/[0.12] border border-white/25">
-                  <span className="block text-[7px] font-mono uppercase text-slate-300 font-bold">Basic</span>
-                  <span className={`text-[10px] sm:text-[11px] font-mono font-bold ${project.platform === "iOS" ? "text-purple-300" : "text-emerald-300"}`}>
+            <div className="pt-1.5 border-t border-[#E5D9C8]">
+              <div className="grid grid-cols-3 gap-0.5 text-center liquid-glass-subcard rounded-md p-1 border border-[#E5D9C8]">
+                <div className="px-0.5 py-0.5 rounded bg-white border border-[#E5D9C8]">
+                  <span className="block text-[7px] font-mono uppercase text-[#756C60] font-bold">Basic</span>
+                  <span className={`text-[10px] sm:text-[11px] font-mono font-bold ${project.platform === "iOS" ? "text-purple-700" : "text-emerald-700"}`}>
                     {project.pricing.basicPrice}
                   </span>
                 </div>
-                <div className="px-0.5 py-0.5 rounded bg-white/[0.12] border border-white/25">
-                  <span className="block text-[7px] font-mono uppercase text-slate-300 font-bold">Std</span>
-                  <span className={`text-[10px] sm:text-[11px] font-mono font-bold ${project.platform === "iOS" ? "text-purple-300" : "text-emerald-300"}`}>
+                <div className="px-0.5 py-0.5 rounded bg-white border border-[#E5D9C8]">
+                  <span className="block text-[7px] font-mono uppercase text-[#756C60] font-bold">Std</span>
+                  <span className={`text-[10px] sm:text-[11px] font-mono font-bold ${project.platform === "iOS" ? "text-purple-700" : "text-emerald-700"}`}>
                     {project.pricing.standardPrice}
                   </span>
                 </div>
-                <div className="px-0.5 py-0.5 rounded bg-white/[0.12] border border-white/25">
-                  <span className="block text-[7px] font-mono uppercase text-slate-300 font-bold">Prem</span>
-                  <span className="text-[10px] sm:text-[11px] font-mono font-bold text-amber-300">
+                <div className="px-0.5 py-0.5 rounded bg-white border border-[#E5D9C8]">
+                  <span className="block text-[7px] font-mono uppercase text-[#756C60] font-bold">Prem</span>
+                  <span className="text-[10px] sm:text-[11px] font-mono font-bold text-[#B58A45]">
                     {project.pricing.premiumPrice}
                   </span>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="pt-1.5 border-t border-white/20">
+            <div className="pt-1.5 border-t border-[#E5D9C8]">
               <div className="flex items-baseline justify-between gap-1 mb-1">
-                <span className="text-[8px] sm:text-[8.5px] font-mono font-bold tracking-wider text-slate-300 uppercase">
+                <span className="text-[8px] sm:text-[8.5px] font-mono font-bold tracking-wider text-[#756C60] uppercase">
                   Starting From
                 </span>
-                <span className="text-xs sm:text-sm font-mono font-extrabold text-amber-300">
+                <span className="text-xs sm:text-sm font-mono font-extrabold text-[#B58A45]">
                   {project.pricing.startingPrice}
                 </span>
               </div>
-              <div className="grid grid-cols-2 gap-0.5 text-[8.5px] sm:text-[9px] font-mono liquid-glass-subcard rounded-md p-1">
+              <div className="grid grid-cols-2 gap-0.5 text-[8.5px] sm:text-[9px] font-mono liquid-glass-subcard rounded-md p-1 border border-[#E5D9C8]">
                 <div className="truncate">
-                  <span className="text-slate-300 font-normal">Std: </span>
-                  <span className="text-white font-bold">{project.pricing.standardPrice}</span>
+                  <span className="text-[#756C60] font-normal">Std: </span>
+                  <span className="text-[#292720] font-bold">{project.pricing.standardPrice}</span>
                 </div>
                 <div className="truncate text-right">
-                  <span className="text-slate-300 font-normal">Prem: </span>
-                  <span className="text-amber-300 font-bold">{project.pricing.premiumPrice}</span>
+                  <span className="text-[#756C60] font-normal">Prem: </span>
+                  <span className="text-[#B58A45] font-bold">{project.pricing.premiumPrice}</span>
                 </div>
               </div>
               {project.pricing.customPrice && (
                 <div className="mt-0.5 flex items-center justify-between text-[8px] sm:text-[8.5px] font-mono">
-                  <span className="text-slate-300 font-medium">Custom Scope:</span>
-                  <span className="text-amber-300 font-bold">{project.pricing.customPrice}</span>
+                  <span className="text-[#756C60] font-medium">Custom Scope:</span>
+                  <span className="text-[#B58A45] font-bold">{project.pricing.customPrice}</span>
                 </div>
               )}
             </div>
@@ -615,17 +615,17 @@ const ProjectCard = React.memo<{
 
       {/* Bottom Action Line: VIEW ARCHITECTURE & VISIT WEBSITE */}
       <div className="px-2.5 sm:px-3 md:px-3.5 pb-2.5 sm:pb-3 pt-0.5">
-        <div className="pt-1.5 border-t border-white/20 flex items-center justify-between gap-1 text-xs">
+        <div className="pt-1.5 border-t border-[#E5D9C8] flex items-center justify-between gap-1 text-xs">
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               onSelect(project);
             }}
-            className="font-heading uppercase tracking-wider text-[8.5px] sm:text-[9.5px] font-bold text-slate-200 group-hover:text-amber-300 transition-colors flex items-center gap-0.5 cursor-pointer truncate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded"
+            className="font-heading uppercase tracking-wider text-[8.5px] sm:text-[9.5px] font-bold text-[#574F44] group-hover:text-[#B58A45] transition-colors flex items-center gap-0.5 cursor-pointer truncate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded"
           >
             <span>VIEW ARCHITECTURE</span>
-            <ArrowRight className="w-2.5 h-2.5 text-slate-300 group-hover:text-amber-300 shrink-0" />
+            <ArrowRight className="w-2.5 h-2.5 text-[#756C60] group-hover:text-[#B58A45] shrink-0" />
           </button>
 
           {project.demoUrl ? (
@@ -636,13 +636,13 @@ const ProjectCard = React.memo<{
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              className="px-1.5 py-0.5 rounded bg-amber-400/20 hover:bg-amber-400/30 active:scale-[0.97] text-amber-300 hover:text-amber-200 border border-amber-400/40 hover:border-amber-400/60 text-[8px] sm:text-[9px] font-mono font-bold flex items-center gap-0.5 transition-[background-color,border-color,transform] cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+              className="px-1.5 py-0.5 rounded bg-[#B58A45]/15 hover:bg-[#B58A45]/25 active:scale-[0.97] text-[#8C6527] hover:text-[#B58A45] border border-[#B58A45]/30 hover:border-[#B58A45]/50 text-[8px] sm:text-[9px] font-mono font-bold flex items-center gap-0.5 transition-[background-color,border-color,transform] cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
             >
               <span>VISIT WEBSITE</span>
               <ArrowRight className="w-2.5 h-2.5" />
             </a>
           ) : (
-            <span className="text-[7.5px] sm:text-[8px] font-mono font-semibold text-slate-300 bg-white/[0.10] border border-white/20 px-1 py-0.5 rounded select-none shrink-0">
+            <span className="text-[7.5px] sm:text-[8px] font-mono font-semibold text-[#756C60] bg-[#FAF7F0] border border-[#E5D9C8] px-1 py-0.5 rounded select-none shrink-0">
               COMING SOON
             </span>
           )}
@@ -682,48 +682,48 @@ const BlockchainShowcaseCard = React.memo<{
       onMouseEnter={() => setCursor("project", "EXPAND")}
       onMouseLeave={resetCursor}
       style={{ contain: "content" }}
-      className="group relative rounded-2xl liquid-glass-panel !border-amber-400/40 hover:!border-amber-400/70 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 p-5 sm:p-6 md:p-7 cursor-pointer overflow-hidden gpu-layer"
+      className="group relative rounded-2xl liquid-glass-panel !border-[#E5D9C8] hover:!border-[#B58A45]/70 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 p-5 sm:p-6 md:p-7 cursor-pointer overflow-hidden gpu-layer shadow-sm"
     >
       {/* Top border light sweep */}
-      <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-amber-400/90 to-transparent opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" />
+      <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-[#B58A45]/80 to-transparent opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         {/* Left Column: Service Overview & Tech Stack */}
         <div className="lg:col-span-7 space-y-3.5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider bg-amber-400/[0.18] text-amber-300 border border-amber-400/40">
-              <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider bg-[#B58A45]/10 text-[#8C6527] border border-[#B58A45]/30">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#B58A45]" />
               <span>SERVICE // {service.number} &bull; WEB3 ARCHITECTURE</span>
             </span>
             {service.pricing && (
-              <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-white/[0.14] text-white border border-white/25">
+              <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-[#FAF7F0] text-[#292720] border border-[#E5D9C8]">
                 {service.pricing}
               </span>
             )}
           </div>
 
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-[#292720] group-hover:text-[#B58A45] transition-colors">
             {service.title}
           </h3>
 
-          <p className="text-xs sm:text-sm text-[#B7F0C1] font-medium leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#B58A45] font-semibold leading-relaxed">
             {service.shortDesc}
           </p>
 
-          <p className="text-xs text-slate-200 font-normal leading-relaxed">
+          <p className="text-xs text-[#574F44] font-normal leading-relaxed">
             {service.fullDesc}
           </p>
 
           {/* Technologies */}
           <div className="pt-1">
-            <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-300 font-bold mb-1.5">
+            <span className="block text-[10px] font-mono uppercase tracking-wider text-[#756C60] font-bold mb-1.5">
               Core Protocols &amp; Technologies
             </span>
             <div className="flex flex-wrap gap-1.5">
               {service.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="px-2.5 py-1 rounded-md text-[10px] sm:text-xs font-mono font-semibold bg-white/[0.14] text-slate-100 border border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"
+                  className="px-2.5 py-1 rounded-md text-[10px] sm:text-xs font-mono font-semibold bg-[#FAF7F0] text-[#574F44] border border-[#E5D9C8]"
                 >
                   {tech}
                 </span>
@@ -733,30 +733,30 @@ const BlockchainShowcaseCard = React.memo<{
         </div>
 
         {/* Right Column: Deliverables & Preserved Pricing Tiers */}
-        <div className="lg:col-span-5 space-y-4 liquid-glass-subcard rounded-xl p-4 sm:p-5">
+        <div className="lg:col-span-5 space-y-4 liquid-glass-subcard rounded-xl p-4 sm:p-5 border border-[#E5D9C8]">
           {/* Pricing Module */}
           {service.pricing && (
-            <div className="pb-3.5 border-b border-white/20">
+            <div className="pb-3.5 border-b border-[#E5D9C8]">
               <div className="flex items-baseline justify-between gap-2 mb-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-300 font-bold">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#756C60] font-bold">
                   Investment Range
                 </span>
-                <span className="text-base sm:text-lg font-mono font-extrabold text-amber-300">
+                <span className="text-base sm:text-lg font-mono font-extrabold text-[#B58A45]">
                   {service.pricing}
                 </span>
               </div>
               <div className="grid grid-cols-3 gap-1.5 text-center">
-                <div className="p-1.5 rounded-lg bg-white/[0.12] border border-white/25">
-                  <span className="block text-[8px] font-mono uppercase text-slate-300 font-bold">Basic</span>
-                  <span className="text-xs font-mono font-bold text-white">$480</span>
+                <div className="p-1.5 rounded-lg bg-white border border-[#E5D9C8]">
+                  <span className="block text-[8px] font-mono uppercase text-[#756C60] font-bold">Basic</span>
+                  <span className="text-xs font-mono font-bold text-[#292720]">$480</span>
                 </div>
-                <div className="p-1.5 rounded-lg bg-white/[0.12] border border-white/25">
-                  <span className="block text-[8px] font-mono uppercase text-slate-300 font-bold">Standard</span>
-                  <span className="text-xs font-mono font-bold text-white">$1,200</span>
+                <div className="p-1.5 rounded-lg bg-white border border-[#E5D9C8]">
+                  <span className="block text-[8px] font-mono uppercase text-[#756C60] font-bold">Standard</span>
+                  <span className="text-xs font-mono font-bold text-[#292720]">$1,200</span>
                 </div>
-                <div className="p-1.5 rounded-lg bg-white/[0.14] border border-amber-400/50">
-                  <span className="block text-[8px] font-mono uppercase text-amber-300 font-bold">Premium</span>
-                  <span className="text-xs font-mono font-bold text-amber-300">$2,400</span>
+                <div className="p-1.5 rounded-lg bg-white border border-[#B58A45]/40">
+                  <span className="block text-[8px] font-mono uppercase text-[#8C6527] font-bold">Premium</span>
+                  <span className="text-xs font-mono font-bold text-[#B58A45]">$2,400</span>
                 </div>
               </div>
             </div>
@@ -764,13 +764,13 @@ const BlockchainShowcaseCard = React.memo<{
 
           {/* Deliverables */}
           <div>
-            <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-300 font-bold mb-2">
+            <span className="block text-[10px] font-mono uppercase tracking-wider text-[#756C60] font-bold mb-2">
               Verified Deliverables
             </span>
             <ul className="space-y-1.5">
               {service.deliverables.map((item) => (
-                <li key={item} className="flex items-start gap-2 text-xs text-slate-200 font-normal">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                <li key={item} className="flex items-start gap-2 text-xs text-[#574F44] font-normal">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#B58A45] shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -785,15 +785,15 @@ const BlockchainShowcaseCard = React.memo<{
                 e.stopPropagation();
                 onOpenServiceModal(service);
               }}
-              className="flex-1 py-2 px-3 rounded-lg bg-white/[0.14] hover:bg-white/[0.22] text-white hover:text-amber-300 border border-white/25 hover:border-amber-400/60 text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+              className="flex-1 py-2 px-3 rounded-lg bg-white hover:bg-[#FAF7F0] text-[#292720] hover:text-[#B58A45] border border-[#E5D9C8] hover:border-[#B58A45]/50 text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 shadow-sm"
             >
-              <Layers className="w-3.5 h-3.5 text-amber-400" />
+              <Layers className="w-3.5 h-3.5 text-[#B58A45]" />
               <span>VIEW DETAILS</span>
             </button>
             <button
               type="button"
               onClick={handleConsultClick}
-              className="flex-1 py-2 px-3 rounded-lg bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm hover:brightness-105 active:scale-[0.98] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+              className="flex-1 py-2 px-3 rounded-lg bg-gradient-to-r from-[#B58A45] via-[#C99D57] to-[#B58A45] text-white font-mono font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm hover:brightness-105 active:scale-[0.98] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
             >
               <span>DISCUSS PROJECT</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -831,32 +831,32 @@ const DigitalMarketingShowcaseCard = React.memo<{
       onMouseEnter={() => setCursor("project", "DISCUSS")}
       onMouseLeave={resetCursor}
       style={{ contain: "content" }}
-      className="group relative rounded-2xl liquid-glass-panel !border-amber-400/40 hover:!border-amber-400/70 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 p-5 sm:p-6 md:p-7 cursor-pointer overflow-hidden gpu-layer"
+      className="group relative rounded-2xl liquid-glass-panel !border-[#E5D9C8] hover:!border-[#B58A45]/70 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 p-5 sm:p-6 md:p-7 cursor-pointer overflow-hidden gpu-layer shadow-sm"
     >
       {/* Top border light sweep */}
-      <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-amber-400/90 to-transparent opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" />
+      <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1.5px] bg-gradient-to-r from-transparent via-[#B58A45]/80 to-transparent opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         <div className="lg:col-span-7 space-y-3.5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider bg-amber-400/[0.18] text-amber-300 border border-amber-400/40">
-              <Megaphone className="w-3.5 h-3.5 text-amber-400" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider bg-[#B58A45]/10 text-[#8C6527] border border-[#B58A45]/30">
+              <Megaphone className="w-3.5 h-3.5 text-[#B58A45]" />
               <span>DIGITAL MARKETING &bull; ADVISORY &amp; GROWTH</span>
             </span>
-            <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-white/[0.14] text-slate-200 border border-white/25">
+            <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold bg-[#FAF7F0] text-[#756C60] border border-[#E5D9C8]">
               Custom Consultation Scope
             </span>
           </div>
 
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-[#9BD7FF] group-hover:text-[#BAE6FD] transition-colors">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-heading text-[#292720] group-hover:text-[#B58A45] transition-colors">
             Digital Marketing &amp; Search Visibility Engineering
           </h3>
 
-          <p className="text-xs sm:text-sm text-[#B7F0C1] font-medium leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#B58A45] font-semibold leading-relaxed">
             Technical SEO architecture, conversion-focused landing funnels, email marketing integrations, and digital brand positioning tailored to your business goals.
           </p>
 
-          <p className="text-xs text-slate-200 font-normal leading-relaxed">
+          <p className="text-xs text-[#574F44] font-normal leading-relaxed">
             Available as a dedicated service through our consultation &amp; discovery workflow. We integrate technical SEO best practices, Core Web Vitals optimization, and marketing automation directly into your digital presence.
           </p>
 
@@ -870,7 +870,7 @@ const DigitalMarketingShowcaseCard = React.memo<{
             ].map((tag) => (
               <span
                 key={tag}
-                className="px-2.5 py-1 rounded-md text-[10px] sm:text-xs font-mono font-semibold bg-white/[0.14] text-slate-100 border border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"
+                className="px-2.5 py-1 rounded-md text-[10px] sm:text-xs font-mono font-semibold bg-[#FAF7F0] text-[#574F44] border border-[#E5D9C8]"
               >
                 {tag}
               </span>
@@ -878,27 +878,27 @@ const DigitalMarketingShowcaseCard = React.memo<{
           </div>
         </div>
 
-        <div className="lg:col-span-5 space-y-4 liquid-glass-subcard rounded-xl p-4 sm:p-5">
-          <div className="pb-3 border-b border-white/20">
-            <span className="block text-[10px] font-mono uppercase tracking-wider text-amber-300 font-bold mb-1">
+        <div className="lg:col-span-5 space-y-4 liquid-glass-subcard rounded-xl p-4 sm:p-5 border border-[#E5D9C8]">
+          <div className="pb-3 border-b border-[#E5D9C8]">
+            <span className="block text-[10px] font-mono uppercase tracking-wider text-[#B58A45] font-bold mb-1">
               Portfolio &amp; Engagement Status
             </span>
-            <p className="text-xs text-slate-200 font-normal leading-relaxed">
+            <p className="text-xs text-[#574F44] font-normal leading-relaxed">
               Dedicated Digital Marketing campaigns and growth roadmaps are scoped individually based on your target market, channels, and existing web infrastructure.
             </p>
           </div>
 
-          <ul className="space-y-1.5 text-xs text-slate-200 font-normal">
+          <ul className="space-y-1.5 text-xs text-[#574F44] font-normal">
             <li className="flex items-start gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#B58A45] shrink-0 mt-0.5" />
               <span>Custom semantic markup &amp; search-friendly site architecture</span>
             </li>
             <li className="flex items-start gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#B58A45] shrink-0 mt-0.5" />
               <span>High-converting landing pages &amp; lead capture workflows</span>
             </li>
             <li className="flex items-start gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#B58A45] shrink-0 mt-0.5" />
               <span>Direct consultation &amp; custom scope planning with ZYNOVA</span>
             </li>
           </ul>
@@ -910,9 +910,9 @@ const DigitalMarketingShowcaseCard = React.memo<{
                 e.stopPropagation();
                 handleBookConsultation();
               }}
-              className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center gap-1.5 shadow-[0_4px_15px_rgba(245,158,11,0.3)] hover:brightness-105 active:scale-[0.98] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+              className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#B58A45] via-[#C99D57] to-[#B58A45] text-white font-mono font-bold text-xs flex items-center justify-center gap-1.5 shadow-[0_4px_15px_rgba(181,138,69,0.3)] hover:brightness-105 active:scale-[0.98] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
             >
-              <Sparkles className="w-3.5 h-3.5 text-slate-950" />
+              <Sparkles className="w-3.5 h-3.5 text-white" />
               <span>DISCUSS DIGITAL MARKETING</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
@@ -1165,13 +1165,13 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
                   onMouseLeave={resetCursor}
                   className={`group relative shrink-0 inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-semibold tracking-wide transition-[transform,background-color,border-color,color,box-shadow] duration-250 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-1 active:scale-[0.98] ${
                     isActive
-                      ? "bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-bold border border-amber-300 shadow-[0_6px_20px_rgba(245,158,11,0.32)]"
-                      : "liquid-glass-pill text-slate-200 hover:text-white"
+                      ? "bg-gradient-to-r from-[#B58A45] via-[#C99D57] to-[#B58A45] text-white font-bold border border-[#B58A45] shadow-[0_6px_20px_rgba(181,138,69,0.32)]"
+                      : "liquid-glass-pill text-[#574F44] hover:text-[#292720]"
                   }`}
                 >
                   <Icon
                     className={`w-3.5 h-3.5 shrink-0 transition-colors ${
-                      isActive ? "text-slate-950" : "text-amber-400 group-hover:text-amber-300"
+                      isActive ? "text-white" : "text-[#B58A45] group-hover:text-[#8C6527]"
                     }`}
                   />
                   <span className="hidden sm:inline">{cat.label}</span>
@@ -1179,8 +1179,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
                   <span
                     className={`px-1.5 py-0.2 rounded-full text-[9.5px] font-mono font-bold transition-colors ${
                       isActive
-                        ? "bg-slate-950/20 text-slate-950"
-                        : "bg-white/[0.14] text-slate-300 group-hover:bg-amber-400/20 group-hover:text-amber-300"
+                        ? "bg-black/20 text-white"
+                        : "bg-[#F0E4D2]/60 text-[#756C60] group-hover:bg-[#B58A45]/20 group-hover:text-[#B58A45]"
                     }`}
                   >
                     {cat.countLabel}
@@ -1200,7 +1200,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
             <div
               role="tablist"
               aria-label="Website Collections"
-              className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl liquid-glass-card"
+              className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl liquid-glass-card border border-[#E5D9C8]"
             >
               {WEBSITE_COLLECTIONS.map((sub) => {
                 const isSubActive = activeWebsiteCollection === sub.id;
@@ -1215,21 +1215,21 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
                     onMouseLeave={resetCursor}
                     className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-semibold transition-[transform,background-color,border-color,color,box-shadow] duration-200 cursor-pointer flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 active:scale-[0.98] ${
                       isSubActive
-                        ? "bg-amber-400/25 text-amber-300 border border-amber-400/60 font-bold shadow-[0_3px_12px_rgba(245,158,11,0.25)]"
-                        : "text-slate-200 hover:text-white hover:bg-white/[0.14] border border-transparent"
+                        ? "bg-[#B58A45] text-white border border-[#B58A45] font-bold shadow-sm"
+                        : "text-[#574F44] hover:text-[#292720] hover:bg-white/60 border border-transparent"
                     }`}
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full ${
-                        isSubActive ? "bg-amber-400 shadow-[0_0_8px_#f59e0b]" : "bg-slate-400"
+                        isSubActive ? "bg-white" : "bg-[#756C60]"
                       }`}
                     />
                     <span>{sub.label}</span>
                     <span
                       className={`text-[9.5px] font-mono px-1.5 py-0.5 rounded-md ${
                         isSubActive
-                          ? "bg-amber-400/20 text-amber-300 font-bold"
-                          : "bg-white/[0.12] text-slate-300 font-semibold"
+                          ? "bg-white/20 text-white font-bold"
+                          : "bg-[#F0E4D2]/60 text-[#756C60] font-semibold"
                       }`}
                     >
                       {sub.count}
@@ -1246,7 +1246,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
             <div
               role="tablist"
               aria-label="iOS App Collections"
-              className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl liquid-glass-card"
+              className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl liquid-glass-card border border-[#E5D9C8]"
             >
               {IOS_COLLECTIONS.map((sub) => {
                 const isSubActive = activeIosCollection === sub.id;
@@ -1261,21 +1261,21 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
                     onMouseLeave={resetCursor}
                     className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-semibold transition-[transform,background-color,border-color,color,box-shadow] duration-200 cursor-pointer flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 active:scale-[0.98] ${
                       isSubActive
-                        ? "bg-amber-400/25 text-amber-300 border border-amber-400/60 font-bold shadow-[0_3px_12px_rgba(245,158,11,0.25)]"
-                        : "text-slate-200 hover:text-white hover:bg-white/[0.14] border border-transparent"
+                        ? "bg-[#B58A45] text-white border border-[#B58A45] font-bold shadow-sm"
+                        : "text-[#574F44] hover:text-[#292720] hover:bg-white/60 border border-transparent"
                     }`}
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full ${
-                        isSubActive ? "bg-amber-400 shadow-[0_0_8px_#f59e0b]" : "bg-slate-400"
+                        isSubActive ? "bg-white" : "bg-[#756C60]"
                       }`}
                     />
                     <span>{sub.label}</span>
                     <span
                       className={`text-[9.5px] font-mono px-1.5 py-0.5 rounded-md ${
                         isSubActive
-                          ? "bg-amber-400/20 text-amber-300 font-bold"
-                          : "bg-white/[0.12] text-slate-300 font-semibold"
+                          ? "bg-white/20 text-white font-bold"
+                          : "bg-[#F0E4D2]/60 text-[#756C60] font-semibold"
                       }`}
                     >
                       {sub.count}
@@ -1290,17 +1290,17 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
         {/* Active Collection Context Header Bar */}
         <div
           key={`meta-${viewKey}`}
-          className="mb-5 sm:mb-6 px-3.5 sm:px-4 py-2.5 rounded-xl liquid-glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 animate-project-grid-enter"
+          className="mb-5 sm:mb-6 px-3.5 sm:px-4 py-2.5 rounded-xl liquid-glass-card border border-[#E5D9C8] flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 animate-project-grid-enter"
         >
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="px-2 py-0.5 rounded text-[9.5px] font-mono font-bold uppercase tracking-wider bg-amber-400/[0.18] text-amber-300 border border-amber-400/40">
+            <span className="px-2 py-0.5 rounded text-[9.5px] font-mono font-bold uppercase tracking-wider bg-[#B58A45]/10 text-[#8C6527] border border-[#B58A45]/30">
               {activeCollectionMeta.badge}
             </span>
-            <h3 className="text-xs sm:text-sm font-bold font-heading text-white">
+            <h3 className="text-xs sm:text-sm font-bold font-heading text-[#292720]">
               {activeCollectionMeta.label}
             </h3>
           </div>
-          <p className="text-[11px] sm:text-xs text-slate-200 font-normal leading-snug">
+          <p className="text-[11px] sm:text-xs text-[#574F44] font-normal leading-snug">
             {activeCollectionMeta.description}
           </p>
         </div>
@@ -1368,8 +1368,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
 
         {/* Subtle Pricing Disclaimer */}
         <div className="mt-8 text-center">
-          <p className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full liquid-glass-pill text-[11px] sm:text-xs font-mono font-normal text-slate-300 max-w-2xl mx-auto">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+          <p className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full liquid-glass-pill border border-[#E5D9C8] text-[11px] sm:text-xs font-mono font-normal text-[#756C60] max-w-2xl mx-auto">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#B58A45] shrink-0" />
             <span>Prices are indicative. Final pricing depends on features, integrations, content, design complexity and project requirements.</span>
           </p>
         </div>

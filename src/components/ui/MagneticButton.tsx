@@ -75,19 +75,17 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
   let variantStyles = "";
   switch (variant) {
     case "primary":
-      variantStyles = "bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-bold shadow-[0_4px_20px_rgba(245,158,11,0.35)] hover:shadow-[0_6px_30px_rgba(245,158,11,0.5)] border border-amber-300/80 hover:brightness-105";
-      break;
     case "gold":
-      variantStyles = "bg-gradient-to-r from-[#F4E4BC] via-[#D4AF37] to-[#B89228] text-slate-950 font-bold shadow-[0_4px_24px_rgba(212,175,55,0.35)] hover:shadow-[0_6px_34px_rgba(212,175,55,0.55)] border border-amber-300/70 hover:brightness-105";
+      variantStyles = "bg-gradient-to-r from-[#C99E56] via-[#B58A45] to-[#9E7432] text-white font-bold shadow-[0_4px_16px_rgba(181,138,69,0.25)] hover:shadow-[0_6px_24px_rgba(181,138,69,0.35)] border border-[#B58A45] hover:brightness-105";
       break;
     case "secondary":
-      variantStyles = "liquid-glass-card hover:bg-white/[0.24] text-white hover:text-amber-300 border border-white/30 hover:border-amber-400/60 shadow-[0_6px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.35)]";
+      variantStyles = "bg-white hover:bg-[#FAF7F0] text-[#292720] hover:text-[#B58A45] border border-[#E5D9C8] hover:border-[#B58A45]/60 shadow-[0_4px_14px_rgba(41,39,32,0.06)]";
       break;
     case "outline":
-      variantStyles = "liquid-glass-card text-amber-300 border border-amber-400/50 hover:bg-amber-400/20 hover:border-amber-300 shadow-[0_4px_14px_rgba(245,158,11,0.25)]";
+      variantStyles = "bg-white/80 text-[#9E7432] border border-[#B58A45]/60 hover:bg-[#B58A45]/10 hover:border-[#B58A45] shadow-xs";
       break;
     case "ghost":
-      variantStyles = "bg-transparent text-slate-200 hover:text-amber-300 hover:bg-white/[0.12]";
+      variantStyles = "bg-transparent text-[#574F44] hover:text-[#B58A45] hover:bg-[#F0E4D2]/40";
       break;
   }
 

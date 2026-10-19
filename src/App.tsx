@@ -8,7 +8,6 @@ import { About } from "./sections/About";
 import { Services } from "./sections/Services";
 import { FeaturedProjects } from "./sections/FeaturedProjects";
 import { TechStack } from "./sections/TechStack";
-import { DataSolutions } from "./sections/DataSolutions";
 import { Projects } from "./sections/Projects";
 import { WhyZynova } from "./sections/WhyZynova";
 import { Industries } from "./sections/Industries";
@@ -17,11 +16,10 @@ import { Platforms } from "./sections/Platforms";
 import { Testimonials } from "./sections/Testimonials";
 import { CTASection } from "./sections/CTASection";
 import { BookCall } from "./sections/BookCall";
-import { ZynovaGivesBack } from "./sections/ZynovaGivesBack";
 import { Contact } from "./sections/Contact";
 import { Footer } from "./components/layout/Footer";
+import { FixedFounderBadge } from "./components/ui/FixedFounderBadge";
 import { FloatingWhatsApp } from "./components/ui/FloatingWhatsApp";
-import { GlobalVideoBackground } from "./components/layout/GlobalVideoBackground";
 import { Toast } from "./components/ui/Toast";
 import type { ToastMessage } from "./components/ui/Toast";
 
@@ -49,21 +47,18 @@ export const App: React.FC = () => {
 
   return (
     <CursorProvider>
-      <div className="relative min-h-screen bg-transparent text-[#f8fafc] selection:bg-amber-500/25 selection:text-amber-100">
-        {/* Global Cinematic Tech 02 Background Video (Full website backdrop with Light Glass veil) */}
-        <GlobalVideoBackground />
-
-        {/* Subtle Ambient Light-Glass & Golden Atmosphere */}
-        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-          <div className="absolute top-[15%] right-[-8%] w-[620px] h-[620px] rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.08)_0%,transparent_70%)]" />
-          <div className="absolute top-[48%] left-[-8%] w-[620px] h-[620px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.06)_0%,transparent_70%)]" />
-          <div className="absolute top-[78%] right-[8%] w-[520px] h-[520px] rounded-full bg-[radial-gradient(circle,rgba(217,119,6,0.06)_0%,transparent_70%)]" />
+      <div className="relative min-h-screen bg-[#FAF7F0] text-[#292720] selection:bg-[#B58A45]/25 selection:text-[#292720]">
+        {/* Subtle Ambient Light Biscuit & Warm Atmosphere */}
+        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+          <div className="absolute top-[8%] right-[-10%] w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(240,228,210,0.65)_0%,transparent_70%)]" />
+          <div className="absolute top-[42%] left-[-10%] w-[650px] h-[650px] rounded-full bg-[radial-gradient(circle,rgba(181,138,69,0.06)_0%,transparent_70%)]" />
+          <div className="absolute top-[72%] right-[5%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(240,228,210,0.55)_0%,transparent_70%)]" />
         </div>
 
         {/* Custom Interactive Physics Cursor */}
         <CustomCursor />
 
-        {/* Fixed Light Glass Navbar */}
+        {/* Fixed Light Theme Navbar */}
         <Navbar />
 
         {/* Main Content Sections */}
@@ -74,22 +69,19 @@ export const App: React.FC = () => {
           {/* Quick Metrics Strip */}
           <Stats />
 
-          {/* About ZYNOVA & Founder Card */}
+          {/* About ZYNOVA & Founder Card (with Video Project 7 background) */}
           <About />
 
           {/* Large Services Section with Modal */}
           <Services onSelectServiceForBooking={handleSelectServiceForBooking} />
 
-          {/* Featured Projects / Signature Work Showcase (3D Layered Floating Cards) */}
-          <FeaturedProjects />
+          {/* Featured Projects / Signature Work Showcase (3D Layered Cards with Videos) */}
+          <FeaturedProjects onDiscussProject={handleDiscussProject} />
 
           {/* Modern Technology Stack */}
           <TechStack />
 
-          {/* Dedicated Data & Analytics Section */}
-          <DataSolutions />
-
-          {/* Selected Work Showcase with Filter & Detail Modal */}
+          {/* Selected Work Showcase with Filter & Detail Modal (with Videos) */}
           <Projects onDiscussProject={handleDiscussProject} />
 
           {/* Why ZYNOVA: 4 Pillars */}
@@ -117,17 +109,17 @@ export const App: React.FC = () => {
             onSuccess={(title, desc) => showToast(title, desc, "success")}
           />
 
-          {/* ZYNOVA GIVES BACK Charity & Community Section */}
-          <ZynovaGivesBack />
-
           {/* Direct Contact Form */}
           <Contact
             onSuccess={(title, desc) => showToast(title, desc, "success")}
           />
         </main>
 
-        {/* Agency Light Glass Footer */}
+        {/* Agency Light Theme Footer */}
         <Footer />
+
+        {/* Fixed Founder Information Badge */}
+        <FixedFounderBadge />
 
         {/* Floating WhatsApp Quick Action Button */}
         <FloatingWhatsApp />

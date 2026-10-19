@@ -3,6 +3,7 @@ import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 interface TypewriterHeroHeadlineProps {
   className?: string;
+  align?: "left" | "center";
 }
 
 const LINE_1 = "BUILD. AUTOMATE.";
@@ -12,7 +13,10 @@ const ROTATING_PHRASES = [
   "BUILD DIGITAL SOLUTIONS."
 ];
 
-export const TypewriterHeroHeadline: React.FC<TypewriterHeroHeadlineProps> = ({ className = "" }) => {
+export const TypewriterHeroHeadline: React.FC<TypewriterHeroHeadlineProps> = ({
+  className = "",
+  align = "center"
+}) => {
   const prefersReducedMotion = useReducedMotion();
   const containerRef = useRef<HTMLHeadingElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -20,11 +24,10 @@ export const TypewriterHeroHeadline: React.FC<TypewriterHeroHeadlineProps> = ({ 
   const [phraseIndex, setPhraseIndex] = useState<number>(0);
   const currentPhrase = ROTATING_PHRASES[phraseIndex];
 
-  // LINE_1 is always visible immediately — no blank flashes!
+  // LINE_1 is always visible immediately — zero flicker
   const [l2, setL2] = useState<string>(() => (prefersReducedMotion ? ROTATING_PHRASES[0] : ""));
   const [phase, setPhase] = useState<"TYPING" | "HOLD" | "DELETING">("TYPING");
 
-  // Clear timer safely
   const clearActiveTimer = () => {
     if (timerRef.current !== null) {
       clearTimeout(timerRef.current);
@@ -54,7 +57,6 @@ export const TypewriterHeroHeadline: React.FC<TypewriterHeroHeadlineProps> = ({ 
       }
 
       case "HOLD": {
-        // Display full phrase for 4 seconds
         timerRef.current = setTimeout(() => {
           setPhase("DELETING");
         }, 4000);
@@ -79,25 +81,29 @@ export const TypewriterHeroHeadline: React.FC<TypewriterHeroHeadlineProps> = ({ 
     return clearActiveTimer;
   }, [l2, phase, currentPhrase, prefersReducedMotion]);
 
+  const isLeft = align === "left";
+
   return (
     <h1
       ref={containerRef}
-      className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)] max-w-4xl leading-[1.08] mb-4 flex flex-col items-center justify-center min-h-[105px] sm:min-h-[135px] md:min-h-[165px] lg:min-h-[185px] ${className}`}
+      className={`text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-black tracking-tight text-[#292720] max-w-4xl leading-[1.08] mb-4 flex flex-col ${
+        isLeft ? "items-start justify-start text-left" : "items-center justify-center text-center"
+      } min-h-[90px] sm:min-h-[115px] md:min-h-[135px] lg:min-h-[145px] ${className}`}
       aria-label={`${LINE_1} ${ROTATING_PHRASES[0]}`}
     >
-      {/* Line 1: BUILD. AUTOMATE. (Permanent, bold, zero blink) */}
-      <span className="inline-flex items-center justify-center min-h-[1.12em] text-white">
+      {/* Line 1: BUILD. AUTOMATE. */}
+      <span className={`inline-flex items-center ${isLeft ? "justify-start" : "justify-center"} min-h-[1.12em] text-[#292720]`}>
         <span>{LINE_1}</span>
       </span>
 
-      {/* Line 2: Rotating Phrase (Ocean Blue to Electric Sky Blue Effect) */}
-      <span className="inline-flex items-center justify-center min-h-[1.12em]">
-        <span className="bg-gradient-to-r from-[#7DD3FC] via-[#38BDF8] to-[#3B82F6] bg-clip-text text-transparent">
+      {/* Line 2: Rotating Phrase */}
+      <span className={`inline-flex items-center ${isLeft ? "justify-start" : "justify-center"} min-h-[1.12em]`}>
+        <span className="bg-gradient-to-r from-[#B58A45] via-[#C99E56] to-[#9E7432] bg-clip-text text-transparent">
           {prefersReducedMotion ? ROTATING_PHRASES[0] : l2}
         </span>
         {!prefersReducedMotion && (
           <span
-            className="inline-block ml-1 sm:ml-1.5 w-[3px] sm:w-[4px] md:w-[6px] h-[0.78em] bg-[#38BDF8] align-baseline animate-cursor-blink shadow-[0_0_12px_rgba(56,189,248,0.7)] rounded-[1px]"
+            className="inline-block ml-1 sm:ml-1.5 w-[3px] sm:w-[4px] md:w-[6px] h-[0.78em] bg-[#B58A45] align-baseline animate-cursor-blink shadow-[0_0_8px_rgba(181,138,69,0.5)] rounded-[1px]"
             aria-hidden="true"
           />
         )}

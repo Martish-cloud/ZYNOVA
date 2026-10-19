@@ -110,12 +110,10 @@ export const siteConfig: SiteConfig = {
   navigation: [
     { name: "Home", href: "#hero" },
     { name: "Services", href: "#services" },
-    { name: "Data & BI", href: "#data-solutions" },
     { name: "Projects", href: "#projects" },
     { name: "About", href: "#about" },
     { name: "Process", href: "#process" },
     { name: "Why Us", href: "#why-zynova" },
-    { name: "Give Back", href: "#gives-back" },
     { name: "Contact", href: "#contact" }
   ]
 };

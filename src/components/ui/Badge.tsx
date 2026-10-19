@@ -18,30 +18,30 @@ export const Badge: React.FC<BadgeProps> = ({
 
   switch (variant) {
     case "gold":
-      colorStyles = "bg-amber-400/[0.16] text-amber-300 border-amber-400/40 shadow-[0_4px_16px_rgba(245,158,11,0.18),inset_0_1px_0_rgba(255,255,255,0.45)]";
-      dotColor = "bg-amber-400 shadow-[0_0_8px_#f59e0b]";
+      colorStyles = "bg-[#B58A45]/12 text-[#9E7432] border-[#B58A45]/35 shadow-[0_2px_8px_rgba(181,138,69,0.12)]";
+      dotColor = "bg-[#B58A45] shadow-[0_0_6px_#b58a45]";
       break;
     case "cyan":
-      colorStyles = "bg-cyan-400/[0.16] text-cyan-200 border-cyan-400/40 shadow-[0_4px_16px_rgba(6,182,212,0.18),inset_0_1px_0_rgba(255,255,255,0.45)]";
-      dotColor = "bg-cyan-300 shadow-[0_0_8px_#06b6d4]";
+      colorStyles = "bg-sky-50 text-sky-800 border-sky-300 shadow-xs";
+      dotColor = "bg-sky-500 shadow-[0_0_6px_#0284c7]";
       break;
     case "purple":
-      colorStyles = "bg-purple-400/[0.16] text-purple-200 border-purple-400/40 shadow-[0_4px_16px_rgba(168,85,247,0.18),inset_0_1px_0_rgba(255,255,255,0.45)]";
-      dotColor = "bg-purple-300 shadow-[0_0_8px_#c084fc]";
+      colorStyles = "bg-purple-50 text-purple-800 border-purple-300 shadow-xs";
+      dotColor = "bg-purple-500 shadow-[0_0_6px_#9333ea]";
       break;
     case "emerald":
-      colorStyles = "bg-emerald-400/[0.16] text-emerald-200 border-emerald-400/40 shadow-[0_4px_16px_rgba(16,185,129,0.18),inset_0_1px_0_rgba(255,255,255,0.45)]";
-      dotColor = "bg-emerald-300 shadow-[0_0_8px_#34d399]";
+      colorStyles = "bg-emerald-50 text-emerald-800 border-emerald-300 shadow-xs";
+      dotColor = "bg-emerald-500 shadow-[0_0_6px_#059669]";
       break;
     case "neutral":
-      colorStyles = "bg-white/[0.16] text-slate-100 border-white/30 shadow-[0_4px_14px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.45)]";
-      dotColor = "bg-slate-300 shadow-[0_0_8px_#cbd5e1]";
+      colorStyles = "bg-stone-100 text-[#292720] border-[#E5D9C8] shadow-xs";
+      dotColor = "bg-[#756C60] shadow-[0_0_6px_#756c60]";
       break;
   }
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border backdrop-blur-md saturate-150 ${colorStyles} ${className}`}
+      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border backdrop-blur-md ${colorStyles} ${className}`}
     >
       {dot && (
         <span className={`w-1.5 h-1.5 rounded-full ${dotColor} animate-pulse`} />
