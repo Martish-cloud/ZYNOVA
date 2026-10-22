@@ -511,15 +511,16 @@
 /* Priority 1: Persistent Vertical Text Infinite Scroll Animation (Top toward Bottom) */
 @keyframes verticalMarqueeDown {
   0% {
-    transform: translateY(-50%);
+    transform: translateY(-100%);
   }
   100% {
-    transform: translateY(0%);
+    transform: translateY(100vh);
   }
 }
 
 .animate-vertical-marquee-down {
-  animation: verticalMarqueeDown 32s linear infinite;
+  animation: verticalMarqueeDown 26s linear infinite;
+  animation-delay: -6s;
   will-change: transform;
 }
 
