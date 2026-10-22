@@ -84,8 +84,8 @@ export const StackPanel = forwardRef<HTMLElement, StackPanelProps>(({
           data-stack-index={index}
           data-theme="dark"
           style={{
-            position: "sticky",
-            top: `${stickyTop}px`,
+            position: isFirst ? "relative" : "sticky",
+            top: isFirst ? 0 : `${stickyTop}px`,
             scale: isLastPanel || prefersReducedMotion ? 1 : scale,
             rotateX: isLastPanel || prefersReducedMotion ? 0 : rotateX,
             filter: isLastPanel || prefersReducedMotion ? "none" : filter,
@@ -96,7 +96,7 @@ export const StackPanel = forwardRef<HTMLElement, StackPanelProps>(({
             transformStyle: "preserve-3d",
             boxShadow: sheetShadow,
           }}
-          className={`w-full overflow-hidden transition-colors duration-300 ${topCornerClass} ${topBorderClass} ${themeClasses} ${className}`}
+          className={`w-full ${isFirst ? "overflow-visible" : "overflow-hidden"} transition-colors duration-300 ${topCornerClass} ${topBorderClass} ${themeClasses} ${className}`}
         >
           {/* Subtle Ambient Grain & Golden Radial Lighting */}
           <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">

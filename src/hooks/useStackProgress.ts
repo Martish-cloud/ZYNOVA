@@ -64,7 +64,7 @@ export function useStackProgress(
       observer.disconnect();
       window.removeEventListener("resize", updateStickyTop);
     };
-  }, [panelRef]);
+  }, [panelRef, isFirst]);
 
   // Hook to track the next panel's entry into the viewport
   const { scrollYProgress } = useScroll({

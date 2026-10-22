@@ -19,7 +19,7 @@ export const PersistentVerticalScrollText: React.FC = () => {
       {repetitions.map((idx) => (
         <div
           key={`${keyPrefix}-${idx}`}
-          className="flex items-center gap-8 text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-heading font-black uppercase tracking-widest text-white pointer-events-none select-none"
+          className="flex items-center gap-8 text-xl sm:text-2xl md:text-2xl lg:text-[26px] font-heading font-black uppercase tracking-widest text-white pointer-events-none select-none"
           style={{
             textShadow: "0 2px 18px rgba(0, 0, 0, 0.95), 0 0 6px rgba(208, 160, 75, 0.35)",
           }}
@@ -35,11 +35,9 @@ export const PersistentVerticalScrollText: React.FC = () => {
     <aside
       aria-hidden="true"
       tabIndex={-1}
-      className="absolute top-0 bottom-0 left-0 z-20 pointer-events-none select-none flex items-center justify-start overflow-hidden h-full"
+      className="absolute top-0 bottom-0 left-2 sm:left-3 md:left-4 z-20 pointer-events-none select-none flex items-center justify-center overflow-hidden h-full"
       style={{
-        width: "clamp(60px, 6.5vw, 92px)",
-        // Approximately 72% visible within viewport, 28% beyond left edge
-        transform: "translateX(-28%)",
+        width: "clamp(46px, 4.5vw, 64px)",
         pointerEvents: "none",
       }}
     >

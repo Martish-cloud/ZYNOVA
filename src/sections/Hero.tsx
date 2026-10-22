@@ -49,11 +49,11 @@ export const Hero: React.FC = () => {
     <section
       id="hero"
       ref={containerRef}
-      className="relative w-full bg-[#080706] text-white overflow-hidden"
+      className="relative w-full bg-[#080706] text-white overflow-visible"
       style={{
-        // 175vh provides ~650-750px of comfortable tactile scroll travel for 234 frames
+        // 185vh provides ~650-750px of comfortable tactile scroll travel for 234 frames
         // before BuildVision rises smoothly over it with zero dead gap
-        minHeight: "175vh",
+        minHeight: "185vh",
       }}
       aria-label="Home Hero"
     >
