@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { siteConfig } from "../../config/siteConfig";
 import { useScrollSpy } from "../../hooks/useScrollSpy";
 import { useCursor } from "../../context/useCursor";
+import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { MagneticButton } from "../ui/MagneticButton";
 import { useSmoothScroll } from "../motion/SmoothScroll";
 import { Menu, X, Sparkles } from "lucide-react";
@@ -31,11 +33,13 @@ export const Navbar: React.FC = () => {
   const { setCursor, resetCursor } = useCursor();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollTo } = useSmoothScroll();
+  const prefersReducedMotion = useReducedMotion();
 
-  const { activeSection, isScrolled } = useScrollSpy(SECTION_IDS, 150);
+  const { activeSection, isScrolled, manualNavigate } = useScrollSpy(SECTION_IDS, 140);
 
-  const handleLinkClick = (href: string) => {
+  const handleLinkClick = (href: string, id: string) => {
     setMobileMenuOpen(false);
+    manualNavigate(id);
     scrollTo(href);
   };
 
@@ -54,7 +58,7 @@ export const Navbar: React.FC = () => {
             href="#hero"
             onClick={(e) => {
               e.preventDefault();
-              handleLinkClick("#hero");
+              handleLinkClick("#hero", "hero");
             }}
             onMouseEnter={() => setCursor("link")}
             onMouseLeave={resetCursor}
@@ -79,26 +83,46 @@ export const Navbar: React.FC = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-0.5 p-1 rounded-full border border-[#D0A04B]/20 bg-[#171410]/80 backdrop-blur-md shadow-xs">
+          <nav
+            role="navigation"
+            aria-label="Primary Navigation"
+            className="hidden lg:flex items-center gap-1 p-1 rounded-full border border-[#D0A04B]/20 bg-[#171410]/85 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
+          >
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.id;
               return (
                 <a
-                  key={link.name}
+                  key={link.id}
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    handleLinkClick(link.href);
+                    handleLinkClick(link.href, link.id);
                   }}
                   onMouseEnter={() => setCursor("link")}
                   onMouseLeave={resetCursor}
-                  className={`relative px-3 sm:px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer ${
+                  aria-current={isActive ? "page" : undefined}
+                  className={`group relative px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide cursor-pointer transition-all duration-200 select-none outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#080706] ${
                     isActive
-                      ? "text-black bg-[#D0A04B] font-bold shadow-[0_2px_10px_rgba(208,160,75,0.4)] border border-[#A9792E]"
-                      : "text-[#D4CEC4] hover:text-white hover:bg-white/10 border border-transparent"
+                      ? "text-[#080706] font-bold"
+                      : "text-[#D4CEC4] hover:text-white hover:-translate-y-0.5 active:translate-y-0 hover:bg-[#D0A04B]/10 hover:shadow-[0_4px_14px_rgba(208,160,75,0.18)] active:scale-[0.97]"
                   }`}
                 >
-                  {link.name}
+                  {/* Sliding active pill indicator with Framer Motion */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNavPill"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-[#D0A04B] via-[#E2B767] to-[#C4923E] border border-[#F3CF8A]/40 shadow-[0_2px_14px_rgba(208,160,75,0.45),inset_0_1px_1px_rgba(255,255,255,0.4)] z-0"
+                      transition={
+                        prefersReducedMotion
+                          ? { duration: 0 }
+                          : { type: "spring", stiffness: 400, damping: 32 }
+                      }
+                    />
+                  )}
+                  {/* Text Label */}
+                  <span className="relative z-10 transition-colors duration-200 block drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]">
+                    {link.name}
+                  </span>
                 </a>
               );
             })}
@@ -111,7 +135,7 @@ export const Navbar: React.FC = () => {
               href="#book-call"
               onClick={(e) => {
                 e.preventDefault();
-                handleLinkClick("#book-call");
+                handleLinkClick("#book-call", "contact");
               }}
               variant="gold"
               className="group hidden sm:inline-flex !py-1.5 !px-3.5 text-xs font-bold shadow-[0_4px_16px_rgba(208,160,75,0.25)] hover:shadow-[0_6px_22px_rgba(208,160,75,0.35)] cursor-pointer"
@@ -127,7 +151,7 @@ export const Navbar: React.FC = () => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               onMouseEnter={() => setCursor("button")}
               onMouseLeave={resetCursor}
-              className="lg:hidden p-2 rounded-xl border border-[#D0A04B]/20 bg-[#171410] text-white hover:text-[#D0A04B] shadow-sm transition-colors"
+              className="lg:hidden p-2 rounded-xl border border-[#D0A04B]/20 bg-[#171410] text-white hover:text-[#D0A04B] shadow-sm transition-colors cursor-pointer"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? <X className="w-6 h-6 text-[#D0A04B]" /> : <Menu className="w-6 h-6" />}
@@ -142,16 +166,17 @@ export const Navbar: React.FC = () => {
               const isActive = activeSection === link.id;
               return (
                 <a
-                  key={link.name}
+                  key={link.id}
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    handleLinkClick(link.href);
+                    handleLinkClick(link.href, link.id);
                   }}
-                  className={`block px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                  aria-current={isActive ? "page" : undefined}
+                  className={`block px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B] ${
                     isActive
-                      ? "bg-[#D0A04B] text-black font-bold"
-                      : "text-[#D4CEC4] hover:bg-[#171410] hover:text-white"
+                      ? "bg-gradient-to-r from-[#D0A04B] via-[#E2B767] to-[#C4923E] text-[#080706] font-bold shadow-[0_2px_12px_rgba(208,160,75,0.35)]"
+                      : "text-[#D4CEC4] hover:bg-[#171410] hover:text-white active:scale-[0.98]"
                   }`}
                 >
                   {link.name}
@@ -163,9 +188,9 @@ export const Navbar: React.FC = () => {
                 href="#book-call"
                 onClick={(e) => {
                   e.preventDefault();
-                  handleLinkClick("#book-call");
+                  handleLinkClick("#book-call", "contact");
                 }}
-                className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold bg-[#D0A04B] text-black shadow-sm"
+                className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold bg-gradient-to-r from-[#D0A04B] via-[#E2B767] to-[#C4923E] text-black shadow-[0_2px_12px_rgba(208,160,75,0.35)] transition-transform active:scale-[0.98]"
               >
                 <Sparkles className="w-3.5 h-3.5 text-black" />
                 <span>BOOK A CALL</span>
