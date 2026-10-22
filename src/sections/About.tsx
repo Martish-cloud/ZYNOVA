@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useEffect } from "react";
 import { SectionHeading } from "../components/ui/SectionHeading";
 import { TypewriterText } from "../components/ui/TypewriterText";
 import { useCursor } from "../context/useCursor";
@@ -6,12 +6,45 @@ import { useInViewAnimation } from "../hooks/useInViewAnimation";
 import { ParallaxLayer } from "../components/motion/ParallaxLayer";
 import { StaggerGrid } from "../components/motion/StaggerGrid";
 import { CheckCircle2, Sparkles } from "lucide-react";
-import { FounderScrollCanvas } from "../components/ui/FounderScrollCanvas";
 
 export const About: React.FC = () => {
   const { setCursor, resetCursor } = useCursor();
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [founderProgress, setFounderProgress] = useState(0);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const wasOutOfView = useRef<boolean>(true);
+
+  // Retrigger video from the beginning whenever user scrolls into this area from above or below
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Re-trigger from beginning when scrolling back into view
+            if (wasOutOfView.current) {
+              video.currentTime = 0;
+              wasOutOfView.current = false;
+            }
+            video.play().catch(() => {});
+          } else {
+            // Scrolled out of view
+            wasOutOfView.current = true;
+            video.pause();
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    observer.observe(video);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const {
     ref: narrativeRef,
@@ -37,33 +70,6 @@ export const About: React.FC = () => {
     threshold: 0.15,
     rootMargin: "0px 0px -6% 0px"
   });
-
-  // Track scroll progress across Practical Digital Engineering section to scrub Founder AAA frames
-  const handleScroll = useCallback(() => {
-    if (!sectionRef.current) return;
-    const rect = sectionRef.current.getBoundingClientRect();
-    const windowH = window.innerHeight;
-    const totalH = sectionRef.current.offsetHeight;
-
-    // Progress advances smoothly as section passes through viewport
-    const startY = windowH * 0.75;
-    const currentY = startY - rect.top;
-    const scrollTravel = totalH + windowH * 0.25;
-
-    const progress = Math.max(0, Math.min(1, currentY / Math.max(1, scrollTravel)));
-    setFounderProgress(progress);
-  }, []);
-
-  useEffect(() => {
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, [handleScroll]);
 
   const commitments = [
     {
@@ -211,14 +217,27 @@ export const About: React.FC = () => {
               <div
                 tabIndex={0}
                 role="region"
-                aria-label="ZYNOVA Founder Identity - Executive Visual"
-                onMouseEnter={() => setCursor("project", "ROTATE")}
+                aria-label="ZYNOVA Founder Identity - Executive Video"
+                onMouseEnter={() => setCursor("project", "FOUNDER")}
                 onMouseLeave={resetCursor}
-                className="w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B]/80 rounded-2xl sm:rounded-3xl overflow-hidden bg-[#171410] border-2 border-[#D0A04B]/30 hover:border-[#D0A04B]/70 shadow-[0_16px_40px_rgba(0,0,0,0.6),0_4px_16px_rgba(208,160,75,0.12)] transition-all duration-500 aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]"
+                className="w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B]/80 rounded-2xl sm:rounded-3xl overflow-hidden bg-[#171410] border-2 border-[#D0A04B]/30 hover:border-[#D0A04B]/70 shadow-[0_16px_40px_rgba(0,0,0,0.6),0_4px_16px_rgba(208,160,75,0.12)] transition-all duration-500 aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] relative group"
               >
-                <FounderScrollCanvas
-                  progress={founderProgress}
-                  className="w-full h-full"
+                <video
+                  ref={videoRef}
+                  src="/videos/founder-identity.mp4"
+                  poster="/videos/aaa/frame_0001.jpg"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  className="w-full h-full object-cover object-center block"
+                />
+
+                {/* Ambient vignette matching premium theme */}
+                <div
+                  className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#080706]/35 via-transparent to-transparent group-hover:from-transparent transition-colors duration-500"
+                  aria-hidden="true"
                 />
               </div>
             </div>
