@@ -63,19 +63,19 @@ export const About: React.FC = () => {
     <section id="about" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          badge="WHO WE ARE"
-          title="Technology Built Around"
-          highlightedTitle="Your Vision."
-          subtitle="ZYNOVA is a digital technology brand focused on building modern software, websites, applications, automation systems, and data-driven business solutions."
+          badge="ENGINEERING EXCELLENCE"
+          title="Practical Digital Engineering for"
+          highlightedTitle="Ambitious Enterprises."
+          subtitle="At ZYNOVA, software must be resilient, beautiful, and directly tied to business results. We combine modern full-stack development, mobile engineering, AI workflows, and precision data analytics to solve tangible challenges."
           subtitleVariant="ltr"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center pt-2">
           {/* Left Column: Mission & Capabilities */}
           <div ref={narrativeRef} className="lg:col-span-7 space-y-4 sm:space-y-5">
             {/* Step 1: Main Subheading */}
             <h3
-              className={`text-xl sm:text-2xl md:text-[26px] font-bold font-heading text-[#292720] leading-snug border-l-3 border-[#B58A45] pl-3.5 sm:pl-4 ${
+              className={`text-xl sm:text-2xl md:text-[24px] font-bold font-heading text-[#292720] leading-snug border-l-3 border-[#B58A45] pl-3.5 sm:pl-4 ${
                 !prefersReducedMotion
                   ? `transition-all duration-[680ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,opacity] ${
                       isNarrativeInView
@@ -85,9 +85,9 @@ export const About: React.FC = () => {
                   : ""
               }`}
             >
-              Practical digital engineering for{" "}
+              Committed to transparent deliverables &amp;{" "}
               <span className="bg-gradient-to-r from-[#B58A45] via-[#C99E56] to-[#9E7432] bg-clip-text text-transparent">
-                ambitious entrepreneurs &amp; enterprises.
+                high engineering standards.
               </span>
             </h3>
 

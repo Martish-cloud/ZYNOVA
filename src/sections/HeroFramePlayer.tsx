@@ -364,14 +364,13 @@ export const HeroFramePlayer: React.FC<HeroFramePlayerProps> = ({
           </div>
         )}
 
-        {/* Priority 6: Small ZYNOVA Watermark in Bottom-Right Corner at ~80% Opacity */}
+        {/* Priority 6 & Task 2: Pure ZYNOVA Watermark without background panel/pill */}
         {watermark && (
           <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20 pointer-events-none select-none">
             <span
-              className="font-heading font-black tracking-[0.24em] text-[10px] sm:text-[11px] uppercase text-[#FAF7F0] px-2.5 py-1 rounded-md bg-black/40 backdrop-blur-[2px] border border-white/15 shadow-sm"
+              className="font-heading font-black tracking-[0.28em] text-[11px] sm:text-xs uppercase text-[#FAF7F0]"
               style={{
-                opacity: 0.8,
-                textShadow: "0 1px 4px rgba(0, 0, 0, 0.85)",
+                textShadow: "0 2px 8px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.8)",
               }}
             >
               {watermarkText}

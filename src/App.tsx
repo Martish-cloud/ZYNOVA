@@ -6,6 +6,7 @@ import { SmoothScrollProvider } from "./components/motion/SmoothScroll";
 import { StackPanel } from "./components/motion/StackPanel";
 
 import { Hero } from "./sections/Hero";
+import { BuildVision } from "./sections/BuildVision";
 import { Stats } from "./sections/Stats";
 import { About } from "./sections/About";
 import { Services } from "./sections/Services";
@@ -32,7 +33,7 @@ export const App: React.FC = () => {
   const [prefilledBrief, setPrefilledBrief] = useState<string>("");
   const [activeToast, setActiveToast] = useState<ToastMessage | null>(null);
 
-  // 13 Consecutive Stack Panels linking each section to the next for 3D stacking
+  // 14 Consecutive Stack Panels linking each section to the next for 3D stacking
   const p0 = useRef<HTMLElement>(null);
   const p1 = useRef<HTMLElement>(null);
   const p2 = useRef<HTMLElement>(null);
@@ -46,6 +47,7 @@ export const App: React.FC = () => {
   const p10 = useRef<HTMLElement>(null);
   const p11 = useRef<HTMLElement>(null);
   const p12 = useRef<HTMLElement>(null);
+  const p13 = useRef<HTMLElement>(null);
 
   const handleSelectServiceForBooking = useCallback((serviceTitle: string) => {
     setPrefilledService(serviceTitle);
@@ -87,125 +89,136 @@ export const App: React.FC = () => {
               <Hero />
             </StackPanel>
 
-            {/* Panel 1: Stats + About (light) */}
+            {/* Panel 1: Build Around Your Vision (dark #080706) */}
             <StackPanel
               ref={p1}
-              id="about"
-              theme="light"
+              id="vision"
+              theme="dark"
               index={1}
               nextPanelRef={p2}
+            >
+              <BuildVision />
+            </StackPanel>
+
+            {/* Panel 2: Stats + Practical Digital Engineering (light #FAF7F0) */}
+            <StackPanel
+              ref={p2}
+              id="about"
+              theme="light"
+              index={2}
+              nextPanelRef={p3}
             >
               <Stats />
               <About />
             </StackPanel>
 
-            {/* Panel 2: Services (dark) */}
+            {/* Panel 3: Services (dark) */}
             <StackPanel
-              ref={p2}
+              ref={p3}
               id="services"
               theme="dark"
-              index={2}
-              nextPanelRef={p3}
+              index={3}
+              nextPanelRef={p4}
             >
               <Services onSelectServiceForBooking={handleSelectServiceForBooking} />
             </StackPanel>
 
-            {/* Panel 3: FeaturedProjects (light) */}
+            {/* Panel 4: FeaturedProjects (light) */}
             <StackPanel
-              ref={p3}
+              ref={p4}
               id="featured-projects"
               theme="light"
-              index={3}
-              nextPanelRef={p4}
+              index={4}
+              nextPanelRef={p5}
             >
               <FeaturedProjects onDiscussProject={handleDiscussProject} />
             </StackPanel>
 
-            {/* Panel 4: TechStack (dark) */}
+            {/* Panel 5: TechStack (dark) */}
             <StackPanel
-              ref={p4}
+              ref={p5}
               id="tech-stack"
               theme="dark"
-              index={4}
-              nextPanelRef={p5}
+              index={5}
+              nextPanelRef={p6}
             >
               <TechStack />
             </StackPanel>
 
-            {/* Panel 5: Projects (light) */}
+            {/* Panel 6: Projects (light) */}
             <StackPanel
-              ref={p5}
+              ref={p6}
               id="projects"
               theme="light"
-              index={5}
-              nextPanelRef={p6}
+              index={6}
+              nextPanelRef={p7}
             >
               <Projects onDiscussProject={handleDiscussProject} />
             </StackPanel>
 
-            {/* Panel 6: WhyZynova (dark) */}
+            {/* Panel 7: WhyZynova (dark) */}
             <StackPanel
-              ref={p6}
+              ref={p7}
               id="why-zynova"
               theme="dark"
-              index={6}
-              nextPanelRef={p7}
+              index={7}
+              nextPanelRef={p8}
             >
               <WhyZynova />
             </StackPanel>
 
-            {/* Panel 7: Industries (light) */}
+            {/* Panel 8: Industries (light) */}
             <StackPanel
-              ref={p7}
+              ref={p8}
               id="industries"
               theme="light"
-              index={7}
-              nextPanelRef={p8}
+              index={8}
+              nextPanelRef={p9}
             >
               <Industries />
             </StackPanel>
 
-            {/* Panel 8: Process (dark) */}
+            {/* Panel 9: Process (dark) */}
             <StackPanel
-              ref={p8}
+              ref={p9}
               id="process"
               theme="dark"
-              index={8}
-              nextPanelRef={p9}
+              index={9}
+              nextPanelRef={p10}
             >
               <Process />
             </StackPanel>
 
-            {/* Panel 9: Platforms + Testimonials (light) */}
+            {/* Panel 10: Platforms + Testimonials (light) */}
             <StackPanel
-              ref={p9}
+              ref={p10}
               id="testimonials"
               theme="light"
-              index={9}
-              nextPanelRef={p10}
+              index={10}
+              nextPanelRef={p11}
             >
               <Platforms />
               <Testimonials />
             </StackPanel>
 
-            {/* Panel 10: CTASection (dark) */}
+            {/* Panel 11: CTASection (dark) */}
             <StackPanel
-              ref={p10}
+              ref={p11}
               id="cta"
               theme="dark"
-              index={10}
-              nextPanelRef={p11}
+              index={11}
+              nextPanelRef={p12}
             >
               <CTASection />
             </StackPanel>
 
-            {/* Panel 11: BookCall + Contact (light) */}
+            {/* Panel 12: BookCall + Contact (light) */}
             <StackPanel
-              ref={p11}
+              ref={p12}
               id="contact"
               theme="light"
-              index={11}
-              nextPanelRef={p12}
+              index={12}
+              nextPanelRef={p13}
             >
               <BookCall
                 prefilledService={prefilledService}
@@ -217,12 +230,12 @@ export const App: React.FC = () => {
               />
             </StackPanel>
 
-            {/* Panel 12: Footer (dark) */}
+            {/* Panel 13: Footer (dark) */}
             <StackPanel
-              ref={p12}
+              ref={p13}
               id="footer"
               theme="dark"
-              index={12}
+              index={13}
               nextPanelRef={null}
             >
               <Footer />
