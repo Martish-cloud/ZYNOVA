@@ -9,6 +9,14 @@ interface HeadphonesScrollCanvasProps {
 const TOTAL_FRAMES = 240;
 const INITIAL_PRELOAD_COUNT = 32;
 
+// The "Veo" watermark is located at y >= 1042 in the bottom right corner of the 1920x1080 source frames.
+// By setting source height to 1032px, the watermark is cleanly and completely cropped out with zero distortion to the headphone.
+const SOURCE_WIDTH = 1920;
+const SOURCE_HEIGHT = 1032;
+
+// The exact matching pink background color from the edges of the studio frames
+const STUDIO_PINK_BG = "#c3766f";
+
 const getFrameUrl = (frameIndex: number): string => {
   const padded = String(frameIndex).padStart(5, "0");
   return `/videos/headphones/frame_${padded}.jpg`;
@@ -89,7 +97,7 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
     };
   }, []);
 
-  // Draw current frame to canvas respecting aspect ratio and DPR
+  // Draw current frame to canvas respecting aspect ratio, edge-to-edge coverage, and watermark removal
   const drawFrame = useCallback((frameNum: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -129,21 +137,41 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
       canvas.height = neededHeight;
     }
 
-    // Preserve 16:9 / natural aspect ratio centered
-    const imgWidth = img.naturalWidth;
-    const imgHeight = img.naturalHeight;
-    const scale = Math.min(canvas.width / imgWidth, canvas.height / imgHeight);
+    // Matching studio pink base fill to eliminate all black gaps or visible boundaries
+    ctx.fillStyle = STUDIO_PINK_BG;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    const destWidth = imgWidth * scale;
-    const destHeight = imgHeight * scale;
+    // Scaling calculation:
+    // On desktop / wide displays, cover edge-to-edge from top to bottom
+    // On portrait mobile, ensure headphone remains centered and unclipped while filling background seamlessly
+    const isPortrait = canvas.width < canvas.height;
+    let scale: number;
+
+    if (isPortrait) {
+      // Mobile portrait: scale so headphone is centered, large, and completely in-frame
+      scale = Math.min(canvas.width / 1250, canvas.height / SOURCE_HEIGHT) * 1.15;
+    } else {
+      // Desktop / landscape: cover the entire section edge-to-edge
+      scale = Math.max(canvas.width / SOURCE_WIDTH, canvas.height / SOURCE_HEIGHT) * 1.02;
+    }
+
+    const destWidth = SOURCE_WIDTH * scale;
+    const destHeight = SOURCE_HEIGHT * scale;
     const destX = (canvas.width - destWidth) / 2;
     const destY = (canvas.height - destHeight) / 2;
 
-    // Deep black base fill matching ZYNOVA dark theme
-    ctx.fillStyle = "#080706";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.drawImage(img, destX, destY, destWidth, destHeight);
+    // Draw from source 0..SOURCE_WIDTH and 0..SOURCE_HEIGHT (excludes bottom watermark)
+    ctx.drawImage(
+      img,
+      0,
+      0,
+      SOURCE_WIDTH,
+      SOURCE_HEIGHT,
+      destX,
+      destY,
+      destWidth,
+      destHeight
+    );
   }, []);
 
   // Scrub frame according to progress (0.0 to 1.0)
@@ -220,7 +248,7 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
     <div className={`relative w-full h-full overflow-hidden flex items-center justify-center ${className}`}>
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-contain block"
+        className="w-full h-full block"
       />
     </div>
   );
