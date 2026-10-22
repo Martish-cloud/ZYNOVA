@@ -69,6 +69,33 @@ export const StackPanel = forwardRef<HTMLElement, StackPanelProps>(({
     ? ""
     : "rounded-t-[36px] sm:rounded-t-[44px] md:rounded-t-[52px]";
 
+  // For the first panel (Hero), avoid any 3D perspective, transforms, or overflow traps
+  // that would break descendant position: sticky elements.
+  if (isFirst) {
+    return (
+      <StackPanelContext.Provider value={{ theme: "dark", index: 0 }}>
+        <div className="relative w-full" style={{ zIndex: 10 }}>
+          <section
+            ref={localRef}
+            id={id}
+            data-stack-index={0}
+            data-theme="dark"
+            className={`relative w-full overflow-visible ${themeClasses} ${className}`}
+          >
+            {/* Subtle Ambient Grain & Golden Radial Lighting */}
+            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+              <div className="absolute -top-[15%] left-1/2 -translate-x-1/2 w-[900px] h-[550px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(208,160,75,0.06)_0%,transparent_70%)]" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#080706]/30 via-transparent to-[#040302]/70" />
+            </div>
+
+            {/* Content wrapper */}
+            <div className="relative z-10 w-full overflow-visible">{children}</div>
+          </section>
+        </div>
+      </StackPanelContext.Provider>
+    );
+  }
+
   return (
     <StackPanelContext.Provider value={{ theme: "dark", index }}>
       <div
@@ -84,8 +111,8 @@ export const StackPanel = forwardRef<HTMLElement, StackPanelProps>(({
           data-stack-index={index}
           data-theme="dark"
           style={{
-            position: isFirst ? "relative" : "sticky",
-            top: isFirst ? 0 : `${stickyTop}px`,
+            position: "sticky",
+            top: `${stickyTop}px`,
             scale: isLastPanel || prefersReducedMotion ? 1 : scale,
             rotateX: isLastPanel || prefersReducedMotion ? 0 : rotateX,
             filter: isLastPanel || prefersReducedMotion ? "none" : filter,
@@ -96,7 +123,7 @@ export const StackPanel = forwardRef<HTMLElement, StackPanelProps>(({
             transformStyle: "preserve-3d",
             boxShadow: sheetShadow,
           }}
-          className={`w-full ${isFirst ? "overflow-visible" : "overflow-hidden"} transition-colors duration-300 ${topCornerClass} ${topBorderClass} ${themeClasses} ${className}`}
+          className={`w-full overflow-hidden transition-colors duration-300 ${topCornerClass} ${topBorderClass} ${themeClasses} ${className}`}
         >
           {/* Subtle Ambient Grain & Golden Radial Lighting */}
           <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">

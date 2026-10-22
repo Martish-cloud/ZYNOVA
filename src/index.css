@@ -7,7 +7,6 @@
 
   html {
     scrollbar-gutter: stable;
-    overflow-x: clip;
     color-scheme: dark;
   }
 
@@ -15,7 +14,6 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background-color: #080706;
     color: #FFFFFF;
-    overflow-x: clip;
     -webkit-overflow-scrolling: touch;
   }
 

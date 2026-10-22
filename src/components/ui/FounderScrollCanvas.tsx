@@ -7,7 +7,7 @@ export interface FounderScrollCanvasProps {
 }
 
 const TOTAL_FRAMES = 277;
-const INITIAL_PRELOAD_COUNT = 16;
+const INITIAL_PRELOAD_COUNT = 32;
 
 /**
  * High-performance HTML5 Canvas renderer for the 277-frame Founder visual sequence from video/AAA.
@@ -100,6 +100,20 @@ export const FounderScrollCanvas: React.FC<FounderScrollCanvasProps> = ({
 
       const img = imageCache.current[frameIdx];
       if (!img || !img.complete) {
+        // Kick off immediate priority load of this exact frame
+        loadFrame(frameIdx)
+          .then((loadedImg) => {
+            if (currentRenderedFrame.current === frameIdx) {
+              renderImageToCanvas(canvas, loadedImg);
+            }
+          })
+          .catch(() => {});
+
+        // Preload immediate adjacent neighbors
+        if (frameIdx + 1 < TOTAL_FRAMES) loadFrame(frameIdx + 1).catch(() => {});
+        if (frameIdx + 2 < TOTAL_FRAMES) loadFrame(frameIdx + 2).catch(() => {});
+        if (frameIdx - 1 >= 0) loadFrame(frameIdx - 1).catch(() => {});
+
         // Fallback to nearest loaded frame if target frame is still loading
         let nearest: HTMLImageElement | null = null;
         for (let dist = 1; dist < TOTAL_FRAMES; dist++) {
@@ -120,33 +134,48 @@ export const FounderScrollCanvas: React.FC<FounderScrollCanvasProps> = ({
       renderImageToCanvas(canvas, img);
       currentRenderedFrame.current = frameIdx;
     },
-    [renderImageToCanvas]
+    [renderImageToCanvas, loadFrame]
   );
 
-  // Phase 1: Load initial frames immediately for crisp instant render
+  // Eager preloader with concurrent worker streams so all 277 frames load within ~1.5s
   useEffect(() => {
     let isCancelled = false;
 
-    const loadInitialBatch = async () => {
-      try {
-        const promises: Promise<HTMLImageElement>[] = [];
-        for (let i = 0; i < INITIAL_PRELOAD_COUNT; i++) {
-          promises.push(loadFrame(i));
-        }
-        await Promise.all(promises);
-        if (!isCancelled) {
-          setInitialLoaded(true);
-          drawFrame(0);
-        }
-      } catch {
-        if (!isCancelled) {
-          setInitialLoaded(true);
-          drawFrame(0);
+    // Load initial frames immediately in parallel
+    const initialBatch: Promise<HTMLImageElement>[] = [];
+    for (let i = 0; i < Math.min(INITIAL_PRELOAD_COUNT, TOTAL_FRAMES); i++) {
+      initialBatch.push(loadFrame(i));
+    }
+
+    Promise.allSettled(initialBatch).then(() => {
+      if (!isCancelled) {
+        setInitialLoaded(true);
+        drawFrame(0);
+      }
+    });
+
+    // Concurrently stream all remaining frames in 12 parallel workers
+    const queue = Array.from(
+      { length: TOTAL_FRAMES - INITIAL_PRELOAD_COUNT },
+      (_, i) => i + INITIAL_PRELOAD_COUNT
+    );
+    const CONCURRENCY = 12;
+
+    const worker = async () => {
+      while (queue.length > 0 && !isCancelled) {
+        const nextIdx = queue.shift();
+        if (nextIdx !== undefined) {
+          try {
+            await loadFrame(nextIdx);
+          } catch {
+            // Continue queue on any individual network glitch
+          }
         }
       }
     };
 
-    loadInitialBatch();
+    const workers = Array.from({ length: CONCURRENCY }, () => worker());
+    Promise.all(workers);
 
     return () => {
       isCancelled = true;
@@ -159,50 +188,6 @@ export const FounderScrollCanvas: React.FC<FounderScrollCanvasProps> = ({
       drawFrame(currentRenderedFrame.current >= 0 ? currentRenderedFrame.current : 0);
     }
   }, [initialLoaded, drawFrame]);
-
-  // Phase 2: Progressively load remaining frames in idle / batches
-  useEffect(() => {
-    if (!initialLoaded) return;
-    let isCancelled = false;
-
-    const loadRemainingProgressively = () => {
-      let currentIndex = INITIAL_PRELOAD_COUNT;
-      const BATCH_SIZE = 8;
-
-      const scheduleNextBatch = () => {
-        if (isCancelled || currentIndex >= TOTAL_FRAMES) return;
-
-        const batchPromises: Promise<HTMLImageElement>[] = [];
-        const limit = Math.min(currentIndex + BATCH_SIZE, TOTAL_FRAMES);
-
-        for (let i = currentIndex; i < limit; i++) {
-          batchPromises.push(loadFrame(i));
-        }
-
-        currentIndex = limit;
-
-        Promise.allSettled(batchPromises).then(() => {
-          if (!isCancelled && currentIndex < TOTAL_FRAMES) {
-            if ("requestIdleCallback" in window) {
-              (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(
-                scheduleNextBatch
-              );
-            } else {
-              setTimeout(scheduleNextBatch, 30);
-            }
-          }
-        });
-      };
-
-      scheduleNextBatch();
-    };
-
-    loadRemainingProgressively();
-
-    return () => {
-      isCancelled = true;
-    };
-  }, [initialLoaded, loadFrame]);
 
   // Redraw when progress changes
   useEffect(() => {

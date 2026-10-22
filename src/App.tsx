@@ -32,8 +32,7 @@ export const App: React.FC = () => {
   const [prefilledBrief, setPrefilledBrief] = useState<string>("");
   const [activeToast, setActiveToast] = useState<ToastMessage | null>(null);
 
-  // 15 Consecutive Stack Panels linking each section to the next for 3D stacking
-  const p0 = useRef<HTMLElement>(null);
+  // 14 Consecutive Stack Panels linking each section to the next for 3D stacking
   const p1 = useRef<HTMLElement>(null);
   const p2 = useRef<HTMLElement>(null);
   const p3 = useRef<HTMLElement>(null);
@@ -78,16 +77,8 @@ export const App: React.FC = () => {
 
           {/* 3D Stacked-Scroll Surface Pipeline */}
           <main className="relative z-10 w-full">
-            {/* Panel 0: Hero (dark #080706) */}
-            <StackPanel
-              ref={p0}
-              id="hero"
-              theme="dark"
-              index={0}
-              nextPanelRef={p1}
-            >
-              <Hero />
-            </StackPanel>
+            {/* Hero Section with Scroll-Controlled Coding-Laptop Frames */}
+            <Hero />
 
             {/* Panel 1: Build Around Your Vision (dark #100D09) */}
             <StackPanel
