@@ -96,54 +96,54 @@ const ServiceCard = React.memo<ServiceCardProps>(({
       }}
       onMouseEnter={() => setCursor("project", "EXPAND")}
       onMouseLeave={resetCursor}
-      className="group relative rounded-xl overflow-hidden bg-white border border-[#E5D9C8] hover:border-[#B58A45]/60 shadow-[0_4px_16px_rgba(41,39,32,0.04)] hover:shadow-[0_12px_32px_rgba(181,138,69,0.14)] transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B58A45]/80"
+      className="group relative rounded-xl overflow-hidden bg-[#181410]/90 border border-white/10 hover:border-[#B58A45]/60 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_32px_rgba(181,138,69,0.18)] transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B58A45]/80"
     >
       {/* Perimeter Border Light */}
       <CardBorderLight retriggerKey={retriggerKey} />
 
       {/* Inner Card Content */}
-      <div className="relative z-10 p-2 sm:p-2.5 md:p-3 rounded-xl bg-white h-full flex flex-col justify-between overflow-hidden transition-colors duration-300">
+      <div className="relative z-10 p-2 sm:p-2.5 md:p-3 rounded-xl bg-[#181410]/95 h-full flex flex-col justify-between overflow-hidden transition-colors duration-300">
         <div>
           {/* Header with Number and Icon */}
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-1">
-              <span className="font-mono text-[9px] sm:text-[10px] font-bold text-[#756C60] group-hover:text-[#B58A45] transition-colors">
+              <span className="font-mono text-[9px] sm:text-[10px] font-bold text-[#A89F91] group-hover:text-[#B58A45] transition-colors">
                 // {service.number}
               </span>
               {service.pricing && (
-                <span className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono font-bold bg-[#B58A45]/12 text-[#9E7432] border border-[#B58A45]/30">
+                <span className="px-1 py-0.5 rounded text-[7.5px] sm:text-[8px] font-mono font-bold bg-[#B58A45]/20 text-[#D4AF37] border border-[#B58A45]/35">
                   {service.pricing}
                 </span>
               )}
             </div>
-            <div className="p-1 sm:p-1.5 rounded-lg bg-[#B58A45]/12 border border-[#B58A45]/30 group-hover:scale-105 transition-transform">
+            <div className="p-1 sm:p-1.5 rounded-lg bg-[#B58A45]/15 border border-[#B58A45]/30 group-hover:scale-105 transition-transform">
               {renderServiceIcon(service.icon)}
             </div>
           </div>
 
           {/* Title */}
-          <h3 className="text-xs sm:text-sm font-bold font-heading text-[#292720] group-hover:text-[#B58A45] transition-colors mb-1 leading-snug line-clamp-2">
+          <h3 className="text-xs sm:text-sm font-bold font-heading text-[#FAF7F0] group-hover:text-[#B58A45] transition-colors mb-1 leading-snug line-clamp-2">
             {service.title}
           </h3>
 
           {/* Short Description */}
-          <p className="text-[10px] sm:text-[11px] text-[#574F44] font-normal leading-relaxed mb-2 line-clamp-2 sm:line-clamp-3">
+          <p className="text-[10px] sm:text-[11px] text-[#C5BCB0] font-normal leading-relaxed mb-2 line-clamp-2 sm:line-clamp-3">
             {service.shortDesc}
           </p>
 
           {/* Pricing Box */}
           {service.pricing && (
-            <div className="mb-1.5 px-1.5 py-1 rounded-md bg-[#FAF7F0] border border-[#E5D9C8]">
+            <div className="mb-1.5 px-1.5 py-1 rounded-md bg-white/[0.04] border border-white/10">
               <div className="flex items-baseline justify-between gap-1">
-                <span className="text-[7.5px] sm:text-[8px] font-mono uppercase tracking-wider text-[#9E7432] font-bold truncate">
+                <span className="text-[7.5px] sm:text-[8px] font-mono uppercase tracking-wider text-[#D4AF37] font-bold truncate">
                   From {service.pricing.split(" ")[0]}
                 </span>
-                <span className="text-[10px] sm:text-[11px] font-mono font-extrabold text-[#292720] shrink-0">
+                <span className="text-[10px] sm:text-[11px] font-mono font-extrabold text-[#FAF7F0] shrink-0">
                   {service.pricing}
                 </span>
               </div>
               {service.pricingNote && (
-                <span className="text-[7.5px] sm:text-[8px] text-[#756C60] font-normal italic block truncate mt-0.5">
+                <span className="text-[7.5px] sm:text-[8px] text-[#A89F91] font-normal italic block truncate mt-0.5">
                   {service.pricingNote}
                 </span>
               )}
@@ -410,7 +410,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
     <section
       id="services"
       ref={sectionRef}
-      className="py-14 sm:py-18 md:py-20 relative z-10 bg-[#FAF7F0] border-t border-[#E5D9C8]"
+      className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -423,7 +423,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
 
         {/* Category Switcher Pill */}
         <div className="flex justify-center mb-8 sm:mb-10">
-          <div className="inline-flex p-1 rounded-full bg-[#F0E4D2]/60 border border-[#E5D9C8] backdrop-blur-md shadow-xs">
+          <div className="inline-flex p-1 rounded-full bg-white/[0.06] border border-white/10 backdrop-blur-md shadow-xs">
             <button
               onClick={() => setActiveCategory("web-software")}
               onMouseEnter={() => setCursor("button")}
@@ -431,11 +431,11 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
               className={`flex items-center gap-1.5 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 activeCategory === "web-software"
                   ? "bg-gradient-to-r from-[#C99E56] via-[#B58A45] to-[#9E7432] text-white font-bold shadow-sm"
-                  : "text-[#574F44] hover:text-[#292720]"
+                  : "text-[#C5BCB0] hover:text-white"
               }`}
             >
               <Code className="w-3.5 h-3.5" />
-              <span>Web &amp; Software (10)</span>
+              <span>Web &amp; Software ({servicesData.filter((s) => s.category === "web-software").length})</span>
             </button>
 
             <button
@@ -445,11 +445,11 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
               className={`flex items-center gap-1.5 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 activeCategory === "data-business"
                   ? "bg-gradient-to-r from-[#C99E56] via-[#B58A45] to-[#9E7432] text-white font-bold shadow-sm"
-                  : "text-[#574F44] hover:text-[#292720]"
+                  : "text-[#C5BCB0] hover:text-white"
               }`}
             >
               <Database className="w-3.5 h-3.5" />
-              <span>Data &amp; Business (7)</span>
+              <span>Data &amp; Business ({servicesData.filter((s) => s.category === "data-business").length})</span>
             </button>
           </div>
         </div>
@@ -545,7 +545,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
                   </div>
                 </div>
 
-                {/* Alternating Row Cycle Controls & Indicators */}
+                {/* Service Cycle Controls & Indicators (Row 1 / Row 2 labels removed) */}
                 <div className="flex items-center justify-center gap-3 mt-6 sm:mt-7">
                   <button
                     type="button"
@@ -557,7 +557,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
                     }`}
                   >
                     <span className={`w-2 h-2 rounded-full ${activeRow === 0 ? "bg-white animate-pulse" : "bg-[#B58A45]"}`} />
-                    <span>Row 1 (Services 1–5)</span>
+                    <span>Services 1–5</span>
                   </button>
                   <button
                     type="button"
@@ -569,14 +569,15 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
                     }`}
                   >
                     <span className={`w-2 h-2 rounded-full ${activeRow === 1 ? "bg-white animate-pulse" : "bg-[#B58A45]"}`} />
-                    <span>Row 2 (Services 6–10)</span>
+                    <span>Services 6–10</span>
                   </button>
                 </div>
               </div>
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-2.5 md:gap-3 xl:gap-3.5">
+          /* Priority 2: Data & Business Category — Exactly 6 Cards in a Single Row on Desktop (lg:grid-cols-6) */
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-6 gap-2 sm:gap-2.5 md:gap-3 xl:gap-3.5">
             {filteredServices.map((service) => {
               const cartItem = cart.find((item) => item.id === service.id);
               return (

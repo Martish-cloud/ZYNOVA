@@ -95,7 +95,7 @@ export const Testimonials: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-[#E5D9C8] overflow-hidden text-[#292720]"
+      className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent overflow-hidden text-[#292720]"
     >
       {/* Ambient background glow accents */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-b from-[#B58A45]/10 via-[#F0E4D2]/20 to-transparent rounded-full blur-[150px] pointer-events-none z-0" />

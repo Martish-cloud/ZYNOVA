@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Badge } from "./Badge";
 import { TypewriterText } from "./TypewriterText";
 import { useInViewAnimation } from "../../hooks/useInViewAnimation";
+import { useStackPanelTheme } from "../motion/StackPanel";
 
 interface SectionHeadingProps {
   badge: string;
@@ -13,6 +14,7 @@ interface SectionHeadingProps {
   subtitleVariant?: "typewriter" | "ltr" | "slide-up";
   className?: string;
   fadeInOut?: boolean;
+  theme?: "dark" | "light";
 }
 
 export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
@@ -24,9 +26,12 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
   badgeVariant = "gold",
   subtitleVariant = "ltr",
   className = "",
-  fadeInOut = true
+  fadeInOut = true,
+  theme
 }) => {
   const isCenter = align === "center";
+  const panelContext = useStackPanelTheme();
+  const isDark = (theme || panelContext?.theme) === "dark";
   const { ref, isInView, triggerCount, prefersReducedMotion } = useInViewAnimation<HTMLDivElement>({
     threshold: 0.16,
     rootMargin: "0px 0px -6% 0px",
@@ -64,7 +69,9 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
 
       {/* Main Section Title */}
       <h2
-        className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#292720] mb-2.5 sm:mb-3 leading-snug"
+        className={`text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-2.5 sm:mb-3 leading-snug ${
+          isDark ? "text-[#FAF7F0]" : "text-[#292720]"
+        }`}
       >
         {titleWords.map((word, idx) => (
           <React.Fragment key={`t-${idx}-${word}`}>
@@ -124,9 +131,9 @@ export const SectionHeading: React.FC<SectionHeadingProps> = React.memo(({
       {/* Supporting Description */}
       {subtitle && (
         <div
-          className={`text-xs sm:text-sm md:text-base text-[#756C60] leading-relaxed max-w-2xl font-normal ${
-            isCenter ? "mx-auto" : ""
-          }`}
+          className={`text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl font-normal ${
+            isDark ? "text-[#C5BCB0]" : "text-[#756C60]"
+          } ${isCenter ? "mx-auto" : ""}`}
         >
           {subtitleVariant === "typewriter" ? (
             <TypewriterText

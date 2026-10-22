@@ -32,3 +32,6 @@ server/dist
 *.sw?
 desktop.ini
 Thumbs.db
+
+# Scratch video frame extracts
+Videos/Zynova Frames/

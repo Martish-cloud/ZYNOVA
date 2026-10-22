@@ -156,7 +156,7 @@ export const BookCall: React.FC<BookCallProps> = ({
   };
 
   return (
-    <section id="book-call" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-[#E5D9C8]">
+    <section id="book-call" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="SCHEDULE A CONSULTATION"

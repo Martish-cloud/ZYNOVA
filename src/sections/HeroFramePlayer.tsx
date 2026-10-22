@@ -13,17 +13,119 @@ const getFrameUrl = (index: number): string => {
   return `/videos/frames/frame_${frameNum}.jpg`;
 };
 
-export const HeroFramePlayer: React.FC = () => {
+// Global shared frame cache across all player instances (Hero & Founder visual)
+// Prevents duplicate network downloads and redundant memory decoding
+const sharedImages: (HTMLImageElement | null)[] = new Array(TOTAL_FRAMES).fill(null);
+const sharedIsLoaded: boolean[] = new Array(TOTAL_FRAMES).fill(false);
+const frameLoadPromises = new Map<number, Promise<HTMLImageElement>>();
+let globalLoadStarted = false;
+let globalLoadProgress = 0;
+const progressListeners = new Set<(progress: number) => void>();
+
+const loadSingleFrameShared = (index: number): Promise<HTMLImageElement> => {
+  if (sharedImages[index] && sharedIsLoaded[index]) {
+    return Promise.resolve(sharedImages[index]!);
+  }
+
+  if (frameLoadPromises.has(index)) {
+    return frameLoadPromises.get(index)!;
+  }
+
+  const promise = new Promise<HTMLImageElement>((resolve, reject) => {
+    const img = new Image();
+    img.decoding = "async";
+    img.src = getFrameUrl(index);
+
+    img.onload = () => {
+      sharedImages[index] = img;
+      sharedIsLoaded[index] = true;
+      frameLoadPromises.delete(index);
+      resolve(img);
+    };
+
+    img.onerror = () => {
+      frameLoadPromises.delete(index);
+      reject(new Error(`Failed to load frame ${index + 1}`));
+    };
+  });
+
+  frameLoadPromises.set(index, promise);
+  return promise;
+};
+
+const startGlobalPreload = async () => {
+  if (globalLoadStarted) return;
+  globalLoadStarted = true;
+
+  // First load frame 0 immediately for instant display
+  try {
+    await loadSingleFrameShared(0);
+  } catch {}
+
+  // Preload priority initial batch
+  const initialPromises: Promise<any>[] = [];
+  let initialCount = 1;
+  for (let i = 1; i < INITIAL_BATCH_SIZE; i++) {
+    initialPromises.push(
+      loadSingleFrameShared(i)
+        .then(() => {
+          initialCount++;
+          globalLoadProgress = Math.floor((initialCount / TOTAL_FRAMES) * 100);
+          progressListeners.forEach((fn) => fn(globalLoadProgress));
+        })
+        .catch(() => {})
+    );
+  }
+  await Promise.all(initialPromises);
+
+  // Progressive background queue for remaining frames
+  let nextIndex = INITIAL_BATCH_SIZE;
+  const loadNext = async () => {
+    if (nextIndex >= TOTAL_FRAMES) return;
+    const currentIndex = nextIndex++;
+    try {
+      await loadSingleFrameShared(currentIndex);
+      globalLoadProgress = Math.floor((nextIndex / TOTAL_FRAMES) * 100);
+      progressListeners.forEach((fn) => fn(globalLoadProgress));
+    } catch {}
+    if (nextIndex < TOTAL_FRAMES) {
+      await loadNext();
+    }
+  };
+
+  const workers = [];
+  for (let i = 0; i < PARALLEL_LOAD_LIMIT; i++) {
+    workers.push(loadNext());
+  }
+  await Promise.all(workers);
+};
+
+export interface HeroFramePlayerProps {
+  className?: string;
+  containerClassName?: string;
+  cardClassName?: string;
+  aspectRatioClass?: string;
+  showStatusPill?: boolean;
+  watermark?: boolean;
+  watermarkText?: string;
+}
+
+export const HeroFramePlayer: React.FC<HeroFramePlayerProps> = ({
+  className = "",
+  containerClassName = "relative w-full max-w-2xl mx-auto lg:max-w-none group",
+  cardClassName = "relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-[#292720] border-2 border-[#E5D9C8] hover:border-[#B58A45]/70 shadow-[0_20px_50px_rgba(41,39,32,0.12),0_4px_16px_rgba(181,138,69,0.1)] transition-all duration-500",
+  aspectRatioClass = "aspect-[16/9]",
+  showStatusPill = true,
+  watermark = false,
+  watermarkText = "ZYNOVA",
+}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  const [isLoadingInitial, setIsLoadingInitial] = useState(true);
-  const [loadProgress, setLoadProgress] = useState(0);
+  const [isLoadingInitial, setIsLoadingInitial] = useState(() => !sharedIsLoaded[0]);
+  const [loadProgress, setLoadProgress] = useState(globalLoadProgress);
 
-  // Array of cached image elements
-  const imagesRef = useRef<(HTMLImageElement | null)[]>(new Array(TOTAL_FRAMES).fill(null));
-  const isLoadedRef = useRef<boolean[]>(new Array(TOTAL_FRAMES).fill(false));
   const currentFrameRef = useRef<number>(0);
   const lastRenderedFrameRef = useRef<number>(0);
   const isVisibleRef = useRef<boolean>(true);
@@ -31,7 +133,7 @@ export const HeroFramePlayer: React.FC = () => {
   const lastTimestampRef = useRef<number>(0);
   const isUnmountedRef = useRef<boolean>(false);
 
-  // Draw a frame image to the canvas preserving 16:9 aspect ratio
+  // Draw a frame image to the canvas preserving aspect ratio
   const drawFrame = useCallback((img: HTMLImageElement) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -71,111 +173,44 @@ export const HeroFramePlayer: React.FC = () => {
       canvas.width = targetWidth;
       canvas.height = targetHeight;
 
-      // Re-draw last known frame after resize
-      const lastImg = imagesRef.current[lastRenderedFrameRef.current];
-      if (lastImg && isLoadedRef.current[lastRenderedFrameRef.current]) {
+      const lastImg = sharedImages[lastRenderedFrameRef.current];
+      if (lastImg && sharedIsLoaded[lastRenderedFrameRef.current]) {
         drawFrame(lastImg);
       }
     }
   }, [drawFrame]);
 
-  // Load an individual frame
-  const loadSingleFrame = useCallback((index: number): Promise<HTMLImageElement> => {
-    return new Promise((resolve, reject) => {
-      if (imagesRef.current[index] && isLoadedRef.current[index]) {
-        resolve(imagesRef.current[index]!);
-        return;
-      }
-
-      const img = new Image();
-      img.decoding = "async";
-      img.src = getFrameUrl(index);
-
-      img.onload = () => {
-        if (isUnmountedRef.current) return;
-        imagesRef.current[index] = img;
-        isLoadedRef.current[index] = true;
-        resolve(img);
-      };
-
-      img.onerror = () => {
-        if (isUnmountedRef.current) return;
-        reject(new Error(`Failed to load frame ${index + 1}`));
-      };
-    });
-  }, []);
-
-  // Progressive background queue for remaining frames
-  const loadRemainingFrames = useCallback(async () => {
-    let nextIndex = INITIAL_BATCH_SIZE;
-
-    const loadNext = async () => {
-      if (isUnmountedRef.current || nextIndex >= TOTAL_FRAMES) return;
-      const currentIndex = nextIndex++;
-      try {
-        await loadSingleFrame(currentIndex);
-        setLoadProgress(Math.floor((nextIndex / TOTAL_FRAMES) * 100));
-      } catch {
-        // Continue even if a single frame fails
-      }
-      if (!isUnmountedRef.current && nextIndex < TOTAL_FRAMES) {
-        await loadNext();
-      }
-    };
-
-    // Run parallel workers up to PARALLEL_LOAD_LIMIT
-    const workers = [];
-    for (let i = 0; i < PARALLEL_LOAD_LIMIT; i++) {
-      workers.push(loadNext());
-    }
-    await Promise.all(workers);
-  }, [loadSingleFrame]);
-
-  // Initial setup and priority batch preloading
+  // Initial setup and queue subscription
   useEffect(() => {
     isUnmountedRef.current = false;
-    let initialCount = 0;
 
-    const loadInitialBatch = async () => {
-      // First load frame 0 immediately for instant poster display
-      try {
-        const firstFrame = await loadSingleFrame(0);
-        if (!isUnmountedRef.current) {
-          resizeCanvas();
-          drawFrame(firstFrame);
-          setIsLoadingInitial(false);
-        }
-      } catch {
-        setIsLoadingInitial(false);
-      }
-
-      // Preload next initial batch frames
-      const initialPromises = [];
-      for (let i = 1; i < INITIAL_BATCH_SIZE; i++) {
-        initialPromises.push(
-          loadSingleFrame(i).then(() => {
-            initialCount++;
-            if (!isUnmountedRef.current) {
-              setLoadProgress(Math.floor((initialCount / TOTAL_FRAMES) * 100));
-            }
-          }).catch(() => {})
-        );
-      }
-
-      await Promise.all(initialPromises);
-
-      // Once initial batch is in place, trigger progressive background queue
-      if (!isUnmountedRef.current && !prefersReducedMotion) {
-        loadRemainingFrames();
+    const handleProgress = (prog: number) => {
+      if (!isUnmountedRef.current) {
+        setLoadProgress(prog);
       }
     };
+    progressListeners.add(handleProgress);
 
-    loadInitialBatch();
+    // Initial frame 0 render
+    loadSingleFrameShared(0).then((firstFrame) => {
+      if (!isUnmountedRef.current) {
+        resizeCanvas();
+        drawFrame(firstFrame);
+        setIsLoadingInitial(false);
+      }
+    }).catch(() => {
+      if (!isUnmountedRef.current) setIsLoadingInitial(false);
+    });
+
+    if (!prefersReducedMotion) {
+      startGlobalPreload();
+    }
 
     return () => {
       isUnmountedRef.current = true;
+      progressListeners.delete(handleProgress);
     };
-  }, [loadSingleFrame, resizeCanvas, drawFrame, loadRemainingFrames, prefersReducedMotion]);
+  }, [resizeCanvas, drawFrame, prefersReducedMotion]);
 
   // Window resize observer
   useEffect(() => {
@@ -189,7 +224,7 @@ export const HeroFramePlayer: React.FC = () => {
     };
   }, [resizeCanvas]);
 
-  // IntersectionObserver to pause rendering when hero is not visible
+  // IntersectionObserver to pause rendering when component is not in viewport
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -219,9 +254,8 @@ export const HeroFramePlayer: React.FC = () => {
   // Main continuous animation loop
   useEffect(() => {
     if (prefersReducedMotion) {
-      // For reduced motion: render static frame 0 only
-      const frame0 = imagesRef.current[0];
-      if (frame0 && isLoadedRef.current[0]) {
+      const frame0 = sharedImages[0];
+      if (frame0 && sharedIsLoaded[0]) {
         drawFrame(frame0);
       }
       return;
@@ -249,15 +283,15 @@ export const HeroFramePlayer: React.FC = () => {
         }
 
         const targetFrameIndex = currentFrameRef.current;
-        const targetImg = imagesRef.current[targetFrameIndex];
+        const targetImg = sharedImages[targetFrameIndex];
 
-        if (targetImg && isLoadedRef.current[targetFrameIndex]) {
+        if (targetImg && sharedIsLoaded[targetFrameIndex]) {
           drawFrame(targetImg);
           lastRenderedFrameRef.current = targetFrameIndex;
         } else {
-          // If the target frame is still downloading, maintain last good rendered frame
-          const fallbackImg = imagesRef.current[lastRenderedFrameRef.current];
-          if (fallbackImg && isLoadedRef.current[lastRenderedFrameRef.current]) {
+          // Maintain last good rendered frame if target frame is downloading
+          const fallbackImg = sharedImages[lastRenderedFrameRef.current];
+          if (fallbackImg && sharedIsLoaded[lastRenderedFrameRef.current]) {
             drawFrame(fallbackImg);
           }
         }
@@ -276,7 +310,7 @@ export const HeroFramePlayer: React.FC = () => {
   }, [drawFrame, prefersReducedMotion]);
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto lg:max-w-none group">
+    <div className={`${containerClassName} ${className}`}>
       {/* Ambient warm light aura behind player matching desk lamp glow */}
       <div
         className="absolute -inset-4 sm:-inset-6 rounded-3xl bg-[radial-gradient(circle_at_70%_40%,rgba(181,138,69,0.22)_0%,rgba(240,228,210,0.35)_45%,transparent_75%)] blur-2xl pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-700"
@@ -286,17 +320,17 @@ export const HeroFramePlayer: React.FC = () => {
       {/* Main Cinematic Video Player Card */}
       <div
         ref={containerRef}
-        className="relative w-full aspect-[16/9] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#292720] border-2 border-[#E5D9C8] hover:border-[#B58A45]/70 shadow-[0_20px_50px_rgba(41,39,32,0.12),0_4px_16px_rgba(181,138,69,0.1)] transition-all duration-500"
+        className={`${aspectRatioClass} ${cardClassName}`}
       >
         {/* HTML5 High-Performance Canvas */}
         <canvas
           ref={canvasRef}
           className="w-full h-full block object-cover object-center"
-          aria-label="Cinematic 277-frame developer engineering animation"
+          aria-label="Cinematic developer engineering animation"
           role="img"
         />
 
-        {/* Static Image Fallback for initial load or errors */}
+        {/* Static Image Fallback for initial load */}
         {isLoadingInitial && (
           <img
             src="/videos/frames/frame_0001.jpg"
@@ -311,31 +345,42 @@ export const HeroFramePlayer: React.FC = () => {
           aria-hidden="true"
         />
 
-        {/* Top-Right Premium Badge */}
-        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 pointer-events-none">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#292720]/80 backdrop-blur-md border border-[#E5D9C8]/40 shadow-xs text-white">
-            <span className="w-2 h-2 rounded-full bg-[#B58A45] animate-pulse" />
-            <span className="text-[10px] sm:text-[11px] font-mono tracking-wider font-bold">
-              {prefersReducedMotion ? "STILL FRAME" : "277-FRAME SEQUENCE"}
-            </span>
-          </div>
-        </div>
+        {/* Note: "277-FRAME SEQUENCE" badge completely removed per Priority 5 */}
 
-        {/* Bottom-Left Status Pill */}
-        <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20 pointer-events-none">
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-[#E5D9C8] text-[#292720] shadow-xs">
-            <Sparkles className="w-3 h-3 text-[#B58A45]" />
-            <span className="text-[10px] sm:text-xs font-heading font-bold tracking-wide">
-              Engineering In Focus
-            </span>
-            {loadProgress < 100 && !prefersReducedMotion && (
-              <span className="text-[9px] font-mono text-[#756C60] ml-1">
-                ({loadProgress}%)
+        {/* Bottom-Left Status Pill (optional, default true) */}
+        {showStatusPill && (
+          <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20 pointer-events-none">
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-[#E5D9C8] text-[#292720] shadow-xs">
+              <Sparkles className="w-3 h-3 text-[#B58A45]" />
+              <span className="text-[10px] sm:text-xs font-heading font-bold tracking-wide">
+                Engineering In Focus
               </span>
-            )}
+              {loadProgress < 100 && !prefersReducedMotion && (
+                <span className="text-[9px] font-mono text-[#756C60] ml-1">
+                  ({loadProgress}%)
+                </span>
+              )}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Priority 6: Small ZYNOVA Watermark in Bottom-Right Corner at ~80% Opacity */}
+        {watermark && (
+          <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20 pointer-events-none select-none">
+            <span
+              className="font-heading font-black tracking-[0.24em] text-[10px] sm:text-[11px] uppercase text-[#FAF7F0] px-2.5 py-1 rounded-md bg-black/40 backdrop-blur-[2px] border border-white/15 shadow-sm"
+              style={{
+                opacity: 0.8,
+                textShadow: "0 1px 4px rgba(0, 0, 0, 0.85)",
+              }}
+            >
+              {watermarkText}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
 };
+
+export default HeroFramePlayer;

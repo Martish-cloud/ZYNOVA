@@ -2,10 +2,11 @@ import React from "react";
 import { useCountUp } from "../hooks/useCountUp";
 import { useInViewAnimation } from "../hooks/useInViewAnimation";
 import { CardBorderLight } from "../components/ui/CardBorderLight";
+import { StaggerGrid } from "../components/motion/StaggerGrid";
 import { Clock, Briefcase, Layers, ShieldCheck } from "lucide-react";
 
 export const Stats: React.FC = () => {
-  const { ref: containerRef, isInView, triggerCount, prefersReducedMotion } = useInViewAnimation<HTMLDivElement>({
+  const { ref: containerRef, isInView, triggerCount } = useInViewAnimation<HTMLDivElement>({
     threshold: 0.16,
     rootMargin: "0px 0px -6% 0px"
   });
@@ -50,25 +51,16 @@ export const Stats: React.FC = () => {
     <section
       id="stats"
       ref={containerRef}
-      className="relative z-10 py-10 sm:py-12 bg-[#F0E4D2]/25 border-y border-[#E5D9C8]"
+      className="relative z-10 py-10 sm:py-12 bg-transparent"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5">
+        <StaggerGrid stagger={0.08} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5">
           {stats.map((stat, idx) => {
             const Icon = stat.icon;
             return (
               <div
                 key={idx}
-                style={
-                  !prefersReducedMotion
-                    ? { transitionDelay: isInView ? `${idx * 75}ms` : "0ms" }
-                    : undefined
-                }
-                className={`relative rounded-2xl overflow-hidden transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_4px_16px_rgba(41,39,32,0.04)] hover:shadow-[0_12px_32px_rgba(181,138,69,0.16)] group hover:-translate-y-1 ${
-                  isInView
-                    ? "opacity-100 translate-y-0 scale-100"
-                    : "opacity-0 translate-y-4 scale-[0.97]"
-                }`}
+                className="relative rounded-2xl overflow-hidden transition-all duration-300 shadow-[0_4px_16px_rgba(41,39,32,0.04)] hover:shadow-[0_12px_32px_rgba(181,138,69,0.16)] group hover:-translate-y-1 h-full"
               >
                 {/* Synchronized Perimeter Border Light */}
                 <CardBorderLight retriggerKey={triggerCount} />
@@ -99,8 +91,10 @@ export const Stats: React.FC = () => {
               </div>
             );
           })}
-        </div>
+        </StaggerGrid>
       </div>
     </section>
   );
 };
+
+export default Stats;

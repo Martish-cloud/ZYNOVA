@@ -2,14 +2,42 @@ import React from "react";
 import { SectionHeading } from "../components/ui/SectionHeading";
 import { useInViewAnimation } from "../hooks/useInViewAnimation";
 import { useCursor } from "../context/useCursor";
+import { ScrollHighlightList } from "../components/motion/ScrollHighlightList";
+import type { ScrollHighlightItem } from "../components/motion/ScrollHighlightList";
+import { StaggerGrid } from "../components/motion/StaggerGrid";
 import { Clock, Cpu, Target, ShieldCheck, Sparkles } from "lucide-react";
+
+const HIGHLIGHT_STATEMENTS: ScrollHighlightItem[] = [
+  {
+    id: 1,
+    label: "Guaranteed 12-Hour Communication Turnaround",
+    subtext: "Proactive project tracking across milestones with clear, zero-ambiguity status reporting across time zones.",
+    tag: "RESPONSIVENESS"
+  },
+  {
+    id: 2,
+    label: "100% Client Source Code & Asset Ownership",
+    subtext: "Every repository, Docker image, database schema, and Figma file belongs strictly to you upon milestone delivery.",
+    tag: "IP OWNERSHIP"
+  },
+  {
+    id: 3,
+    label: "Typed, Cloud-Native, Production-Grade Engineering",
+    subtext: "Built using strict TypeScript, modern frameworks, and scalable cloud architectures designed for velocity.",
+    tag: "ARCHITECTURE"
+  },
+  {
+    id: 4,
+    label: "Tied Directly to Measurable Commercial Outcomes",
+    subtext: "Technology engineered to drive conversions, automate repetitive manual workflows, and scale your business.",
+    tag: "BUSINESS ROI"
+  }
+];
 
 export const WhyZynova: React.FC = () => {
   const { setCursor, resetCursor } = useCursor();
   const {
     ref: cardsRef,
-    isInView: isCardsInView,
-    prefersReducedMotion
   } = useInViewAnimation<HTMLDivElement>({
     threshold: 0.15,
     rootMargin: "0px 0px -6% 0px"
@@ -55,7 +83,7 @@ export const WhyZynova: React.FC = () => {
   ];
 
   return (
-    <section id="why-zynova" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-[#E5D9C8]">
+    <section id="why-zynova" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="WHY WORK WITH ZYNOVA"
@@ -65,72 +93,69 @@ export const WhyZynova: React.FC = () => {
           subtitleVariant="ltr"
         />
 
-        <div
-          ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5 lg:gap-5"
-        >
-          {reasons.map((r, index) => {
-            const Icon = r.icon;
-            return (
-              <div
-                key={r.number}
-                style={
-                  !prefersReducedMotion
-                    ? { transitionDelay: isCardsInView ? `${index * 80}ms` : "0ms" }
-                    : undefined
-                }
-                className={`h-full ${
-                  !prefersReducedMotion
-                    ? `transition-all duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,opacity] ${
-                        isCardsInView
-                          ? "opacity-100 translate-y-0 scale-100"
-                          : "opacity-0 translate-y-5 scale-[0.97]"
-                      }`
-                    : ""
-                }`}
-              >
+        {/* 4 Core Pillars Grid */}
+        <div ref={cardsRef}>
+          <StaggerGrid stagger={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5 lg:gap-5">
+            {reasons.map((r) => {
+              const Icon = r.icon;
+              return (
                 <div
+                  key={r.number}
                   tabIndex={0}
                   role="region"
                   aria-label={r.title}
                   onMouseEnter={() => setCursor("project", r.title)}
                   onMouseLeave={resetCursor}
-                  className="h-full group relative p-5 sm:p-5.5 rounded-xl liquid-glass-card !bg-white/95 border border-[#E5D9C8] hover:!border-[#B58A45]/60 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 cursor-pointer"
+                  className="h-full group relative p-5 sm:p-5.5 rounded-xl bg-[#181410]/90 border border-white/10 hover:border-[#B58A45]/60 hover:bg-[#181410] shadow-[0_4px_20px_rgba(0,0,0,0.35)] hover:shadow-[0_8px_32px_rgba(181,138,69,0.18)] transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B58A45] cursor-pointer"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3.5 sm:mb-4">
-                      <span className="font-mono text-xs font-bold text-[#B58A45]">
+                      <span className="font-mono text-xs font-bold text-[#D4AF37]">
                         // {r.number}
                       </span>
-                      <div className="p-2.5 rounded-lg bg-[#B58A45]/10 border border-[#B58A45]/30 group-hover:scale-105 transition-all duration-300">
-                        <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#B58A45]" />
+                      <div className="p-2.5 rounded-lg bg-[#B58A45]/15 border border-[#B58A45]/35 group-hover:scale-105 transition-all duration-300">
+                        <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#D4AF37]" />
                       </div>
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-bold font-heading text-[#292720] mb-1.5 group-hover:text-[#B58A45] transition-colors">
+                    <h3 className="text-base sm:text-lg font-bold font-heading text-[#FAF7F0] mb-1.5 group-hover:text-[#B58A45] transition-colors">
                       {r.title}
                     </h3>
 
-                    <div className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-[#B58A45]/10 text-[#8C6527] mb-3 border border-[#B58A45]/30 font-bold shadow-xs">
+                    <div className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-[#B58A45]/15 text-[#D4AF37] mb-3 border border-[#B58A45]/35 font-bold shadow-xs">
                       {r.highlight}
                     </div>
 
-                    <p className="text-xs text-[#574F44] font-normal leading-relaxed">
+                    <p className="text-xs text-[#C5BCB0] font-normal leading-relaxed">
                       {r.description}
                     </p>
                   </div>
 
-                  <div className="pt-4 mt-4 border-t border-[#E5D9C8] flex items-center gap-2 text-[10.5px] font-mono font-semibold text-[#756C60]">
+                  <div className="pt-4 mt-4 border-t border-white/10 flex items-center gap-2 text-[10.5px] font-mono font-semibold text-[#A89F91]">
                     <Sparkles className="w-3 h-3 text-[#B58A45]" />
                     <span>Standard on every engagement</span>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </StaggerGrid>
+        </div>
+
+        {/* Dynamic Scroll-Highlighted Guarantees */}
+        <div className="mt-12 sm:mt-16 max-w-3xl mx-auto">
+          <div className="text-center mb-6">
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#D4AF37] font-bold">
+              // SCROLL-ACTIVE COMMITMENTS
+            </span>
+            <h4 className="text-lg sm:text-xl font-bold font-heading text-[#FAF7F0] mt-1">
+              Guarantees That Anchor Every Project
+            </h4>
+          </div>
+          <ScrollHighlightList items={HIGHLIGHT_STATEMENTS} theme="dark" />
         </div>
       </div>
     </section>
   );
 };
 
+export default WhyZynova;

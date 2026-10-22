@@ -218,29 +218,9 @@ export const servicesData: ServiceItem[] = [
 
   // --- Category 02: Data & Business Solutions ---
   {
-    id: "excel-data-reporting",
-    category: "data-business",
-    number: "01",
-    title: "Excel Data Reporting",
-    shortDesc: "Structured, automated business reports that summarize key operational and financial indicators accurately.",
-    fullDesc: "Replace manual, error-prone spreadsheets with structured reporting models. We build standardized Excel workbooks featuring automated calculations, clear executive summaries, and organized data tabs.",
-    technologies: ["Microsoft Excel", "Advanced Formulas", "Pivot Tables", "Data Validation"],
-    deliverables: [
-      "Customized executive reporting templates",
-      "Dynamic summary tables & KPI scorecards",
-      "Formula error checking & audit consistency",
-      "Data layout restructuring for clarity",
-      "Standard operating procedure document"
-    ],
-    icon: "FileSpreadsheet",
-    pricing: "$18 – $176",
-    pricingNote: "Basic $18 • Standard $65 • Premium $176",
-    basePrice: 18
-  },
-  {
     id: "data-cleaning-excel",
     category: "data-business",
-    number: "02",
+    number: "01",
     title: "Excel Data Cleaning & Standardization",
     shortDesc: "Systematic cleanup of messy, inconsistent datasets to ensure integrity and reliable downstream analysis.",
     fullDesc: "High-quality decisions require clean data. We detect and fix missing entries, remove duplicates, standardize date/currency formats, resolve syntax inconsistencies, and sanitize raw exports.",
@@ -260,7 +240,7 @@ export const servicesData: ServiceItem[] = [
   {
     id: "data-merging-excel",
     category: "data-business",
-    number: "03",
+    number: "02",
     title: "Data Merging & Consolidation in Excel",
     shortDesc: "Intelligent consolidation of multi-source files, relational lookups, and multi-sheet master merging.",
     fullDesc: "We eliminate the chaos of scattered spreadsheets by unifying multi-branch, multi-month, or multi-platform data into cohesive, linked relational master sheets using Power Query and advanced lookup formulas.",
@@ -280,7 +260,7 @@ export const servicesData: ServiceItem[] = [
   {
     id: "excel-dashboards-professional",
     category: "data-business",
-    number: "04",
+    number: "03",
     title: "Professional Excel Dashboard Development",
     shortDesc: "Interactive business dashboards with slicers, dynamic charts, and executive KPI summaries in Excel.",
     fullDesc: "We build intuitive Excel dashboards designed for managers and business owners. Featuring interactive timeline slicers, visual trend charts, and automated refresh buttons for effortless daily monitoring.",
@@ -300,7 +280,7 @@ export const servicesData: ServiceItem[] = [
   {
     id: "excel-dashboards-advanced",
     category: "data-business",
-    number: "05",
+    number: "04",
     title: "Advanced Excel Dashboard & Automation",
     shortDesc: "Enterprise-grade Excel dashboards powered by Power Query pipelines, advanced data models, and VBA/macros.",
     fullDesc: "For complex analytical workflows, we build advanced Excel dashboards integrating multi-dimensional data models, automated VBA routine triggers, scenario analysis, and real-time parameter switches.",
@@ -320,7 +300,7 @@ export const servicesData: ServiceItem[] = [
   {
     id: "power-bi-reporting",
     category: "data-business",
-    number: "06",
+    number: "05",
     title: "Power BI Reporting Solutions",
     shortDesc: "Standardized business intelligence reports that transform raw data into clear, accessible visual narratives.",
     fullDesc: "Empower your stakeholders with modern Power BI reports. We build structured semantic reporting models with clear visual hierarchies, tailored brand themes, and automated scheduled refreshes.",
@@ -340,7 +320,7 @@ export const servicesData: ServiceItem[] = [
   {
     id: "power-bi-dashboards-advanced",
     category: "data-business",
-    number: "07",
+    number: "06",
     title: "Advanced Power BI Dashboard Development",
     shortDesc: "Enterprise Power BI solutions featuring complex DAX calculations, star schema models, and row-level security.",
     fullDesc: "Unlock deep operational intelligence. We architect enterprise Power BI ecosystems incorporating high-performance Star Schemas, advanced DAX time-intelligence metrics, dynamic drill-throughs, and custom tooltips.",

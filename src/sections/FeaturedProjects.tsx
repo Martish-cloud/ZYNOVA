@@ -305,7 +305,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
   return (
     <section
       id="featured-projects"
-      className="py-14 sm:py-20 md:py-24 relative z-10 bg-transparent border-t border-[#E5D9C8] overflow-hidden"
+      className="py-14 sm:py-20 md:py-24 relative z-10 bg-transparent overflow-hidden"
       aria-label="Featured Projects Showcase"
     >
       {/* Background Decorative Glow */}

@@ -136,7 +136,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
   };
 
   return (
-    <section id="contact" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent border-t border-[#E5D9C8]">
+    <section id="contact" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="START A CONVERSATION"
