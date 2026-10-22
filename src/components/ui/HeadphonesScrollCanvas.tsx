@@ -7,7 +7,7 @@ interface HeadphonesScrollCanvasProps {
 }
 
 const TOTAL_FRAMES = 240;
-const INITIAL_PRELOAD_COUNT = 15;
+const INITIAL_PRELOAD_COUNT = 32;
 
 const getFrameUrl = (frameIndex: number): string => {
   const padded = String(frameIndex).padStart(5, "0");
@@ -22,16 +22,16 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
   const prefersReducedMotion = useReducedMotion();
   const [isFirstFrameLoaded, setIsFirstFrameLoaded] = useState(false);
 
-  // Cache for loaded frame HTMLImageElements to prevent re-fetching/decoding
+  // Cache for loaded frame HTMLImageElements to prevent repeated network requests and decodes
   const framesCacheRef = useRef<Map<number, HTMLImageElement>>(new Map());
   const activeFrameIndexRef = useRef<number>(1);
   const rafIdRef = useRef<number | null>(null);
 
-  // Preload initial frames for instantaneous render
+  // Preload initial frames for instantaneous render, then background load the rest
   useEffect(() => {
     let isCancelled = false;
 
-    // Load initial frames eagerly
+    // Load initial 32 frames eagerly
     for (let i = 1; i <= INITIAL_PRELOAD_COUNT; i++) {
       const img = new Image();
       img.src = getFrameUrl(i);
@@ -44,10 +44,10 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
       };
     }
 
-    // Progressively preload remaining frames in background batches
+    // Progressively preload remaining frames in idle background batches
     const preloadRemaining = () => {
       let currentBatchStart = INITIAL_PRELOAD_COUNT + 1;
-      const batchSize = 12;
+      const batchSize = 16;
 
       const loadNextBatch = () => {
         if (isCancelled || currentBatchStart > TOTAL_FRAMES) return;
@@ -70,7 +70,7 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
           if ("requestIdleCallback" in window) {
             (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(loadNextBatch);
           } else {
-            setTimeout(loadNextBatch, 80);
+            setTimeout(loadNextBatch, 50);
           }
         }
       };
@@ -78,7 +78,7 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
       if ("requestIdleCallback" in window) {
         (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(loadNextBatch);
       } else {
-        setTimeout(loadNextBatch, 150);
+        setTimeout(loadNextBatch, 100);
       }
     };
 
@@ -89,7 +89,7 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
     };
   }, []);
 
-  // Draw current frame to canvas respecting aspect ratio
+  // Draw current frame to canvas respecting aspect ratio and DPR
   const drawFrame = useCallback((frameNum: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -98,7 +98,7 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
 
     let img = framesCacheRef.current.get(frameNum);
 
-    // If target frame hasn't loaded yet, find nearest cached frame as fallback
+    // If target frame hasn't loaded yet, find nearest cached frame as fallback for zero flash
     if (!img || !img.complete) {
       for (let offset = 1; offset <= 30; offset++) {
         const prev = framesCacheRef.current.get(frameNum - offset);
@@ -116,7 +116,7 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
 
     if (!img || !img.complete || img.naturalWidth === 0) return;
 
-    // High DPI canvas scaling
+    // High DPI canvas scaling (clamped to 2 to prevent GPU memory pressure)
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const displayWidth = canvas.clientWidth;
     const displayHeight = canvas.clientHeight;
@@ -129,7 +129,7 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
       canvas.height = neededHeight;
     }
 
-    // Cover or Contain sizing (maintain 16:9 / natural aspect ratio centered)
+    // Preserve 16:9 / natural aspect ratio centered
     const imgWidth = img.naturalWidth;
     const imgHeight = img.naturalHeight;
     const scale = Math.min(canvas.width / imgWidth, canvas.height / imgHeight);
@@ -139,14 +139,14 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
     const destX = (canvas.width - destWidth) / 2;
     const destY = (canvas.height - destHeight) / 2;
 
-    // Background fill
-    ctx.fillStyle = "#171410";
+    // Deep black base fill matching ZYNOVA dark theme
+    ctx.fillStyle = "#080706";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.drawImage(img, destX, destY, destWidth, destHeight);
   }, []);
 
-  // Scrub frame according to progress
+  // Scrub frame according to progress (0.0 to 1.0)
   useEffect(() => {
     const targetProgress = prefersReducedMotion ? 0 : Math.max(0, Math.min(1, progress));
     const targetFrameIndex = Math.min(
@@ -160,7 +160,7 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
 
     activeFrameIndexRef.current = targetFrameIndex;
 
-    // Ensure target frame is loading if not already cached
+    // Ensure target frame is loaded if not already cached
     if (!framesCacheRef.current.has(targetFrameIndex)) {
       const img = new Image();
       img.src = getFrameUrl(targetFrameIndex);
@@ -170,6 +170,18 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
           drawFrame(targetFrameIndex);
         }
       };
+    }
+
+    // Preload immediate adjacent neighbors
+    if (targetFrameIndex + 1 <= TOTAL_FRAMES && !framesCacheRef.current.has(targetFrameIndex + 1)) {
+      const nextImg = new Image();
+      nextImg.src = getFrameUrl(targetFrameIndex + 1);
+      nextImg.onload = () => framesCacheRef.current.set(targetFrameIndex + 1, nextImg);
+    }
+    if (targetFrameIndex - 1 >= 1 && !framesCacheRef.current.has(targetFrameIndex - 1)) {
+      const prevImg = new Image();
+      prevImg.src = getFrameUrl(targetFrameIndex - 1);
+      prevImg.onload = () => framesCacheRef.current.set(targetFrameIndex - 1, prevImg);
     }
 
     if (rafIdRef.current !== null) {
@@ -187,7 +199,14 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
     };
   }, [progress, drawFrame, prefersReducedMotion, isFirstFrameLoaded]);
 
-  // Handle window resizing
+  // Initial render when first frame is loaded
+  useEffect(() => {
+    if (isFirstFrameLoaded) {
+      drawFrame(activeFrameIndexRef.current);
+    }
+  }, [isFirstFrameLoaded, drawFrame]);
+
+  // Handle window and element resizing
   useEffect(() => {
     const handleResize = () => {
       drawFrame(activeFrameIndexRef.current);

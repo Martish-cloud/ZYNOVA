@@ -17,6 +17,8 @@ import { WhyZynova } from "./sections/WhyZynova";
 import { Industries } from "./sections/Industries";
 import { Process } from "./sections/Process";
 import { Platforms } from "./sections/Platforms";
+import { ControllerShowcase } from "./sections/ControllerShowcase";
+import { HeadphonesShowcase } from "./sections/HeadphonesShowcase";
 import { Testimonials } from "./sections/Testimonials";
 import { CTASection } from "./sections/CTASection";
 import { BookCall } from "./sections/BookCall";
@@ -32,14 +34,16 @@ export const App: React.FC = () => {
   const [prefilledBrief, setPrefilledBrief] = useState<string>("");
   const [activeToast, setActiveToast] = useState<ToastMessage | null>(null);
 
-  // 14 Consecutive Stack Panels linking each section to the next for 3D stacking
+  // Stack Panels linking each section to the next for 3D stacking
   const p1 = useRef<HTMLElement>(null);
   const p2 = useRef<HTMLElement>(null);
   const p3 = useRef<HTMLElement>(null);
   const p4 = useRef<HTMLElement>(null);
   const p5 = useRef<HTMLElement>(null);
+  const pController = useRef<HTMLElement>(null);
   const p6 = useRef<HTMLElement>(null);
   const p7 = useRef<HTMLElement>(null);
+  const pHeadphones = useRef<HTMLElement>(null);
   const p8 = useRef<HTMLElement>(null);
   const p9 = useRef<HTMLElement>(null);
   const p10 = useRef<HTMLElement>(null);
@@ -131,9 +135,20 @@ export const App: React.FC = () => {
               id="platforms"
               theme="dark"
               index={5}
-              nextPanelRef={p6}
+              nextPanelRef={pController}
             >
               <Platforms />
+            </StackPanel>
+
+            {/* SECTION 1: Evofox Gaming Controller Cinematic Showcase */}
+            <StackPanel
+              ref={pController}
+              id="controller-showcase"
+              theme="dark"
+              index={6}
+              nextPanelRef={p6}
+            >
+              <ControllerShowcase />
             </StackPanel>
 
             {/* Panel 6: TechStack (Engineered With High-Performance Modern Tools) */}
@@ -141,29 +156,32 @@ export const App: React.FC = () => {
               ref={p6}
               id="tech-stack"
               theme="dark"
-              index={6}
+              index={7}
               nextPanelRef={p7}
             >
               <TechStack />
             </StackPanel>
 
-            {/* Panel 7: Projects (dark) */}
+            {/* Panel 7: Projects (Digital Solutions Engineered for Real World Impact) */}
             <StackPanel
               ref={p7}
               id="projects"
               theme="dark"
-              index={7}
-              nextPanelRef={p8}
+              index={8}
+              nextPanelRef={pHeadphones}
             >
               <Projects onDiscussProject={handleDiscussProject} />
             </StackPanel>
 
-            {/* Panel 8: WhyZynova (dark) */}
+            {/* SECTION 2: Apple Headphones Scroll-Controlled 240-Frame Sequence */}
+            <HeadphonesShowcase ref={pHeadphones} />
+
+            {/* Panel 8: WhyZynova (Engineered for Reliability and Predictable Success) */}
             <StackPanel
               ref={p8}
               id="why-zynova"
               theme="dark"
-              index={8}
+              index={10}
               nextPanelRef={p9}
             >
               <WhyZynova />
@@ -174,7 +192,7 @@ export const App: React.FC = () => {
               ref={p9}
               id="industries"
               theme="dark"
-              index={9}
+              index={11}
               nextPanelRef={p10}
             >
               <Industries />
@@ -185,7 +203,7 @@ export const App: React.FC = () => {
               ref={p10}
               id="process"
               theme="dark"
-              index={10}
+              index={12}
               nextPanelRef={p11}
             >
               <Process />
@@ -196,7 +214,7 @@ export const App: React.FC = () => {
               ref={p11}
               id="testimonials"
               theme="dark"
-              index={11}
+              index={13}
               nextPanelRef={p12}
             >
               <Testimonials />
@@ -207,7 +225,7 @@ export const App: React.FC = () => {
               ref={p12}
               id="cta"
               theme="dark"
-              index={12}
+              index={14}
               nextPanelRef={p13}
             >
               <CTASection />
@@ -218,7 +236,7 @@ export const App: React.FC = () => {
               ref={p13}
               id="contact"
               theme="dark"
-              index={13}
+              index={15}
               nextPanelRef={p14}
             >
               <BookCall
@@ -236,7 +254,7 @@ export const App: React.FC = () => {
               ref={p14}
               id="footer"
               theme="dark"
-              index={14}
+              index={16}
               nextPanelRef={null}
             >
               <Footer />
