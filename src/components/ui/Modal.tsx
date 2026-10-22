@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+import { useSmoothScroll } from "../motion/SmoothScroll";
 
 interface ModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface ModalProps {
   children: React.ReactNode;
   title?: string;
   maxWidth?: string;
+  theme?: "dark" | "light";
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -15,62 +17,116 @@ export const Modal: React.FC<ModalProps> = ({
   onClose,
   children,
   title,
-  maxWidth = "max-w-3xl"
+  maxWidth = "max-w-2xl",
+  theme = "dark"
 }) => {
+  const { lenis } = useSmoothScroll();
+  const isDark = theme === "dark";
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
 
     if (isOpen) {
+      // 1. Freeze background page smooth-scrolling via Lenis while modal is active
+      lenis?.stop();
+
+      // 2. Lock standard body scroll and prevent layout shift from scrollbar removal
       const originalOverflow = document.body.style.overflow;
+      const originalPaddingRight = document.body.style.paddingRight;
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+
       document.body.style.overflow = "hidden";
+      if (scrollBarWidth > 0) {
+        document.body.style.paddingRight = `${scrollBarWidth}px`;
+      }
+
       window.addEventListener("keydown", handleKeyDown);
+
       return () => {
+        // Restore Lenis and body scroll when modal unmounts or closes
+        lenis?.start();
         document.body.style.overflow = originalOverflow;
+        document.body.style.paddingRight = originalPaddingRight;
         window.removeEventListener("keydown", handleKeyDown);
       };
     }
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, lenis]);
 
   if (!isOpen) return null;
 
   const modalNode = (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-hidden"
       role="dialog"
       aria-modal="true"
+      data-lenis-prevent="true"
     >
-      {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
+      {/* Backdrop with high blur and dark veil */}
+      <div
+        className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Modal Container */}
-      <div 
-        className={`relative w-full ${maxWidth} liquid-glass-panel !bg-[#FFFDF8]/98 !backdrop-blur-2xl !border-[#E5D9C8] rounded-2xl overflow-hidden z-10 transition-all my-8 max-h-[90vh] flex flex-col text-[#292720] shadow-[0_28px_72px_rgba(41,39,32,0.18)]`}
+      {/* Modal Dialog Box */}
+      <div
+        className={`relative w-full ${maxWidth} rounded-2xl overflow-hidden z-10 transition-all flex flex-col shadow-[0_32px_80px_rgba(0,0,0,0.7)] ${
+          isDark
+            ? "bg-[#11100E] border border-[#D0A04B]/30 text-[#F8F5EF]"
+            : "bg-[#FFFDF8] border border-[#E5D9C8] text-[#292720]"
+        }`}
+        style={{
+          maxHeight: "calc(100dvh - 36px)",
+          height: "auto",
+        }}
         onClick={(e) => e.stopPropagation()}
+        data-lenis-prevent="true"
       >
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-3 sm:px-6 sm:py-3.5 border-b border-[#E5D9C8] bg-[#F0E4D2]/40 shrink-0">
+        {/* Header - Fixed & Never Scrolls */}
+        <div
+          className={`flex items-center justify-between px-5 py-3.5 sm:px-6 sm:py-4 border-b shrink-0 ${
+            isDark
+              ? "bg-[#161410] border-white/10"
+              : "bg-[#F0E4D2]/40 border-[#E5D9C8]"
+          }`}
+        >
           {title ? (
-            <h3 className="text-base sm:text-lg font-bold text-[#292720] tracking-wide font-heading">{title}</h3>
-          ) : <div />}
-          
+            <h3
+              className={`text-base sm:text-lg font-bold tracking-wide font-heading ${
+                isDark ? "text-[#F8F5EF]" : "text-[#292720]"
+              }`}
+            >
+              {title}
+            </h3>
+          ) : (
+            <div />
+          )}
+
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-[#756C60] hover:text-[#292720] rounded-full hover:bg-[#E5D9C8]/50 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+            className={`p-1.5 rounded-full transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B] ${
+              isDark
+                ? "text-[#C9C1B5] hover:text-[#F8F5EF] hover:bg-white/10"
+                : "text-[#756C60] hover:text-[#292720] hover:bg-[#E5D9C8]/50"
+            }`}
             aria-label="Close modal"
           >
-            <X className="w-4 h-4 sm:w-5 sm:h-5" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Content */}
-        <div className="p-4.5 sm:p-6 overflow-y-auto space-y-4 sm:space-y-5">
+        {/* Scrollable Content Body - Dedicated inner scroll container */}
+        <div
+          className="p-5 sm:p-6 overflow-y-auto flex-1 min-h-0 space-y-5"
+          style={{
+            overscrollBehavior: "contain",
+            WebkitOverflowScrolling: "touch",
+          }}
+          data-lenis-prevent="true"
+        >
           {children}
         </div>
       </div>
@@ -79,3 +135,5 @@ export const Modal: React.FC<ModalProps> = ({
 
   return typeof document !== "undefined" ? createPortal(modalNode, document.body) : modalNode;
 };
+
+export default Modal;

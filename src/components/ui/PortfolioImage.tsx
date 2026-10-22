@@ -116,6 +116,9 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
       video.pause();
     };
 
+    // Trigger immediate playback attempt
+    playVideo();
+
     let observer: IntersectionObserver | null = null;
     if (typeof IntersectionObserver !== "undefined" && containerRef.current) {
       observer = new IntersectionObserver(
@@ -131,8 +134,6 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
         { threshold: 0.15, rootMargin: "100px" }
       );
       observer.observe(containerRef.current);
-    } else {
-      playVideo();
     }
 
     return () => {
@@ -174,19 +175,19 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
   return (
     <div ref={containerRef} className="relative w-full h-full overflow-hidden block">
       {activeVideo ? (
-        <div className="w-full h-full relative">
+        <div className="w-full h-full relative bg-[#11100E]">
           <video
+            key={activeVideo}
             ref={videoRef}
             src={activeVideo}
-            poster={currentSrc}
             autoPlay
             loop
             muted
             playsInline
-            preload={isPriority ? "auto" : "metadata"}
+            preload="auto"
             onError={handleVideoError}
             onLoadedData={() => setIsLoaded(true)}
-            className={`${className} w-full h-full object-cover transition-opacity duration-500 opacity-100`}
+            className={`${className} w-full h-full object-cover transition-opacity duration-300 opacity-100`}
             style={{
               aspectRatio: `${width} / ${height}`,
               backfaceVisibility: "hidden",

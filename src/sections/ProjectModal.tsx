@@ -30,7 +30,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={project.title} maxWidth="max-w-3xl">
+    <Modal isOpen={isOpen} onClose={onClose} title={project.title} maxWidth="max-w-3xl" theme="light">
       <div className="space-y-6">
         {/* Subtitle & Badge */}
         <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#E5D9C8] text-xs">
