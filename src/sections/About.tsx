@@ -6,12 +6,12 @@ import { useInViewAnimation } from "../hooks/useInViewAnimation";
 import { ParallaxLayer } from "../components/motion/ParallaxLayer";
 import { StaggerGrid } from "../components/motion/StaggerGrid";
 import { CheckCircle2, Sparkles } from "lucide-react";
-import { HeadphonesScrollCanvas } from "../components/ui/HeadphonesScrollCanvas";
+import { FounderScrollCanvas } from "../components/ui/FounderScrollCanvas";
 
 export const About: React.FC = () => {
   const { setCursor, resetCursor } = useCursor();
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [headphonesProgress, setHeadphonesProgress] = useState(0);
+  const [founderProgress, setFounderProgress] = useState(0);
 
   const {
     ref: narrativeRef,
@@ -38,7 +38,7 @@ export const About: React.FC = () => {
     rootMargin: "0px 0px -6% 0px"
   });
 
-  // Track scroll progress across Practical Digital Engineering section to scrub headphones frames
+  // Track scroll progress across Practical Digital Engineering section to scrub Founder AAA frames
   const handleScroll = useCallback(() => {
     if (!sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
@@ -51,7 +51,7 @@ export const About: React.FC = () => {
     const scrollTravel = totalH + windowH * 0.25;
 
     const progress = Math.max(0, Math.min(1, currentY / Math.max(1, scrollTravel)));
-    setHeadphonesProgress(progress);
+    setFounderProgress(progress);
   }, []);
 
   useEffect(() => {
@@ -198,12 +198,12 @@ export const About: React.FC = () => {
             }`}
           >
             <div className="relative w-full">
-              {/* Floating Accent Tag */}
+              {/* Floating Accent Tag - Founder Identity */}
               <div className="absolute -top-3 -right-2 z-20 pointer-events-none">
                 <ParallaxLayer speed={0.16} rotate={-3}>
-                  <div className="px-3 py-1 rounded-full bg-[#D0A04B] text-[#080706] text-[10px] font-mono font-bold tracking-wider uppercase shadow-[0_4px_16px_rgba(208,160,75,0.4)] flex items-center gap-1.5 border border-white/20">
+                  <div className="px-3.5 py-1 rounded-full bg-gradient-to-r from-[#D0A04B] via-[#E2B768] to-[#D0A04B] text-[#080706] text-[10px] font-mono font-bold tracking-wider uppercase shadow-[0_4px_16px_rgba(208,160,75,0.4)] flex items-center gap-1.5 border border-white/20">
                     <Sparkles className="w-3 h-3 text-[#080706]" />
-                    <span>PRECISION HARDWARE</span>
+                    <span>FOUNDER IDENTITY</span>
                   </div>
                 </ParallaxLayer>
               </div>
@@ -211,13 +211,13 @@ export const About: React.FC = () => {
               <div
                 tabIndex={0}
                 role="region"
-                aria-label="ZYNOVA Precision Digital Engineering - Headphones 360 Visual"
+                aria-label="ZYNOVA Founder Identity - Executive Visual"
                 onMouseEnter={() => setCursor("project", "ROTATE")}
                 onMouseLeave={resetCursor}
                 className="w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B]/80 rounded-2xl sm:rounded-3xl overflow-hidden bg-[#171410] border-2 border-[#D0A04B]/30 hover:border-[#D0A04B]/70 shadow-[0_16px_40px_rgba(0,0,0,0.6),0_4px_16px_rgba(208,160,75,0.12)] transition-all duration-500 aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]"
               >
-                <HeadphonesScrollCanvas
-                  progress={headphonesProgress}
+                <FounderScrollCanvas
+                  progress={founderProgress}
                   className="w-full h-full"
                 />
               </div>

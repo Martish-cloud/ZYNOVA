@@ -30,7 +30,10 @@ export const Hero: React.FC = () => {
     const scrollDistance = Math.max(1, totalH - windowH);
     const currentScroll = -rect.top;
 
-    const progress = Math.max(0, Math.min(1, currentScroll / scrollDistance));
+    // Allocate 88% of the scroll travel to cleanly advance all 234 frames (frame 0 to 233)
+    // The remaining 12% holds the completed final frame before BuildVision rises over it
+    const animRatio = 0.88;
+    const progress = Math.max(0, Math.min(1, currentScroll / (scrollDistance * animRatio)));
     setScrollProgress(progress);
   }, []);
 
@@ -51,9 +54,9 @@ export const Hero: React.FC = () => {
       ref={containerRef}
       className="relative w-full bg-[#080706] text-white overflow-visible"
       style={{
-        // 185vh provides ~650-750px of comfortable tactile scroll travel for 234 frames
-        // before BuildVision rises smoothly over it with zero dead gap
-        minHeight: "185vh",
+        // 260vh provides ~1100-1200px of comfortable tactile scroll travel for all 234 frames
+        // guaranteeing the complete sequence finishes before BuildVision rises smoothly over it
+        minHeight: "260vh",
       }}
       aria-label="Home Hero"
     >
