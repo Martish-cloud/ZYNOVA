@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { siteConfig } from "../config/siteConfig";
 import { ZynovaHeroScrollCanvas } from "../components/ui/ZynovaHeroScrollCanvas";
+import { PersistentVerticalScrollText } from "../components/ui/PersistentVerticalScrollText";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { Badge } from "../components/ui/Badge";
-import { WordReveal } from "../components/motion/WordReveal";
 import { BlurFadeUp } from "../components/motion/BlurFadeUp";
 import { useSmoothScroll } from "../components/motion/SmoothScroll";
 import { useReducedMotion } from "../hooks/useReducedMotion";
@@ -51,13 +51,17 @@ export const Hero: React.FC = () => {
       ref={containerRef}
       className="relative w-full bg-[#080706] text-white overflow-hidden"
       style={{
-        // 185vh provides ~600-800px of comfortable tactile scroll travel for 234 frames
-        minHeight: "185vh",
+        // 175vh provides ~650-750px of comfortable tactile scroll travel for 234 frames
+        // before BuildVision rises smoothly over it with zero dead gap
+        minHeight: "175vh",
       }}
       aria-label="Home Hero"
     >
       {/* Sticky Full-Viewport Stage */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center pt-16 sm:pt-20 pb-8">
+        {/* Priority 1: Persistent Left-Side Hero Scrolling Text - Confined Strictly to Hero */}
+        <PersistentVerticalScrollText />
+
         {/* Full-Section Background Canvas: 234-Frame Zynova Hero Scroll-Driven Animation */}
         <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
           <ZynovaHeroScrollCanvas
@@ -65,28 +69,34 @@ export const Hero: React.FC = () => {
             className="w-full h-full"
           />
 
+          {/* Restored Subtle Cyber Grid Pattern */}
+          <div
+            className="absolute inset-0 bg-cyber-grid opacity-25 pointer-events-none z-[1]"
+            aria-hidden="true"
+          />
+
           {/* Left-Side Dark Gradient Veil to Guarantee Crisp Text Readability while keeping Product Bright on Right */}
           <div
-            className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#080706] via-[#080706]/92 md:via-[#080706]/78 lg:via-[#080706]/60 to-transparent"
+            className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#080706] via-[#080706]/92 md:via-[#080706]/78 lg:via-[#080706]/60 to-transparent z-[2]"
             aria-hidden="true"
           />
 
           {/* Subtle Top & Bottom Fade */}
           <div
-            className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#080706] to-transparent pointer-events-none"
+            className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#080706] to-transparent pointer-events-none z-[2]"
             aria-hidden="true"
           />
           <div
-            className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#080706] to-transparent pointer-events-none"
+            className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#080706] to-transparent pointer-events-none z-[2]"
             aria-hidden="true"
           />
         </div>
 
         {/* Foreground Content: Brand Headline, Narrative & CTAs on the Left */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 md:py-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 md:py-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-10 xl:gap-14 items-center">
             {/* Left Column: Far-Left Aligned Brand Headline, Narrative & CTAs */}
-            <div className="lg:col-span-6 xl:col-span-6 flex flex-col items-start text-left">
+            <div className="lg:col-span-6 xl:col-span-6 flex flex-col items-start text-left pl-6 sm:pl-8 lg:pl-10">
               {/* Top Micro Badge with Official Brand Tagline */}
               <BlurFadeUp delay={0.05} y={-10} className="mb-3.5 sm:mb-4">
                 <Badge
@@ -98,29 +108,20 @@ export const Hero: React.FC = () => {
                 </Badge>
               </BlurFadeUp>
 
-              {/* Massive Cinematic Word-Reveal Headline */}
-              <div className="mb-4 sm:mb-5">
-                <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black font-heading tracking-tighter leading-[0.98] text-white flex flex-col items-start">
-                  <WordReveal
-                    text="BUILD. AUTOMATE."
-                    as="span"
-                    wordClassName="text-white"
-                    stagger={0.07}
-                    initialDelay={0.1}
-                  />
-                  <WordReveal
-                    text="SCALE WHAT'S NEXT."
-                    as="span"
-                    highlightWords={["SCALE", "WHAT'S", "NEXT."]}
-                    highlightClassName="bg-gradient-to-r from-[#D0A04B] via-[#E2B768] to-[#A9792E] bg-clip-text text-transparent"
-                    stagger={0.07}
-                    initialDelay={0.25}
-                  />
+              {/* Priority 2: Restored Unclipped Hero Headline */}
+              <div className="mb-4 sm:mb-5 w-full">
+                <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-[78px] font-black font-heading tracking-tight leading-[1.08] text-white flex flex-col items-start pb-1">
+                  <span className="text-white block whitespace-nowrap drop-shadow-sm">
+                    BUILD. AUTOMATE.
+                  </span>
+                  <span className="bg-gradient-to-r from-[#D0A04B] via-[#E2B768] to-[#A9792E] bg-clip-text text-transparent block whitespace-nowrap">
+                    SCALE WHAT'S NEXT.
+                  </span>
                 </h1>
               </div>
 
               {/* Supporting Copy */}
-              <BlurFadeUp delay={0.3} y={15}>
+              <BlurFadeUp delay={0.25} y={15}>
                 <p className="text-xs sm:text-sm md:text-base text-[#D4CEC4] max-w-xl leading-relaxed mb-4 sm:mb-5 font-normal">
                   {siteConfig.brandName} is a premium technology studio engineering high-performance websites, scalable software, mobile apps, intelligent automation workflows, and actionable business intelligence.
                 </p>

@@ -17,14 +17,23 @@ interface PortfolioImageProps {
 const resolveVideoSrc = (src: string, alt: string, explicitVideo?: string): string | null => {
   if (explicitVideo) return explicitVideo;
   const combined = (src + " " + alt).toLowerCase();
-  if (combined.includes("tastybites") || combined.includes("tasty bites") || combined.includes("tasty-bites")) {
-    return "/videos/Tasty Bites.mp4";
+  if (combined.includes("aaranya") || combined.includes("silks") || combined.includes("saree")) {
+    return "/videos/Aaranya%20Silks.mp4";
   }
-  if (combined.includes("hamhold")) {
+  if (
+    combined.includes("hamhold") ||
+    combined.includes("emerald") ||
+    combined.includes("jewellery") ||
+    combined.includes("jewelry")
+  ) {
     return "/videos/HAMHOLD.mp4";
   }
-  if (combined.includes("aaranya")) {
-    return "/videos/Aaranya Silks.mp4";
+  if (
+    combined.includes("tastybites") ||
+    combined.includes("tasty bites") ||
+    combined.includes("tasty-bites")
+  ) {
+    return "/videos/Tasty%20Bites.mp4";
   }
   return null;
 };
@@ -93,6 +102,12 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
     setVideoFailed(false);
   }
 
+  const prevVideoRef = useRef(explicitVideo);
+  if (prevVideoRef.current !== explicitVideo) {
+    prevVideoRef.current = explicitVideo;
+    setVideoFailed(false);
+  }
+
   // Lazy loading & playback management for project preview video
   useEffect(() => {
     if (!activeVideo) return;
@@ -158,14 +173,14 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
 
   if (isPermanentlyFailed) {
     return (
-      <div className="w-full h-full min-h-[144px] flex flex-col items-center justify-center p-4 bg-[#FAF7F0] border-b border-[#E5D9C8] text-center select-none">
-        <div className="p-2.5 rounded-full bg-[#B58A45]/15 border border-[#B58A45]/30 text-[#B58A45] mb-2 shadow-sm">
+      <div className="w-full h-full min-h-[144px] flex flex-col items-center justify-center p-4 bg-[#120F0C] border-b border-[#D0A04B]/20 text-center select-none">
+        <div className="p-2.5 rounded-full bg-[#D0A04B]/15 border border-[#D0A04B]/30 text-[#D0A04B] mb-2 shadow-sm">
           {platform ? <Sparkles className="w-5 h-5" /> : <Layers className="w-5 h-5" />}
         </div>
-        <p className="text-xs font-bold font-heading text-[#292720] tracking-wide">
+        <p className="text-xs font-bold font-heading text-white tracking-wide">
           {fallbackTitle || alt.split(" - ")[0]}
         </p>
-        <span className="text-[10px] font-mono text-[#B58A45] mt-0.5">
+        <span className="text-[10px] font-mono text-[#D0A04B] mt-0.5">
           {fallbackBadge || (platform ? `${platform} Showcase` : "Interactive Platform")}
         </span>
       </div>

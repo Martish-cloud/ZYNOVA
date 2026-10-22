@@ -17,7 +17,8 @@ export interface StackMotionValues {
 
 export function useStackProgress(
   panelRef: React.RefObject<HTMLElement | null>,
-  nextPanelRef?: React.RefObject<HTMLElement | null> | null
+  nextPanelRef?: React.RefObject<HTMLElement | null> | null,
+  isFirst: boolean = false
 ): StackMotionValues {
   const prefersReducedMotion = useReducedMotion();
   const [stickyTop, setStickyTop] = useState<number>(0);
@@ -35,10 +36,14 @@ export function useStackProgress(
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Calculate sticky top: -(panelHeight - 100vh) if taller than viewport
+  // Calculate sticky top: 0 if first panel (Hero), else -(panelHeight - 100vh) if taller than viewport
   useLayoutEffect(() => {
     const updateStickyTop = () => {
       if (!panelRef.current) return;
+      if (isFirst) {
+        setStickyTop(0);
+        return;
+      }
       const vh = window.innerHeight;
       const h = panelRef.current.offsetHeight;
       if (h > vh) {

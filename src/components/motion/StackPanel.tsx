@@ -39,6 +39,8 @@ export const StackPanel = forwardRef<HTMLElement, StackPanelProps>(({
     () => localRef.current
   );
 
+  const isFirst = index === 0;
+
   const {
     stickyTop,
     scale,
@@ -49,9 +51,7 @@ export const StackPanel = forwardRef<HTMLElement, StackPanelProps>(({
     willChange,
     isLastPanel,
     prefersReducedMotion,
-  } = useStackProgress(localRef, nextPanelRef);
-
-  const isFirst = index === 0;
+  } = useStackProgress(localRef, nextPanelRef, isFirst);
 
   // Visual classes for dark theme surfaces
   const isEven = index % 2 === 0;

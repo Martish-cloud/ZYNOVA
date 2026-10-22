@@ -24,7 +24,6 @@ import { Contact } from "./sections/Contact";
 import { Footer } from "./components/layout/Footer";
 import { FixedFounderBadge } from "./components/ui/FixedFounderBadge";
 import { FloatingWhatsApp } from "./components/ui/FloatingWhatsApp";
-import { PersistentVerticalScrollText } from "./components/ui/PersistentVerticalScrollText";
 import { Toast } from "./components/ui/Toast";
 import type { ToastMessage } from "./components/ui/Toast";
 
@@ -33,7 +32,7 @@ export const App: React.FC = () => {
   const [prefilledBrief, setPrefilledBrief] = useState<string>("");
   const [activeToast, setActiveToast] = useState<ToastMessage | null>(null);
 
-  // 14 Consecutive Stack Panels linking each section to the next for 3D stacking
+  // 15 Consecutive Stack Panels linking each section to the next for 3D stacking
   const p0 = useRef<HTMLElement>(null);
   const p1 = useRef<HTMLElement>(null);
   const p2 = useRef<HTMLElement>(null);
@@ -48,6 +47,7 @@ export const App: React.FC = () => {
   const p11 = useRef<HTMLElement>(null);
   const p12 = useRef<HTMLElement>(null);
   const p13 = useRef<HTMLElement>(null);
+  const p14 = useRef<HTMLElement>(null);
 
   const handleSelectServiceForBooking = useCallback((serviceTitle: string) => {
     setPrefilledService(serviceTitle);
@@ -134,91 +134,101 @@ export const App: React.FC = () => {
               <FeaturedProjects onDiscussProject={handleDiscussProject} />
             </StackPanel>
 
-            {/* Panel 5: TechStack (dark) */}
+            {/* Panel 5: Platforms (Available on Leading Freelance Contract Hubs) */}
             <StackPanel
               ref={p5}
-              id="tech-stack"
+              id="platforms"
               theme="dark"
               index={5}
               nextPanelRef={p6}
             >
-              <TechStack />
+              <Platforms />
             </StackPanel>
 
-            {/* Panel 6: Projects (dark) */}
+            {/* Panel 6: TechStack (Engineered With High-Performance Modern Tools) */}
             <StackPanel
               ref={p6}
-              id="projects"
+              id="tech-stack"
               theme="dark"
               index={6}
               nextPanelRef={p7}
             >
-              <Projects onDiscussProject={handleDiscussProject} />
+              <TechStack />
             </StackPanel>
 
-            {/* Panel 7: WhyZynova (dark) */}
+            {/* Panel 7: Projects (dark) */}
             <StackPanel
               ref={p7}
-              id="why-zynova"
+              id="projects"
               theme="dark"
               index={7}
               nextPanelRef={p8}
             >
-              <WhyZynova />
+              <Projects onDiscussProject={handleDiscussProject} />
             </StackPanel>
 
-            {/* Panel 8: Industries (dark) */}
+            {/* Panel 8: WhyZynova (dark) */}
             <StackPanel
               ref={p8}
-              id="industries"
+              id="why-zynova"
               theme="dark"
               index={8}
               nextPanelRef={p9}
             >
-              <Industries />
+              <WhyZynova />
             </StackPanel>
 
-            {/* Panel 9: Process (dark) */}
+            {/* Panel 9: Industries (dark) */}
             <StackPanel
               ref={p9}
-              id="process"
+              id="industries"
               theme="dark"
               index={9}
               nextPanelRef={p10}
             >
-              <Process />
+              <Industries />
             </StackPanel>
 
-            {/* Panel 10: Platforms + Testimonials (dark) */}
+            {/* Panel 10: Process (Seven Step Delivery Pipeline) */}
             <StackPanel
               ref={p10}
-              id="testimonials"
+              id="process"
               theme="dark"
               index={10}
               nextPanelRef={p11}
             >
-              <Platforms />
-              <Testimonials />
+              <Process />
             </StackPanel>
 
-            {/* Panel 11: CTASection (dark) */}
+            {/* Panel 11: Testimonials (dark) */}
             <StackPanel
               ref={p11}
-              id="cta"
+              id="testimonials"
               theme="dark"
               index={11}
               nextPanelRef={p12}
             >
-              <CTASection />
+              <Testimonials />
             </StackPanel>
 
-            {/* Panel 12: BookCall + Contact (dark) */}
+            {/* Panel 12: CTASection (dark) */}
             <StackPanel
               ref={p12}
-              id="contact"
+              id="cta"
               theme="dark"
               index={12}
               nextPanelRef={p13}
+            >
+              <CTASection />
+            </StackPanel>
+
+            {/* Panel 13: BookCall + Contact (dark) */}
+            <StackPanel
+              ref={p13}
+              id="contact"
+              theme="dark"
+              index={13}
+              nextPanelRef={p14}
             >
               <BookCall
                 prefilledService={prefilledService}
@@ -230,12 +240,12 @@ export const App: React.FC = () => {
               />
             </StackPanel>
 
-            {/* Panel 13: Footer (dark) */}
+            {/* Panel 14: Footer (dark) */}
             <StackPanel
-              ref={p13}
+              ref={p14}
               id="footer"
               theme="dark"
-              index={13}
+              index={14}
               nextPanelRef={null}
             >
               <Footer />
@@ -247,9 +257,6 @@ export const App: React.FC = () => {
 
           {/* Floating WhatsApp Quick Action Button */}
           <FloatingWhatsApp />
-
-          {/* Priority 1: Persistent Vertical Left-Edge Scrolling Text Animation */}
-          <PersistentVerticalScrollText />
 
           {/* Feedback Toast */}
           <Toast toast={activeToast} onDismiss={() => setActiveToast(null)} />

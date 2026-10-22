@@ -25,6 +25,7 @@ export interface FeaturedProject {
   image: string;
   badge: string;
   tech: string[];
+  videoSrc?: string;
 }
 
 const FEATURED_PROJECTS: FeaturedProject[] = [
@@ -36,7 +37,8 @@ const FEATURED_PROJECTS: FeaturedProject[] = [
     url: "https://hamhold.zynova.co.in",
     image: "/projects/hamhold-jewellery.webp",
     badge: "Luxury Brand",
-    tech: ["React", "Tailwind CSS", "Cloudflare", "Framer"]
+    tech: ["React", "Tailwind CSS", "Cloudflare", "Framer"],
+    videoSrc: "/videos/HAMHOLD.mp4"
   },
   {
     id: "aaranya-silks",
@@ -46,7 +48,8 @@ const FEATURED_PROJECTS: FeaturedProject[] = [
     url: "https://aaranya-silks.zynova.co.in",
     image: "/projects/aaranya-silks.webp",
     badge: "Luxury Fashion",
-    tech: ["React", "Tailwind CSS", "Cloudflare", "E-commerce"]
+    tech: ["React", "Tailwind CSS", "Cloudflare", "E-commerce"],
+    videoSrc: "/videos/Aaranya%20Silks.mp4"
   },
   {
     id: "tastybites",
@@ -56,7 +59,8 @@ const FEATURED_PROJECTS: FeaturedProject[] = [
     url: "https://tastybites.zynova.co.in",
     image: "/projects/tastybites.webp",
     badge: "Food Ordering",
-    tech: ["React.js", "Node.js", "Tailwind CSS", "Express.js"]
+    tech: ["React.js", "Node.js", "Tailwind CSS", "Express.js"],
+    videoSrc: "/videos/Tasty%20Bites.mp4"
   },
   {
     id: "ml-ai-portfolio",
@@ -102,7 +106,12 @@ const FEATURED_PROJECTS: FeaturedProject[] = [
 
 const getProjectModalItem = (featured: FeaturedProject): ProjectItem => {
   const found = projectsData.find((p) => p.id === featured.id);
-  if (found) return found;
+  if (found) {
+    return {
+      ...found,
+      videoSrc: featured.videoSrc || found.videoSrc
+    };
+  }
 
   return {
     id: featured.id,
@@ -129,7 +138,8 @@ const getProjectModalItem = (featured: FeaturedProject): ProjectItem => {
       standardPrice: "$750",
       premiumPrice: "$1,500"
     },
-    demoUrl: featured.url
+    demoUrl: featured.url,
+    videoSrc: featured.videoSrc
   };
 };
 
@@ -175,6 +185,7 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
           <PortfolioImage
             src={project.image}
             alt={`${project.title} Preview`}
+            videoSrc={project.videoSrc}
             className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
           />
 

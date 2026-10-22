@@ -54,6 +54,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             platform={project.platform}
             fallbackTitle={project.title}
             fallbackBadge={project.badge}
+            videoSrc={project.videoSrc}
             width={1200}
             height={750}
             className={`w-full h-full ${

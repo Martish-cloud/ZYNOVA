@@ -51,40 +51,42 @@ export const Stats: React.FC = () => {
     <section
       id="stats"
       ref={containerRef}
-      className="relative z-10 py-10 sm:py-12 bg-transparent"
+      className="relative z-10 py-6 sm:py-8 md:py-10 bg-transparent"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <StaggerGrid stagger={0.08} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5">
+        <StaggerGrid stagger={0.06} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 lg:gap-4 items-stretch w-full">
           {stats.map((stat, idx) => {
             const Icon = stat.icon;
             return (
               <div
                 key={idx}
-                className="relative rounded-2xl overflow-hidden transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_36px_rgba(208,160,75,0.18)] group hover:-translate-y-1 h-full"
+                className="relative rounded-2xl overflow-hidden transition-all duration-300 shadow-[0_8px_24px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_32px_rgba(208,160,75,0.18)] group hover:-translate-y-1 h-full"
               >
                 {/* Synchronized Perimeter Border Light */}
                 <CardBorderLight retriggerKey={triggerCount} />
 
-                {/* Card Interior */}
-                <div className="relative z-10 p-5 rounded-2xl bg-[#171410] border border-[#D0A04B]/25 hover:border-[#D0A04B]/50 transition-colors h-full flex flex-col justify-between">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="p-2 rounded-xl bg-[#201B14] border border-[#D0A04B]/30 group-hover:scale-110 transition-transform">
-                      <Icon className={`w-4.5 h-4.5 ${stat.color}`} />
+                {/* Card Interior - Single Horizontal Baseline */}
+                <div className="relative z-10 p-4 sm:p-4.5 lg:p-4 xl:p-5 rounded-2xl bg-[#171410] border border-[#D0A04B]/25 hover:border-[#D0A04B]/50 transition-colors h-full flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2.5">
+                      <div className="p-1.5 sm:p-2 rounded-xl bg-[#201B14] border border-[#D0A04B]/30 group-hover:scale-105 transition-transform">
+                        <Icon className={`w-4 h-4 sm:w-4.5 sm:h-4.5 ${stat.color}`} />
+                      </div>
+                      <span className="font-mono text-[9px] uppercase text-[#A89F91] font-bold tracking-widest">
+                        METRIC // 0{idx + 1}
+                      </span>
                     </div>
-                    <span className="font-mono text-[9px] uppercase text-[#A89F91] font-bold tracking-widest">
-                      METRIC // 0{idx + 1}
-                    </span>
+
+                    <div className="text-2xl sm:text-2xl lg:text-[26px] xl:text-3xl font-extrabold font-heading text-white tracking-tight mb-1">
+                      {stat.value}
+                    </div>
+
+                    <div className="text-xs sm:text-[13px] font-bold text-[#D0A04B] mb-1">
+                      {stat.label}
+                    </div>
                   </div>
 
-                  <div className="text-2xl sm:text-3xl font-extrabold font-heading text-white tracking-tight mb-1">
-                    {stat.value}
-                  </div>
-
-                  <div className="text-xs sm:text-sm font-bold text-[#D0A04B] mb-0.5">
-                    {stat.label}
-                  </div>
-
-                  <p className="text-[11px] sm:text-xs text-[#D4CEC4] font-normal leading-snug">
+                  <p className="text-[11px] sm:text-xs text-[#D4CEC4] font-normal leading-snug pt-2 border-t border-white/5">
                     {stat.subtext}
                   </p>
                 </div>

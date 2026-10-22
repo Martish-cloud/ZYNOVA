@@ -477,6 +477,7 @@ const ProjectCard = React.memo<{
             platform={project.platform}
             fallbackTitle={project.title}
             fallbackBadge={project.badge}
+            videoSrc={project.videoSrc}
             className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.04]"
           />
 

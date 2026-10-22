@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { SectionHeading } from "../components/ui/SectionHeading";
 import { TypewriterText } from "../components/ui/TypewriterText";
 import { useCursor } from "../context/useCursor";
@@ -6,10 +6,12 @@ import { useInViewAnimation } from "../hooks/useInViewAnimation";
 import { ParallaxLayer } from "../components/motion/ParallaxLayer";
 import { StaggerGrid } from "../components/motion/StaggerGrid";
 import { CheckCircle2, Sparkles } from "lucide-react";
-import { HeroFramePlayer } from "./HeroFramePlayer";
+import { HeadphonesScrollCanvas } from "../components/ui/HeadphonesScrollCanvas";
 
 export const About: React.FC = () => {
   const { setCursor, resetCursor } = useCursor();
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [headphonesProgress, setHeadphonesProgress] = useState(0);
 
   const {
     ref: narrativeRef,
@@ -36,6 +38,33 @@ export const About: React.FC = () => {
     rootMargin: "0px 0px -6% 0px"
   });
 
+  // Track scroll progress across Practical Digital Engineering section to scrub headphones frames
+  const handleScroll = useCallback(() => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const windowH = window.innerHeight;
+    const totalH = sectionRef.current.offsetHeight;
+
+    // Progress advances smoothly as section passes through viewport
+    const startY = windowH * 0.75;
+    const currentY = startY - rect.top;
+    const scrollTravel = totalH + windowH * 0.25;
+
+    const progress = Math.max(0, Math.min(1, currentY / Math.max(1, scrollTravel)));
+    setHeadphonesProgress(progress);
+  }, []);
+
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [handleScroll]);
+
   const commitments = [
     {
       title: "Full IP Transfer",
@@ -60,17 +89,21 @@ export const About: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent">
+    <section
+      id="about"
+      ref={sectionRef}
+      className="py-12 sm:py-16 md:py-20 relative z-10 bg-transparent"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="ENGINEERING EXCELLENCE"
           title="Practical Digital Engineering for"
-          highlightedTitle="Ambitious Enterprises."
+          highlightedTitle="Ambitious Entrepreneurs & Enterprises."
           subtitle="At ZYNOVA, software must be resilient, beautiful, and directly tied to business results. We combine modern full-stack development, mobile engineering, AI workflows, and precision data analytics to solve tangible challenges."
           subtitleVariant="ltr"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center pt-2">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start pt-2">
           {/* Left Column: Mission & Capabilities */}
           <div ref={narrativeRef} className="lg:col-span-7 space-y-4 sm:space-y-5">
             {/* Step 1: Main Subheading */}
@@ -151,15 +184,10 @@ export const About: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Founder Visual Card */}
+          {/* Right Column: Headphones Scroll-Controlled 240-Frame Animation */}
           <div
             ref={founderRef}
-            style={
-              !prefersReducedMotion
-                ? { transitionDelay: isFounderInView ? "180ms" : "0ms" }
-                : undefined
-            }
-            className={`lg:col-span-5 flex items-center justify-center ${
+            className={`lg:col-span-5 flex items-center justify-center sticky top-24 lg:top-28 self-start ${
               !prefersReducedMotion
                 ? `transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,opacity] ${
                     isFounderInView
@@ -175,7 +203,7 @@ export const About: React.FC = () => {
                 <ParallaxLayer speed={0.16} rotate={-3}>
                   <div className="px-3 py-1 rounded-full bg-[#D0A04B] text-[#080706] text-[10px] font-mono font-bold tracking-wider uppercase shadow-[0_4px_16px_rgba(208,160,75,0.4)] flex items-center gap-1.5 border border-white/20">
                     <Sparkles className="w-3 h-3 text-[#080706]" />
-                    <span>FOUNDER DIRECT</span>
+                    <span>PRECISION HARDWARE</span>
                   </div>
                 </ParallaxLayer>
               </div>
@@ -183,18 +211,14 @@ export const About: React.FC = () => {
               <div
                 tabIndex={0}
                 role="region"
-                aria-label="ZYNOVA Engineering Visual Showcase"
-                onMouseEnter={() => setCursor("project", "ZYNOVA")}
+                aria-label="ZYNOVA Precision Digital Engineering - Headphones 360 Visual"
+                onMouseEnter={() => setCursor("project", "ROTATE")}
                 onMouseLeave={resetCursor}
-                className="w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B]/80 rounded-2xl sm:rounded-3xl"
+                className="w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B]/80 rounded-2xl sm:rounded-3xl overflow-hidden bg-[#171410] border-2 border-[#D0A04B]/30 hover:border-[#D0A04B]/70 shadow-[0_16px_40px_rgba(0,0,0,0.6),0_4px_16px_rgba(208,160,75,0.12)] transition-all duration-500 aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]"
               >
-                <HeroFramePlayer
-                  containerClassName="relative w-full group"
-                  cardClassName="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-[#171410] border-2 border-[#D0A04B]/30 hover:border-[#D0A04B]/70 shadow-[0_16px_40px_rgba(0,0,0,0.6),0_4px_16px_rgba(208,160,75,0.12)] transition-all duration-500"
-                  aspectRatioClass="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]"
-                  showStatusPill={false}
-                  watermark={true}
-                  watermarkText="ZYNOVA"
+                <HeadphonesScrollCanvas
+                  progress={headphonesProgress}
+                  className="w-full h-full"
                 />
               </div>
             </div>
@@ -206,3 +230,4 @@ export const About: React.FC = () => {
 };
 
 export default About;
+

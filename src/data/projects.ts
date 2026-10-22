@@ -25,6 +25,7 @@ export interface ProjectItem {
   platform?: "iOS" | "Android";
   pricing: ProjectPricing;
   demoUrl?: string;
+  videoSrc?: string;
 }
 
 export const projectsData: ProjectItem[] = [
@@ -234,7 +235,8 @@ export const projectsData: ProjectItem[] = [
       customPrice: "$2,500+",
       pricingQualification: "Includes luxury editorial UI, campaign hero, mobile responsiveness, product catalogs & direct consultation integration."
     },
-    demoUrl: "https://hamhold.zynova.co.in"
+    demoUrl: "https://hamhold.zynova.co.in",
+    videoSrc: "/videos/HAMHOLD.mp4"
   },
   {
     id: "aaranya-silks",
@@ -267,7 +269,8 @@ export const projectsData: ProjectItem[] = [
       customPrice: "$2,500+",
       pricingQualification: "Includes bespoke luxury fashion catalog, collection lookbooks, mobile e-commerce, and direct consultation integration."
     },
-    demoUrl: "https://aaranya-silks.zynova.co.in"
+    demoUrl: "https://aaranya-silks.zynova.co.in",
+    videoSrc: "/videos/Aaranya%20Silks.mp4"
   },
   {
     id: "tastybites",
@@ -302,7 +305,8 @@ export const projectsData: ProjectItem[] = [
       customPrice: "$2,200+",
       pricingQualification: "Includes interactive digital menu, dish customization modifiers, cart drawer, payment integration & order pipeline."
     },
-    demoUrl: "https://tastybites.zynova.co.in"
+    demoUrl: "https://tastybites.zynova.co.in",
+    videoSrc: "/videos/Tasty%20Bites.mp4"
   },
   {
     id: "homex",
