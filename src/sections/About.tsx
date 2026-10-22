@@ -40,22 +40,22 @@ export const About: React.FC = () => {
     {
       title: "Full IP Transfer",
       description: "100% client ownership of repositories, code, design assets, and environments.",
-      iconColor: "text-[#B58A45]"
+      iconColor: "text-[#D0A04B]"
     },
     {
       title: "Clean Engineering",
       description: "Modern typed stacks, clean modular architecture, and zero unnecessary bloat.",
-      iconColor: "text-[#B58A45]"
+      iconColor: "text-[#9BD7FF]"
     },
     {
       title: "Agile Turnaround",
       description: "Guaranteed responses within 12 hours with transparent development milestones.",
-      iconColor: "text-[#B58A45]"
+      iconColor: "text-[#D0A04B]"
     },
     {
       title: "Actionable Analytics",
       description: "Deep mastery of Excel automation and Power BI to transform messy data into clarity.",
-      iconColor: "text-[#B58A45]"
+      iconColor: "text-[#9BD7FF]"
     }
   ];
 
@@ -75,7 +75,7 @@ export const About: React.FC = () => {
           <div ref={narrativeRef} className="lg:col-span-7 space-y-4 sm:space-y-5">
             {/* Step 1: Main Subheading */}
             <h3
-              className={`text-xl sm:text-2xl md:text-[24px] font-bold font-heading text-[#292720] leading-snug border-l-3 border-[#B58A45] pl-3.5 sm:pl-4 ${
+              className={`text-xl sm:text-2xl md:text-[24px] font-bold font-heading text-white leading-snug border-l-3 border-[#D0A04B] pl-3.5 sm:pl-4 ${
                 !prefersReducedMotion
                   ? `transition-all duration-[680ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,opacity] ${
                       isNarrativeInView
@@ -86,20 +86,20 @@ export const About: React.FC = () => {
               }`}
             >
               Committed to transparent deliverables &amp;{" "}
-              <span className="bg-gradient-to-r from-[#B58A45] via-[#C99E56] to-[#9E7432] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#D0A04B] via-[#E2B768] to-[#A9792E] bg-clip-text text-transparent">
                 high engineering standards.
               </span>
             </h3>
 
             {/* Supporting Narrative Panel */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#E5D9C8] shadow-[0_4px_20px_rgba(41,39,32,0.05)] space-y-3.5">
+            <div className="p-5 rounded-2xl bg-[#171410] border border-[#D0A04B]/25 shadow-[0_8px_32px_rgba(0,0,0,0.4)] space-y-3.5">
               <p
                 style={
                   !prefersReducedMotion
                     ? { transitionDelay: isNarrativeInView ? "140ms" : "0ms" }
                     : undefined
                 }
-                className={`text-[#574F44] font-normal leading-relaxed text-xs sm:text-sm ${
+                className={`text-[#D4CEC4] font-normal leading-relaxed text-xs sm:text-sm ${
                   !prefersReducedMotion
                     ? `transition-all duration-[680ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,opacity] ${
                         isNarrativeInView
@@ -112,14 +112,14 @@ export const About: React.FC = () => {
                 At ZYNOVA, we believe software must be resilient, beautiful, and directly tied to business results. We combine modern full-stack development, mobile engineering, AI workflows, and precision data analytics to solve tangible challenges.
               </p>
 
-              <div className="text-[#574F44] font-normal leading-relaxed text-xs sm:text-sm pt-2.5 border-t border-[#E5D9C8]">
+              <div className="text-[#D4CEC4] font-normal leading-relaxed text-xs sm:text-sm pt-2.5 border-t border-white/10">
                 <TypewriterText
                   text="Whether building an e-commerce platform from the ground up, engineering enterprise backend APIs, automating error-prone Excel workflows, or delivering high-level Power BI reporting models, our focus is uncompromising quality and long-term scalability."
                   isActive={isNarrativeInView}
                   triggerKey={narrativeTriggerCount}
                   startDelayMs={300}
                   durationMs={1350}
-                  cursorColorClass="bg-[#B58A45]"
+                  cursorColorClass="bg-[#D0A04B]"
                   withUpwardMotion={true}
                 />
               </div>
@@ -134,14 +134,14 @@ export const About: React.FC = () => {
                     tabIndex={0}
                     role="region"
                     aria-label={item.title}
-                    className="group p-3.5 rounded-xl bg-white border border-[#E5D9C8] hover:border-[#B58A45]/60 shadow-[0_2px_12px_rgba(41,39,32,0.04)] hover:shadow-[0_8px_24px_rgba(181,138,69,0.12)] flex items-start gap-2.5 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B58A45]/80 h-full"
+                    className="group p-3.5 rounded-xl bg-[#171410] border border-[#D0A04B]/25 hover:border-[#D0A04B]/60 shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_24px_rgba(208,160,75,0.14)] flex items-start gap-2.5 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B]/80 h-full"
                   >
                     <CheckCircle2 className={`w-4 h-4 ${item.iconColor} shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-105`} />
                     <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-[#292720] group-hover:text-[#B58A45] transition-colors duration-200">
+                      <h4 className="text-xs sm:text-sm font-bold text-white group-hover:text-[#D0A04B] transition-colors duration-200">
                         {item.title}
                       </h4>
-                      <p className="text-[11px] sm:text-xs text-[#756C60] font-normal mt-0.5 leading-relaxed">
+                      <p className="text-[11px] sm:text-xs text-[#D4CEC4] font-normal mt-0.5 leading-relaxed">
                         {item.description}
                       </p>
                     </div>
@@ -151,7 +151,7 @@ export const About: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Priority 4 & 6 — Founder Visual Card with Reused Hero Animation & ZYNOVA Watermark */}
+          {/* Right Column: Founder Visual Card */}
           <div
             ref={founderRef}
             style={
@@ -173,8 +173,8 @@ export const About: React.FC = () => {
               {/* Floating Accent Tag */}
               <div className="absolute -top-3 -right-2 z-20 pointer-events-none">
                 <ParallaxLayer speed={0.16} rotate={-3}>
-                  <div className="px-3 py-1 rounded-full bg-[#B58A45] text-white text-[10px] font-mono font-bold tracking-wider uppercase shadow-[0_4px_16px_rgba(181,138,69,0.4)] flex items-center gap-1.5 border border-white/20">
-                    <Sparkles className="w-3 h-3 text-white" />
+                  <div className="px-3 py-1 rounded-full bg-[#D0A04B] text-[#080706] text-[10px] font-mono font-bold tracking-wider uppercase shadow-[0_4px_16px_rgba(208,160,75,0.4)] flex items-center gap-1.5 border border-white/20">
+                    <Sparkles className="w-3 h-3 text-[#080706]" />
                     <span>FOUNDER DIRECT</span>
                   </div>
                 </ParallaxLayer>
@@ -186,11 +186,11 @@ export const About: React.FC = () => {
                 aria-label="ZYNOVA Engineering Visual Showcase"
                 onMouseEnter={() => setCursor("project", "ZYNOVA")}
                 onMouseLeave={resetCursor}
-                className="w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B58A45]/80 rounded-2xl sm:rounded-3xl"
+                className="w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B]/80 rounded-2xl sm:rounded-3xl"
               >
                 <HeroFramePlayer
                   containerClassName="relative w-full group"
-                  cardClassName="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-[#292720] border-2 border-[#E5D9C8] hover:border-[#B58A45]/70 shadow-[0_16px_40px_rgba(41,39,32,0.12),0_4px_16px_rgba(181,138,69,0.12)] transition-all duration-500"
+                  cardClassName="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-[#171410] border-2 border-[#D0A04B]/30 hover:border-[#D0A04B]/70 shadow-[0_16px_40px_rgba(0,0,0,0.6),0_4px_16px_rgba(208,160,75,0.12)] transition-all duration-500"
                   aspectRatioClass="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]"
                   showStatusPill={false}
                   watermark={true}

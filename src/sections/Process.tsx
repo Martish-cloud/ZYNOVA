@@ -18,7 +18,7 @@ export const Process: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
 
   const getIcon = (iconName: string) => {
-    const props = { className: "w-5 h-5 text-[#B58A45] group-hover:text-[#8C6527] transition-colors" };
+    const props = { className: "w-5 h-5 text-[#D0A04B] group-hover:text-white transition-colors" };
     switch (iconName) {
       case "Compass": return <Compass {...props} />;
       case "Map": return <Map {...props} />;
@@ -45,7 +45,7 @@ export const Process: React.FC = () => {
         {/* Interactive Timeline Stepper on Desktop */}
         <div className="hidden lg:flex items-center justify-between mb-10 sm:mb-12 relative">
           {/* Connecting line */}
-          <div className="absolute top-1/2 left-4 right-4 h-0.5 bg-white/15 -translate-y-1/2 z-0" />
+          <div className="absolute top-1/2 left-4 right-4 h-0.5 bg-[#D0A04B]/20 -translate-y-1/2 z-0" />
           
           {processData.map((step, idx) => {
             const isSelected = activeStep === idx;
@@ -62,13 +62,13 @@ export const Process: React.FC = () => {
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center font-heading font-black text-xs transition-all duration-300 ${
                     isSelected
-                      ? "bg-gradient-to-tr from-[#B58A45] via-[#C99D57] to-[#B58A45] text-white font-bold shadow-md border border-[#B58A45]"
-                      : "bg-[#181410] border border-white/10 text-[#C5BCB0] group-hover:border-[#B58A45]"
+                      ? "bg-gradient-to-tr from-[#D0A04B] via-[#E2B767] to-[#D0A04B] text-black font-bold shadow-md border border-[#D0A04B]"
+                      : "bg-[#171410] border border-[#D0A04B]/20 text-[#D4CEC4] group-hover:border-[#D0A04B]"
                   }`}
                 >
                   {step.number}
                 </div>
-                <span className="text-[10px] font-mono mt-1.5 font-bold tracking-wider text-[#A89F91] uppercase">
+                <span className="text-[10px] font-mono mt-1.5 font-bold tracking-wider text-[#D4CEC4] uppercase">
                   {step.title}
                 </span>
               </button>
@@ -77,26 +77,26 @@ export const Process: React.FC = () => {
         </div>
 
         {/* Selected Step Spotlight Banner */}
-        <div className="hidden lg:block mb-10 sm:mb-12 p-5 sm:p-6 rounded-2xl bg-[#181410]/90 border border-white/10 shadow-xl backdrop-blur-md">
+        <div className="hidden lg:block mb-10 sm:mb-12 p-5 sm:p-6 rounded-2xl bg-[#171410] border border-[#D0A04B]/25 shadow-xl backdrop-blur-md">
           <div className="flex items-start justify-between gap-6">
             <div className="space-y-2.5 max-w-2xl">
               <div className="flex items-center gap-2.5">
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#B58A45]/15 text-[#D4AF37] border border-[#B58A45]/35 font-bold">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#D0A04B]/15 text-[#D0A04B] border border-[#D0A04B]/35 font-bold">
                   STEP {processData[activeStep].number} OF 07
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-bold font-heading text-[#FAF7F0]">
+                <h3 className="text-2xl sm:text-3xl font-bold font-heading text-white">
                   {processData[activeStep].title}
                 </h3>
               </div>
-              <p className="text-sm sm:text-base text-[#D4AF37] font-semibold">
+              <p className="text-sm sm:text-base text-[#9BD7FF] font-semibold">
                 {processData[activeStep].description}
               </p>
-              <p className="text-xs sm:text-sm text-[#C5BCB0] font-normal leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#D4CEC4] font-normal leading-relaxed">
                 {processData[activeStep].details}
               </p>
             </div>
 
-            <div className="w-14 h-14 rounded-xl bg-[#B58A45]/15 border border-[#B58A45]/35 flex items-center justify-center text-[#D4AF37] shadow-sm shrink-0">
+            <div className="w-14 h-14 rounded-xl bg-[#201B14] border border-[#D0A04B]/35 flex items-center justify-center text-[#D0A04B] shadow-sm shrink-0">
               {getIcon(processData[activeStep].icon)}
             </div>
           </div>
@@ -107,19 +107,19 @@ export const Process: React.FC = () => {
           {processData.map((step) => (
             <div
               key={step.number}
-              className="p-4 sm:p-4.5 rounded-xl bg-[#181410]/90 border border-white/10 flex items-start gap-3.5 shadow-sm"
+              className="p-4 sm:p-4.5 rounded-xl bg-[#171410] border border-[#D0A04B]/20 flex items-start gap-3.5 shadow-sm"
             >
-              <div className="w-8 h-8 rounded-lg bg-[#B58A45]/15 border border-[#B58A45]/35 text-[#D4AF37] font-heading font-black flex items-center justify-center shrink-0 text-xs">
+              <div className="w-8 h-8 rounded-lg bg-[#201B14] border border-[#D0A04B]/35 text-[#D0A04B] font-heading font-black flex items-center justify-center shrink-0 text-xs">
                 {step.number}
               </div>
               <div>
-                <h4 className="font-heading font-bold text-base text-[#FAF7F0] mb-1">
+                <h4 className="font-heading font-bold text-base text-white mb-1">
                   {step.title}
                 </h4>
-                <p className="text-xs text-[#D4AF37] mb-1 font-semibold">
+                <p className="text-xs text-[#9BD7FF] mb-1 font-semibold">
                   {step.description}
                 </p>
-                <p className="text-[11.5px] text-[#C5BCB0] font-normal leading-relaxed">
+                <p className="text-[11.5px] text-[#D4CEC4] font-normal leading-relaxed">
                   {step.details}
                 </p>
               </div>

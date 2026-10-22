@@ -65,35 +65,35 @@ export const Platforms: React.FC = () => {
                 />
 
                 {/* Top-right Indicator Icon */}
-                <div className="absolute top-2.5 right-2.5 text-[#756C60] group-hover:text-[#B58A45] transition-colors">
+                <div className="absolute top-2.5 right-2.5 text-[#D4CEC4] group-hover:text-[#D0A04B] transition-colors">
                   {plat.hasServiceList ? (
-                    <Layers className="w-3.5 h-3.5 text-[#B58A45]" />
+                    <Layers className="w-3.5 h-3.5 text-[#D0A04B]" />
                   ) : hasExternalUrl ? (
                     <ExternalLink className="w-3.5 h-3.5" />
                   ) : (
-                    <ArrowRight className="w-3.5 h-3.5 text-[#756C60] group-hover:text-[#B58A45]" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#D4CEC4] group-hover:text-[#D0A04B]" />
                   )}
                 </div>
 
                 {/* Prominent Platform Brand Icon */}
                 <div
-                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-[#FAF7F0] border border-[#E5D9C8] flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:border-[#B58A45] shadow-xs mb-2.5"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-[#201B14] border border-[#D0A04B]/25 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:border-[#D0A04B] shadow-xs mb-2.5"
                   style={{ color: plat.brandColor }}
                 >
                   {IconComponent ? <IconComponent className="w-6 h-6 sm:w-7 sm:h-7" size={28} /> : null}
                 </div>
 
                 {/* Clean Platform Name */}
-                <span className="font-heading font-bold text-xs sm:text-sm text-[#292720] group-hover:text-[#B58A45] transition-colors tracking-wide">
+                <span className="font-heading font-bold text-xs sm:text-sm text-white group-hover:text-[#D0A04B] transition-colors tracking-wide">
                   {plat.name}
                 </span>
 
                 {plat.hasServiceList ? (
-                  <span className="text-[9px] font-mono text-[#8C6527] mt-1 font-bold tracking-tight">
+                  <span className="text-[9px] font-mono text-[#D0A04B] mt-1 font-bold tracking-tight">
                     View Services
                   </span>
                 ) : !hasExternalUrl ? (
-                  <span className="text-[9px] font-mono text-[#756C60] group-hover:text-[#B58A45] mt-1 font-semibold tracking-tight">
+                  <span className="text-[9px] font-mono text-[#D4CEC4] group-hover:text-[#D0A04B] mt-1 font-semibold tracking-tight">
                     Contract on Request
                   </span>
                 ) : null}
@@ -108,7 +108,7 @@ export const Platforms: React.FC = () => {
                   onClick={(e) => handleCardClick(plat, e)}
                   onMouseEnter={() => setCursor("project", "SERVICES")}
                   onMouseLeave={resetCursor}
-                  className="group relative p-4 sm:p-5 rounded-xl liquid-glass-card !bg-white/95 border border-[#E5D9C8] hover:border-[#B58A45]/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden w-full shadow-sm hover:shadow-md"
+                  className="group relative p-4 sm:p-5 rounded-xl bg-[#171410] border border-[#D0A04B]/20 hover:border-[#D0A04B]/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden w-full shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
                 >
                   {cardContent}
                 </button>
@@ -123,7 +123,7 @@ export const Platforms: React.FC = () => {
                   onClick={scrollToContact}
                   onMouseEnter={() => setCursor("project", "ENQUIRE")}
                   onMouseLeave={resetCursor}
-                  className="group relative p-4 sm:p-5 rounded-xl liquid-glass-card !bg-white/95 border border-[#E5D9C8] hover:border-[#B58A45]/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden w-full shadow-sm hover:shadow-md"
+                  className="group relative p-4 sm:p-5 rounded-xl bg-[#171410] border border-[#D0A04B]/20 hover:border-[#D0A04B]/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden w-full shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
                   aria-label={`${plat.name} contract available on request - contact ZYNOVA`}
                 >
                   {cardContent}
@@ -139,7 +139,7 @@ export const Platforms: React.FC = () => {
                 rel="noreferrer"
                 onMouseEnter={() => setCursor("project", plat.name)}
                 onMouseLeave={resetCursor}
-                className="group relative p-4 sm:p-5 rounded-xl liquid-glass-card !bg-white/95 border border-[#E5D9C8] hover:border-[#B58A45]/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden shadow-sm hover:shadow-md"
+                className="group relative p-4 sm:p-5 rounded-xl bg-[#171410] border border-[#D0A04B]/20 hover:border-[#D0A04B]/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
               >
                 {cardContent}
               </a>

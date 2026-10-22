@@ -168,14 +168,14 @@ export const BookCall: React.FC<BookCallProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Left Column: Direct Booking Option & Info */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="p-4.5 sm:p-5 rounded-xl liquid-glass-card !bg-white/95 border border-[#E5D9C8] hover:border-[#B58A45]/60 shadow-sm transition-colors">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#8C6527] font-bold block mb-1.5">
+            <div className="p-4.5 sm:p-5 rounded-xl bg-[#171410] border border-[#D0A04B]/20 hover:border-[#D0A04B]/60 shadow-[0_4px_20px_rgba(0,0,0,0.3)] transition-colors">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#D0A04B] font-bold block mb-1.5">
                 OPTION 01 &bull; INSTANT CONTACT
               </span>
-              <h3 className="text-base sm:text-lg font-bold font-heading text-[#292720] mb-1.5">
+              <h3 className="text-base sm:text-lg font-bold font-heading text-white mb-1.5">
                 Direct WhatsApp or Call
               </h3>
-              <p className="text-xs text-[#574F44] font-normal leading-relaxed mb-4">
+              <p className="text-xs text-[#D4CEC4] font-normal leading-relaxed mb-4">
                 Need an immediate conversation? Connect directly with Founder Amit Halder for a prompt discussion regarding your digital project.
               </p>
 
@@ -186,45 +186,45 @@ export const BookCall: React.FC<BookCallProps> = ({
                   target="_blank"
                   rel="noreferrer"
                   variant="gold"
-                  className="w-full !py-2.5 text-xs font-bold justify-center shadow-md shadow-[#B58A45]/20"
+                  className="w-full !py-2.5 text-xs font-bold justify-center shadow-md shadow-[#D0A04B]/20"
                   cursorLabel="WHATSAPP"
                 >
-                  <WhatsAppIcon className="w-4 h-4 text-white" />
+                  <WhatsAppIcon className="w-4 h-4 text-black" />
                   <span>Chat on WhatsApp Directly</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-white" />
+                  <ExternalLink className="w-3.5 h-3.5 text-black" />
                 </MagneticButton>
 
                 <a
                   href={`tel:${siteConfig.phoneTel}`}
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#FAF7F0] text-[#292720] hover:text-[#B58A45] text-xs font-semibold border border-[#E5D9C8] hover:border-[#B58A45]/50 transition-colors shadow-xs"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#201B14] text-white hover:text-[#D0A04B] text-xs font-semibold border border-[#D0A04B]/20 hover:border-[#D0A04B]/50 transition-colors shadow-xs"
                 >
-                  <Phone className="w-3.5 h-3.5 text-[#B58A45]" />
+                  <Phone className="w-3.5 h-3.5 text-[#D0A04B]" />
                   <span>Call {siteConfig.phone}</span>
                 </a>
               </div>
             </div>
 
-            <div className="p-4.5 sm:p-5 rounded-xl liquid-glass-card !bg-white/95 border border-[#E5D9C8] shadow-sm space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#292720] font-mono flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-[#B58A45]" />
+            <div className="p-4.5 sm:p-5 rounded-xl bg-[#171410] border border-[#D0A04B]/20 shadow-[0_4px_20px_rgba(0,0,0,0.3)] space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white font-mono flex items-center gap-2">
+                <Sparkles className="w-3.5 h-3.5 text-[#D0A04B]" />
                 <span>What to Expect on the Call</span>
               </h4>
 
-              <ul className="space-y-2 text-xs text-[#574F44] font-normal">
+              <ul className="space-y-2 text-xs text-[#D4CEC4] font-normal">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#B58A45] shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#D0A04B] shrink-0 mt-0.5" />
                   <span>30-minute high-level technical feasibility assessment</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#B58A45] shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#D0A04B] shrink-0 mt-0.5" />
                   <span>Recommended architecture, timeline, and phased milestones</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#B58A45] shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#D0A04B] shrink-0 mt-0.5" />
                   <span>Direct consultation with Founder Amit Halder</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#B58A45] shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#D0A04B] shrink-0 mt-0.5" />
                   <span>Strict NDA and client privacy guaranteed</span>
                 </li>
               </ul>
@@ -233,11 +233,11 @@ export const BookCall: React.FC<BookCallProps> = ({
 
           {/* Right Column: Interactive Schedule Request Form */}
           <div className="lg:col-span-7">
-            <div className="p-5 sm:p-6 rounded-2xl liquid-glass-panel !bg-white/95 border border-[#E5D9C8] shadow-sm relative">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#8C6527] font-bold block mb-1.5">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#171410] border border-[#D0A04B]/25 shadow-[0_4px_25px_rgba(0,0,0,0.4)] relative">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#D0A04B] font-bold block mb-1.5">
                 OPTION 02 &bull; BESPOKE REQUEST
               </span>
-              <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#292720] mb-4">
+              <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-4">
                 Request a Custom Time Slot
               </h3>
 
@@ -281,14 +281,14 @@ export const BookCall: React.FC<BookCallProps> = ({
 
               {isSubmitted ? (
                 <div className="py-8 text-center space-y-3 animate-in fade-in zoom-in-95 duration-300">
-                  <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
+                  <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto shadow-sm">
                     <CheckCircle2 className="w-7 h-7" />
                   </div>
-                  <h4 className="text-xl font-bold font-heading text-[#292720]">
+                  <h4 className="text-xl font-bold font-heading text-white">
                     Request Received!
                   </h4>
-                  <p className="text-xs sm:text-sm text-[#574F44] font-normal max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="text-[#292720] font-bold">{formData.name}</span>. Your discovery call request was delivered directly to <span className="text-[#B58A45] font-mono font-bold">{siteConfig.contact.email}</span>. We will review your project brief and confirm the calendar invitation within 12 hours.
+                  <p className="text-xs sm:text-sm text-[#D4CEC4] font-normal max-w-md mx-auto leading-relaxed">
+                    Thank you, <span className="text-white font-bold">{formData.name}</span>. Your discovery call request was delivered directly to <span className="text-[#D0A04B] font-mono font-bold">{siteConfig.contact.email}</span>. We will review your project brief and confirm the calendar invitation within 12 hours.
                   </p>
                   <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                     <a
@@ -304,9 +304,9 @@ export const BookCall: React.FC<BookCallProps> = ({
                           "Brief": formData.message
                         }
                       )}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-[#B58A45]/10 hover:bg-[#B58A45]/20 text-[#8C6527] border border-[#B58A45]/30 hover:border-[#B58A45]/50 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#B58A45]/50 shadow-xs"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-[#D0A04B]/10 hover:bg-[#D0A04B]/20 text-[#D0A04B] border border-[#D0A04B]/30 hover:border-[#D0A04B]/50 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D0A04B]/50 shadow-xs"
                     >
-                      <Mail className="w-3.5 h-3.5 text-[#B58A45]" />
+                      <Mail className="w-3.5 h-3.5 text-[#D0A04B]" />
                       <span>Open in Email Client</span>
                     </a>
                     <button
@@ -323,7 +323,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                           message: ""
                         });
                       }}
-                      className="px-4 py-2 rounded-lg text-xs font-semibold bg-white border border-[#E5D9C8] text-[#292720] hover:text-[#B58A45] transition-colors cursor-pointer shadow-xs"
+                      className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#201B14] border border-[#D0A04B]/20 text-white hover:text-[#D0A04B] transition-colors cursor-pointer shadow-xs"
                     >
                       Send Another Request
                     </button>
@@ -334,7 +334,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Name */}
                     <div>
-                      <label className="block text-[11px] font-mono text-[#292720] font-bold mb-1.5 uppercase tracking-wider">
+                      <label className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
                         Full Name *
                       </label>
                       <input
@@ -344,7 +344,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="e.g. Ankita Shrivastav"
-                        className={`w-full px-3.5 py-2.5 rounded-lg liquid-glass-input !bg-white text-xs sm:text-sm text-[#292720] font-semibold placeholder:text-[#756C60] placeholder:font-normal focus:outline-none focus:border-[#B58A45] border border-[#E5D9C8] transition-colors ${
+                        className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#D4CEC4]/40 placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors ${
                           errors.name ? "!border-rose-500" : ""
                         }`}
                       />
@@ -357,7 +357,7 @@ export const BookCall: React.FC<BookCallProps> = ({
 
                     {/* Email */}
                     <div>
-                      <label className="block text-[11px] font-mono text-[#292720] font-bold mb-1.5 uppercase tracking-wider">
+                      <label className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
                         Work Email *
                       </label>
                       <input
@@ -367,7 +367,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Ankita.shri@yahoo.com"
-                        className={`w-full px-3.5 py-2.5 rounded-lg liquid-glass-input !bg-white text-xs sm:text-sm text-[#292720] font-semibold placeholder:text-[#756C60] placeholder:font-normal focus:outline-none focus:border-[#B58A45] border border-[#E5D9C8] transition-colors ${
+                        className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#D4CEC4]/40 placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors ${
                           errors.email ? "!border-rose-500" : ""
                         }`}
                       />
@@ -382,7 +382,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Company */}
                     <div>
-                      <label className="block text-[11px] font-mono text-[#292720] font-bold mb-1.5 uppercase tracking-wider">
+                      <label className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
                         Company / Brand
                       </label>
                       <input
@@ -392,13 +392,13 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Acme Corp (Optional)"
-                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input !bg-white text-xs sm:text-sm text-[#292720] font-semibold placeholder:text-[#756C60] placeholder:font-normal focus:outline-none focus:border-[#B58A45] border border-[#E5D9C8] transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#D4CEC4]/40 placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors"
                       />
                     </div>
 
                     {/* Service */}
                     <div>
-                      <label className="block text-[11px] font-mono text-[#292720] font-bold mb-1.5 uppercase tracking-wider">
+                      <label className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
                         Service Interested In
                       </label>
                       <select
@@ -406,15 +406,15 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input !bg-white text-xs sm:text-sm text-[#292720] font-semibold focus:outline-none focus:border-[#B58A45] border border-[#E5D9C8] transition-colors cursor-pointer"
+                        className="w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors cursor-pointer"
                       >
                         {formData.service && !serviceOptions.includes(formData.service) && (
-                          <option value={formData.service} className="bg-white text-[#8C6527] py-1.5 font-bold">
+                          <option value={formData.service} className="bg-[#201B14] text-[#D0A04B] py-1.5 font-bold">
                             {formData.service}
                           </option>
                         )}
                         {serviceOptions.map((opt) => (
-                          <option key={opt} value={opt} className="bg-white text-[#292720] py-1.5 font-medium">
+                          <option key={opt} value={opt} className="bg-[#201B14] text-white py-1.5 font-medium">
                             {opt}
                           </option>
                         ))}
@@ -425,8 +425,8 @@ export const BookCall: React.FC<BookCallProps> = ({
                   {/* Date & Time Preferences */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[11px] font-mono text-[#292720] font-bold mb-1.5 uppercase tracking-wider flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5 text-[#B58A45]" />
+                      <label className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-[#D0A04B]" />
                         <span>Preferred Date</span>
                       </label>
                       <input
@@ -435,13 +435,13 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input !bg-white text-xs sm:text-sm text-[#292720] font-semibold focus:outline-none focus:border-[#B58A45] border border-[#E5D9C8] transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-mono text-[#292720] font-bold mb-1.5 uppercase tracking-wider flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-[#B58A45]" />
+                      <label className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5 text-[#D0A04B]" />
                         <span>Preferred Time (UTC / IST)</span>
                       </label>
                       <input
@@ -450,14 +450,14 @@ export const BookCall: React.FC<BookCallProps> = ({
                         onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2.5 rounded-lg liquid-glass-input !bg-white text-xs sm:text-sm text-[#292720] font-semibold focus:outline-none focus:border-[#B58A45] border border-[#E5D9C8] transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors"
                       />
                     </div>
                   </div>
 
                   {/* Message Brief */}
                   <div>
-                    <label className="block text-[11px] font-mono text-[#292720] font-bold mb-1.5 uppercase tracking-wider">
+                    <label className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
                       Project Brief / Goals *
                     </label>
                     <textarea
@@ -467,7 +467,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                       onFocus={() => setCursor("input")}
                       onBlur={resetCursor}
                       placeholder="Tell us about the project requirements, existing stack, and expected timeframe..."
-                      className={`w-full px-3.5 py-2.5 rounded-lg liquid-glass-input !bg-white text-xs sm:text-sm text-[#292720] font-semibold placeholder:text-[#756C60] placeholder:font-normal focus:outline-none focus:border-[#B58A45] border border-[#E5D9C8] transition-colors resize-none ${
+                      className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#D4CEC4]/40 placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors resize-none ${
                         errors.message ? "!border-rose-500" : ""
                       }`}
                     />
@@ -484,14 +484,14 @@ export const BookCall: React.FC<BookCallProps> = ({
                       variant="gold"
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full !py-2.5 sm:!py-3 text-xs sm:text-sm font-bold shadow-md shadow-[#B58A45]/20"
+                      className="w-full !py-2.5 sm:!py-3 text-xs sm:text-sm font-bold shadow-md shadow-[#D0A04B]/20"
                       cursorLabel="REQUEST"
                     >
                       {isSubmitting ? (
                         <span>Processing Request...</span>
                       ) : (
                         <>
-                          <Send className="w-3.5 h-3.5 text-white" />
+                          <Send className="w-3.5 h-3.5 text-black" />
                           <span>Request Discovery Call</span>
                         </>
                       )}

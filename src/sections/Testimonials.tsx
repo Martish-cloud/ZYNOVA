@@ -95,11 +95,11 @@ export const Testimonials: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent overflow-hidden text-[#292720]"
+      className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent overflow-hidden text-white"
     >
       {/* Ambient background glow accents */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-b from-[#B58A45]/10 via-[#F0E4D2]/20 to-transparent rounded-full blur-[150px] pointer-events-none z-0" />
-      <div className="absolute -bottom-20 right-10 w-96 h-96 bg-[#B58A45]/10 rounded-full blur-[120px] pointer-events-none z-0" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-b from-[#D0A04B]/10 via-[#100D09]/40 to-transparent rounded-full blur-[150px] pointer-events-none z-0" />
+      <div className="absolute -bottom-20 right-10 w-96 h-96 bg-[#D0A04B]/5 rounded-full blur-[120px] pointer-events-none z-0" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading */}
@@ -142,12 +142,12 @@ export const Testimonials: React.FC = () => {
                   <div
                     onMouseEnter={() => setCursor("project", "READ")}
                     onMouseLeave={resetCursor}
-                    className="h-full group relative flex flex-col justify-between rounded-2xl liquid-glass-card !bg-white/95 border border-[#E5D9C8] hover:border-[#B58A45]/60 p-4.5 sm:p-5 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] shadow-sm hover:shadow-md overflow-hidden"
+                    className="h-full group relative flex flex-col justify-between rounded-2xl bg-[#171410] border border-[#D0A04B]/20 hover:border-[#D0A04B]/60 p-4.5 sm:p-5 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] shadow-[0_4px_20px_rgba(0,0,0,0.35)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)] overflow-hidden"
                   >
                     {/* Large Subtle Decorative Quotation Watermark */}
                     <span
                       aria-hidden="true"
-                      className="absolute -top-3 right-4 font-serif text-6xl sm:text-7xl text-[#B58A45]/10 group-hover:text-[#B58A45]/20 transition-colors pointer-events-none select-none leading-none z-0"
+                      className="absolute -top-3 right-4 font-serif text-6xl sm:text-7xl text-[#D0A04B]/10 group-hover:text-[#D0A04B]/20 transition-colors pointer-events-none select-none leading-none z-0"
                     >
                       &ldquo;
                     </span>
@@ -155,7 +155,7 @@ export const Testimonials: React.FC = () => {
                     {/* Inner Card Top Content */}
                     <div className="relative z-10 space-y-3">
                       {/* Client Profile Header & Rating */}
-                      <div className="flex items-start justify-between gap-3 border-b border-[#E5D9C8] pb-3">
+                      <div className="flex items-start justify-between gap-3 border-b border-[#D0A04B]/20 pb-3">
                         <div className="flex items-center gap-2.5">
                           <ClientAvatar
                             name={item.name}
@@ -164,21 +164,21 @@ export const Testimonials: React.FC = () => {
                           />
 
                           <div>
-                            <h3 className="font-heading text-sm sm:text-base font-bold text-[#292720] group-hover:text-[#B58A45] transition-colors flex items-center gap-1.5">
+                            <h3 className="font-heading text-sm sm:text-base font-bold text-white group-hover:text-[#D0A04B] transition-colors flex items-center gap-1.5">
                               <span>{item.name}</span>
                               {!item.isSample && (
                                 <span
                                   title="Verified Client"
-                                  className="text-[#B58A45] inline-flex items-center"
+                                  className="text-[#D0A04B] inline-flex items-center"
                                 >
                                   <CheckCircle2 className="w-3.5 h-3.5" />
                                 </span>
                               )}
                             </h3>
-                            <p className="text-[11.5px] text-[#B58A45] font-semibold">
+                            <p className="text-[11.5px] text-[#9BD7FF] font-semibold">
                               {item.role}
                             </p>
-                            <p className="text-[10.5px] font-mono text-[#756C60] flex items-center gap-1 mt-0.5 font-normal">
+                            <p className="text-[10.5px] font-mono text-[#D4CEC4] flex items-center gap-1 mt-0.5 font-normal">
                               <span>{item.company}</span>
                               <span>&bull;</span>
                               <span>{item.flag}</span>
@@ -190,23 +190,23 @@ export const Testimonials: React.FC = () => {
                       </div>
 
                       {/* Review Narrative Quote */}
-                      <p className="text-xs text-[#574F44] leading-relaxed italic font-sans font-normal pt-0.5">
+                      <p className="text-xs text-[#D4CEC4] leading-relaxed italic font-sans font-normal pt-0.5">
                         &ldquo;{item.review}&rdquo;
                       </p>
                     </div>
 
                     {/* Card Footer: Service Pill Badge */}
-                    <div className="relative z-10 pt-3.5 mt-3 border-t border-[#E5D9C8] flex items-center justify-between gap-2">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-[#B58A45]/10 text-[#8C6527] border border-[#B58A45]/30 group-hover:border-[#B58A45] transition-colors">
+                    <div className="relative z-10 pt-3.5 mt-3 border-t border-[#D0A04B]/20 flex items-center justify-between gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-[#201B14] text-[#D0A04B] border border-[#D0A04B]/30 group-hover:border-[#D0A04B] transition-colors">
                         {item.service.includes("📱") ? (
                           <span className="text-[11px] leading-none select-none">📱</span>
                         ) : (
-                          <Sparkles className="w-3 h-3 text-[#B58A45]" />
+                          <Sparkles className="w-3 h-3 text-[#D0A04B]" />
                         )}
                         <span>{item.service.replace("📱", "").trim()}</span>
                       </span>
 
-                      <span className="text-[10.5px] font-mono text-[#756C60] font-medium">
+                      <span className="text-[10.5px] font-mono text-[#D4CEC4] font-medium">
                         {item.country}
                       </span>
                     </div>
@@ -218,9 +218,9 @@ export const Testimonials: React.FC = () => {
         </div>
 
         {/* Global Market Footprint Trust Indicator */}
-        <div className="p-4 sm:p-5 rounded-xl liquid-glass-panel !bg-white/95 border border-[#E5D9C8] shadow-sm max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 text-xs font-bold text-[#292720] font-heading mb-2.5">
-            <Globe2 className="w-4 h-4 text-[#B58A45]" />
+        <div className="p-4 sm:p-5 rounded-xl bg-[#171410] border border-[#D0A04B]/25 shadow-sm max-w-4xl mx-auto text-center">
+          <div className="flex items-center justify-center gap-2 text-xs font-bold text-white font-heading mb-2.5">
+            <Globe2 className="w-4 h-4 text-[#D0A04B]" />
             <span>Supporting clients across India &amp; global markets</span>
           </div>
 
@@ -228,7 +228,7 @@ export const Testimonials: React.FC = () => {
             {globalMarkets.map((market) => (
               <span
                 key={market.name}
-                className="px-2.5 py-1 rounded-lg bg-[#FAF7F0] border border-[#E5D9C8] text-[11px] font-mono text-[#574F44] font-medium flex items-center gap-1.5 shadow-xs"
+                className="px-2.5 py-1 rounded-lg bg-[#201B14] border border-[#D0A04B]/20 text-[11px] font-mono text-[#D4CEC4] font-medium flex items-center gap-1.5 shadow-xs"
               >
                 <span>{market.flag}</span>
                 <span>{market.name}</span>
@@ -236,7 +236,7 @@ export const Testimonials: React.FC = () => {
             ))}
           </div>
 
-          <p className="text-[10.5px] text-[#756C60] font-mono font-normal mt-2.5">
+          <p className="text-[10.5px] text-[#D4CEC4]/80 font-mono font-normal mt-2.5">
             Available for remote collaboration, contract engagements, and international client projects.
           </p>
         </div>

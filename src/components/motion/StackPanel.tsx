@@ -26,7 +26,7 @@ export interface StackPanelProps {
 
 export const StackPanel = forwardRef<HTMLElement, StackPanelProps>(({
   id,
-  theme,
+  theme: _theme,
   index,
   nextPanelRef = null,
   className = "",
@@ -51,31 +51,26 @@ export const StackPanel = forwardRef<HTMLElement, StackPanelProps>(({
     prefersReducedMotion,
   } = useStackProgress(localRef, nextPanelRef);
 
-  const isDark = theme === "dark";
   const isFirst = index === 0;
 
-  // Visual classes for alternating surfaces
-  const themeClasses = isDark
-    ? "bg-[#0a0806] text-[#FAF7F0] selection:bg-[#B58A45]/35 selection:text-white"
-    : "bg-[#FAF7F0] text-[#292720] selection:bg-[#B58A45]/25 selection:text-[#292720]";
+  // Visual classes for dark theme surfaces
+  const isEven = index % 2 === 0;
+  const surfaceBg = isEven ? "bg-[#080706]" : "bg-[#100D09]";
+  const themeClasses = `${surfaceBg} text-[#FFFFFF] selection:bg-[#D0A04B]/35 selection:text-white`;
 
   // Rounded top corners and shadow for rising sheets (sections after Hero)
-  const sheetShadow = isDark
-    ? motionConfig.stack.darkShadow
-    : motionConfig.stack.lightShadow;
+  const sheetShadow = isFirst ? undefined : "0 -12px 48px rgba(0, 0, 0, 0.75)";
 
   const topBorderClass = isFirst
     ? ""
-    : isDark
-    ? "border-t border-[#B58A45]/25"
-    : "border-t border-[#E5D9C8]";
+    : "border-t border-[#D0A04B]/20";
 
   const topCornerClass = isFirst
     ? ""
     : "rounded-t-[36px] sm:rounded-t-[44px] md:rounded-t-[52px]";
 
   return (
-    <StackPanelContext.Provider value={{ theme, index }}>
+    <StackPanelContext.Provider value={{ theme: "dark", index }}>
       <div
         className="relative w-full"
         style={{
@@ -87,7 +82,7 @@ export const StackPanel = forwardRef<HTMLElement, StackPanelProps>(({
           ref={localRef}
           id={id}
           data-stack-index={index}
-          data-theme={theme}
+          data-theme="dark"
           style={{
             position: "sticky",
             top: `${stickyTop}px`,
@@ -99,27 +94,15 @@ export const StackPanel = forwardRef<HTMLElement, StackPanelProps>(({
             willChange: isLastPanel || prefersReducedMotion ? "auto" : willChange,
             transformOrigin: "top center",
             transformStyle: "preserve-3d",
-            boxShadow: isFirst ? undefined : sheetShadow,
+            boxShadow: sheetShadow,
           }}
           className={`w-full overflow-hidden transition-colors duration-300 ${topCornerClass} ${topBorderClass} ${themeClasses} ${className}`}
         >
-          {/* Subtle Ambient Grain & Lighting on Dark Panels */}
-          {isDark && (
-            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-              {/* Golden radial wash */}
-              <div className="absolute -top-[15%] left-1/2 -translate-x-1/2 w-[900px] h-[550px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(181,138,69,0.08)_0%,transparent_70%)]" />
-              {/* Deep espresso vignette */}
-              <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806]/40 via-transparent to-[#050403]/80" />
-            </div>
-          )}
-
-          {/* Subtle Ambient Warmth on Light Panels */}
-          {!isDark && (
-            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-              <div className="absolute top-[5%] right-[-5%] w-[650px] h-[650px] rounded-full bg-[radial-gradient(circle,rgba(240,228,210,0.5)_0%,transparent_70%)]" />
-              <div className="absolute bottom-[5%] left-[-5%] w-[550px] h-[550px] rounded-full bg-[radial-gradient(circle,rgba(181,138,69,0.04)_0%,transparent_70%)]" />
-            </div>
-          )}
+          {/* Subtle Ambient Grain & Golden Radial Lighting */}
+          <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+            <div className="absolute -top-[15%] left-1/2 -translate-x-1/2 w-[900px] h-[550px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(208,160,75,0.06)_0%,transparent_70%)]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#080706]/30 via-transparent to-[#040302]/70" />
+          </div>
 
           {/* Content wrapper */}
           <div className="relative z-10 w-full">{children}</div>

@@ -22,28 +22,28 @@ export const Stats: React.FC = () => {
       value: `${countHours} Hours`,
       label: "Rapid Response Guarantee",
       subtext: "Agile, clear communication across time zones",
-      color: "text-[#B58A45]"
+      color: "text-[#D0A04B]"
     },
     {
       icon: Briefcase,
       value: `${countIndustries}+`,
       label: "Industries Served",
       subtext: "E-commerce, Healthcare, SaaS, EdTech, Real Estate",
-      color: "text-[#B58A45]"
+      color: "text-[#9BD7FF]"
     },
     {
       icon: Layers,
       value: `${countProjects}+`,
       label: "Solutions Engineered",
       subtext: "Web platforms, backend microservices, BI dashboards",
-      color: "text-[#B58A45]"
+      color: "text-[#D0A04B]"
     },
     {
       icon: ShieldCheck,
       value: `${countOwnership}%`,
       label: "Client Ownership",
       subtext: "Complete source code, assets, and repository rights",
-      color: "text-[#B58A45]"
+      color: "text-[#9BD7FF]"
     }
   ];
 
@@ -60,31 +60,31 @@ export const Stats: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="relative rounded-2xl overflow-hidden transition-all duration-300 shadow-[0_4px_16px_rgba(41,39,32,0.04)] hover:shadow-[0_12px_32px_rgba(181,138,69,0.16)] group hover:-translate-y-1 h-full"
+                className="relative rounded-2xl overflow-hidden transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_36px_rgba(208,160,75,0.18)] group hover:-translate-y-1 h-full"
               >
                 {/* Synchronized Perimeter Border Light */}
                 <CardBorderLight retriggerKey={triggerCount} />
 
                 {/* Card Interior */}
-                <div className="relative z-10 p-4.5 sm:p-5 rounded-2xl bg-white border border-[#E5D9C8] h-full flex flex-col justify-between">
+                <div className="relative z-10 p-5 rounded-2xl bg-[#171410] border border-[#D0A04B]/25 hover:border-[#D0A04B]/50 transition-colors h-full flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-3">
-                    <div className="p-2 rounded-xl bg-[#B58A45]/12 border border-[#B58A45]/30 group-hover:scale-110 transition-transform">
+                    <div className="p-2 rounded-xl bg-[#201B14] border border-[#D0A04B]/30 group-hover:scale-110 transition-transform">
                       <Icon className={`w-4.5 h-4.5 ${stat.color}`} />
                     </div>
-                    <span className="font-mono text-[9px] uppercase text-[#756C60] font-bold tracking-widest">
+                    <span className="font-mono text-[9px] uppercase text-[#A89F91] font-bold tracking-widest">
                       METRIC // 0{idx + 1}
                     </span>
                   </div>
 
-                  <div className="text-2xl sm:text-3xl font-extrabold font-heading text-[#292720] tracking-tight mb-1">
+                  <div className="text-2xl sm:text-3xl font-extrabold font-heading text-white tracking-tight mb-1">
                     {stat.value}
                   </div>
 
-                  <div className="text-xs sm:text-sm font-bold text-[#292720] mb-0.5">
+                  <div className="text-xs sm:text-sm font-bold text-[#D0A04B] mb-0.5">
                     {stat.label}
                   </div>
 
-                  <p className="text-[11px] sm:text-xs text-[#756C60] font-normal leading-snug">
+                  <p className="text-[11px] sm:text-xs text-[#D4CEC4] font-normal leading-snug">
                     {stat.subtext}
                   </p>
                 </div>

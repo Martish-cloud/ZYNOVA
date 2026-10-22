@@ -69,7 +69,7 @@ export const App: React.FC = () => {
   return (
     <SmoothScrollProvider>
       <CursorProvider>
-        <div className="relative min-h-screen bg-[#0a0806] text-[#FAF7F0] selection:bg-[#B58A45]/35 selection:text-white">
+        <div className="relative min-h-screen bg-[#080706] text-[#FFFFFF] selection:bg-[#D0A04B]/35 selection:text-white">
           {/* Custom Interactive Physics Cursor */}
           <CustomCursor />
 
@@ -78,7 +78,7 @@ export const App: React.FC = () => {
 
           {/* 3D Stacked-Scroll Surface Pipeline */}
           <main className="relative z-10 w-full">
-            {/* Panel 0: Hero (dark) */}
+            {/* Panel 0: Hero (dark #080706) */}
             <StackPanel
               ref={p0}
               id="hero"
@@ -89,7 +89,7 @@ export const App: React.FC = () => {
               <Hero />
             </StackPanel>
 
-            {/* Panel 1: Build Around Your Vision (dark #080706) */}
+            {/* Panel 1: Build Around Your Vision (dark #100D09) */}
             <StackPanel
               ref={p1}
               id="vision"
@@ -100,11 +100,11 @@ export const App: React.FC = () => {
               <BuildVision />
             </StackPanel>
 
-            {/* Panel 2: Stats + Practical Digital Engineering (light #FAF7F0) */}
+            {/* Panel 2: Stats + Practical Digital Engineering (dark) */}
             <StackPanel
               ref={p2}
               id="about"
-              theme="light"
+              theme="dark"
               index={2}
               nextPanelRef={p3}
             >
@@ -123,11 +123,11 @@ export const App: React.FC = () => {
               <Services onSelectServiceForBooking={handleSelectServiceForBooking} />
             </StackPanel>
 
-            {/* Panel 4: FeaturedProjects (light) */}
+            {/* Panel 4: FeaturedProjects (dark) */}
             <StackPanel
               ref={p4}
               id="featured-projects"
-              theme="light"
+              theme="dark"
               index={4}
               nextPanelRef={p5}
             >
@@ -145,11 +145,11 @@ export const App: React.FC = () => {
               <TechStack />
             </StackPanel>
 
-            {/* Panel 6: Projects (light) */}
+            {/* Panel 6: Projects (dark) */}
             <StackPanel
               ref={p6}
               id="projects"
-              theme="light"
+              theme="dark"
               index={6}
               nextPanelRef={p7}
             >
@@ -167,11 +167,11 @@ export const App: React.FC = () => {
               <WhyZynova />
             </StackPanel>
 
-            {/* Panel 8: Industries (light) */}
+            {/* Panel 8: Industries (dark) */}
             <StackPanel
               ref={p8}
               id="industries"
-              theme="light"
+              theme="dark"
               index={8}
               nextPanelRef={p9}
             >
@@ -189,11 +189,11 @@ export const App: React.FC = () => {
               <Process />
             </StackPanel>
 
-            {/* Panel 10: Platforms + Testimonials (light) */}
+            {/* Panel 10: Platforms + Testimonials (dark) */}
             <StackPanel
               ref={p10}
               id="testimonials"
-              theme="light"
+              theme="dark"
               index={10}
               nextPanelRef={p11}
             >
@@ -212,11 +212,11 @@ export const App: React.FC = () => {
               <CTASection />
             </StackPanel>
 
-            {/* Panel 12: BookCall + Contact (light) */}
+            {/* Panel 12: BookCall + Contact (dark) */}
             <StackPanel
               ref={p12}
               id="contact"
-              theme="light"
+              theme="dark"
               index={12}
               nextPanelRef={p13}
             >

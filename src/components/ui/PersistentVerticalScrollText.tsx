@@ -5,98 +5,98 @@ export const PersistentVerticalScrollText: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
   const [isVisible, setIsVisible] = useState(true);
 
-  // The exact phrase specified in the requirements
+  // Exact phrase specified in the requirements
   const phrase = "We would always love to work with you";
 
-  // Repetition array to ensure seamless infinite vertical scrolling at any screen height
-  const repetitions = [0, 1, 2, 3, 4, 5];
+  // Repetition array for continuous smooth vertical movement
+  const repetitions = [0, 1, 2, 3];
 
   useEffect(() => {
-    // Target sections:
-    // 1. Hero (#hero)
-    // 2. Build Around Your Vision (#vision)
-    // 3. Practical Digital Engineering (#about)
-    // Below section 3 (#about), this text must cleanly hide and stop rendering.
-    const sectionIds = ["hero", "vision", "about"];
-    const elements = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => Boolean(el));
+    // Only visible in:
+    // 1. #hero ("BUILD. AUTOMATE. SCALE WHAT'S NEXT.")
+    // 2. #vision ("Build Around Your Vision")
+    // Completely absent in About, Services, Projects, Process, Why Us, Contact, Footer, etc.
+    const heroEl = document.getElementById("hero");
+    const visionEl = document.getElementById("vision");
 
-    const intersectingMap = new Map<string, boolean>();
-    sectionIds.forEach((id) => intersectingMap.set(id, false));
+    let heroIntersecting = true;
+    let visionIntersecting = false;
 
-    const checkVisibility = () => {
-      // If at top of the page, always show
-      if (window.scrollY < 120) {
-        setIsVisible(true);
-        return;
-      }
+    const evaluateVisibility = () => {
+      // If either hero or vision is currently intersecting
+      const inAllowedSection = heroIntersecting || visionIntersecting;
 
-      // Check boundary of Section 3 (#about)
-      const aboutEl = document.getElementById("about");
-      if (aboutEl) {
-        const aboutRect = aboutEl.getBoundingClientRect();
-        // If the bottom of section 3 has scrolled past the top of the viewport, we are below Section 3
-        if (aboutRect.bottom <= 40) {
+      // Double-check bounding rect of vision section:
+      // If the bottom of #vision has scrolled above the top of viewport, we are strictly below vision
+      if (visionEl) {
+        const visionRect = visionEl.getBoundingClientRect();
+        if (visionRect.bottom <= 20) {
           setIsVisible(false);
           return;
         }
       }
 
-      // If any of the 3 sections is currently intersecting the viewport
-      const anyIntersecting = Array.from(intersectingMap.values()).some(Boolean);
-      setIsVisible(anyIntersecting);
+      // If at top of page (scrollY < 100), hero is visible
+      if (window.scrollY < 100) {
+        setIsVisible(true);
+        return;
+      }
+
+      setIsVisible(inAllowedSection);
     };
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          intersectingMap.set(entry.target.id, entry.isIntersecting);
+          if (entry.target.id === "hero") {
+            heroIntersecting = entry.isIntersecting;
+          } else if (entry.target.id === "vision") {
+            visionIntersecting = entry.isIntersecting;
+          }
         });
-        checkVisibility();
+        evaluateVisibility();
       },
       {
         root: null,
-        // Hand-off padding between consecutive sections
-        rootMargin: "15% 0px 15% 0px",
-        threshold: [0, 0.05, 0.1, 0.2],
+        rootMargin: "0px",
+        threshold: [0, 0.05, 0.1, 0.25],
       }
     );
 
-    elements.forEach((el) => observer.observe(el));
+    if (heroEl) observer.observe(heroEl);
+    if (visionEl) observer.observe(visionEl);
 
-    // Also observe #services to enforce disappearance once user moves deeper
-    const servicesEl = document.getElementById("services");
-    let servicesObserver: IntersectionObserver | null = null;
-    if (servicesEl) {
-      servicesObserver = new IntersectionObserver(
+    // Also observe the next section (#about) to guarantee immediate disappearance
+    const aboutEl = document.getElementById("about");
+    let aboutObserver: IntersectionObserver | null = null;
+    if (aboutEl) {
+      aboutObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
-              const aboutEl = document.getElementById("about");
-              const aboutRect = aboutEl?.getBoundingClientRect();
-              if (aboutRect && aboutRect.bottom <= window.innerHeight * 0.35) {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.05) {
+              // Once #about enters, check if vision is done
+              const vRect = visionEl?.getBoundingClientRect();
+              if (vRect && vRect.bottom <= window.innerHeight * 0.5) {
                 setIsVisible(false);
               }
             }
           });
         },
-        { threshold: [0.15, 0.35] }
+        { threshold: [0.05, 0.2] }
       );
-      servicesObserver.observe(servicesEl);
+      aboutObserver.observe(aboutEl);
     }
 
     const onScroll = () => {
-      checkVisibility();
+      evaluateVisibility();
     };
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    // Initial evaluation
-    checkVisibility();
+    evaluateVisibility();
 
     return () => {
       observer.disconnect();
-      if (servicesObserver) servicesObserver.disconnect();
+      if (aboutObserver) aboutObserver.disconnect();
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
@@ -104,60 +104,62 @@ export const PersistentVerticalScrollText: React.FC = () => {
   return (
     <aside
       aria-hidden="true"
-      className="fixed top-0 bottom-0 left-0 z-30 pointer-events-none select-none flex items-center justify-start overflow-hidden h-screen transition-all duration-500 ease-out"
+      tabIndex={-1}
+      className="fixed top-0 bottom-0 left-0 z-30 pointer-events-none select-none flex items-center justify-start overflow-hidden h-screen"
       style={{
-        width: "42px",
-        transform: isVisible ? "translateX(-30%)" : "translateX(-120%)",
+        width: "clamp(54px, 6vw, 84px)",
+        // Approximately 70% visible within viewport, 30% beyond left edge
+        transform: isVisible ? "translateX(-30%)" : "translateX(-130%)",
         opacity: isVisible ? 1 : 0,
         pointerEvents: "none",
         visibility: isVisible ? "visible" : "hidden",
+        transition: "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease-out, visibility 0.45s",
       }}
     >
-      {/* Subtle vertical guide line / ambient rail */}
-      <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#B58A45]/20 to-transparent pointer-events-none" />
+      {/* Subtle vertical golden rail */}
+      <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#D0A04B]/25 to-transparent pointer-events-none" />
 
-      {/* Infinite Scrolling Track */}
+      {/* Continuous Top-to-Bottom Scrolling Track - Non-pausing, pointer-events none */}
       <div
-        className={`flex flex-col items-center will-change-transform ${
+        className={`flex flex-col items-center pointer-events-none will-change-transform ${
           prefersReducedMotion ? "" : "animate-vertical-marquee-down"
         }`}
         style={{
           writingMode: "vertical-rl",
           textOrientation: "mixed",
+          animationDuration: "36s",
         }}
       >
         {/* Set 1 */}
-        <div className="flex flex-col items-center gap-10 py-6 shrink-0">
+        <div className="flex flex-col items-center gap-14 py-8 shrink-0 pointer-events-none">
           {repetitions.map((idx) => (
             <div
               key={`set1-${idx}`}
-              className="flex items-center gap-4 text-[10px] sm:text-[11px] font-heading font-semibold uppercase tracking-[0.26em] text-[#B58A45]/70 hover:text-[#B58A45] transition-colors"
+              className="flex items-center gap-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-black uppercase tracking-wider text-white/90 pointer-events-none select-none"
               style={{
-                // Subtle elegant tilt for vertical/diagonal presentation
                 transform: "rotate(-1deg)",
-                textShadow: "0 1px 6px rgba(181, 138, 69, 0.15)",
+                textShadow: "0 2px 14px rgba(0, 0, 0, 0.9), 0 0 4px rgba(208, 160, 75, 0.3)",
               }}
             >
               <span className="whitespace-nowrap">{phrase}</span>
-              <span className="text-[#C99E56]/40 text-[8px] font-mono select-none">✦</span>
+              <span className="text-[#D0A04B]/60 text-sm font-mono select-none">✦</span>
             </div>
           ))}
         </div>
 
-        {/* Set 2 (Identical duplicate for 100% seamless infinite loop) */}
-        <div className="flex flex-col items-center gap-10 py-6 shrink-0">
+        {/* Set 2 (Seamless loop duplicate) */}
+        <div className="flex flex-col items-center gap-14 py-8 shrink-0 pointer-events-none" aria-hidden="true">
           {repetitions.map((idx) => (
             <div
               key={`set2-${idx}`}
-              className="flex items-center gap-4 text-[10px] sm:text-[11px] font-heading font-semibold uppercase tracking-[0.26em] text-[#B58A45]/70 hover:text-[#B58A45] transition-colors"
+              className="flex items-center gap-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-black uppercase tracking-wider text-white/90 pointer-events-none select-none"
               style={{
-                // Subtle elegant tilt for vertical/diagonal presentation
                 transform: "rotate(-1deg)",
-                textShadow: "0 1px 6px rgba(181, 138, 69, 0.15)",
+                textShadow: "0 2px 14px rgba(0, 0, 0, 0.9), 0 0 4px rgba(208, 160, 75, 0.3)",
               }}
             >
               <span className="whitespace-nowrap">{phrase}</span>
-              <span className="text-[#C99E56]/40 text-[8px] font-mono select-none">✦</span>
+              <span className="text-[#D0A04B]/60 text-sm font-mono select-none">✦</span>
             </div>
           ))}
         </div>

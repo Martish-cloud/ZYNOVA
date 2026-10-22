@@ -147,31 +147,31 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
   return (
     <div
       onClick={onOpenArchitecture}
-      className="group relative h-full rounded-2xl p-3 sm:p-3.5 liquid-glass-card flex flex-col justify-between select-none border border-[#E5D9C8] hover:border-[#B58A45]/50 transition-all duration-200 ease-out hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-[0_12px_28px_rgba(181,138,69,0.16)] motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100 motion-reduce:transition-none cursor-pointer"
+      className="group relative h-full rounded-2xl p-3 sm:p-3.5 liquid-glass-card flex flex-col justify-between select-none border border-[#D0A04B]/25 hover:border-[#D0A04B]/50 transition-all duration-200 ease-out hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-[0_12px_28px_rgba(208,160,75,0.16)] motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100 motion-reduce:transition-none cursor-pointer"
     >
       {/* Ambient subtle top glow */}
-      <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#B58A45]/50 to-transparent pointer-events-none" />
+      <div className="absolute -top-px left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#D0A04B]/50 to-transparent pointer-events-none" />
 
       <div>
         {/* Card Browser-style Top Bar */}
-        <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#E5D9C8]">
+        <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10">
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-red-400 inline-block" />
             <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
             <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
-            <span className="text-[10px] text-[#756C60] font-semibold font-mono ml-1 truncate max-w-[110px] xl:max-w-[140px]">
+            <span className="text-[10px] text-[#A89F91] font-semibold font-mono ml-1 truncate max-w-[110px] xl:max-w-[140px]">
               {project.url.replace(/^https?:\/\//, "")}
             </span>
           </div>
 
-          <div className="flex items-center gap-1 text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#B58A45]/10 text-[#8C6527] border border-[#B58A45]/30">
-            <Sparkles className="w-2.5 h-2.5 text-[#B58A45]" />
+          <div className="flex items-center gap-1 text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#D0A04B]/15 text-[#D0A04B] border border-[#D0A04B]/30">
+            <Sparkles className="w-2.5 h-2.5 text-[#D0A04B]" />
             <span>{project.badge}</span>
           </div>
         </div>
 
         {/* Project Preview Image / Video */}
-        <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden bg-[#11100E] border border-[#E5D9C8] group-hover:border-[#B58A45]/40 transition-colors">
+        <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden bg-[#080706] border border-[#D0A04B]/25 group-hover:border-[#D0A04B]/40 transition-colors">
           <PortfolioImage
             src={project.image}
             alt={`${project.title} Preview`}
@@ -179,10 +179,10 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
           />
 
           {/* Image Overlay Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-40 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-50 pointer-events-none" />
 
           {/* Live Status indicator badge */}
-          <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md bg-[#292720]/80 backdrop-blur-md border border-white/20 flex items-center gap-1 text-[9px] text-white font-bold shadow-sm">
+          <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md bg-[#171410]/90 backdrop-blur-md border border-[#D0A04B]/30 flex items-center gap-1 text-[9px] text-white font-bold shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>Live Production</span>
           </div>
@@ -191,14 +191,14 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
         {/* Card Content Details */}
         <div className="pt-2.5">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-[10px] font-bold tracking-wider uppercase text-[#B58A45] truncate">
+            <span className="text-[10px] font-bold tracking-wider uppercase text-[#D0A04B] truncate">
               {project.category}
             </span>
             <div className="flex items-center gap-1 shrink-0">
               {project.tech.slice(0, 2).map((t) => (
                 <span
                   key={t}
-                  className="text-[9px] font-mono font-medium px-1.5 py-0.5 rounded bg-[#FAF7F0] text-[#574F44] border border-[#E5D9C8]"
+                  className="text-[9px] font-mono font-medium px-1.5 py-0.5 rounded bg-[#201B14] text-[#D4CEC4] border border-[#D0A04B]/20"
                 >
                   {t}
                 </span>
@@ -206,24 +206,24 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
             </div>
           </div>
 
-          <h3 className="font-heading text-sm xl:text-base font-bold text-[#292720] mb-1 tracking-tight group-hover:text-[#B58A45] transition-colors flex items-center justify-between">
+          <h3 className="font-heading text-sm xl:text-base font-bold text-white mb-1 tracking-tight group-hover:text-[#D0A04B] transition-colors flex items-center justify-between">
             <span className="truncate">{project.title}</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#B58A45] opacity-80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0 ml-1" />
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#D0A04B] opacity-80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0 ml-1" />
           </h3>
 
-          <p className="text-[11px] xl:text-xs text-[#574F44] font-normal leading-snug mb-2 line-clamp-2 min-h-[2.4em]">
+          <p className="text-[11px] xl:text-xs text-[#D4CEC4] font-normal leading-snug mb-2 line-clamp-2 min-h-[2.4em]">
             {project.description}
           </p>
         </div>
       </div>
 
       {/* Action Buttons: Visit Website & Details */}
-      <div className="flex items-center gap-1.5 pt-2 border-t border-[#E5D9C8] mt-auto">
+      <div className="flex items-center gap-1.5 pt-2 border-t border-white/10 mt-auto">
         <a
           href={project.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg text-[11px] font-bold tracking-wide bg-gradient-to-r from-[#B58A45] via-[#C99D57] to-[#B58A45] text-white hover:brightness-105 shadow-sm shadow-[#B58A45]/20 transition-all duration-200 active:scale-[0.98]"
+          className="flex-1 inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg text-[11px] font-bold tracking-wide bg-gradient-to-r from-[#D0A04B] via-[#E2B768] to-[#D0A04B] text-[#080706] hover:brightness-110 shadow-sm shadow-[#D0A04B]/20 transition-all duration-200 active:scale-[0.98]"
           onClick={(e) => e.stopPropagation()}
         >
           <Globe className="w-3 h-3" />
@@ -237,10 +237,10 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
             e.stopPropagation();
             onOpenArchitecture();
           }}
-          className="inline-flex items-center justify-center gap-1 py-2 px-2.5 rounded-lg text-[11px] font-semibold text-[#292720] hover:text-[#B58A45] bg-white hover:bg-[#FAF7F0] border border-[#E5D9C8] hover:border-[#B58A45]/50 transition-all duration-200 active:scale-[0.98] shadow-sm shrink-0"
+          className="inline-flex items-center justify-center gap-1 py-2 px-2.5 rounded-lg text-[11px] font-semibold text-white hover:text-[#D0A04B] bg-[#201B14] hover:bg-[#282219] border border-[#D0A04B]/30 hover:border-[#D0A04B]/60 transition-all duration-200 active:scale-[0.98] shadow-sm shrink-0"
           aria-label={`View architecture details for ${project.title}`}
         >
-          <Layers className="w-3 h-3 text-[#B58A45]" />
+          <Layers className="w-3 h-3 text-[#D0A04B]" />
           <span>DETAILS</span>
         </button>
       </div>
@@ -341,7 +341,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
       aria-label="Featured Projects Showcase"
     >
       {/* Background Decorative Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-[#B58A45]/8 via-[#F0E4D2]/40 to-[#B58A45]/8 blur-[120px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-[#D0A04B]/6 via-[#201B14]/40 to-[#D0A04B]/6 blur-[120px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
@@ -364,21 +364,21 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
                 onClick={() => scrollToProject(idx)}
                 className={`group relative px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 ${
                   isActive
-                    ? "bg-[#B58A45] text-white border border-[#B58A45] shadow-[0_4px_15px_rgba(181,138,69,0.25)] font-bold"
-                    : "liquid-glass-pill text-[#574F44] hover:text-[#292720]"
+                    ? "bg-[#D0A04B] text-[#080706] border border-[#D0A04B] shadow-[0_4px_15px_rgba(208,160,75,0.3)] font-bold"
+                    : "liquid-glass-pill text-[#D4CEC4] hover:text-white"
                 }`}
                 aria-label={`View ${proj.title} architecture`}
               >
                 <span
                   className={`text-[10px] font-mono font-bold ${
-                    isActive ? "text-amber-100" : "text-[#756C60] group-hover:text-[#292720]"
+                    isActive ? "text-[#080706]" : "text-[#A89F91] group-hover:text-white"
                   }`}
                 >
                   0{idx + 1}
                 </span>
                 <span>{proj.title}</span>
                 {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse ml-0.5" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#080706] animate-pulse ml-0.5" />
                 )}
               </button>
             );
@@ -394,7 +394,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
           onClick={() => scrollCarousel("left")}
           disabled={!canScrollLeft}
           aria-label="Previous projects"
-          className="absolute left-1 sm:left-2 lg:left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center bg-white/95 hover:bg-[#FAF7F0] text-[#292720] hover:text-[#B58A45] border border-[#E5D9C8] hover:border-[#B58A45]/60 shadow-[0_4px_16px_rgba(41,39,32,0.12)] hover:shadow-[0_6px_20px_rgba(181,138,69,0.25)] transition-all duration-200 active:scale-95 disabled:opacity-20 disabled:pointer-events-none disabled:shadow-none"
+          className="absolute left-1 sm:left-2 lg:left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center bg-[#171410]/95 hover:bg-[#201B14] text-white hover:text-[#D0A04B] border border-[#D0A04B]/30 hover:border-[#D0A04B]/60 shadow-[0_4px_16px_rgba(0,0,0,0.5)] hover:shadow-[0_6px_20px_rgba(208,160,75,0.25)] transition-all duration-200 active:scale-95 disabled:opacity-20 disabled:pointer-events-none disabled:shadow-none"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -430,7 +430,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onDiscussPro
           onClick={() => scrollCarousel("right")}
           disabled={!canScrollRight}
           aria-label="Next projects"
-          className="absolute right-1 sm:right-2 lg:right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center bg-white/95 hover:bg-[#FAF7F0] text-[#292720] hover:text-[#B58A45] border border-[#E5D9C8] hover:border-[#B58A45]/60 shadow-[0_4px_16px_rgba(41,39,32,0.12)] hover:shadow-[0_6px_20px_rgba(181,138,69,0.25)] transition-all duration-200 active:scale-95 disabled:opacity-20 disabled:pointer-events-none disabled:shadow-none"
+          className="absolute right-1 sm:right-2 lg:right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center bg-[#171410]/95 hover:bg-[#201B14] text-white hover:text-[#D0A04B] border border-[#D0A04B]/30 hover:border-[#D0A04B]/60 shadow-[0_4px_16px_rgba(0,0,0,0.5)] hover:shadow-[0_6px_20px_rgba(208,160,75,0.25)] transition-all duration-200 active:scale-95 disabled:opacity-20 disabled:pointer-events-none disabled:shadow-none"
         >
           <ChevronRight className="w-5 h-5" />
         </button>

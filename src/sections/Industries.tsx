@@ -262,23 +262,23 @@ const IndustryCarouselRow: React.FC<CarouselRowProps> = ({
                   isSlowedRef.current = false;
                   resetCursor();
                 }}
-                className="group p-4 sm:p-4.5 rounded-xl liquid-glass-card !bg-white/95 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 active:scale-[0.98] flex flex-col justify-between cursor-pointer min-h-[178px] sm:min-h-[188px] border border-[#E5D9C8] hover:border-[#B58A45]/50 shadow-sm hover:shadow-md"
+                className="group p-4 sm:p-4.5 rounded-xl bg-[#171410] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 active:scale-[0.98] flex flex-col justify-between cursor-pointer min-h-[178px] sm:min-h-[188px] border border-[#D0A04B]/20 hover:border-[#D0A04B]/60 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)]"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <div className="p-2 rounded-lg bg-[#B58A45]/10 border border-[#B58A45]/30 group-hover:scale-110 transition-all">
+                    <div className="p-2 rounded-lg bg-[#201B14] border border-[#D0A04B]/25 group-hover:scale-110 transition-all">
                       {getIcon(ind.icon)}
                     </div>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#B58A45]/10 text-[#8C6527] border border-[#B58A45]/30 font-bold">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#D0A04B]/10 text-[#D0A04B] border border-[#D0A04B]/30 font-bold">
                       {ind.tag}
                     </span>
                   </div>
 
-                  <h3 className="font-heading font-bold text-sm sm:text-[15px] text-[#292720] group-hover:text-[#B58A45] transition-colors mb-1.5">
+                  <h3 className="font-heading font-bold text-sm sm:text-[15px] text-white group-hover:text-[#D0A04B] transition-colors mb-1.5">
                     {ind.name}
                   </h3>
 
-                  <p className="text-[11.5px] sm:text-xs text-[#574F44] font-normal leading-relaxed">
+                  <p className="text-[11.5px] sm:text-xs text-[#D4CEC4] font-normal leading-relaxed">
                     {ind.description}
                   </p>
                 </div>

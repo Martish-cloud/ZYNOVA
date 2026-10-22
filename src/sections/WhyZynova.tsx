@@ -106,33 +106,33 @@ export const WhyZynova: React.FC = () => {
                   aria-label={r.title}
                   onMouseEnter={() => setCursor("project", r.title)}
                   onMouseLeave={resetCursor}
-                  className="h-full group relative p-5 sm:p-5.5 rounded-xl bg-[#181410]/90 border border-white/10 hover:border-[#B58A45]/60 hover:bg-[#181410] shadow-[0_4px_20px_rgba(0,0,0,0.35)] hover:shadow-[0_8px_32px_rgba(181,138,69,0.18)] transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B58A45] cursor-pointer"
+                  className="h-full group relative p-5 sm:p-5.5 rounded-xl bg-[#171410] border border-[#D0A04B]/20 hover:border-[#D0A04B]/60 shadow-[0_4px_20px_rgba(0,0,0,0.35)] hover:shadow-[0_8px_32px_rgba(208,160,75,0.18)] transition-all duration-300 flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B] cursor-pointer"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3.5 sm:mb-4">
-                      <span className="font-mono text-xs font-bold text-[#D4AF37]">
+                      <span className="font-mono text-xs font-bold text-[#D0A04B]">
                         // {r.number}
                       </span>
-                      <div className="p-2.5 rounded-lg bg-[#B58A45]/15 border border-[#B58A45]/35 group-hover:scale-105 transition-all duration-300">
-                        <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#D4AF37]" />
+                      <div className="p-2.5 rounded-lg bg-[#201B14] border border-[#D0A04B]/35 group-hover:scale-105 transition-all duration-300">
+                        <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#D0A04B]" />
                       </div>
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-bold font-heading text-[#FAF7F0] mb-1.5 group-hover:text-[#B58A45] transition-colors">
+                    <h3 className="text-base sm:text-lg font-bold font-heading text-white mb-1.5 group-hover:text-[#D0A04B] transition-colors">
                       {r.title}
                     </h3>
 
-                    <div className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-[#B58A45]/15 text-[#D4AF37] mb-3 border border-[#B58A45]/35 font-bold shadow-xs">
+                    <div className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-[#D0A04B]/15 text-[#D0A04B] mb-3 border border-[#D0A04B]/35 font-bold shadow-xs">
                       {r.highlight}
                     </div>
 
-                    <p className="text-xs text-[#C5BCB0] font-normal leading-relaxed">
+                    <p className="text-xs text-[#D4CEC4] font-normal leading-relaxed">
                       {r.description}
                     </p>
                   </div>
 
-                  <div className="pt-4 mt-4 border-t border-white/10 flex items-center gap-2 text-[10.5px] font-mono font-semibold text-[#A89F91]">
-                    <Sparkles className="w-3 h-3 text-[#B58A45]" />
+                  <div className="pt-4 mt-4 border-t border-[#D0A04B]/20 flex items-center gap-2 text-[10.5px] font-mono font-semibold text-[#D4CEC4]/80">
+                    <Sparkles className="w-3 h-3 text-[#D0A04B]" />
                     <span>Standard on every engagement</span>
                   </div>
                 </div>
@@ -144,10 +144,10 @@ export const WhyZynova: React.FC = () => {
         {/* Dynamic Scroll-Highlighted Guarantees */}
         <div className="mt-12 sm:mt-16 max-w-3xl mx-auto">
           <div className="text-center mb-6">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-[#D4AF37] font-bold">
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#D0A04B] font-bold">
               // SCROLL-ACTIVE COMMITMENTS
             </span>
-            <h4 className="text-lg sm:text-xl font-bold font-heading text-[#FAF7F0] mt-1">
+            <h4 className="text-lg sm:text-xl font-bold font-heading text-white mt-1">
               Guarantees That Anchor Every Project
             </h4>
           </div>

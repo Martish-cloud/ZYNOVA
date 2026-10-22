@@ -1,170 +1,214 @@
-import React from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { siteConfig } from "../config/siteConfig";
-import { HeroFramePlayer } from "./HeroFramePlayer";
+import { ZynovaHeroScrollCanvas } from "../components/ui/ZynovaHeroScrollCanvas";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { Badge } from "../components/ui/Badge";
 import { WordReveal } from "../components/motion/WordReveal";
 import { BlurFadeUp } from "../components/motion/BlurFadeUp";
-import { useInViewAnimation } from "../hooks/useInViewAnimation";
 import { useSmoothScroll } from "../components/motion/SmoothScroll";
+import { useReducedMotion } from "../hooks/useReducedMotion";
 import { ArrowRight, Sparkles, Layers, ShieldCheck } from "lucide-react";
 
 export const Hero: React.FC = () => {
-  const { ref: heroRef, isInView, prefersReducedMotion } = useInViewAnimation<HTMLElement>({
-    threshold: 0.05,
-    rootMargin: "0px",
-  });
+  const containerRef = useRef<HTMLElement | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
   const { scrollTo } = useSmoothScroll();
 
   const handleScrollTo = (id: string) => {
     scrollTo(`#${id}`);
   };
 
-  const isVisible = prefersReducedMotion || isInView;
+  // Scroll listener tracking Hero section progress to scrub frames smoothly
+  const handleScroll = useCallback(() => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const windowH = window.innerHeight;
+    const totalH = containerRef.current.offsetHeight;
+
+    // Scroll range: from section top entering viewport to when section finishes runway
+    const scrollDistance = Math.max(1, totalH - windowH);
+    const currentScroll = -rect.top;
+
+    const progress = Math.max(0, Math.min(1, currentScroll / scrollDistance));
+    setScrollProgress(progress);
+  }, []);
+
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [handleScroll]);
 
   return (
     <section
       id="hero"
-      ref={heroRef}
-      className="relative min-h-[95vh] lg:min-h-screen flex items-center justify-center pt-28 pb-16 sm:pt-32 sm:pb-20 md:py-28 overflow-hidden bg-transparent"
+      ref={containerRef}
+      className="relative w-full bg-[#080706] text-white overflow-hidden"
+      style={{
+        // 185vh provides ~600-800px of comfortable tactile scroll travel for 234 frames
+        minHeight: "185vh",
+      }}
+      aria-label="Home Hero"
     >
-      {/* Espresso Deep Ambient Lighting */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute top-[10%] left-[15%] w-[650px] h-[650px] rounded-full bg-[radial-gradient(circle,rgba(181,138,69,0.08)_0%,transparent_70%)]" />
-        <div className="absolute bottom-[5%] right-[5%] w-[550px] h-[550px] rounded-full bg-[radial-gradient(circle,rgba(181,138,69,0.05)_0%,transparent_70%)]" />
-      </div>
+      {/* Sticky Full-Viewport Stage */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
+        {/* Full-Section Background Canvas: 234-Frame Zynova Hero Scroll-Driven Animation */}
+        <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+          <ZynovaHeroScrollCanvas
+            progress={prefersReducedMotion ? 0 : scrollProgress}
+            className="w-full h-full"
+          />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-10 xl:gap-14 items-center">
-          {/* Left Column: Far-Left Aligned Brand Headline, Narrative & CTAs */}
-          <div className="lg:col-span-6 xl:col-span-6 flex flex-col items-start text-left">
-            {/* Top Micro Badge with Official Brand Tagline */}
-            <BlurFadeUp delay={0.05} y={-10} className="mb-3.5 sm:mb-4">
-              <Badge
-                variant="gold"
-                className="py-1 px-3 sm:px-3.5 text-[10px] sm:text-xs font-semibold tracking-wide bg-[#B58A45]/15 border-[#B58A45]/35 text-[#D4AF37]"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-[#B58A45]" />
-                <span>BUILDING DIGITAL SOLUTIONS &bull; EMPOWERING BUSINESS GROWTH</span>
-              </Badge>
-            </BlurFadeUp>
+          {/* Left-Side Dark Gradient Veil to Guarantee Crisp Text Readability while keeping Product Bright on Right */}
+          <div
+            className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#080706] via-[#080706]/92 md:via-[#080706]/78 lg:via-[#080706]/60 to-transparent"
+            aria-hidden="true"
+          />
 
-            {/* Massive Cinematic Word-Reveal Headline */}
-            <div className="mb-4 sm:mb-5">
-              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black font-heading tracking-tighter leading-[0.98] text-[#FAF7F0] flex flex-col items-start">
-                <WordReveal
-                  text="BUILD. AUTOMATE."
-                  as="span"
-                  wordClassName="text-[#FAF7F0]"
-                  stagger={0.07}
-                  initialDelay={0.1}
-                />
-                <WordReveal
-                  text="SCALE WHAT'S NEXT."
-                  as="span"
-                  highlightWords={["SCALE", "WHAT'S", "NEXT."]}
-                  highlightClassName="bg-gradient-to-r from-[#D4AF37] via-[#C99E56] to-[#B58A45] bg-clip-text text-transparent"
-                  stagger={0.07}
-                  initialDelay={0.25}
-                />
-              </h1>
-            </div>
+          {/* Subtle Top & Bottom Fade */}
+          <div
+            className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#080706] to-transparent pointer-events-none"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#080706] to-transparent pointer-events-none"
+            aria-hidden="true"
+          />
+        </div>
 
-            {/* Supporting Copy */}
-            <BlurFadeUp delay={0.3} y={15}>
-              <p className="text-xs sm:text-sm md:text-base text-[#C5BCB0] max-w-xl leading-relaxed mb-4 sm:mb-5 font-normal">
-                {siteConfig.brandName} is a premium technology studio engineering high-performance websites, scalable software, mobile apps, intelligent automation workflows, and actionable business intelligence.
-              </p>
-            </BlurFadeUp>
+        {/* Foreground Content: Brand Headline, Narrative & CTAs on the Left */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 md:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-10 xl:gap-14 items-center">
+            {/* Left Column: Far-Left Aligned Brand Headline, Narrative & CTAs */}
+            <div className="lg:col-span-6 xl:col-span-6 flex flex-col items-start text-left">
+              {/* Top Micro Badge with Official Brand Tagline */}
+              <BlurFadeUp delay={0.05} y={-10} className="mb-3.5 sm:mb-4">
+                <Badge
+                  variant="gold"
+                  className="py-1 px-3 sm:px-3.5 text-[10px] sm:text-xs font-semibold tracking-wide bg-[#D0A04B]/15 border-[#D0A04B]/35 text-[#D0A04B]"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-[#D0A04B]" />
+                  <span>BUILDING DIGITAL SOLUTIONS &bull; EMPOWERING BUSINESS GROWTH</span>
+                </Badge>
+              </BlurFadeUp>
 
-            {/* Founder Credential Line */}
-            <BlurFadeUp delay={0.4} y={15}>
-              <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/10 text-[11px] sm:text-xs text-[#C5BCB0] font-medium mb-6 sm:mb-7 shadow-xs">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#B58A45]" />
-                <span>
-                  Founded by <span className="text-white font-bold">{siteConfig.founder.name}</span> &bull; {siteConfig.founder.location} &bull; <span className="text-[#D4AF37] font-semibold">{siteConfig.metrics.responseTime} Response</span>
-                </span>
+              {/* Massive Cinematic Word-Reveal Headline */}
+              <div className="mb-4 sm:mb-5">
+                <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black font-heading tracking-tighter leading-[0.98] text-white flex flex-col items-start">
+                  <WordReveal
+                    text="BUILD. AUTOMATE."
+                    as="span"
+                    wordClassName="text-white"
+                    stagger={0.07}
+                    initialDelay={0.1}
+                  />
+                  <WordReveal
+                    text="SCALE WHAT'S NEXT."
+                    as="span"
+                    highlightWords={["SCALE", "WHAT'S", "NEXT."]}
+                    highlightClassName="bg-gradient-to-r from-[#D0A04B] via-[#E2B768] to-[#A9792E] bg-clip-text text-transparent"
+                    stagger={0.07}
+                    initialDelay={0.25}
+                  />
+                </h1>
               </div>
-            </BlurFadeUp>
 
-            {/* Primary Call To Actions */}
-            <BlurFadeUp delay={0.5} y={15}>
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-7 sm:mb-8">
-                {/* Primary CTA with bespoke golden under-glow */}
-                <div className="relative group">
-                  <div className="absolute -inset-1 rounded-full bg-[#B58A45]/40 blur-lg group-hover:bg-[#B58A45]/60 transition-all duration-300 pointer-events-none" />
+              {/* Supporting Copy */}
+              <BlurFadeUp delay={0.3} y={15}>
+                <p className="text-xs sm:text-sm md:text-base text-[#D4CEC4] max-w-xl leading-relaxed mb-4 sm:mb-5 font-normal">
+                  {siteConfig.brandName} is a premium technology studio engineering high-performance websites, scalable software, mobile apps, intelligent automation workflows, and actionable business intelligence.
+                </p>
+              </BlurFadeUp>
+
+              {/* Founder Credential Line */}
+              <BlurFadeUp delay={0.4} y={15}>
+                <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/10 text-[11px] sm:text-xs text-[#D4CEC4] font-medium mb-6 sm:mb-7 shadow-xs">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#D0A04B]" />
+                  <span>
+                    Founded by <span className="text-white font-bold">{siteConfig.founder.name}</span> &bull; {siteConfig.founder.location} &bull; <span className="text-[#D0A04B] font-semibold">{siteConfig.metrics.responseTime} Response</span>
+                  </span>
+                </div>
+              </BlurFadeUp>
+
+              {/* Primary Call To Actions */}
+              <BlurFadeUp delay={0.5} y={15}>
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-7 sm:mb-8">
+                  {/* Primary CTA with bespoke golden under-glow */}
+                  <div className="relative group">
+                    <div className="absolute -inset-1 rounded-full bg-[#D0A04B]/40 blur-lg group-hover:bg-[#D0A04B]/60 transition-all duration-300 pointer-events-none" />
+                    <MagneticButton
+                      asAnchor
+                      href="#book-call"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleScrollTo("book-call");
+                      }}
+                      variant="gold"
+                      className="relative !px-5 sm:!px-6 !py-2.5 sm:!py-3 text-xs sm:text-sm font-bold shadow-[0_0_28px_rgba(208,160,75,0.45)] hover:shadow-[0_0_42px_rgba(208,160,75,0.65)]"
+                      cursorLabel="BOOK"
+                    >
+                      <Sparkles className="w-4 h-4 text-[#080706]" />
+                      <span>Book a Discovery Call</span>
+                    </MagneticButton>
+                  </div>
+
                   <MagneticButton
                     asAnchor
-                    href="#book-call"
+                    href="#services"
                     onClick={(e) => {
                       e.preventDefault();
-                      handleScrollTo("book-call");
+                      handleScrollTo("services");
                     }}
-                    variant="gold"
-                    className="relative !px-5 sm:!px-6 !py-2.5 sm:!py-3 text-xs sm:text-sm font-bold shadow-[0_0_28px_rgba(181,138,69,0.45)] hover:shadow-[0_0_42px_rgba(181,138,69,0.65)]"
-                    cursorLabel="BOOK"
+                    variant="secondary"
+                    className="!px-5 sm:!px-6 !py-2.5 sm:!py-3 text-xs sm:text-sm font-semibold !bg-white/10 hover:!bg-white/15 !text-white !border-white/15"
+                    cursorLabel="SERVICES"
                   >
-                    <Sparkles className="w-4 h-4 text-white" />
-                    <span>Book a Discovery Call</span>
+                    <span>Explore Services</span>
+                    <ArrowRight className="w-4 h-4 text-[#D0A04B]" />
+                  </MagneticButton>
+
+                  <MagneticButton
+                    asAnchor
+                    href="#projects"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleScrollTo("projects");
+                    }}
+                    variant="outline"
+                    className="!px-4 sm:!px-5 !py-2.5 sm:!py-3 text-xs sm:text-sm font-semibold !bg-white/5 hover:!bg-white/10 !text-white/90 !border-white/15"
+                    cursorLabel="WORK"
+                  >
+                    <Layers className="w-4 h-4 text-[#D0A04B]" />
+                    <span>View Our Projects</span>
                   </MagneticButton>
                 </div>
+              </BlurFadeUp>
 
-                <MagneticButton
-                  asAnchor
-                  href="#services"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleScrollTo("services");
-                  }}
-                  variant="secondary"
-                  className="!px-5 sm:!px-6 !py-2.5 sm:!py-3 text-xs sm:text-sm font-semibold !bg-white/10 hover:!bg-white/15 !text-white !border-white/15"
-                  cursorLabel="SERVICES"
+              {/* Scroll Down Indicator */}
+              <BlurFadeUp delay={0.6} y={15}>
+                <button
+                  onClick={() => handleScrollTo("vision")}
+                  className="inline-flex items-center gap-2.5 text-[#A89F91] hover:text-[#D0A04B] transition-colors cursor-pointer group"
+                  aria-label="Scroll down to explore"
                 >
-                  <span>Explore Services</span>
-                  <ArrowRight className="w-4 h-4 text-[#D4AF37]" />
-                </MagneticButton>
+                  <div className="w-5 h-8 rounded-full border-2 border-white/20 bg-white/5 flex items-start justify-center p-1 group-hover:border-[#D0A04B] transition-colors shadow-xs">
+                    <span className="w-1.5 h-2 rounded-full bg-[#D0A04B] animate-bounce" />
+                  </div>
+                  <span className="text-[11px] font-mono tracking-widest uppercase group-hover:tracking-wider transition-all font-semibold">
+                    SCROLL TO ADVANCE ANIMATION
+                  </span>
+                </button>
+              </BlurFadeUp>
+            </div>
 
-                <MagneticButton
-                  asAnchor
-                  href="#projects"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleScrollTo("projects");
-                  }}
-                  variant="outline"
-                  className="!px-4 sm:!px-5 !py-2.5 sm:!py-3 text-xs sm:text-sm font-semibold !bg-white/5 hover:!bg-white/10 !text-white/90 !border-white/15"
-                  cursorLabel="WORK"
-                >
-                  <Layers className="w-4 h-4 text-[#D4AF37]" />
-                  <span>View Our Projects</span>
-                </MagneticButton>
-              </div>
-            </BlurFadeUp>
-
-            {/* Subtle Scroll Down Indicator */}
-            <BlurFadeUp delay={0.6} y={15}>
-              <button
-                onClick={() => handleScrollTo("stats")}
-                className="inline-flex items-center gap-2.5 text-[#A89F91] hover:text-[#D4AF37] transition-colors cursor-pointer group"
-                aria-label="Scroll down to explore"
-              >
-                <div className="w-5 h-8 rounded-full border-2 border-white/20 bg-white/5 flex items-start justify-center p-1 group-hover:border-[#B58A45] transition-colors shadow-xs">
-                  <span className="w-1.5 h-2 rounded-full bg-[#B58A45] animate-bounce" />
-                </div>
-                <span className="text-[11px] font-mono tracking-widest uppercase group-hover:tracking-wider transition-all font-semibold">
-                  SCROLL TO EXPLORE
-                </span>
-              </button>
-            </BlurFadeUp>
-          </div>
-
-          {/* Right Column: 277-Frame Cinematic Animation Player */}
-          <div
-            className={`lg:col-span-6 xl:col-span-6 w-full flex items-center justify-center transition-all duration-700 delay-200 ease-out ${
-              isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-[0.98]"
-            }`}
-          >
-            <HeroFramePlayer />
+            {/* Right Column: Kept as clear visual buffer so the animated product (laptop) shines through on the right */}
+            <div className="hidden lg:block lg:col-span-6 pointer-events-none" aria-hidden="true" />
           </div>
         </div>
       </div>
