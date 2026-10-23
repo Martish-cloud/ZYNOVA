@@ -33,7 +33,8 @@ const ItemRow: React.FC<ItemRowProps> = ({ item, theme }) => {
   });
 
   // Highlight peaks when the item is near the middle of the viewport (0.4 to 0.6)
-  const opacity = useTransform(scrollYProgress, [0, 0.35, 0.5, 0.65, 1], [0.35, 0.45, 1, 0.45, 0.35]);
+  // Non-highlighted items retain a high-contrast 0.72 baseline opacity so text is always completely readable
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [0.72, 0.85, 1, 0.85, 0.72]);
   const scale = useTransform(scrollYProgress, [0, 0.35, 0.5, 0.65, 1], [0.98, 0.99, 1.02, 0.99, 0.98]);
   const x = useTransform(scrollYProgress, [0, 0.35, 0.5, 0.65, 1], [-8, -4, 4, -4, -8]);
   const bulletScale = useTransform(scrollYProgress, [0.35, 0.5, 0.65], [1, 1.4, 1]);

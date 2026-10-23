@@ -22,6 +22,7 @@ export function useStackProgress(
 ): StackMotionValues {
   const prefersReducedMotion = useReducedMotion();
   const [stickyTop, setStickyTop] = useState<number>(0);
+  const [isTall, setIsTall] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     return window.innerWidth < 768;
@@ -42,14 +43,17 @@ export function useStackProgress(
       if (!panelRef.current) return;
       if (isFirst) {
         setStickyTop(0);
+        setIsTall(false);
         return;
       }
       const vh = window.innerHeight;
       const h = panelRef.current.offsetHeight;
-      if (h > vh) {
+      if (h > vh * 1.15) {
         setStickyTop(-(h - vh));
+        setIsTall(true);
       } else {
         setStickyTop(0);
+        setIsTall(false);
       }
     };
 
@@ -83,22 +87,58 @@ export function useStackProgress(
 
   const isLast = !nextPanelRef;
 
-  // When next panel is rising: scrollYProgress goes 0 -> 1
-  const scale = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : targetScale]);
-  const rotateX = useTransform(scrollYProgress, [0, 1], [0, isLast ? 0 : targetRotateX]);
-  const blurVal = useTransform(scrollYProgress, [0, 1], [0, isLast ? 0 : targetBlur]);
-  const filter = useTransform(blurVal, (b) => (b > 0.1 ? `blur(${b}px)` : "none"));
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : targetOpacity]);
-  const borderRadius = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0px", `${isLast ? 0 : targetRadius}px`]
-  );
+  // Section-aware reading plateau:
+  // For standard sections, hold 100% opacity, 0px blur, and 1.0 scale until next panel covers 45%.
+  // For tall sections (where user just reached the bottom text), hold full clarity until 60%.
+  // This guarantees visitors can read all text comfortably without premature dimming or blurring.
+  const scale = useTransform(scrollYProgress, (v) => {
+    if (isLast || prefersReducedMotion) return 1;
+    const fadeStart = isTall ? 0.60 : 0.45;
+    if (v <= fadeStart) return 1;
+    const t = (v - fadeStart) / (1 - fadeStart);
+    return 1 - t * (1 - targetScale);
+  });
 
-  // Apply willChange only while in transition
-  const willChange = useTransform<number, string>(scrollYProgress, (v: number): string =>
-    !isLast && v > 0.01 && v < 0.99 ? "transform, opacity, filter" : "auto"
-  );
+  const rotateX = useTransform(scrollYProgress, (v) => {
+    if (isLast || prefersReducedMotion) return 0;
+    const fadeStart = isTall ? 0.60 : 0.45;
+    if (v <= fadeStart) return 0;
+    const t = (v - fadeStart) / (1 - fadeStart);
+    return t * targetRotateX;
+  });
+
+  const blurVal = useTransform(scrollYProgress, (v) => {
+    if (isLast || prefersReducedMotion) return 0;
+    const fadeStart = isTall ? 0.60 : 0.45;
+    if (v <= fadeStart) return 0;
+    const t = (v - fadeStart) / (1 - fadeStart);
+    return t * targetBlur;
+  });
+
+  const filter = useTransform(blurVal, (b) => (b > 0.2 ? `blur(${b.toFixed(1)}px)` : "none"));
+
+  const opacity = useTransform(scrollYProgress, (v) => {
+    if (isLast || prefersReducedMotion) return 1;
+    const fadeStart = isTall ? 0.60 : 0.45;
+    if (v <= fadeStart) return 1;
+    const t = (v - fadeStart) / (1 - fadeStart);
+    return 1 - t * (1 - targetOpacity);
+  });
+
+  const borderRadius = useTransform(scrollYProgress, (v) => {
+    if (isLast || prefersReducedMotion) return "0px";
+    const fadeStart = isTall ? 0.60 : 0.45;
+    if (v <= fadeStart) return "0px";
+    const t = (v - fadeStart) / (1 - fadeStart);
+    return `${Math.round(t * targetRadius)}px`;
+  });
+
+  // Apply willChange only while actively undergoing the stack transition
+  const willChange = useTransform<number, string>(scrollYProgress, (v: number): string => {
+    if (isLast || prefersReducedMotion) return "auto";
+    const fadeStart = isTall ? 0.60 : 0.45;
+    return v > fadeStart && v < 0.99 ? "transform, opacity, filter" : "auto";
+  });
 
   return {
     stickyTop,

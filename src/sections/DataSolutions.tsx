@@ -25,7 +25,7 @@ export const DataSolutions: React.FC = () => {
   } = useInViewAnimation<HTMLDivElement>({
     threshold: 0.15,
     rootMargin: "0px 0px -6% 0px",
-    retrigger: true
+    retrigger: false
   });
 
   const {
@@ -35,7 +35,7 @@ export const DataSolutions: React.FC = () => {
   } = useInViewAnimation<HTMLDivElement>({
     threshold: 0.18,
     rootMargin: "0px 0px -6% 0px",
-    retrigger: true
+    retrigger: false
   });
 
   // Simulated metrics based on timeframe

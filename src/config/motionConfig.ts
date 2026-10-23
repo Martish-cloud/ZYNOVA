@@ -7,20 +7,20 @@
 export const motionConfig = {
   stack: {
     // Desktop scale & 3D tilt
-    scaleTarget: 0.92,       // Target scale when covered (1 -> 0.92)
-    rotateXTarget: 4,        // Degrees of backward tilt (0 -> 4deg)
-    blurTarget: 8,           // Max blur in px (0 -> 8px)
-    opacityTarget: 0.4,      // Dimmed opacity (1 -> 0.4)
-    borderRadiusTarget: 48,  // Corner rounding in px when covered (0 -> 48px)
+    scaleTarget: 0.96,       // Subtle depth scale when covered (1 -> 0.96)
+    rotateXTarget: 2,        // Gentle backward tilt (0 -> 2deg)
+    blurTarget: 1.5,         // Subtle camera depth-of-field blur in px (0 -> 1.5px)
+    opacityTarget: 0.82,     // Subtle dimming that preserves complete text legibility (1 -> 0.82)
+    borderRadiusTarget: 40,  // Refined corner rounding in px when covered (0 -> 40px)
     perspective: 1400,       // Viewport 3D perspective in px
 
-    // Mobile overrides (< 768px) to guarantee 60fps & no jank
+    // Mobile overrides (< 768px) to guarantee 60fps & crystal-clear readability
     mobile: {
-      scaleTarget: 0.96,
-      rotateXTarget: 1.5,
-      blurTarget: 3,
-      opacityTarget: 0.6,
-      borderRadiusTarget: 32,
+      scaleTarget: 0.98,
+      rotateXTarget: 0,      // Flat stacking without 3D warp on small screens
+      blurTarget: 0,         // Zero blur on mobile: maximum performance & razor-sharp text
+      opacityTarget: 0.88,   // High contrast and complete text visibility
+      borderRadiusTarget: 28,
       perspective: 1000,
     },
 
