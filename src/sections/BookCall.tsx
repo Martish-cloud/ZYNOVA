@@ -34,11 +34,18 @@ export const BookCall: React.FC<BookCallProps> = ({
   const [prevPrefilledService, setPrevPrefilledService] = useState(prefilledService);
   const [prevPrefilledBrief, setPrevPrefilledBrief] = useState(prefilledBrief);
 
+  const sanitizeService = (svc?: string) => {
+    if (!svc || svc === "AI & Workflow Automation" || svc === "AI and Workflow Automation") {
+      return "";
+    }
+    return svc;
+  };
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
-    service: prefilledService || "Web Development",
+    service: sanitizeService(prefilledService),
     preferredDate: "",
     preferredTime: "14:00",
     message: prefilledBrief || ""
@@ -47,7 +54,7 @@ export const BookCall: React.FC<BookCallProps> = ({
   // Idiomatic React state adjustment during render when props change
   if (prefilledService !== prevPrefilledService) {
     setPrevPrefilledService(prefilledService);
-    setFormData((prev) => ({ ...prev, service: prefilledService }));
+    setFormData((prev) => ({ ...prev, service: sanitizeService(prefilledService) }));
   }
 
   if (prefilledBrief !== prevPrefilledBrief) {
@@ -70,18 +77,27 @@ export const BookCall: React.FC<BookCallProps> = ({
     "Excel Data Cleaning & Automation",
     "Professional Excel Dashboards",
     "Power BI Reporting",
-    "AI & Workflow Automation",
     "Digital Marketing",
     "Other Custom Digital Architecture"
   ];
 
   const validate = () => {
     const errs: { [key: string]: string } = {};
-    if (!formData.name.trim()) errs.name = "Please enter your full name.";
+    if (!formData.name.trim()) {
+      errs.name = "Please enter your full name.";
+    }
     if (!formData.email.trim()) {
       errs.email = "Please enter your email address.";
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
       errs.email = "Please enter a valid email address.";
+    }
+    if (
+      !formData.service.trim() ||
+      formData.service === "AI & Workflow Automation" ||
+      formData.service === "AI and Workflow Automation" ||
+      !serviceOptions.includes(formData.service)
+    ) {
+      errs.service = "Please select a service interested in.";
     }
     if (!formData.message.trim()) {
       errs.message = "Please share a brief description of your project.";
@@ -156,7 +172,7 @@ export const BookCall: React.FC<BookCallProps> = ({
   };
 
   return (
-    <section id="book-call" className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent">
+    <section id="book-call" className="pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-8 relative z-10 bg-transparent">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="SCHEDULE A CONSULTATION"
@@ -317,7 +333,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                           name: "",
                           email: "",
                           company: "",
-                          service: "Web Development",
+                          service: "",
                           preferredDate: "",
                           preferredTime: "14:00",
                           message: ""
@@ -335,21 +351,24 @@ export const BookCall: React.FC<BookCallProps> = ({
                     {/* Name */}
                     <div>
                       <label className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
-                        Full Name *
+                        Full Name <span className="text-[#FF4D4F]">*</span>
                       </label>
                       <input
                         type="text"
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (errors.name) setErrors((prev) => ({ ...prev, name: "" }));
+                        }}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="e.g. Ankita Shrivastav"
                         className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#D4CEC4]/40 placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors ${
-                          errors.name ? "!border-rose-500" : ""
+                          errors.name ? "!border-[#FF4D4F]" : ""
                         }`}
                       />
                       {errors.name && (
-                        <span className="text-[10px] text-rose-500 font-semibold mt-1 block">
+                        <span className="text-[10px] text-[#FF4D4F] font-semibold mt-1 block">
                           {errors.name}
                         </span>
                       )}
@@ -358,21 +377,24 @@ export const BookCall: React.FC<BookCallProps> = ({
                     {/* Email */}
                     <div>
                       <label className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
-                        Work Email *
+                        Work Email <span className="text-[#FF4D4F]">*</span>
                       </label>
                       <input
                         type="email"
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
+                        }}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Ankita.shri@yahoo.com"
                         className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#D4CEC4]/40 placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors ${
-                          errors.email ? "!border-rose-500" : ""
+                          errors.email ? "!border-[#FF4D4F]" : ""
                         }`}
                       />
                       {errors.email && (
-                        <span className="text-[10px] text-rose-500 font-semibold mt-1 block">
+                        <span className="text-[10px] text-[#FF4D4F] font-semibold mt-1 block">
                           {errors.email}
                         </span>
                       )}
@@ -399,15 +421,23 @@ export const BookCall: React.FC<BookCallProps> = ({
                     {/* Service */}
                     <div>
                       <label className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
-                        Service Interested In
+                        Service Interested In <span className="text-[#FF4D4F]">*</span>
                       </label>
                       <select
                         value={formData.service}
-                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, service: e.target.value });
+                          if (errors.service) setErrors((prev) => ({ ...prev, service: "" }));
+                        }}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors cursor-pointer"
+                        className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors cursor-pointer ${
+                          formData.service ? "text-white" : "text-[#D4CEC4]/40"
+                        } ${errors.service ? "!border-[#FF4D4F]" : ""}`}
                       >
+                        <option value="" disabled className="bg-[#201B14] text-[#D4CEC4]/50">
+                          Select a service...
+                        </option>
                         {formData.service && !serviceOptions.includes(formData.service) && (
                           <option value={formData.service} className="bg-[#201B14] text-[#D0A04B] py-1.5 font-bold">
                             {formData.service}
@@ -419,6 +449,11 @@ export const BookCall: React.FC<BookCallProps> = ({
                           </option>
                         ))}
                       </select>
+                      {errors.service && (
+                        <span className="text-[10px] text-[#FF4D4F] font-semibold mt-1 block">
+                          {errors.service}
+                        </span>
+                      )}
                     </div>
                   </div>
 
@@ -458,21 +493,24 @@ export const BookCall: React.FC<BookCallProps> = ({
                   {/* Message Brief */}
                   <div>
                     <label className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
-                      Project Brief / Goals *
+                      Project Brief <span className="text-[#FF4D4F]">*</span>
                     </label>
                     <textarea
                       rows={3}
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (errors.message) setErrors((prev) => ({ ...prev, message: "" }));
+                      }}
                       onFocus={() => setCursor("input")}
                       onBlur={resetCursor}
                       placeholder="Tell us about the project requirements, existing stack, and expected timeframe..."
                       className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#D4CEC4]/40 placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors resize-none ${
-                        errors.message ? "!border-rose-500" : ""
+                        errors.message ? "!border-[#FF4D4F]" : ""
                       }`}
                     />
                     {errors.message && (
-                      <span className="text-[10px] text-rose-500 font-semibold mt-1 block">
+                      <span className="text-[10px] text-[#FF4D4F] font-semibold mt-1 block">
                         {errors.message}
                       </span>
                     )}
