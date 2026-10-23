@@ -71,13 +71,10 @@ export const Navbar: React.FC = () => {
                 </span>
               </div>
             </div>
-            <div className="flex flex-col min-w-0">
+            <div className="flex items-center min-w-0">
               <span className="font-heading text-sm sm:text-base lg:text-lg font-extrabold tracking-wider flex items-center gap-1 whitespace-nowrap text-white transition-colors duration-300">
                 {siteConfig.brandName}
                 <span className="w-1.5 h-1.5 rounded-full bg-[#D0A04B] inline-block shadow-[0_0_8px_#D0A04B] shrink-0" />
-              </span>
-              <span className="text-[7.5px] sm:text-[8.5px] uppercase tracking-widest text-[#D0A04B] font-mono hidden sm:block leading-none font-bold">
-                STUDIO &bull; EST. 2026
               </span>
             </div>
           </a>
