@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import type { FreelancePlatform, PlatformService } from "../../data/platforms";
+import { useScrollLock } from "../../hooks/useScrollLock";
 import {
   Upwork_Icon,
   Fiverr_Icon,
@@ -102,21 +103,21 @@ export const PlatformServicesModal: React.FC<PlatformServicesModalProps> = ({
 }) => {
   const [expandedGroupTitle, setExpandedGroupTitle] = useState<string | null>(null);
 
+  // Background scroll lock and Lenis freeze
+  useScrollLock(isOpen);
+
   useEffect(() => {
+    if (!isOpen) return;
+    setExpandedGroupTitle(null);
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
 
-    if (isOpen) {
-      setExpandedGroupTitle(null);
-      const originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-      return () => {
-        document.body.style.overflow = originalOverflow;
-        window.removeEventListener("keydown", handleKeyDown);
-      };
-    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isOpen, onClose]);
 
   const groupedServices = useMemo(() => {
@@ -130,23 +131,39 @@ export const PlatformServicesModal: React.FC<PlatformServicesModalProps> = ({
 
   const modalContent = (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-hidden"
       role="dialog"
       aria-modal="true"
+      data-lenis-prevent="true"
+      onWheel={(e) => {
+        if (e.target === e.currentTarget) e.preventDefault();
+      }}
+      onTouchMove={(e) => {
+        if (e.target === e.currentTarget) e.preventDefault();
+      }}
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
+        className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
         onClick={onClose}
         aria-hidden="true"
+        data-lenis-prevent="true"
+        style={{ touchAction: "none" }}
+        onWheel={(e) => e.preventDefault()}
+        onTouchMove={(e) => e.preventDefault()}
       />
 
       {/* Modal Container */}
       <div
-        className="relative w-full max-w-lg bg-[#171410] border border-[#D0A04B]/25 rounded-2xl overflow-hidden z-10 transition-all my-auto max-h-[90vh] flex flex-col text-[#D4CEC4] shadow-[0_24px_64px_rgba(0,0,0,0.7)]"
+        className="relative w-full max-w-lg bg-[#171410] border border-[#D0A04B]/25 rounded-2xl overflow-hidden z-10 transition-all my-auto flex flex-col text-[#D4CEC4] shadow-[0_24px_64px_rgba(0,0,0,0.8)]"
+        style={{
+          maxHeight: "min(88vh, 680px)",
+          height: "auto"
+        }}
         onClick={(e) => e.stopPropagation()}
+        data-lenis-prevent="true"
       >
-        {/* Header */}
+        {/* Header - Fixed & Never Scrolls */}
         <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-[#D0A04B]/20 bg-[#100D09] shrink-0">
           <div className="flex items-center gap-3">
             <div
@@ -168,15 +185,30 @@ export const PlatformServicesModal: React.FC<PlatformServicesModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-[#D4CEC4] hover:text-white rounded-lg hover:bg-[#201B14] transition-colors cursor-pointer"
+            className="p-1.5 text-[#D4CEC4] hover:text-white rounded-lg hover:bg-[#201B14] transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B]"
             aria-label="Close modal"
           >
             <X className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
         </div>
 
-        {/* Services List Content */}
-        <div className="p-3.5 sm:p-5 overflow-y-auto space-y-2.5">
+        {/* Services List Content - Scrollable only when overflowing */}
+        <div
+          className="p-3.5 sm:p-5 overflow-y-auto flex-1 min-h-0 space-y-2.5 custom-scrollbar"
+          style={{
+            overscrollBehavior: "contain",
+            WebkitOverflowScrolling: "touch"
+          }}
+          data-lenis-prevent="true"
+        >
+          {groupedServices.length === 0 ? (
+            <div className="py-6 px-4 text-center rounded-xl bg-[#201B14]/60 border border-[#D0A04B]/20 space-y-2">
+              <p className="text-sm font-semibold text-white">Direct Contract Engagement</p>
+              <p className="text-xs text-[#D4CEC4] leading-relaxed">
+                Connect directly through {platform.name} to initiate milestone-based contracts, hourly engagements, or custom scope requests.
+              </p>
+            </div>
+          ) : null}
           {groupedServices.map((group) => {
             const isExpanded = expandedGroupTitle === group.title;
 

@@ -1123,7 +1123,6 @@ export const Projects: React.FC<ProjectsProps> = ({ onDiscussProject }) => {
 
   return (
     <section
-      id="projects"
       ref={sectionRef}
       className={`py-14 sm:py-18 md:py-20 relative z-10 bg-transparent ${
         isSectionInView ? "" : "is-offscreen"

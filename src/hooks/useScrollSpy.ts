@@ -1,19 +1,30 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
+// Physical document order of the primary navigation sections
+export const PHYSICAL_SECTION_ORDER = [
+  "hero",
+  "about",
+  "services",
+  "projects",
+  "why-zynova",
+  "process",
+  "contact"
+] as const;
+
 export function useScrollSpy(
-  sectionIds: string[],
-  offset = 140,
-  lockDuration = 900
+  navSectionIds: string[] = [...PHYSICAL_SECTION_ORDER],
+  headerOffset = 80,
+  lockDuration = 1400
 ) {
   // Check hash on initial load
   const getInitialActiveId = () => {
     if (typeof window !== "undefined" && window.location.hash) {
       const hashId = window.location.hash.replace("#", "");
-      if (sectionIds.includes(hashId)) {
+      if (navSectionIds.includes(hashId)) {
         return hashId;
       }
     }
-    return sectionIds[0] || "hero";
+    return navSectionIds[0] || "hero";
   };
 
   const [activeId, setActiveId] = useState<string>(getInitialActiveId);
@@ -38,8 +49,8 @@ export function useScrollSpy(
   useEffect(() => {
     let ticking = false;
 
-    // Helper to get measuring element (the StackPanel relative wrapper or section)
-    const getTargetElement = (id: string): HTMLElement | null => {
+    // Helper to get measuring element in document flow (StackPanel wrapper div or root section)
+    const getFlowElement = (id: string): HTMLElement | null => {
       const el = document.getElementById(id);
       if (!el) return null;
       if (
@@ -53,90 +64,76 @@ export function useScrollSpy(
       return el;
     };
 
-    // Release lock early if user interacts manually with wheel or touch
-    const handleUserInteraction = () => {
-      ignoreUntilRef.current = 0;
-      manualTargetRef.current = null;
-    };
-
     const checkState = () => {
       const currentScrollY = window.scrollY;
 
-      // 1. Unified header scroll state check (threshold: 20px)
+      // 1. Header background styling check (threshold: 20px)
       const nextScrolled = currentScrollY > 20;
       if (isScrolledRef.current !== nextScrolled) {
         isScrolledRef.current = nextScrolled;
         setIsScrolled(nextScrolled);
       }
 
-      // If locked during a manual link-click smooth scroll, honor the target
+      // If locked during a manual link-click smooth scroll, honor the clicked target
       if (Date.now() < ignoreUntilRef.current && manualTargetRef.current) {
         ticking = false;
         return;
       }
 
       // 2. Active section detection
-      if (sectionIds.length === 0) {
-        ticking = false;
-        return;
-      }
-
-      // If at the very top of the page, hero is always active
-      if (currentScrollY < 60) {
-        const topId = sectionIds.includes("hero") ? "hero" : sectionIds[0];
-        if (activeIdRef.current !== topId) {
-          activeIdRef.current = topId;
-          setActiveId(topId);
+      // Top of page guarantee: if user is in hero head area, hero is active
+      if (currentScrollY < 120) {
+        if (activeIdRef.current !== "hero") {
+          activeIdRef.current = "hero";
+          setActiveId("hero");
         }
         ticking = false;
         return;
       }
 
-      // Check if at the very bottom of the page
+      // Bottom of page guarantee: if user is scrolled near bottom of page, contact is active
       const windowHeight = window.innerHeight;
       const docHeight = document.documentElement.scrollHeight;
-      const isAtBottom = windowHeight + currentScrollY >= docHeight - 60;
-
-      // Collect present DOM elements and sort them by physical DOM position
-      const validElements = sectionIds
-        .map((id) => ({ id, el: getTargetElement(id) }))
-        .filter((item): item is { id: string; el: HTMLElement } => Boolean(item.el));
-
-      if (validElements.length === 0) {
-        ticking = false;
-        return;
-      }
-
-      validElements.sort((a, b) => {
-        const pos = a.el.compareDocumentPosition(b.el);
-        if (pos & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
-        if (pos & Node.DOCUMENT_POSITION_PRECEDING) return 1;
-        return 0;
-      });
-
-      if (isAtBottom) {
-        const lastSectionId = validElements[validElements.length - 1].id;
-        if (activeIdRef.current !== lastSectionId) {
-          activeIdRef.current = lastSectionId;
-          setActiveId(lastSectionId);
+      if (windowHeight + currentScrollY >= docHeight - 90) {
+        if (activeIdRef.current !== "contact") {
+          activeIdRef.current = "contact";
+          setActiveId("contact");
         }
         ticking = false;
         return;
       }
 
-      // Scan in reverse DOM order to find the latest section whose top has crossed into the viewport
+      // Natural focal line for reading (comfortably below the 70px fixed header)
+      const focalY = Math.min(windowHeight * 0.35, 260);
+
+      // Collect sections present in DOM according to physical page sequence
+      type SectionId = (typeof PHYSICAL_SECTION_ORDER)[number];
+      const sectionElements: { id: SectionId; el: HTMLElement }[] = [];
+      for (const id of PHYSICAL_SECTION_ORDER) {
+        const el = getFlowElement(id);
+        if (el) {
+          sectionElements.push({ id, el });
+        }
+      }
+
+      if (sectionElements.length === 0) {
+        ticking = false;
+        return;
+      }
+
+      // Scan in reverse physical order: find the latest section whose top has crossed above focalY
       let matchedId: string | null = null;
-      for (let i = validElements.length - 1; i >= 0; i--) {
-        const item = validElements[i];
+      for (let i = sectionElements.length - 1; i >= 0; i--) {
+        const item = sectionElements[i];
         const rect = item.el.getBoundingClientRect();
-        if (rect.top <= offset) {
+        if (rect.top <= focalY) {
           matchedId = item.id;
           break;
         }
       }
 
       if (!matchedId) {
-        matchedId = validElements[0].id;
+        matchedId = sectionElements[0].id;
       }
 
       if (matchedId && matchedId !== activeIdRef.current) {
@@ -156,19 +153,15 @@ export function useScrollSpy(
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll, { passive: true });
-    window.addEventListener("wheel", handleUserInteraction, { passive: true });
-    window.addEventListener("touchstart", handleUserInteraction, { passive: true });
 
-    // Initial check
+    // Initial evaluation
     checkState();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
-      window.removeEventListener("wheel", handleUserInteraction);
-      window.removeEventListener("touchstart", handleUserInteraction);
     };
-  }, [sectionIds, offset]);
+  }, [navSectionIds, headerOffset, lockDuration]);
 
   return {
     activeSection: activeId,

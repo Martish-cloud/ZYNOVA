@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import confetti from "canvas-confetti";
 import { Heart, X, Mail, Sparkles } from "lucide-react";
 import { donationConfig } from "../../config/donationConfig";
+import { useScrollLock } from "../../hooks/useScrollLock";
 
 interface PaymentCelebrationModalProps {
   isOpen: boolean;
@@ -17,6 +18,8 @@ export const PaymentCelebrationModal: React.FC<PaymentCelebrationModalProps> = (
   donorName,
   onClose
 }) => {
+  useScrollLock(isOpen);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -49,8 +52,9 @@ export const PaymentCelebrationModal: React.FC<PaymentCelebrationModalProps> = (
       role="dialog"
       aria-modal="true"
       aria-label="Thank You Confirmation"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-200 overflow-hidden"
       onClick={onClose}
+      data-lenis-prevent="true"
     >
       {/* Ambient background golden radiance */}
       <div className="absolute w-80 h-80 bg-gradient-to-tr from-amber-500/20 via-yellow-500/20 to-transparent rounded-full blur-[100px] pointer-events-none" />
@@ -59,6 +63,7 @@ export const PaymentCelebrationModal: React.FC<PaymentCelebrationModalProps> = (
       <div
         onClick={(e) => e.stopPropagation()}
         className="relative max-w-md w-full p-6 sm:p-7 rounded-3xl liquid-glass-card border border-amber-400/50 shadow-[0_24px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(212,175,55,0.25)] text-center space-y-4 animate-in zoom-in-95 duration-200"
+        data-lenis-prevent="true"
       >
         {/* Dismiss button */}
         <button

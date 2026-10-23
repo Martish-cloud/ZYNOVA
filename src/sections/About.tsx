@@ -96,7 +96,6 @@ export const About: React.FC = () => {
 
   return (
     <section
-      id="about"
       ref={sectionRef}
       className="py-12 sm:py-16 md:py-20 relative z-10 bg-transparent"
     >

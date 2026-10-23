@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useCallback, Suspense, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useScrollLock } from "../hooks/useScrollLock";
 import { servicesData } from "../data/services";
 import type { ServiceItem } from "../data/services";
 import { SectionHeading } from "../components/ui/SectionHeading";
@@ -240,6 +241,18 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
+  // Background scroll lock for cart modal
+  useScrollLock(isCartModalOpen);
+
+  useEffect(() => {
+    if (!isCartModalOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsCartModalOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isCartModalOpen]);
+
   // Two-Row Alternating Vertical Slide-Up Animation State
   const [row0Phase, setRow0Phase] = useState<"visible" | "exiting" | "staged">("visible");
   const [row1Phase, setRow1Phase] = useState<"visible" | "exiting" | "staged">("staged");
@@ -408,7 +421,6 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
 
   return (
     <section
-      id="services"
       ref={sectionRef}
       className="py-14 sm:py-18 md:py-20 relative z-10 bg-transparent"
     >
@@ -688,8 +700,16 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
 
       {/* Cart Modal */}
       {isCartModalOpen && typeof document !== "undefined" && createPortal(
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="relative w-full max-w-lg rounded-2xl bg-white border border-[#E5D9C8] shadow-2xl p-4 sm:p-5 flex flex-col max-h-[85vh]">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-200 overflow-hidden"
+          onClick={() => setIsCartModalOpen(false)}
+          data-lenis-prevent="true"
+        >
+          <div
+            className="relative w-full max-w-lg rounded-2xl bg-white border border-[#E5D9C8] shadow-2xl p-4 sm:p-5 flex flex-col max-h-[85vh]"
+            onClick={(e) => e.stopPropagation()}
+            data-lenis-prevent="true"
+          >
             <div className="flex items-center justify-between pb-3 border-b border-[#E5D9C8] mb-3">
               <div className="flex items-center gap-2">
                 <ShoppingBag className="w-4 h-4 text-[#B58A45]" />
@@ -700,13 +720,20 @@ export const Services: React.FC<ServicesProps> = ({ onSelectServiceForBooking })
               <button
                 type="button"
                 onClick={() => setIsCartModalOpen(false)}
-                className="p-1 rounded-lg bg-[#FAF7F0] text-[#574F44] hover:text-[#292720] border border-[#E5D9C8]"
+                className="p-1 rounded-lg bg-[#FAF7F0] text-[#574F44] hover:text-[#292720] border border-[#E5D9C8] cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
+            <div
+              className="flex-1 overflow-y-auto space-y-2 pr-1 custom-scrollbar"
+              style={{
+                overscrollBehavior: "contain",
+                WebkitOverflowScrolling: "touch"
+              }}
+              data-lenis-prevent="true"
+            >
               {cart.map((item) => (
                 <div
                   key={item.id}

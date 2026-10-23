@@ -107,23 +107,59 @@ export const platformsData: FreelancePlatform[] = [
     name: "Freelancer",
     configKey: "freelancer",
     brandColor: "#29B2FE",
-    profileUrl: "#",
-    hasServiceList: false
+    profileUrl: "https://www.freelancer.com/",
+    hasServiceList: true,
+    services: [
+      {
+        number: "01",
+        title: "Full-Stack & Web Applications",
+        url: "#contact"
+      },
+      {
+        number: "02",
+        title: "Custom Software Architecture",
+        url: "#contact"
+      }
+    ]
   },
   {
     id: "peoplePerHour",
     name: "PeoplePerHour",
     configKey: "peoplePerHour",
     brandColor: "#FF6600",
-    profileUrl: "#",
-    hasServiceList: false
+    profileUrl: "https://www.peopleperhour.com/",
+    hasServiceList: true,
+    services: [
+      {
+        number: "01",
+        title: "Frontend & UI/UX Engineering",
+        url: "#contact"
+      },
+      {
+        number: "02",
+        title: "Backend & Cloud Architecture",
+        url: "#contact"
+      }
+    ]
   },
   {
     id: "truelancer",
     name: "Truelancer",
     configKey: "truelancer",
     brandColor: "#2B7DE9",
-    profileUrl: "#",
-    hasServiceList: false
+    profileUrl: "https://www.truelancer.com/",
+    hasServiceList: true,
+    services: [
+      {
+        number: "01",
+        title: "Enterprise Software Engineering",
+        url: "#contact"
+      },
+      {
+        number: "02",
+        title: "Data Analytics & Dashboards",
+        url: "#contact"
+      }
+    ]
   }
 ];

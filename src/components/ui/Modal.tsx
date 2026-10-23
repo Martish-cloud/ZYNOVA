@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { useSmoothScroll } from "../motion/SmoothScroll";
+import { useScrollLock } from "../../hooks/useScrollLock";
 
 interface ModalProps {
   isOpen: boolean;
@@ -20,39 +20,22 @@ export const Modal: React.FC<ModalProps> = ({
   maxWidth = "max-w-2xl",
   theme = "dark"
 }) => {
-  const { lenis } = useSmoothScroll();
   const isDark = theme === "dark";
 
+  useScrollLock(isOpen);
+
   useEffect(() => {
+    if (!isOpen) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
 
-    if (isOpen) {
-      // 1. Freeze background page smooth-scrolling via Lenis while modal is active
-      lenis?.stop();
-
-      // 2. Lock standard body scroll and prevent layout shift from scrollbar removal
-      const originalOverflow = document.body.style.overflow;
-      const originalPaddingRight = document.body.style.paddingRight;
-      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-      document.body.style.overflow = "hidden";
-      if (scrollBarWidth > 0) {
-        document.body.style.paddingRight = `${scrollBarWidth}px`;
-      }
-
-      window.addEventListener("keydown", handleKeyDown);
-
-      return () => {
-        // Restore Lenis and body scroll when modal unmounts or closes
-        lenis?.start();
-        document.body.style.overflow = originalOverflow;
-        document.body.style.paddingRight = originalPaddingRight;
-        window.removeEventListener("keydown", handleKeyDown);
-      };
-    }
-  }, [isOpen, onClose, lenis]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 

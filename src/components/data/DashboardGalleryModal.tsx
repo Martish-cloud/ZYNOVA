@@ -4,6 +4,7 @@ import type { DashboardItem } from "../../data/dashboards";
 import { DashboardImageViewer } from "./DashboardImageViewer";
 import { PortfolioImage } from "../ui/PortfolioImage";
 import { useCursor } from "../../context/useCursor";
+import { useScrollLock } from "../../hooks/useScrollLock";
 import { X, Sparkles, Eye, ArrowUpRight, BarChart3, FileSpreadsheet } from "lucide-react";
 
 interface DashboardGalleryModalProps {
@@ -22,16 +23,8 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
   const { setCursor, resetCursor } = useCursor();
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
-  // Prevent background scrolling while modal is open
-  useEffect(() => {
-    if (isOpen) {
-      const originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = originalOverflow;
-      };
-    }
-  }, [isOpen]);
+  // Background scroll lock and Lenis freeze
+  useScrollLock(isOpen);
 
   // Handle ESC key for modal
   useEffect(() => {
@@ -65,16 +58,24 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
   const modalContent = (
     <>
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-10 bg-black/60 backdrop-blur-xl animate-in fade-in duration-200"
+        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-10 bg-black/60 backdrop-blur-xl animate-in fade-in duration-200 overflow-hidden"
         onClick={onClose}
         role="dialog"
         aria-modal="true"
         aria-labelledby="dashboard-gallery-title"
+        data-lenis-prevent="true"
+        onWheel={(e) => {
+          if (e.target === e.currentTarget) e.preventDefault();
+        }}
+        onTouchMove={(e) => {
+          if (e.target === e.currentTarget) e.preventDefault();
+        }}
       >
         {/* Main Modal Container */}
         <div
           className="relative w-full max-w-6xl max-h-[90vh] flex flex-col rounded-3xl bg-[#FFFDF8] border border-[#E5D9C8] overflow-hidden animate-in zoom-in-95 duration-200 shadow-[0_28px_72px_rgba(41,39,32,0.3)]"
           onClick={(e) => e.stopPropagation()}
+          data-lenis-prevent="true"
         >
           {/* Header Bar */}
           <div className="p-6 sm:p-8 border-b border-[#E5D9C8] flex items-start justify-between gap-4 shrink-0 bg-[#F0E4D2]/40">
@@ -128,7 +129,14 @@ export const DashboardGalleryModal: React.FC<DashboardGalleryModalProps> = ({
           </div>
 
           {/* Scrollable Gallery Content */}
-          <div className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6 custom-scrollbar">
+          <div
+            className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6 custom-scrollbar"
+            style={{
+              overscrollBehavior: "contain",
+              WebkitOverflowScrolling: "touch"
+            }}
+            data-lenis-prevent="true"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {dashboards.map((item, index) => (
                 <div

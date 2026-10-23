@@ -35,12 +35,12 @@ export const Navbar: React.FC = () => {
   const { scrollTo } = useSmoothScroll();
   const prefersReducedMotion = useReducedMotion();
 
-  const { activeSection, isScrolled, manualNavigate } = useScrollSpy(SECTION_IDS, 140);
+  const { activeSection, isScrolled, manualNavigate } = useScrollSpy(SECTION_IDS, 80);
 
   const handleLinkClick = (href: string, id: string) => {
     setMobileMenuOpen(false);
     manualNavigate(id);
-    scrollTo(href);
+    scrollTo(href, { offset: -70 });
   };
 
   return (
@@ -87,6 +87,7 @@ export const Navbar: React.FC = () => {
             role="navigation"
             aria-label="Primary Navigation"
             className="hidden lg:flex items-center gap-1 p-1 rounded-full border border-[#D0A04B]/20 bg-[#171410]/85 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
+            style={{ perspective: 800 }}
           >
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.id;
@@ -101,21 +102,21 @@ export const Navbar: React.FC = () => {
                   onMouseEnter={() => setCursor("link")}
                   onMouseLeave={resetCursor}
                   aria-current={isActive ? "page" : undefined}
-                  className={`group relative px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide cursor-pointer transition-all duration-200 select-none outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#080706] ${
+                  className={`group relative px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide cursor-pointer transition-all duration-200 select-none outline-none focus-visible:ring-2 focus-visible:ring-[#D0A04B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#080706] transform-gpu ${
                     isActive
                       ? "text-[#080706] font-bold"
-                      : "text-[#D4CEC4] hover:text-white hover:-translate-y-0.5 active:translate-y-0 hover:bg-[#D0A04B]/10 hover:shadow-[0_4px_14px_rgba(208,160,75,0.18)] active:scale-[0.97]"
+                      : "text-[#D4CEC4] hover:text-[#F3CF8A] hover:-translate-y-0.5 hover:scale-[1.03] active:translate-y-0 active:scale-[0.97] hover:bg-[#D0A04B]/15 hover:shadow-[0_4px_16px_rgba(208,160,75,0.22),0_1px_3px_rgba(0,0,0,0.5)]"
                   }`}
                 >
                   {/* Sliding active pill indicator with Framer Motion */}
                   {isActive && (
                     <motion.div
                       layoutId="activeNavPill"
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-[#D0A04B] via-[#E2B767] to-[#C4923E] border border-[#F3CF8A]/40 shadow-[0_2px_14px_rgba(208,160,75,0.45),inset_0_1px_1px_rgba(255,255,255,0.4)] z-0"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-[#D0A04B] via-[#E5BE72] to-[#B88432] border border-[#FCE1A8]/50 shadow-[0_2px_18px_rgba(208,160,75,0.5),0_0_8px_rgba(208,160,75,0.25),inset_0_1px_1px_rgba(255,255,255,0.5)] z-0"
                       transition={
                         prefersReducedMotion
                           ? { duration: 0 }
-                          : { type: "spring", stiffness: 400, damping: 32 }
+                          : { type: "spring", stiffness: 380, damping: 30 }
                       }
                     />
                   )}
@@ -127,6 +128,7 @@ export const Navbar: React.FC = () => {
               );
             })}
           </nav>
+
 
           {/* CTA & Mobile Toggle */}
           <div className="flex items-center gap-2.5">
