@@ -99,7 +99,7 @@ export const CTASection: React.FC = () => {
             <span>&bull;</span>
             <span className="flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-[#B58A45]" />
-              Guaranteed 12h Response
+              Guaranteed 6h Response
             </span>
             <span>&bull;</span>
             <span className="text-white font-bold">

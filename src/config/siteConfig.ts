@@ -71,7 +71,7 @@ export const siteConfig: SiteConfig = {
     bio: "Engineering high-performance digital products, intelligent automation workflows, and actionable business intelligence for forward-thinking enterprises."
   },
   metrics: {
-    responseTime: "Within 12 Hours",
+    responseTime: "Within 6 Hours",
     industriesServed: "8+",
     projectsServed: "35+",
     clientOwnership: "100%"
@@ -81,7 +81,7 @@ export const siteConfig: SiteConfig = {
     phone: "+91 70036 60883",
     phoneTel: "+917003660883",
     location: "West Bengal, India",
-    responseGuarantee: "Within 12 Hours",
+    responseGuarantee: "Within 6 Hours",
     whatsappGroupURL: "https://chat.whatsapp.com/invite/zynova",
     whatsappChatURL: "https://wa.me/917003660883?text=Hello%20ZYNOVA%20Team%2C%20I%20would%20like%20to%20discuss%20a%20project%20enquiry.",
     formSubmitEndpoint: "https://formsubmit.co/ajax/team.zynova@gmail.com",

@@ -1,73 +1,117 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useCursorState } from "../../context/useCursor";
+import React, { useEffect, useRef } from "react";
+
+interface TrailPoint {
+  x: number;
+  y: number;
+  time: number;
+  isTouch?: boolean;
+}
 
 export const CustomCursor: React.FC = () => {
-  const { cursorType, cursorText } = useCursorState();
-  
-  const [isVisible, setIsVisible] = useState(false);
-  const [clickPos, setClickPos] = useState<{ x: number; y: number } | null>(null);
-
-  // Detect touch device or reduced motion directly in state initializer
-  const [isTouchDevice] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return (
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0 ||
-      window.matchMedia("(pointer: coarse)").matches ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    );
-  });
-
-  // Target mouse coordinates
-  const mousePos = useRef({ x: -100, y: -100 });
-  
-  // Interpolated dot coordinates (snappy)
-  const dotPos = useRef({ x: -100, y: -100 });
-  
-  // Interpolated ring coordinates (smooth lag)
-  const ringPos = useRef({ x: -100, y: -100 });
-
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-  const isVisibleRef = useRef(false);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    if (isTouchDevice) return;
+    // Respect user's motion preferences
+    if (typeof window === "undefined") return;
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mediaQuery.matches) return;
 
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
+    let points: TrailPoint[] = [];
     let animationFrameId: number | null = null;
     let isRunning = false;
+    let isTouchActive = false;
 
-    const render = () => {
-      // Smooth lerp physics
-      const dotFactor = 0.45;
-      const ringFactor = 0.14;
+    // Device Pixel Ratio scaling for crisp lines on Retina/HiDPI screens
+    const handleResize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
 
-      const dotDx = mousePos.current.x - dotPos.current.x;
-      const dotDy = mousePos.current.y - dotPos.current.y;
-      const ringDx = mousePos.current.x - ringPos.current.x;
-      const ringDy = mousePos.current.y - ringPos.current.y;
+    handleResize();
+    window.addEventListener("resize", handleResize, { passive: true });
 
-      dotPos.current.x += dotDx * dotFactor;
-      dotPos.current.y += dotDy * dotFactor;
+    // Constants for trail aesthetics
+    const DESKTOP_MAX_AGE = 340; // ms
+    const TOUCH_MAX_AGE = 260; // ms
+    const DESKTOP_MAX_WIDTH = 4.2; // px
+    const TOUCH_MAX_WIDTH = 3.6; // px
+    const BLUE_COLOR = "#12A9F5"; // Vivid electric blue / cyan
 
-      ringPos.current.x += ringDx * ringFactor;
-      ringPos.current.y += ringDy * ringFactor;
+    const render = (currentTime: number) => {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${dotPos.current.x}px, ${dotPos.current.y}px, 0) translate(-50%, -50%)`;
+      // Filter out points older than their maximum age
+      points = points.filter((p) => {
+        const maxAge = p.isTouch ? TOUCH_MAX_AGE : DESKTOP_MAX_AGE;
+        return currentTime - p.time < maxAge;
+      });
+
+      if (points.length > 1) {
+        // Draw the smooth curved tapering tail
+        for (let i = 0; i < points.length - 1; i++) {
+          const p1 = points[i];
+          const p2 = points[i + 1];
+
+          // Compute age progress for interpolation (1.0 = newest, 0.0 = oldest)
+          const maxAge = p2.isTouch ? TOUCH_MAX_AGE : DESKTOP_MAX_AGE;
+          const age = currentTime - p2.time;
+          const ageFactor = Math.max(0, 1 - age / maxAge);
+
+          // Position ratio along the trail (0 at tail, 1 at head)
+          const trailRatio = (i + 1) / points.length;
+          const progress = trailRatio * ageFactor;
+
+          const width = Math.max(0.6, (p2.isTouch ? TOUCH_MAX_WIDTH : DESKTOP_MAX_WIDTH) * progress);
+          const alpha = Math.min(0.9, 0.95 * progress);
+
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+
+          // Use quadratic curve through midpoint for organic curvature
+          if (i < points.length - 2) {
+            const p3 = points[i + 2];
+            const midX = (p2.x + p3.x) / 2;
+            const midY = (p2.y + p3.y) / 2;
+            ctx.quadraticCurveTo(p2.x, p2.y, midX, midY);
+          } else {
+            ctx.lineTo(p2.x, p2.y);
+          }
+
+          ctx.strokeStyle = `rgba(18, 169, 245, ${alpha.toFixed(3)})`;
+          ctx.lineWidth = width;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+          ctx.shadowColor = BLUE_COLOR;
+          ctx.shadowBlur = p2.isTouch ? 4 : 6;
+          ctx.stroke();
+        }
+
+        // Draw a subtle soft tip at the current head position for touch or active drag
+        const head = points[points.length - 1];
+        if (head && (head.isTouch || isTouchActive)) {
+          const tipAge = currentTime - head.time;
+          const tipAlpha = Math.max(0, (1 - tipAge / (head.isTouch ? TOUCH_MAX_AGE : DESKTOP_MAX_AGE)) * 0.85);
+          if (tipAlpha > 0.05) {
+            ctx.beginPath();
+            ctx.arc(head.x, head.y, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(18, 169, 245, ${tipAlpha.toFixed(3)})`;
+            ctx.shadowColor = BLUE_COLOR;
+            ctx.shadowBlur = 6;
+            ctx.fill();
+          }
+        }
       }
 
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) translate(-50%, -50%)`;
-      }
-
-      // If motion has settled to sub-pixel accuracy, stop the loop to eliminate idle CPU drain
-      if (
-        Math.abs(ringDx) < 0.15 &&
-        Math.abs(ringDy) < 0.15 &&
-        Math.abs(dotDx) < 0.15 &&
-        Math.abs(dotDy) < 0.15
-      ) {
+      // If trail has completely faded and no touch is currently active, halt RAF loop to save 100% idle CPU
+      if (points.length === 0 && !isTouchActive) {
         isRunning = false;
         animationFrameId = null;
         return;
@@ -83,36 +127,66 @@ export const CustomCursor: React.FC = () => {
       }
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mousePos.current = { x: e.clientX, y: e.clientY };
-      if (!isVisibleRef.current) {
-        isVisibleRef.current = true;
-        setIsVisible(true);
+    const addPoint = (x: number, y: number, isTouch = false) => {
+      const now = performance.now();
+      const lastPoint = points[points.length - 1];
+
+      // Avoid duplicate points at identical coordinates
+      if (lastPoint) {
+        const dx = x - lastPoint.x;
+        const dy = y - lastPoint.y;
+        if (dx * dx + dy * dy < 4) {
+          // Update timestamp of last point if pointer is holding still
+          lastPoint.time = now;
+          wakeLoop();
+          return;
+        }
       }
+
+      // Limit max points for memory & performance efficiency
+      const maxPoints = isTouch ? 14 : 22;
+      if (points.length >= maxPoints) {
+        points.shift();
+      }
+
+      points.push({ x, y, time: now, isTouch });
       wakeLoop();
+    };
+
+    // --- Desktop / Mouse Events ---
+    const handleMouseMove = (e: MouseEvent) => {
+      // Ignore simulated mouse events from touch to avoid duplicate trails
+      if (isTouchActive) return;
+      addPoint(e.clientX, e.clientY, false);
     };
 
     const handleMouseLeave = () => {
-      isVisibleRef.current = false;
-      setIsVisible(false);
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-        animationFrameId = null;
+      // Fade out naturally
+    };
+
+    // --- Mobile / Touchscreen Events (Strictly passive to guarantee fluid native scrolling) ---
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        isTouchActive = true;
+        const touch = e.touches[0];
+        addPoint(touch.clientX, touch.clientY, true);
       }
-      isRunning = false;
     };
 
-    const handleMouseEnter = () => {
-      isVisibleRef.current = true;
-      setIsVisible(true);
-      wakeLoop();
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        isTouchActive = true;
+        const touch = e.touches[0];
+        addPoint(touch.clientX, touch.clientY, true);
+      }
     };
 
-    const handleMouseDown = (e: MouseEvent) => {
-      setClickPos({ x: e.clientX, y: e.clientY });
-      setTimeout(() => setClickPos(null), 320);
+    const handleTouchEnd = () => {
+      isTouchActive = false;
+      // Loop continues rendering until remaining points fade out naturally
     };
 
+    // Pause animation when tab is hidden to save energy
     const handleVisibility = () => {
       if (document.hidden) {
         if (animationFrameId) {
@@ -120,94 +194,39 @@ export const CustomCursor: React.FC = () => {
           animationFrameId = null;
         }
         isRunning = false;
-      } else {
-        wakeLoop();
+        points = [];
       }
     };
 
+    // Passive listeners throughout the entire document
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    document.addEventListener("mouseleave", handleMouseLeave);
-    document.addEventListener("mouseenter", handleMouseEnter);
-    window.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    window.addEventListener("touchcancel", handleTouchEnd, { passive: true });
     document.addEventListener("visibilitychange", handleVisibility);
 
-    wakeLoop();
-
     return () => {
+      window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
-      document.removeEventListener("mouseenter", handleMouseEnter);
-      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("touchcancel", handleTouchEnd);
       document.removeEventListener("visibilitychange", handleVisibility);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
-  }, [isTouchDevice]);
-
-  if (isTouchDevice) return null;
-
-  // Determine ring styling and size based on active cursor state (Light Theme)
-  let ringClasses = "border border-[#B58A45]/60 bg-[#B58A45]/10";
-  let ringSize = "w-9 h-9";
-  let showLabel = Boolean(cursorText);
-
-  switch (cursorType) {
-    case "project":
-    case "image":
-      ringSize = "w-20 h-20";
-      ringClasses = "border-2 border-[#B58A45] bg-[#FFFDF8]/90 backdrop-blur-md shadow-[0_8px_25px_rgba(181,138,69,0.35)]";
-      showLabel = true;
-      break;
-    case "button":
-      ringSize = cursorText ? "w-20 h-20" : "w-14 h-14";
-      ringClasses = "border-2 border-[#B58A45] bg-[#FFFDF8]/90 backdrop-blur-md shadow-[0_6px_20px_rgba(181,138,69,0.35)] scale-110";
-      break;
-    case "link":
-      ringSize = cursorText ? "w-18 h-18" : "w-12 h-12";
-      ringClasses = "border border-[#B58A45]/80 bg-[#B58A45]/20 backdrop-blur-sm scale-105";
-      break;
-    case "input":
-      ringSize = "w-8 h-8";
-      ringClasses = "border border-[#B58A45]/70 bg-transparent";
-      break;
-    default:
-      ringSize = "w-9 h-9";
-      ringClasses = "border border-[#B58A45]/60 bg-[#B58A45]/15 backdrop-blur-xs";
-  }
+  }, []);
 
   return (
-    <div 
-      className={`fixed inset-0 pointer-events-none z-99999 transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none z-[99999] select-none"
       aria-hidden="true"
-    >
-      {/* Center glowing dot */}
-      <div
-        ref={dotRef}
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-[#B58A45] shadow-[0_0_8px_#B58A45] pointer-events-none will-change-transform z-10"
-      />
-
-      {/* Smooth lagging follower ring */}
-      <div
-        ref={ringRef}
-        className={`fixed top-0 left-0 rounded-full flex items-center justify-center pointer-events-none will-change-transform transition-[width,height,background-color,border-color] duration-200 ease-out z-0 ${ringSize} ${ringClasses} ${
-          clickPos ? "scale-90 opacity-80" : ""
-        }`}
-      >
-        {showLabel && (
-          <span className="text-[10px] font-black tracking-widest text-[#292720] uppercase select-none">
-            {cursorText || (cursorType === "project" ? "VIEW" : "OPEN")}
-          </span>
-        )}
-      </div>
-
-      {/* Click ripple animation */}
-      {clickPos && (
-        <div
-          style={{
-            transform: `translate3d(${clickPos.x}px, ${clickPos.y}px, 0) translate(-50%, -50%)`
-          }}
-          className="fixed top-0 left-0 w-12 h-12 rounded-full border border-amber-500/60 animate-ping pointer-events-none"
-        />
-      )}
-    </div>
+    />
   );
 };

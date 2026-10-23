@@ -30,7 +30,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
     name: "",
     email: "",
     company: "",
-    serviceRequired: "Full-Stack Web Development",
+    serviceRequired: "",
     preferredDate: "",
     preferredTime: "14:00",
     message: ""
@@ -55,11 +55,16 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
 
   const validate = () => {
     const errs: { [key: string]: string } = {};
-    if (!formData.name.trim()) errs.name = "Please enter your full name.";
+    if (!formData.name.trim()) {
+      errs.name = "Please enter your full name.";
+    }
     if (!formData.email.trim()) {
       errs.email = "Please enter your email address.";
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       errs.email = "Please enter a valid email address.";
+    }
+    if (!formData.serviceRequired.trim()) {
+      errs.serviceRequired = "Please select a service interested in.";
     }
     if (!formData.message.trim()) {
       errs.message = "Please share a brief description of your project.";
@@ -90,7 +95,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
           "Preferred Meeting Time": formData.preferredTime || "Flexible",
           "Project Scope / Brief": formData.message
         },
-        autoResponse: `Thank you for contacting ZYNOVA. We have received your project enquiry regarding "${formData.serviceRequired}" and our engineering team will get back to you within 12 hours.`
+        autoResponse: `Thank you for contacting ZYNOVA. We have received your project enquiry regarding "${formData.serviceRequired}" and our engineering team will get back to you within 6 hours.`
       });
 
       // 2. Also forward to local backend API if present
@@ -117,7 +122,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
         if (onSuccess) {
           onSuccess(
             "Enquiry Dispatched!",
-            `Thank you, ${formData.name}. Your enquiry has been sent directly to ${siteConfig.contact.email}. We will review and reply within 12 hours.`
+            `Thank you, ${formData.name}. Your enquiry has been sent directly to ${siteConfig.contact.email}. We will review and reply within 6 hours.`
           );
         }
       } else {
@@ -146,20 +151,20 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
         />
 
         {/* WhatsApp Community / Group Card */}
-        <div className="mb-8 sm:mb-10 rounded-2xl liquid-glass-panel border-[#E5D9C8] hover:border-[#B58A45]/60 p-5 sm:p-6 lg:p-7 transition-all duration-300 shadow-sm bg-[#FFFDF8]/90">
+        <div className="mb-8 sm:mb-10 rounded-2xl bg-[#171410] border border-[#D0A04B]/25 p-5 sm:p-6 lg:p-7 transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.4)]">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
             {/* Left Side (Desktop) / Top (Mobile): Heading, Description, CTA Button */}
             <div className="md:col-span-7 lg:col-span-8 space-y-3 text-left">
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#F0E4D2]/70 border border-[#B58A45]/30 text-[11px] font-mono font-bold text-[#B58A45]">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D0A04B]/15 border border-[#D0A04B]/40 text-[11px] font-mono font-bold text-[#E5B558]">
                 <WhatsAppIcon className="w-3.5 h-3.5 text-[#25D366]" />
                 <span>OFFICIAL WHATSAPP COMMUNITY &amp; CHAT</span>
               </div>
 
-              <h3 className="text-xl sm:text-2xl font-black font-heading tracking-tight text-[#292720]">
+              <h3 className="text-xl sm:text-2xl font-black font-heading tracking-tight text-[#FFFFFF]">
                 CONNECT WITH ZYNOVA ON WHATSAPP
               </h3>
 
-              <p className="text-xs sm:text-sm text-[#756C60] font-normal leading-relaxed max-w-xl">
+              <p className="text-xs sm:text-sm text-[#D4CEC4] font-normal leading-relaxed max-w-xl">
                 Connect with ZYNOVA on WhatsApp for 1-on-1 project consultations, requirements discussions, updates, and direct communication.
               </p>
 
@@ -184,7 +189,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="outline"
-                  className="w-full sm:w-auto !py-2.5 sm:!py-3 !px-5 sm:!px-6 text-xs sm:text-sm font-bold border-[#B58A45]/40 text-[#B58A45] hover:bg-[#F0E4D2]/50 cursor-pointer"
+                  className="w-full sm:w-auto !py-2.5 sm:!py-3 !px-5 sm:!px-6 text-xs sm:text-sm font-bold border-[#D0A04B]/40 text-[#D0A04B] hover:bg-[#D0A04B]/10 cursor-pointer"
                   cursorLabel="GROUP"
                   aria-label="Join the ZYNOVA WhatsApp community group"
                 >
@@ -434,7 +439,7 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                     Enquiry Dispatched!
                   </h4>
                   <p className="text-xs sm:text-sm text-[#D4CEC4] font-normal max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="text-white font-bold">{formData.name}</span>. Your enquiry details for <span className="text-[#D0A04B] font-bold">{formData.serviceRequired}</span> have been sent directly to <span className="text-[#D0A04B] font-mono font-bold">{siteConfig.contact.email}</span>. Our team will review your project brief and reply to you at <span className="text-white font-mono font-bold">{formData.email}</span> within 12 hours.
+                    Thank you, <span className="text-white font-bold">{formData.name}</span>. Your enquiry details for <span className="text-[#D0A04B] font-bold">{formData.serviceRequired}</span> have been sent directly to <span className="text-[#D0A04B] font-mono font-bold">{siteConfig.contact.email}</span>. Our team will review your project brief and reply to you at <span className="text-white font-mono font-bold">{formData.email}</span> within 6 hours.
                   </p>
                   <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                     <a
@@ -463,11 +468,12 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                           name: "",
                           email: "",
                           company: "",
-                          serviceRequired: "Full-Stack Web Development",
+                          serviceRequired: "",
                           preferredDate: "",
                           preferredTime: "14:00",
                           message: ""
                         });
+                        setErrors({});
                       }}
                       className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#201B14] border border-[#D0A04B]/20 text-[#D4CEC4] hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D0A04B]/50"
                     >
@@ -481,22 +487,25 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                     {/* Full Name */}
                     <div>
                       <label htmlFor="contact-name" className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
-                        Full Name *
+                        Full Name <span className="text-[#FF4D4F]">*</span>
                       </label>
                       <input
                         id="contact-name"
                         type="text"
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (errors.name) setErrors({ ...errors, name: "" });
+                        }}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        placeholder="Ankita Shrivastav"
-                        className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#D4CEC4]/40 placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors ${
-                          errors.name ? "!border-rose-500" : ""
+                        placeholder="Ankita Srivastava"
+                        className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#A8A8A8] placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors ${
+                          errors.name ? "!border-[#FF4D4F]" : ""
                         }`}
                       />
                       {errors.name && (
-                        <span className="text-[10px] text-rose-500 font-semibold mt-1 block">
+                        <span className="text-[10px] text-[#FF4D4F] font-semibold mt-1 block">
                           {errors.name}
                         </span>
                       )}
@@ -505,22 +514,25 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                     {/* Work Email */}
                     <div>
                       <label htmlFor="contact-email" className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
-                        Work Email *
+                        Work Email <span className="text-[#FF4D4F]">*</span>
                       </label>
                       <input
                         id="contact-email"
                         type="email"
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (errors.email) setErrors({ ...errors, email: "" });
+                        }}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="ankita@company.com"
-                        className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#D4CEC4]/40 placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors ${
-                          errors.email ? "!border-rose-500" : ""
+                        className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#A8A8A8] placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors ${
+                          errors.email ? "!border-[#FF4D4F]" : ""
                         }`}
                       />
                       {errors.email && (
-                        <span className="text-[10px] text-rose-500 font-semibold mt-1 block">
+                        <span className="text-[10px] text-[#FF4D4F] font-semibold mt-1 block">
                           {errors.email}
                         </span>
                       )}
@@ -541,23 +553,31 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
                         placeholder="Your Organization"
-                        className="w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#D4CEC4]/40 placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#A8A8A8] placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors"
                       />
                     </div>
 
                     {/* Service Interested In */}
                     <div>
                       <label htmlFor="contact-service" className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
-                        Service Interested In
+                        Service Interested In <span className="text-[#FF4D4F]">*</span>
                       </label>
                       <select
                         id="contact-service"
                         value={formData.serviceRequired}
-                        onChange={(e) => setFormData({ ...formData, serviceRequired: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, serviceRequired: e.target.value });
+                          if (errors.serviceRequired) setErrors({ ...errors, serviceRequired: "" });
+                        }}
                         onFocus={() => setCursor("input")}
                         onBlur={resetCursor}
-                        className="w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors cursor-pointer"
+                        className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors cursor-pointer ${
+                          formData.serviceRequired ? "text-white" : "text-[#A8A8A8]"
+                        } ${errors.serviceRequired ? "!border-[#FF4D4F]" : ""}`}
                       >
+                        <option value="" disabled className="bg-[#201B14] text-[#A8A8A8]">
+                          Select a service...
+                        </option>
                         {formData.serviceRequired && !servicesList.includes(formData.serviceRequired) && (
                           <option value={formData.serviceRequired} className="bg-[#201B14] text-[#D0A04B] py-1.5 font-bold">
                             {formData.serviceRequired}
@@ -569,6 +589,11 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                           </option>
                         ))}
                       </select>
+                      {errors.serviceRequired && (
+                        <span className="text-[10px] text-[#FF4D4F] font-semibold mt-1 block">
+                          {errors.serviceRequired}
+                        </span>
+                      )}
                     </div>
                   </div>
 
@@ -609,22 +634,25 @@ export const Contact: React.FC<ContactProps> = ({ onSuccess }) => {
                   {/* Project Brief */}
                   <div>
                     <label htmlFor="contact-brief" className="block text-[11px] font-mono text-white font-bold mb-1.5 uppercase tracking-wider">
-                      Project Brief *
+                      Project Brief <span className="text-[#FF4D4F]">*</span>
                     </label>
                     <textarea
                       id="contact-brief"
                       rows={3}
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (errors.message) setErrors({ ...errors, message: "" });
+                      }}
                       onFocus={() => setCursor("input")}
                       onBlur={resetCursor}
                       placeholder="Describe what you want to achieve, timeline expectations, or specific system requirements..."
-                      className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#D4CEC4]/40 placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors resize-none ${
-                        errors.message ? "!border-rose-500" : ""
+                      className={`w-full px-3.5 py-2.5 rounded-lg !bg-[#201B14] text-xs sm:text-sm text-white font-semibold placeholder:text-[#A8A8A8] placeholder:font-normal focus:outline-none focus:border-[#D0A04B] border border-[#D0A04B]/20 transition-colors resize-none ${
+                        errors.message ? "!border-[#FF4D4F]" : ""
                       }`}
                     />
                     {errors.message && (
-                      <span className="text-[10px] text-rose-500 font-semibold mt-1 block">
+                      <span className="text-[10px] text-[#FF4D4F] font-semibold mt-1 block">
                         {errors.message}
                       </span>
                     )}

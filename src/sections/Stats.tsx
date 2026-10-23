@@ -11,7 +11,7 @@ export const Stats: React.FC = () => {
     rootMargin: "0px 0px -6% 0px"
   });
 
-  const countHours = useCountUp(12, 1100, isInView);
+  const countHours = useCountUp(6, 1100, isInView);
   const countIndustries = useCountUp(8, 1250, isInView);
   const countProjects = useCountUp(35, 1400, isInView);
   const countOwnership = useCountUp(100, 1550, isInView);

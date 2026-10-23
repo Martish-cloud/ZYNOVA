@@ -10,7 +10,7 @@ import { Clock, Cpu, Target, ShieldCheck, Sparkles } from "lucide-react";
 const HIGHLIGHT_STATEMENTS: ScrollHighlightItem[] = [
   {
     id: 1,
-    label: "Guaranteed 12-Hour Communication Turnaround",
+    label: "Guaranteed 6-Hour Communication Turnaround",
     subtext: "Proactive project tracking across milestones with clear, zero-ambiguity status reporting across time zones.",
     tag: "RESPONSIVENESS"
   },
@@ -48,8 +48,8 @@ export const WhyZynova: React.FC = () => {
       number: "01",
       icon: Clock,
       title: "Fast Communication",
-      highlight: "12h Response Guarantee",
-      description: "Typical response time within 12 hours. Clear, proactive communication across project milestones with zero ambiguity.",
+      highlight: "6h Response Guarantee",
+      description: "Typical response time within 6 hours. Clear, proactive communication across project milestones with zero ambiguity.",
       accent: "from-amber-500/20 to-yellow-500/20",
       iconColor: "text-amber-300"
     },

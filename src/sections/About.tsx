@@ -84,7 +84,7 @@ export const About: React.FC = () => {
     },
     {
       title: "Agile Turnaround",
-      description: "Guaranteed responses within 12 hours with transparent development milestones.",
+      description: "Guaranteed responses within 6 hours with transparent development milestones.",
       iconColor: "text-[#D0A04B]"
     },
     {

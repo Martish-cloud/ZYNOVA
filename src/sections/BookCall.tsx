@@ -137,7 +137,7 @@ export const BookCall: React.FC<BookCallProps> = ({
         if (onSuccess) {
           onSuccess(
             "Discovery Call Request Confirmed!",
-            `Your booking request has been sent directly to ${siteConfig.contact.email}. Amit Halder & the team will review and confirm your slot within 12 hours.`
+            `Your booking request has been sent directly to ${siteConfig.contact.email}. Amit Halder & the team will review and confirm your slot within 6 hours.`
           );
         }
       } else {
@@ -288,7 +288,7 @@ export const BookCall: React.FC<BookCallProps> = ({
                     Request Received!
                   </h4>
                   <p className="text-xs sm:text-sm text-[#D4CEC4] font-normal max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="text-white font-bold">{formData.name}</span>. Your discovery call request was delivered directly to <span className="text-[#D0A04B] font-mono font-bold">{siteConfig.contact.email}</span>. We will review your project brief and confirm the calendar invitation within 12 hours.
+                    Thank you, <span className="text-white font-bold">{formData.name}</span>. Your discovery call request was delivered directly to <span className="text-[#D0A04B] font-mono font-bold">{siteConfig.contact.email}</span>. We will review your project brief and confirm the calendar invitation within 6 hours.
                   </p>
                   <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                     <a
