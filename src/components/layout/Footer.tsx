@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { siteConfig } from "../../config/siteConfig";
 import { useCursor } from "../../context/useCursor";
 import { useSmoothScroll } from "../motion/SmoothScroll";
@@ -8,6 +8,43 @@ import { WhatsAppIcon } from "../ui/WhatsAppIcon";
 export const Footer: React.FC = () => {
   const { setCursor, resetCursor } = useCursor();
   const { scrollTo } = useSmoothScroll();
+  const footerRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const footerEl = footerRef.current;
+    const videoEl = videoRef.current;
+    if (!footerEl || !videoEl) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            videoEl.currentTime = 0;
+            const playPromise = videoEl.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {
+                // Autoplay safely ignored if blocked by browser
+              });
+            }
+          } else {
+            videoEl.pause();
+            videoEl.currentTime = 0;
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(footerEl);
+
+    return () => {
+      observer.disconnect();
+      if (videoEl) {
+        videoEl.pause();
+      }
+    };
+  }, []);
 
   const scrollToTop = () => {
     scrollTo(0);
@@ -42,9 +79,26 @@ export const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="relative bg-[#080706] border-t border-[#D0A04B]/20 pt-14 sm:pt-16 pb-10 sm:pb-12 overflow-hidden text-[#D4CEC4]">
-      {/* Ambient subtle warm gold accent */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-gradient-to-b from-[#D0A04B]/15 via-transparent to-transparent blur-3xl pointer-events-none z-[1]" />
+    <footer
+      ref={footerRef}
+      className="relative bg-[#080706] border-t border-[#D0A04B]/20 pt-14 sm:pt-16 pb-10 sm:pb-12 overflow-hidden text-[#D4CEC4]"
+    >
+      {/* Background Video Layer */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <video
+          ref={videoRef}
+          src="/videos/Footer.mp4"
+          muted
+          playsInline
+          loop
+          preload="metadata"
+          className="w-full h-full object-cover object-center opacity-70 filter brightness-[0.88] contrast-[1.05]"
+        />
+        {/* Balanced dark overlay ensuring ~70% video prominence while guaranteeing 100% text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080706]/85 via-[#080706]/50 to-[#080706]/85 pointer-events-none" />
+        {/* Ambient subtle warm gold accent */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-gradient-to-b from-[#D0A04B]/15 via-transparent to-transparent blur-3xl pointer-events-none" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 mb-10 sm:mb-12">
@@ -214,56 +268,13 @@ export const Footer: React.FC = () => {
                   </a>
                 );
               })}
-            </div>
-            <div className="mt-4 pt-3 border-t border-[#D0A04B]/20 space-y-2">
-              <span className="text-[11px] text-[#D4CEC4] block font-bold">
-                Direct Inquiries:
+              {/* Strictly non-clickable informational badge matching platform aesthetic */}
+              <span
+                className="px-2.5 py-1 rounded-md text-xs font-semibold bg-[#201B14] border border-[#D0A04B]/20 text-[#D0A04B] select-none cursor-default shadow-xs"
+                aria-label="5 additional platforms supported"
+              >
+                +5 Platforms More
               </span>
-              <div className="space-y-1 font-mono text-xs">
-                <div className="flex items-center gap-1.5">
-                  <Mail className="w-3.5 h-3.5 text-[#D0A04B] shrink-0" />
-                  <a
-                    href={`mailto:${siteConfig.contact.email}`}
-                    aria-label={`Email ZYNOVA at ${siteConfig.contact.email}`}
-                    onMouseEnter={() => setCursor("link")}
-                    onMouseLeave={resetCursor}
-                    className="footer-contact-link text-[#D0A04B] font-semibold hover:text-white focus:outline-none focus:ring-1 focus:ring-[#D0A04B]/50 rounded inline-flex items-center min-h-[44px] sm:min-h-0 transition-colors"
-                  >
-                    {siteConfig.contact.email}
-                  </a>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <Phone className="w-3.5 h-3.5 text-[#D0A04B] shrink-0" />
-                  <a
-                    href={`tel:${siteConfig.contact.phoneTel}`}
-                    aria-label={`Call ZYNOVA at ${siteConfig.contact.phone}`}
-                    onMouseEnter={() => setCursor("link")}
-                    onMouseLeave={resetCursor}
-                    className="footer-contact-link text-[#D4CEC4] font-medium hover:text-[#D0A04B] focus:outline-none focus:ring-1 focus:ring-[#D0A04B]/50 rounded inline-flex items-center min-h-[44px] sm:min-h-0 transition-colors"
-                  >
-                    {siteConfig.contact.phone}
-                  </a>
-                </div>
-              </div>
-
-              {/* WhatsApp Community */}
-              <div className="pt-2 border-t border-[#D0A04B]/20">
-                <span className="text-[11px] text-[#D4CEC4] block mb-1 font-bold">
-                  WhatsApp Community
-                </span>
-                <a
-                  href={siteConfig.whatsappGroupURL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Join the ZYNOVA WhatsApp group"
-                  onMouseEnter={() => setCursor("button", "JOIN")}
-                  onMouseLeave={resetCursor}
-                  className="footer-contact-link text-xs text-[#D0A04B] hover:text-white font-mono font-bold inline-flex items-center gap-1.5 py-0.5 min-h-[44px] sm:min-h-0 focus:outline-none focus:ring-1 focus:ring-[#D0A04B]/50 rounded cursor-pointer transition-colors"
-                >
-                  <WhatsAppIcon className="w-3.5 h-3.5 text-[#22c55e]" />
-                  <span>Join our WhatsApp Group &rarr;</span>
-                </a>
-              </div>
             </div>
           </div>
         </div>
