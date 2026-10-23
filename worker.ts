@@ -30,6 +30,25 @@ const jsonResponse = (data: any, status = 200, extraHeaders: Record<string, stri
   });
 };
 
+// In-memory sliding-window IP rate limiter to protect dynamic API endpoints under 500+ concurrent traffic
+const RATE_LIMIT_WINDOW_MS = 60000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 120; // 120 requests/min per IP
+const ipRequestCounts = new Map<string, { count: number; resetTime: number }>();
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const record = ipRequestCounts.get(ip);
+  if (!record || now > record.resetTime) {
+    ipRequestCounts.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    return true;
+  }
+  if (record.count >= MAX_REQUESTS_PER_WINDOW) {
+    return false;
+  }
+  record.count++;
+  return true;
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -44,6 +63,18 @@ export default {
           "Access-Control-Allow-Headers": "Content-Type, X-Razorpay-Signature"
         }
       });
+    }
+
+    // Rate-limit dynamic API requests to prevent resource exhaustion during traffic spikes
+    if (url.pathname.startsWith("/api/")) {
+      const clientIp = request.headers.get("cf-connecting-ip") || "anonymous";
+      if (!checkRateLimit(clientIp)) {
+        return jsonResponse(
+          { success: false, message: "Too many requests. Please try again in a minute." },
+          429,
+          { "Retry-After": "60" }
+        );
+      }
     }
 
     // 1. GET /api/donations/transparency or /api/transparency
@@ -259,9 +290,41 @@ export default {
       }
     }
 
-    // Default: Fallback to static assets (SPA)
+    // Default: Fallback to static assets (SPA) with edge caching & performance headers
     if (env.ASSETS) {
-      return await env.ASSETS.fetch(request);
+      const assetResponse = await env.ASSETS.fetch(request);
+      
+      // Enrich static assets with optimal Cache-Control headers if successful
+      if (assetResponse.status >= 200 && assetResponse.status < 300) {
+        const headers = new Headers(assetResponse.headers);
+        const path = url.pathname;
+
+        // 1. Immutable hashed chunks in /assets/ (JS, CSS) -> Cache for 1 year
+        if (path.startsWith("/assets/")) {
+          headers.set("Cache-Control", "public, max-age=31536000, immutable");
+        }
+        // 2. Static media (videos, frames, icons, images, fonts) -> Cache 7 days with background revalidation
+        else if (/\.(jpg|jpeg|png|webp|svg|gif|mp4|webm|woff2|woff|ttf|ico)$/i.test(path)) {
+          headers.set("Cache-Control", "public, max-age=604800, stale-while-revalidate=86400");
+        }
+        // 3. SPA Root HTML -> Revalidate on each visit so updates are instant
+        else if (path === "/" || path === "/index.html" || !path.includes(".")) {
+          headers.set("Cache-Control", "public, max-age=0, must-revalidate");
+        }
+
+        // Security & protection headers
+        headers.set("X-Content-Type-Options", "nosniff");
+        headers.set("X-Frame-Options", "SAMEORIGIN");
+        headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+
+        return new Response(assetResponse.body, {
+          status: assetResponse.status,
+          statusText: assetResponse.statusText,
+          headers
+        });
+      }
+
+      return assetResponse;
     }
 
     return new Response("Not found", { status: 404 });

@@ -27,6 +27,7 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
   className = "",
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const [isFirstFrameLoaded, setIsFirstFrameLoaded] = useState(false);
 
@@ -34,66 +35,109 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
   const framesCacheRef = useRef<Map<number, HTMLImageElement>>(new Map());
   const activeFrameIndexRef = useRef<number>(1);
   const rafIdRef = useRef<number | null>(null);
+  const isNearViewportRef = useRef(false);
 
-  // Preload initial frames for instantaneous render, then background load the rest
+  // 1. Immediately load ONLY Frame 1 on mount so initial hero page load is not flooded with 240 images
   useEffect(() => {
     let isCancelled = false;
-
-    // Load initial 32 frames eagerly
-    for (let i = 1; i <= INITIAL_PRELOAD_COUNT; i++) {
-      const img = new Image();
-      img.src = getFrameUrl(i);
-      img.onload = () => {
-        if (isCancelled) return;
-        framesCacheRef.current.set(i, img);
-        if (i === 1) {
-          setIsFirstFrameLoaded(true);
-        }
-      };
-    }
-
-    // Progressively preload remaining frames in idle background batches
-    const preloadRemaining = () => {
-      let currentBatchStart = INITIAL_PRELOAD_COUNT + 1;
-      const batchSize = 16;
-
-      const loadNextBatch = () => {
-        if (isCancelled || currentBatchStart > TOTAL_FRAMES) return;
-
-        const end = Math.min(currentBatchStart + batchSize, TOTAL_FRAMES + 1);
-        for (let i = currentBatchStart; i < end; i++) {
-          if (!framesCacheRef.current.has(i)) {
-            const img = new Image();
-            img.src = getFrameUrl(i);
-            img.onload = () => {
-              if (!isCancelled) {
-                framesCacheRef.current.set(i, img);
-              }
-            };
-          }
-        }
-        currentBatchStart += batchSize;
-
-        if (currentBatchStart <= TOTAL_FRAMES) {
-          if ("requestIdleCallback" in window) {
-            (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(loadNextBatch);
-          } else {
-            setTimeout(loadNextBatch, 50);
-          }
-        }
-      };
-
-      if ("requestIdleCallback" in window) {
-        (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(loadNextBatch);
-      } else {
-        setTimeout(loadNextBatch, 100);
+    const firstImg = new Image();
+    firstImg.src = getFrameUrl(1);
+    firstImg.onload = () => {
+      if (!isCancelled) {
+        framesCacheRef.current.set(1, firstImg);
+        setIsFirstFrameLoaded(true);
       }
     };
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
 
-    preloadRemaining();
+  // 2. Intelligent proximity-based preloading: Only stream remaining frames when user scrolls within 750px of Headphones section
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let isCancelled = false;
+    let preloadStarted = false;
+
+    const startPreloadingSequence = () => {
+      if (preloadStarted || isCancelled) return;
+      preloadStarted = true;
+
+      // Load initial batch of frames (2..32)
+      for (let i = 2; i <= INITIAL_PRELOAD_COUNT; i++) {
+        if (!framesCacheRef.current.has(i)) {
+          const img = new Image();
+          img.src = getFrameUrl(i);
+          img.onload = () => {
+            if (!isCancelled) framesCacheRef.current.set(i, img);
+          };
+        }
+      }
+
+      // Progressively preload remaining frames in idle background batches
+      const preloadRemaining = () => {
+        let currentBatchStart = INITIAL_PRELOAD_COUNT + 1;
+        const batchSize = 16;
+
+        const loadNextBatch = () => {
+          if (isCancelled || currentBatchStart > TOTAL_FRAMES) return;
+
+          const end = Math.min(currentBatchStart + batchSize, TOTAL_FRAMES + 1);
+          for (let i = currentBatchStart; i < end; i++) {
+            if (!framesCacheRef.current.has(i)) {
+              const img = new Image();
+              img.src = getFrameUrl(i);
+              img.onload = () => {
+                if (!isCancelled) {
+                  framesCacheRef.current.set(i, img);
+                }
+              };
+            }
+          }
+          currentBatchStart += batchSize;
+
+          if (currentBatchStart <= TOTAL_FRAMES) {
+            if ("requestIdleCallback" in window) {
+              (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(loadNextBatch);
+            } else {
+              setTimeout(loadNextBatch, 60);
+            }
+          }
+        };
+
+        if ("requestIdleCallback" in window) {
+          (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(loadNextBatch);
+        } else {
+          setTimeout(loadNextBatch, 100);
+        }
+      };
+
+      preloadRemaining();
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            isNearViewportRef.current = true;
+            startPreloadingSequence();
+          } else {
+            isNearViewportRef.current = false;
+          }
+        });
+      },
+      {
+        rootMargin: "750px 0px 750px 0px",
+      }
+    );
+
+    observer.observe(container);
 
     return () => {
       isCancelled = true;
+      observer.disconnect();
     };
   }, []);
 
@@ -240,12 +284,15 @@ export const HeadphonesScrollCanvas: React.FC<HeadphonesScrollCanvasProps> = ({
       drawFrame(activeFrameIndexRef.current);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
   }, [drawFrame]);
 
   return (
-    <div className={`relative w-full h-full overflow-hidden flex items-center justify-center ${className}`}>
+    <div
+      ref={containerRef}
+      className={`relative w-full h-full overflow-hidden flex items-center justify-center ${className}`}
+    >
       <canvas
         ref={canvasRef}
         className="w-full h-full block"

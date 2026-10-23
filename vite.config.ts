@@ -9,6 +9,9 @@ export default defineConfig({
     react()
   ],
   server: {
+    watch: {
+      ignored: ['**/Videos/**', '**/Effects Video/**', '**/dist/**', '**/.git/**']
+    },
     proxy: {
       '/api': {
         target: 'http://localhost:5000',
@@ -19,15 +22,25 @@ export default defineConfig({
   build: {
     target: 'esnext',
     cssCodeSplit: true,
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 650,
     rollupOptions: {
       output: {
         manualChunks(id: string) {
           if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
             return 'vendor-react';
           }
+          if (id.includes('node_modules/framer-motion')) {
+            return 'vendor-motion';
+          }
           if (id.includes('node_modules/lucide-react')) {
             return 'vendor-icons';
+          }
+          if (
+            id.includes('node_modules/lenis') ||
+            id.includes('node_modules/canvas-confetti') ||
+            id.includes('node_modules/qrcode.react')
+          ) {
+            return 'vendor-utils';
           }
         }
       }

@@ -63,7 +63,7 @@ export const testimonialsData: TestimonialItem[] = [
     id: "testimonial-4",
     name: "Robert Brown",
     role: "Project Manager",
-    company: "Northstar Business Solutions",
+    company: "Northstar Solutions",
     country: "United Kingdom",
     flag: "🇬🇧",
     service: "Web Application Development",

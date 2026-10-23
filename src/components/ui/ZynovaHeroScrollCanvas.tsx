@@ -7,7 +7,7 @@ export interface ZynovaHeroScrollCanvasProps {
 }
 
 const TOTAL_FRAMES = 234;
-const INITIAL_PRELOAD_COUNT = 32;
+const INITIAL_PRELOAD_COUNT = 16;
 
 /**
  * High-performance HTML5 Canvas renderer for the 234-frame Zynova Hero sequence.
@@ -180,12 +180,12 @@ export const ZynovaHeroScrollCanvas: React.FC<ZynovaHeroScrollCanvasProps> = ({
       }
     });
 
-    // Concurrently stream all remaining frames in 12 parallel workers
+    // Concurrently stream all remaining frames in 6 parallel workers via idle callback
     const queue = Array.from(
       { length: TOTAL_FRAMES - INITIAL_PRELOAD_COUNT },
       (_, i) => i + INITIAL_PRELOAD_COUNT
     );
-    const CONCURRENCY = 12;
+    const CONCURRENCY = 6;
 
     const worker = async () => {
       while (queue.length > 0 && !isCancelled) {
@@ -200,8 +200,17 @@ export const ZynovaHeroScrollCanvas: React.FC<ZynovaHeroScrollCanvasProps> = ({
       }
     };
 
-    const workers = Array.from({ length: CONCURRENCY }, () => worker());
-    Promise.all(workers);
+    const startWorkers = () => {
+      if (isCancelled) return;
+      const workers = Array.from({ length: CONCURRENCY }, () => worker());
+      Promise.all(workers);
+    };
+
+    if ("requestIdleCallback" in window) {
+      (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(startWorkers);
+    } else {
+      setTimeout(startWorkers, 120);
+    }
 
     return () => {
       isCancelled = true;

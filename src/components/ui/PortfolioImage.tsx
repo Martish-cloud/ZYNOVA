@@ -199,7 +199,7 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             onError={handleVideoError}
             onLoadedData={() => setIsLoaded(true)}
             className={`${className} w-full h-full object-cover transition-opacity duration-300 opacity-100`}
