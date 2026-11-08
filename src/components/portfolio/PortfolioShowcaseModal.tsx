@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal } from "../ui/Modal";
+import { PortfolioImage } from "../ui/PortfolioImage";
 import { ExternalLink, Award, Sparkles, Cpu, CheckCircle2 } from "lucide-react";
 
 interface PortfolioShowcaseModalProps {
@@ -58,12 +59,12 @@ export const PortfolioShowcaseModal: React.FC<PortfolioShowcaseModalProps> = ({
           </div>
         </div>
 
-        {/* Visual Preview Screenshot */}
+        {/* Visual Preview Screenshot & Walkthrough Video */}
         <div className="relative rounded-xl overflow-hidden border border-white/20 bg-slate-900 shadow-lg group">
-          <img
+          <PortfolioImage
             src="/projects/ml-portfolio-preview-v2.webp"
             alt="Amit Halder — Machine Learning & AI Portfolio Showcase"
-            loading="lazy"
+            videoSrc="/videos/ml-ai-portfolio.mp4"
             className="w-full h-44 sm:h-56 md:h-64 object-cover object-top transition-transform duration-500 group-hover:scale-[1.01]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />

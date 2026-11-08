@@ -70,7 +70,8 @@ const FEATURED_PROJECTS: FeaturedProject[] = [
     url: "https://amit-mlEngineer.zynova.co.in",
     image: "/projects/ml-portfolio-preview-v2.webp",
     badge: "Flagship AI",
-    tech: ["PyTorch", "LLMs", "FastAPI", "Next.js"]
+    tech: ["PyTorch", "LLMs", "FastAPI", "Next.js"],
+    videoSrc: "/videos/ml-ai-portfolio.mp4"
   },
   {
     id: "freshmart",

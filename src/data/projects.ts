@@ -584,7 +584,41 @@ export const rPythonProject: ProjectItem = {
     customPrice: "$2,800+",
     pricingQualification: "Pricing is 10–15% higher than web projects reflecting specialized mathematical modeling, statistical analysis, and algorithmic engineering."
   },
-  demoUrl: "https://amit-mlEngineer.zynova.co.in"
+  demoUrl: "https://amit-mlEngineer.zynova.co.in",
+  videoSrc: "/videos/ml-ai-portfolio.mp4"
+};
+
+// Amit Halder ML & AI Portfolio
+export const mlAiPortfolioProject: ProjectItem = {
+  id: "ml-ai-portfolio",
+  title: "ML & AI Portfolio",
+  subtitle: "GenAI Architectures, Production LLMs & Intelligent Workflows",
+  category: "AI / Machine Learning",
+  filterCategory: "data",
+  shortDesc: "Machine Learning, Generative AI, intelligent automation, and AI-powered solutions.",
+  overview: "Amit Halder's personal ML & AI engineering portfolio showcasing enterprise Generative AI pipelines, production LLM chatbots, autonomous n8n workflows, and industrial data analytics.",
+  challenge: "Bridging cutting-edge foundation models and autonomous workflow automation with mission-critical enterprise production standards.",
+  solution: "Architected few-shot/zero-shot prompt frameworks, integrated high-throughput REST APIs, automated complex operations with n8n, and delivered real-time analytics command centers.",
+  technologies: ["PyTorch", "LLMs", "FastAPI", "Next.js", "Python", "n8n"],
+  keyFeatures: [
+    "Enterprise Generative AI pipelines and prompt engineering",
+    "Production-grade LLM conversational chatbot workflows",
+    "Autonomous n8n low-code AI pipeline orchestration",
+    "Industrial ERP & WIP operational data analytics",
+    "Predictive machine learning & NLP classification models",
+    "Interactive Power BI and SQL executive dashboards"
+  ],
+  gradientTheme: "from-amber-950/40 via-orange-950/30 to-slate-900/50",
+  badge: "Flagship AI",
+  image: "/projects/ml-portfolio-preview-v2.webp",
+  pricing: {
+    startingPrice: "$500",
+    basicPrice: "$500",
+    standardPrice: "$850",
+    premiumPrice: "$1,700"
+  },
+  demoUrl: "https://amit-mlEngineer.zynova.co.in",
+  videoSrc: "/videos/ml-ai-portfolio.mp4"
 };
 
 // Amit Halder Data Entry Executive Portfolio
@@ -997,8 +1031,8 @@ export const mobileProjectsData: ProjectItem[] = [
   }
 ];
 
-// Append mobile applications into master projectsData
-projectsData.push(...mobileProjectsData);
+// Append mobile applications and ML & AI Portfolio into master projectsData
+projectsData.push(...mobileProjectsData, mlAiPortfolioProject);
 
 // Lookup map for O(1) resolution without duplicating project records
 const projectByIdMap = new Map<string, ProjectItem>(

@@ -35,6 +35,16 @@ const resolveVideoSrc = (src: string, alt: string, explicitVideo?: string): stri
   ) {
     return "/videos/Tasty%20Bites.mp4";
   }
+  if (
+    combined.includes("ml-ai-portfolio") ||
+    combined.includes("ml-portfolio") ||
+    combined.includes("amit-ml") ||
+    combined.includes("machine learning") ||
+    combined.includes("ml & ai") ||
+    combined.includes("ml and ai")
+  ) {
+    return "/videos/ml-ai-portfolio.mp4";
+  }
   return null;
 };
 
@@ -143,6 +153,9 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
               playVideo();
             } else {
               pauseVideo();
+              try {
+                video.currentTime = 0;
+              } catch (_) {}
             }
           });
         },
