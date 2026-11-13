@@ -29,6 +29,11 @@ export const ZynovaHeroScrollCanvas: React.FC<ZynovaHeroScrollCanvasProps> = ({
 
   // Cached frame images indexed 0..233
   const imageCache = useRef<(HTMLImageElement | null)[]>(new Array(TOTAL_FRAMES).fill(null));
+  // In-flight network promises to deduplicate concurrent requests
+  const loadingPromises = useRef<Map<number, Promise<HTMLImageElement>>>(new Map());
+  // The desired frame requested by the latest scroll position
+  const targetFrameRef = useRef<number>(0);
+  // The frame currently painted on the canvas
   const currentRenderedFrame = useRef<number>(-1);
   const rafId = useRef<number | null>(null);
   const [initialLoaded, setInitialLoaded] = useState(false);
@@ -39,22 +44,38 @@ export const ZynovaHeroScrollCanvas: React.FC<ZynovaHeroScrollCanvasProps> = ({
     return `/videos/zynova_hero/frame_${frameNum}.jpg`;
   }, []);
 
-  // Preload an individual frame
+  // Preload an individual frame with deduplicated in-flight promises
   const loadFrame = useCallback(
     (index: number): Promise<HTMLImageElement> => {
-      return new Promise((resolve, reject) => {
-        if (imageCache.current[index]) {
-          resolve(imageCache.current[index]!);
-          return;
-        }
+      if (index < 0 || index >= TOTAL_FRAMES) {
+        return Promise.reject(new Error(`Index ${index} out of bounds`));
+      }
+      const existing = imageCache.current[index];
+      if (existing && existing.complete && existing.naturalWidth > 0) {
+        return Promise.resolve(existing);
+      }
+      const inFlight = loadingPromises.current.get(index);
+      if (inFlight) {
+        return inFlight;
+      }
+
+      const promise = new Promise<HTMLImageElement>((resolve, reject) => {
         const img = new Image();
+        img.decoding = "async";
         img.src = getFrameUrl(index);
         img.onload = () => {
           imageCache.current[index] = img;
+          loadingPromises.current.delete(index);
           resolve(img);
         };
-        img.onerror = reject;
+        img.onerror = (err) => {
+          loadingPromises.current.delete(index);
+          reject(err);
+        };
       });
+
+      loadingPromises.current.set(index, promise);
+      return promise;
     },
     [getFrameUrl]
   );
@@ -116,54 +137,94 @@ export const ZynovaHeroScrollCanvas: React.FC<ZynovaHeroScrollCanvasProps> = ({
 
     ctx.drawImage(img, drawX, drawY, drawW, drawH);
     ctx.restore();
+    canvas.dataset.renderedFrame = img.src.split("/").pop() || "";
   }, []);
 
-  // Main Draw function: right-aligned cover
-  const drawFrame = useCallback(
-    (frameIdx: number) => {
+  // Renders the exact target frame if available, or the closest cached frame to prevent any blank stutter
+  const renderBestAvailable = useCallback(
+    (target: number) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
-      const img = imageCache.current[frameIdx];
-      if (!img || !img.complete) {
-        // Kick off immediate priority load of this exact frame
-        loadFrame(frameIdx)
-          .then((loadedImg) => {
-            if (currentRenderedFrame.current === frameIdx) {
-              renderImageToCanvas(canvas, loadedImg);
-            }
-          })
-          .catch(() => {});
-
-        // Preload immediate adjacent neighbors
-        if (frameIdx + 1 < TOTAL_FRAMES) loadFrame(frameIdx + 1).catch(() => {});
-        if (frameIdx + 2 < TOTAL_FRAMES) loadFrame(frameIdx + 2).catch(() => {});
-        if (frameIdx - 1 >= 0) loadFrame(frameIdx - 1).catch(() => {});
-
-        // Fallback to nearest loaded frame for zero flash while decoding
-        let nearest: HTMLImageElement | null = null;
-        for (let dist = 1; dist < TOTAL_FRAMES; dist++) {
-          if (frameIdx - dist >= 0 && imageCache.current[frameIdx - dist]?.complete) {
-            nearest = imageCache.current[frameIdx - dist];
-            break;
-          }
-          if (frameIdx + dist < TOTAL_FRAMES && imageCache.current[frameIdx + dist]?.complete) {
-            nearest = imageCache.current[frameIdx + dist];
-            break;
-          }
-        }
-        if (!nearest) return;
-        renderImageToCanvas(canvas, nearest);
+      // 1. Direct hit: exact requested target frame is fully loaded
+      const exactImg = imageCache.current[target];
+      if (exactImg && exactImg.complete && exactImg.naturalWidth > 0) {
+        renderImageToCanvas(canvas, exactImg);
+        currentRenderedFrame.current = target;
         return;
       }
 
-      renderImageToCanvas(canvas, img);
-      currentRenderedFrame.current = frameIdx;
+      // 2. Nearest loaded frame search
+      let bestIdx = -1;
+      let bestDist = Infinity;
+      for (let dist = 1; dist < TOTAL_FRAMES; dist++) {
+        const prev = target - dist;
+        if (prev >= 0 && imageCache.current[prev]?.complete && imageCache.current[prev]!.naturalWidth > 0) {
+          bestIdx = prev;
+          bestDist = dist;
+          break;
+        }
+        const next = target + dist;
+        if (next < TOTAL_FRAMES && imageCache.current[next]?.complete && imageCache.current[next]!.naturalWidth > 0) {
+          bestIdx = next;
+          bestDist = dist;
+          break;
+        }
+      }
+
+      if (bestIdx !== -1) {
+        const currentDist =
+          currentRenderedFrame.current >= 0
+            ? Math.abs(currentRenderedFrame.current - target)
+            : Infinity;
+
+        // Render if bestIdx is different and is as close or closer to target than what's currently painted
+        if (bestIdx !== currentRenderedFrame.current && bestDist <= currentDist) {
+          renderImageToCanvas(canvas, imageCache.current[bestIdx]!);
+          currentRenderedFrame.current = bestIdx;
+        }
+      }
     },
-    [renderImageToCanvas, loadFrame]
+    [renderImageToCanvas]
   );
 
-  // Eager preloader with concurrent worker streams so all 234 frames load within ~1.5s
+  // Main Draw function: updates target reference, paints immediately, and dispatches high-priority loads
+  const drawFrame = useCallback(
+    (frameIdx: number) => {
+      const clampedIdx = Math.max(0, Math.min(TOTAL_FRAMES - 1, frameIdx));
+      targetFrameRef.current = clampedIdx;
+
+      // Render best available immediately (instant visual feedback)
+      renderBestAvailable(clampedIdx);
+
+      // If the target frame is not yet in cache, fetch it with top priority
+      const img = imageCache.current[clampedIdx];
+      if (!img || !img.complete || img.naturalWidth === 0) {
+        loadFrame(clampedIdx)
+          .then(() => {
+            renderBestAvailable(targetFrameRef.current);
+          })
+          .catch(() => {});
+      }
+
+      // Proactively load upcoming neighbor frames in the direction of travel
+      const prevFrame = currentRenderedFrame.current >= 0 ? currentRenderedFrame.current : 0;
+      const step = clampedIdx >= prevFrame ? 1 : -1;
+      for (let offset = 1; offset <= 6; offset++) {
+        const neighbor = clampedIdx + step * offset;
+        if (neighbor >= 0 && neighbor < TOTAL_FRAMES) {
+          loadFrame(neighbor)
+            .then(() => {
+              renderBestAvailable(targetFrameRef.current);
+            })
+            .catch(() => {});
+        }
+      }
+    },
+    [renderBestAvailable, loadFrame]
+  );
+
+  // Eager preloader with concurrent worker streams so all 234 frames load rapidly
   useEffect(() => {
     let isCancelled = false;
 
@@ -176,16 +237,16 @@ export const ZynovaHeroScrollCanvas: React.FC<ZynovaHeroScrollCanvasProps> = ({
     Promise.allSettled(initialBatch).then(() => {
       if (!isCancelled) {
         setInitialLoaded(true);
-        drawFrame(0);
+        drawFrame(targetFrameRef.current);
       }
     });
 
-    // Concurrently stream all remaining frames in 6 parallel workers via idle callback
+    // Concurrently stream all remaining frames in 8 parallel workers
     const queue = Array.from(
       { length: TOTAL_FRAMES - INITIAL_PRELOAD_COUNT },
       (_, i) => i + INITIAL_PRELOAD_COUNT
     );
-    const CONCURRENCY = 6;
+    const CONCURRENCY = 8;
 
     const worker = async () => {
       while (queue.length > 0 && !isCancelled) {
@@ -193,6 +254,9 @@ export const ZynovaHeroScrollCanvas: React.FC<ZynovaHeroScrollCanvasProps> = ({
         if (nextIdx !== undefined) {
           try {
             await loadFrame(nextIdx);
+            if (!isCancelled && currentRenderedFrame.current !== targetFrameRef.current) {
+              renderBestAvailable(targetFrameRef.current);
+            }
           } catch {
             // Continue queue on any individual network glitch
           }
@@ -206,21 +270,25 @@ export const ZynovaHeroScrollCanvas: React.FC<ZynovaHeroScrollCanvasProps> = ({
       Promise.all(workers);
     };
 
+    // Fast-start workers using timeout fallback alongside idle callback
     if ("requestIdleCallback" in window) {
-      (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(startWorkers);
+      (window as unknown as { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => void }).requestIdleCallback(
+        startWorkers,
+        { timeout: 100 }
+      );
     } else {
-      setTimeout(startWorkers, 120);
+      setTimeout(startWorkers, 60);
     }
 
     return () => {
       isCancelled = true;
     };
-  }, [loadFrame, drawFrame]);
+  }, [loadFrame, drawFrame, renderBestAvailable]);
 
   // Ensure initial frame renders as soon as initialLoaded is set
   useEffect(() => {
     if (initialLoaded) {
-      drawFrame(currentRenderedFrame.current >= 0 ? currentRenderedFrame.current : 0);
+      drawFrame(targetFrameRef.current);
     }
   }, [initialLoaded, drawFrame]);
 
@@ -233,6 +301,7 @@ export const ZynovaHeroScrollCanvas: React.FC<ZynovaHeroScrollCanvasProps> = ({
 
     const clampedProgress = Math.max(0, Math.min(1, progress));
     const targetFrame = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(clampedProgress * (TOTAL_FRAMES - 1))));
+    targetFrameRef.current = targetFrame;
 
     if (targetFrame === currentRenderedFrame.current) return;
 
