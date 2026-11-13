@@ -111,20 +111,20 @@ export const BloomBeautyHeroSlideshow: React.FC<BloomBeautyHeroSlideshowProps> =
               }}
               aria-hidden={!isCurrent}
             >
-              {/* Layer 1: Ambient Blurred Backdrop (matches Bloom Beauty .hero-slide-bg) */}
+              {/* Layer 1: Ambient Extended Backdrop - fills complete container width seamlessly */}
               <img
                 src={slide.image}
                 alt=""
                 aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover blur-[24px] scale-110 opacity-40 pointer-events-none select-none"
+                className="absolute inset-0 w-full h-full object-cover blur-[20px] scale-[1.25] pointer-events-none select-none"
               />
 
-              {/* Layer 2: Pristine 16:9 Foreground Image (matches Bloom Beauty .hero-slide-fg) */}
+              {/* Layer 2: Pristine 16:9 Foreground Image - uncropped, unzoomed, natural aspect */}
               <img
                 src={slide.image}
                 alt={slide.alt}
                 loading={idx === 0 ? "eager" : "lazy"}
-                className="absolute inset-0 w-full h-full object-contain object-center pointer-events-none select-none"
+                className="relative z-10 w-full h-full object-contain object-center pointer-events-none select-none"
               />
             </div>
           );
@@ -136,3 +136,4 @@ export const BloomBeautyHeroSlideshow: React.FC<BloomBeautyHeroSlideshowProps> =
 
 BloomBeautyHeroSlideshow.displayName = "BloomBeautyHeroSlideshow";
 export default BloomBeautyHeroSlideshow;
+
