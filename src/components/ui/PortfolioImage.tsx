@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
 import { Sparkles, Layers } from "lucide-react";
+import { BloomBeautyHeroSlideshow } from "./BloomBeautyHeroSlideshow";
 
 interface PortfolioImageProps {
   src: string;
@@ -68,6 +69,16 @@ export const PortfolioImage: React.FC<PortfolioImageProps> = React.memo(({
   const imgRef = useRef<HTMLImageElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Dedicated 3-image hero slideshow for Bloom Beauty
+  const isBloomBeauty = useMemo(() => {
+    const combined = (src + " " + alt).toLowerCase();
+    return combined.includes("bloom-beauty") || combined.includes("bloom beauty");
+  }, [src, alt]);
+
+  if (isBloomBeauty) {
+    return <BloomBeautyHeroSlideshow className={className} />;
+  }
 
   const activeVideo = useMemo(() => {
     if (videoFailed) return null;

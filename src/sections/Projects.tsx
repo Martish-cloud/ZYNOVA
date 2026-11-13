@@ -469,7 +469,18 @@ const ProjectCard = React.memo<{
 
       <div>
         {/* Visual Header Representation with Real Project / App Mockup */}
-        <div className="w-full h-28 sm:h-32 md:h-36 relative overflow-hidden bg-[#100D09] border-b border-[#D0A04B]/20 group-hover:border-[#D0A04B]/40 transition-colors">
+        <div
+          onClick={(e) => {
+            if (project.id === "bloom-beauty" && project.demoUrl) {
+              e.stopPropagation();
+              window.open(project.demoUrl, "_blank", "noopener,noreferrer");
+            }
+          }}
+          className={`w-full h-28 sm:h-32 md:h-36 relative overflow-hidden bg-[#100D09] border-b border-[#D0A04B]/20 group-hover:border-[#D0A04B]/40 transition-colors ${
+            project.id === "bloom-beauty" ? "cursor-pointer" : ""
+          }`}
+          title={project.id === "bloom-beauty" ? "Visit Bloom Beauty website" : undefined}
+        >
           <PortfolioImage
             src={project.image}
             alt={`${project.title} - ${project.subtitle}`}

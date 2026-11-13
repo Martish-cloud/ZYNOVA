@@ -438,7 +438,7 @@ export const projectsData: ProjectItem[] = [
     ],
     gradientTheme: "from-pink-950/40 via-rose-950/30 to-slate-900/50",
     badge: "Beauty / E-commerce",
-    image: "/projects/bloom-beauty.webp",
+    image: "/projects/bloom-beauty/slide-1.png",
     pricing: {
       startingPrice: "$360",
       basicPrice: "$360",
@@ -446,7 +446,7 @@ export const projectsData: ProjectItem[] = [
       premiumPrice: "$780 – $1,020",
       customPrice: "Up to $1,200+"
     },
-    demoUrl: "https://bloom-beauty-cosmetics.vercel.app/"
+    demoUrl: "https://bloombeauty.zynova.co.in/"
   },
   {
     id: "freshmart",
