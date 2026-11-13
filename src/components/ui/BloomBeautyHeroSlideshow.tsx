@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 export interface BloomBeautyHeroSlideshowProps {
@@ -8,18 +8,27 @@ export interface BloomBeautyHeroSlideshowProps {
 const BLOOM_SLIDES = [
   {
     id: 1,
-    image: "/projects/bloom-beauty/slide-1.png",
+    webpImage: "/projects/bloom-beauty/slide-1.webp",
+    pngImage: "/projects/bloom-beauty/slide-1.png",
+    remoteImage: "https://bloombeauty.zynova.co.in/Header%20Images/1.png",
     alt: "Bloom Beauty Velvet Lipstick Campaign",
+    themeBg: "#a76542",
   },
   {
     id: 2,
-    image: "/projects/bloom-beauty/slide-2.png",
+    webpImage: "/projects/bloom-beauty/slide-2.webp",
+    pngImage: "/projects/bloom-beauty/slide-2.png",
+    remoteImage: "https://bloombeauty.zynova.co.in/Header%20Images/2.png",
     alt: "Bloom Beauty Clinical Skincare Campaign",
+    themeBg: "#c0c0cc",
   },
   {
     id: 3,
-    image: "/projects/bloom-beauty/slide-3.png",
+    webpImage: "/projects/bloom-beauty/slide-3.webp",
+    pngImage: "/projects/bloom-beauty/slide-3.png",
+    remoteImage: "https://bloombeauty.zynova.co.in/Header%20Images/3.png",
     alt: "Bloom Beauty Salon Hair Care Campaign",
+    themeBg: "#5a5655",
   },
 ] as const;
 
@@ -34,18 +43,44 @@ export const BloomBeautyHeroSlideshow: React.FC<BloomBeautyHeroSlideshowProps> =
     const [currentIdx, setCurrentIdx] = useState(0);
     const [prevIdx, setPrevIdx] = useState<number | null>(null);
     const [isTransitioning, setIsTransitioning] = useState(false);
+    
+    // Dynamic image source map with fallback hierarchy: local WebP -> local PNG -> remote live CDN URL
+    const [activeSrcs, setActiveSrcs] = useState<Record<number, string>>(() => ({
+      1: BLOOM_SLIDES[0].webpImage,
+      2: BLOOM_SLIDES[1].webpImage,
+      3: BLOOM_SLIDES[2].webpImage,
+    }));
+
     const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
     const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // Resilient fallback handler to ensure images ALWAYS display without showing broken alt text
+    const handleImageError = useCallback((id: number) => {
+      setActiveSrcs((prev) => {
+        const current = prev[id];
+        const slide = BLOOM_SLIDES.find((s) => s.id === id);
+        if (!slide) return prev;
+        if (current === slide.webpImage) {
+          return { ...prev, [id]: slide.pngImage };
+        }
+        if (current === slide.pngImage) {
+          return { ...prev, [id]: slide.remoteImage };
+        }
+        return prev;
+      });
+    }, []);
 
     // Eagerly preload all 3 slide images
     useEffect(() => {
       BLOOM_SLIDES.forEach((slide) => {
-        const img = new Image();
-        img.src = slide.image;
+        const imgWebp = new Image();
+        imgWebp.src = slide.webpImage;
+        const imgPng = new Image();
+        imgPng.src = slide.pngImage;
       });
     }, []);
 
-    // Automatic cyclic slideshow
+    // Automatic cyclic slideshow matching source website behavior
     useEffect(() => {
       if (prefersReducedMotion) return;
 
@@ -99,6 +134,8 @@ export const BloomBeautyHeroSlideshow: React.FC<BloomBeautyHeroSlideshowProps> =
             }
           }
 
+          const currentSrc = activeSrcs[slide.id] || slide.webpImage;
+
           return (
             <div
               key={slide.id}
@@ -108,24 +145,34 @@ export const BloomBeautyHeroSlideshow: React.FC<BloomBeautyHeroSlideshowProps> =
                 transition,
                 zIndex,
                 visibility: isVisible ? "visible" : "hidden",
+                backgroundColor: slide.themeBg,
               }}
               aria-hidden={!isCurrent}
             >
               {/* Layer 1: Ambient Extended Backdrop - fills complete container width seamlessly */}
               <img
-                src={slide.image}
+                src={currentSrc}
                 alt=""
                 aria-hidden="true"
+                loading={idx === 0 ? "eager" : "lazy"}
+                decoding="async"
+                onError={() => handleImageError(slide.id)}
                 className="absolute inset-0 w-full h-full object-cover blur-[20px] scale-[1.25] pointer-events-none select-none"
               />
 
               {/* Layer 2: Pristine 16:9 Foreground Image - uncropped, unzoomed, natural aspect */}
-              <img
-                src={slide.image}
-                alt={slide.alt}
-                loading={idx === 0 ? "eager" : "lazy"}
-                className="relative z-10 w-full h-full object-contain object-center pointer-events-none select-none"
-              />
+              <picture className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none select-none">
+                <source type="image/webp" srcSet={slide.webpImage} />
+                <source type="image/png" srcSet={slide.pngImage} />
+                <img
+                  src={currentSrc}
+                  alt={slide.alt}
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  onError={() => handleImageError(slide.id)}
+                  className="w-full h-full object-contain object-center pointer-events-none select-none"
+                />
+              </picture>
             </div>
           );
         })}
@@ -136,4 +183,3 @@ export const BloomBeautyHeroSlideshow: React.FC<BloomBeautyHeroSlideshowProps> =
 
 BloomBeautyHeroSlideshow.displayName = "BloomBeautyHeroSlideshow";
 export default BloomBeautyHeroSlideshow;
-
